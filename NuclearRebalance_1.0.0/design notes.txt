@@ -1,0 +1,89 @@
+Components:
+
+LWR: Tier 1
+1. Secondary Containment: RPV, steam generator.
+2. Turbine hall
+3. Condenser
+
+LMR: Tier 2
+--electromagnetic pumps, high throughput for energy use! Cost savings
+--Highest power density, good thermal efficiency
+--Contamination problems
+--High power density translates to fewer raw materials needed, because it's physically smaller.
+--Tier 1 can use a steam turbine, but teirs 2+ and MSR reactors must all use gas-turnbines, not steam.
+-Tier 1: Mercury (low efficiency)
+-Tier 2: Alkali metals (fragile, buildings have 1-10 HP, sneezing on them will cause them to explode!)
+-Tier 3: Lead
+
+MSR: Tier 3
+--Requires helium turbines to run.
+--Helium produced as byproduct of oil PG production. (1-2% yield from natural gas IRL, so 1 unit of helium per 100 units of light oil -> PG cracked)
+1. Seconday Containment: RPV, steam generator
+2. Turbine Hall
+3. Reprocessing facility
+
+RPV needs a supply of graphite (refined stone product?) to operate; long cycle time on use though.
+
+
+To bypass needing fluid to pass between buildings, the turbine hall, reactor building, and cooling solution will all be rolled into a single asset.
+I don't like this solution, but sometimes you do what you can, not what is ideal. For 1.0, I'm planning a very simple number of reactors available,
+but going forward I would like to add more recipies to make mix-and-match options more viable.
+
+Also going forward a teir with/without secondary containment where secondary containment is mostly a concrete & steel structure, but it provides a boon
+ against players and biters in that it has massive HP (10,000hp and 80% acid resist). Or, you can run without containment and when the core gets killed
+ ...well, 4TW of energy has to go somewhere (realistic-ish values for a prompt critical event on a 1GW class reactor). It's like using an atomic bomb,
+ but instead of killing everything in one big boom, it poisons the land for a century or two. Figuring out how to poison the land is a 2.0 (or later) thing.
+
+Not having secondary containment will cause higher pollution from nuclear.
+
+Recipe options v1.0:
+--Overall idea: The recpies available will be the most common version of the technology we know to build today for LWR, and the best version for LMR/MSR.
+
+Tier 1: 25% plant efficiency (1.0 nuclear power circa 1980)
+-With or without secondary containment
+-2GWth class RPV
+-LWR contra-flow steam generator
+-500MWe turbine hall
+-2GWth class Condenser
+
+--2.0 notes: 
+---Research lines for steam generator designs, upgrading from 'simple' heat exchanger to contra-flow heat exchanger for an efficiency gain.
+---Turbine research lines for intermediate and low pressure turbines for an efficiency gain.
+
+Tier 2:
+-With or without secondary containment
+-3GWth class RPV - LMR
+-LMR steam generator
+-1GWe turbine hall
+-3GWth class condenser
+
+Tier 3:
+-No explosion risk without containment. Poisoned area will be small, 1-chunk maximum size (1000 chunks maximum for other reactor types)
+-4GWth class RPV - MSR
+-MSR steam generator
+-1.8GWe turbine hall
+-4GWth class condenser
+
+
+------Energy storage-------
+Nuclear energy is not particularly useful without a way to store and average that energy output as peaks come and go. 
+
+* Current factorio accumulators are meant to be lead-acid batteries. 0.56MJ/L storage density. -- Current facotrio is bang-on accurate to real life!
+* According to research, lithium-ion batteries should max out around 2.6 Megajoules / Liter in terms of energy density.
+* This means the 2x2x2 meter accumulator in game, which can store 5MJ, should actually be able to store 20,800 MJ. Now, obviously, that would require the entire 2^3 volume to be the battery itself, which it isn't. But even saying we lose 10% to the casing and power equipment means we should be able to make higher teirs of the existing accumulator that store up to 19 GJ.
+* Lithium-ion is the highest energy density 'battery' I can find density data for.
+* After lithium-ion, the next best energy store that isn't itself a fuel is vacuum flywheels. They max out at 5.3 MJ/L, tend to be around 90% efficient, and would be subject to approximately the same 90% physical volume penalty.
+* Flywheels would be capable of far faster recharge and discharge rates than batteries. Real world examples show both fast and slow recharge designs. For balance purposes, allow flywheels to charge and discharge at 4x the rate of traditional batteries. This is still well below real world examples.
+* Zinc-air batteries also exist, but the tech appears to be in its infancy. Current models are only slightly better than flywheels.
+
+Tier 1: Nickle-metal hydride grid battery
+-2x2 item size, 11GJ capacity, 650MW charge/discharge rate.
+
+Tier 2: Advanced L-ion grid battery
+-2x2 item, 19GJ capacity, 1.1GW charge/discharge rate.
+
+Tier 3: Vacuum Flywheel grid storage
+-3x3 item, 91 GJ capacity, 21GW charge/discharge rate.
+-Reminder: Cylinder, not cube. 90% volume efficiency and 90% energy conversion efficiency! That's why it's 91 instead of 128GJ.
+-Graphics notes: These would just have a little 'plug' on the surface. Most of their mass would actually be underground, in case the rotor exploded.
+-Orientation cannot be changed. They must always be aligned with the planet's rotation for efficiency.
