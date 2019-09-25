@@ -1,0 +1,11 @@
+{
+    "name": "NuclearUPSGrade",
+    "version": "1.0.0",
+    "title": "Nuclear UPS Grade",
+    "author": "Kingdud",
+    "contact": "",
+    "homepage": "",
+    "factorio_version": "0.16",
+    "dependencies": ["base >= 0.16"],
+    "description": "Adds higher teir nuclear power options while also removing some nuclear mechanics to improve UPS efficiency. The tradeoff is that building nuclear reactors becomes extremely material intensive."
+}
