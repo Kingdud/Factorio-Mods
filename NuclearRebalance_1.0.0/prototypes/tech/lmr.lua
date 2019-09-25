@@ -27,7 +27,7 @@ data:extend(
 			  type = "unlock-recipe"
 			}
 		},
-		icon = "__NuclearUPSGrade__/prototype/tech/light-water-gen-1.png",
+		icon = "__NuclearRebalance__/prototype/tech/light-water-gen-1.png",
 		icon_size = 128,
 		name = "lwr-1",
 		order = "l-a",

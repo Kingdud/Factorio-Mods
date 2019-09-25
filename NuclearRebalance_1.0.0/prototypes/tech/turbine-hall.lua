@@ -14,7 +14,7 @@ data:extend(
 			  type = "unlock-recipe"
 			}
 		},
-		icon = "__NuclearUPSGrade__/prototype/tech/turbine-hall-gen-1.png",
+		icon = "__NuclearRebalance__/prototype/tech/turbine-hall-gen-1.png",
 		icon_size = 128,
 		name = "turbine-hall-gen-1",
 		order = "l-a",
@@ -50,7 +50,7 @@ data:extend(
 			  type = "unlock-recipe"
 			}
 		},
-		icon = "__NuclearUPSGrade__/prototype/tech/turbine-hall-gen-2.png",
+		icon = "__NuclearRebalance__/prototype/tech/turbine-hall-gen-2.png",
 		icon_size = 128,
 		name = "turbine-hall-gen-2",
 		order = "l-a",
@@ -88,7 +88,7 @@ data:extend(
 			  type = "unlock-recipe"
 			}
 		},
-		icon = "__NuclearUPSGrade__/prototype/tech/turbine-hall-gen-3.png",
+		icon = "__NuclearRebalance__/prototype/tech/turbine-hall-gen-3.png",
 		icon_size = 128,
 		name = "turbine-hall-gen-3",
 		order = "l-a",
@@ -125,7 +125,7 @@ data:extend(
 			  type = "unlock-recipe"
 			}
 		},
-		icon = "__NuclearUPSGrade__/prototype/tech/turbine-hall-gen-3.png",
+		icon = "__NuclearRebalance__/prototype/tech/turbine-hall-gen-3.png",
 		icon_size = 128,
 		name = "turbine-hall-gen-4",
 		order = "l-a",
