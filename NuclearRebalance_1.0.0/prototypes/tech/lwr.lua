@@ -26,7 +26,7 @@ data:extend(
 			  type = "unlock-recipe"
 			}
 		},
-		icon = "__NuclearUPSGrade__/prototype/tech/light-water-gen-1.png",
+		icon = "__NuclearRebalance__/prototype/tech/light-water-gen-1.png",
 		icon_size = 128,
 		name = "lwr-1",
 		order = "l-a",
@@ -62,7 +62,7 @@ data:extend(
 			  type = "unlock-recipe"
 			}
 		},
-		icon = "__NuclearUPSGrade__/prototype/tech/light-water-gen-2.png",
+		icon = "__NuclearRebalance__/prototype/tech/light-water-gen-2.png",
 		icon_size = 128,
 		name = "lwr-2",
 		order = "l-a",
@@ -100,7 +100,7 @@ data:extend(
 			  type = "unlock-recipe"
 			}
 		},
-		icon = "__NuclearUPSGrade__/prototype/tech/light-water-gen-3.png",
+		icon = "__NuclearRebalance__/prototype/tech/light-water-gen-3.png",
 		icon_size = 128,
 		name = "lwr-3",
 		order = "l-a",
@@ -141,7 +141,7 @@ data:extend(
 			  type = "unlock-recipe"
 			}
 		},
-		icon = "__NuclearUPSGrade__/prototype/tech/light-water-gen-4.png",
+		icon = "__NuclearRebalance__/prototype/tech/light-water-gen-4.png",
 		icon_size = 128,
 		name = "lwr-4",
 		order = "l-a",
