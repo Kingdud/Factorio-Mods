@@ -1,0 +1,14 @@
+{
+    "name": "EnhancedGridEnergyStores",
+    "version": "1.0.0",
+    "title": "Enhanced Energy Grid Storage",
+    "author": "Kingdud",
+    "contact": "",
+    "homepage": "",
+    "factorio_version": "0.17",
+    "dependencies": [
+		"base >= 0.17",
+		"?NuclearRebalance >= 1.0.0"
+	],
+    "description": "Adds higher teir energy storage and satelites which use that storage. Allows Nuclear Energy to be a viable sole-source production method for energy."
+}

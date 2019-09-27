@@ -1,0 +1,22 @@
+------Energy storage-------
+Nuclear energy is not particularly useful without a way to store and average that energy output as peaks come and go. 
+
+* Current factorio accumulators are meant to be lead-acid batteries. 0.56MJ/L storage density. -- Current facotrio is bang-on accurate to real life!
+* According to research, lithium-ion batteries should max out around 2.6 Megajoules / Liter in terms of energy density.
+* This means the 2x2x2 meter accumulator in game, which can store 5MJ, should actually be able to store 20,800 MJ. Now, obviously, that would require the entire 2^3 volume to be the battery itself, which it isn't. But even saying we lose 10% to the casing and power equipment means we should be able to make higher teirs of the existing accumulator that store up to 19 GJ.
+* Lithium-ion is the highest energy density 'battery' I can find density data for.
+* After lithium-ion, the next best energy store that isn't itself a fuel is vacuum flywheels. They max out at 5.3 MJ/L, tend to be around 90% efficient, and would be subject to approximately the same 90% physical volume penalty.
+* Flywheels would be capable of far faster recharge and discharge rates than batteries. Real world examples show both fast and slow recharge designs. For balance purposes, allow flywheels to charge and discharge at 4x the rate of traditional batteries. This is still well below real world examples.
+* Zinc-air batteries also exist, but the tech appears to be in its infancy. Current models are only slightly better than flywheels.
+
+Tier 1: Nickle-metal hydride grid battery
+-2x2 item size, 11GJ capacity, 650MW charge/discharge rate.
+
+Tier 2: Advanced L-ion grid battery
+-2x2 item, 19GJ capacity, 1.1GW charge/discharge rate.
+
+Tier 3: Vacuum Flywheel grid storage
+-3x3 item, 91 GJ capacity, 21GW charge/discharge rate.
+-Reminder: Cylinder, not cube. 90% volume efficiency and 90% energy conversion efficiency! That's why it's 91 instead of 128GJ.
+-Graphics notes: These would just have a little 'plug' on the surface. Most of their mass would actually be underground, in case the rotor exploded.
+-Orientation cannot be changed. They must always be aligned with the planet's rotation for efficiency.
