@@ -1,0 +1,9 @@
+{
+"name":"SmelterUPSGrade",
+"author":"Kingdud",
+"version":"0.0.4",
+"factorio_version":"0.17",
+"title":"Smelter UPSGrade",
+"homepage":"",
+"description":"A single smelter that is equivalent to 405 smelters. Instead of being faster, it takes a bulk amount of input and delivers a bulk amount of output. The recipe is artificially slow to compensate for the larger number of beacons that could be placed around this structure. As such, one of these factories, when fully beaconed, is equivalent to 405 normal smelters. Why 405? Because that's how many I can fit into my factorissimo layout. :p Building size was scaled to allow the bulk kovarex process enough room for the number of stack inserters needed to support it. Specifically, for that process, you need (input) 79 u235, 10 u238 and (output) 97 u235 and 5 u238. For normal smelting, you need 74 (each) input and output stack inserters. The building is 50 units long."
+}

@@ -1,0 +1,10 @@
+----------------------------------------------------------------------
+Version 0.0.4
+    Fixed recipies for copper plate, steel, and stone bricks to all use partial stacks like iron does, to achieve full uptime/throughput.
+    Fix typos in 0.0.3 release.
+----------------------------------------------------------------------
+Version 0.0.2
+    Changed stack size of bulk smelters to be 1 instead of 50.
+----------------------------------------------------------------------
+Version 0.0.1
+    Initial Release
