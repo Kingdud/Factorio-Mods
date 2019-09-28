@@ -10,9 +10,11 @@ item_nimh_satellite.icons = {
 item_nimh_satellite.rocket_launch_product =
 {
 	--1.0, 'I have this new battery, let's use it instead and simplfy our production chain!'
-    {"space-science-pack", 1000}
+    "space-science-pack",
+	1000
 }
 item_nimh_satellite.name = "nimh-satellite"
+data:extend({item_nimh_satellite})
 
 
 local item_li_ion_satellite = table.deepcopy(data.raw.item["satellite"])
@@ -27,10 +29,12 @@ item_li_ion_satellite.icons = {
 item_li_ion_satellite.rocket_launch_product =
 {
 	--2.0 'I have an even newer battery. Hey, I betcha I can make use of all this extra power I've got...
-    {"space-science-pack", 2000}
+    "space-science-pack", 
+	2000
 }
 
 item_li_ion_satellite.name = "li-ion-satellite"
+data:extend({item_li_ion_satellite})
 
 
 local item_flywheel_satellite = table.deepcopy(data.raw.item["satellite"])
@@ -45,7 +49,9 @@ item_flywheel_satellite.icons = {
 item_flywheel_satellite.rocket_launch_product =
 {
 	--3.0, 'I have this hugely dense battery, and these great generators. Let's make a deep space probe!'
-    {"space-science-pack", 8000}
+    "space-science-pack",
+	10000
 }
 item_flywheel_satellite.result = "flywheel-satellite"
 item_flywheel_satellite.name = "flywheel-satellite"
+data:extend({item_flywheel_satellite})

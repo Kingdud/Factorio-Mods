@@ -8,6 +8,10 @@ data:extend({
 			{
 			  recipe = "nimh-grid-battery",
 			  type = "unlock-recipe"
+			},
+			{
+			  recipe = "nimh-satellite",
+			  type = "unlock-recipe"
 			}
 		},
 		icon = "__EnhancedGridEnergyStores__/graphics/icons/nimh.png",
@@ -39,7 +43,12 @@ data:extend({
 			{
 			  recipe = "li-ion-grid-battery",
 			  type = "unlock-recipe"
+			},
+			{
+			  recipe = "li-ion-satellite",
+			  type = "unlock-recipe"
 			}
+			
 		},
 		icon = "__EnhancedGridEnergyStores__/graphics/icons/li-ion.png",
 		icon_size = 32,
@@ -74,7 +83,11 @@ data:extend({
 			{
 			  recipe = "flywheel-grid-battery",
 			  type = "unlock-recipe"
-			}
+			},
+			{
+			  recipe = "flywheel-satellite",
+			  type = "unlock-recipe"
+			}			
 		},
 		icon = "__EnhancedGridEnergyStores__/graphics/icons/flywheel.png",
 		icon_size = 128,

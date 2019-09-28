@@ -24,6 +24,7 @@ recipe_nimh_satellite.ingredients =
 }
 recipe_nimh_satellite.result = "nimh-satellite"
 recipe_nimh_satellite.name = "nimh-satellite"
+data:extend({recipe_nimh_satellite})
 
 --li-ion actually has the best energy-density per Kg, even better than flywheels. In reality, this would probably be
 -- the top tier innovation for satellites.
@@ -48,6 +49,7 @@ recipe_li_ion_satellite.ingredients =
 }
 recipe_li_ion_satellite.result = "li-ion-satellite"
 recipe_li_ion_satellite.name = "li-ion-satellite"
+data:extend({recipe_li_ion_satellite})
 
 --And before anyone says 'this isn't realistic!', yes it is. Flywheels have an energy density of .36 to .5 MJ/Kg.
 -- Lead acid batteries (what accumulators use) are 0.17 MJ/Kg. So not only do we have more capacity and charge/discharge
@@ -73,3 +75,4 @@ recipe_flywheel_satellite.ingredients =
 }
 recipe_flywheel_satellite.result = "flywheel-satellite"
 recipe_flywheel_satellite.name = "flywheel-satellite"
+data:extend({recipe_flywheel_satellite})
