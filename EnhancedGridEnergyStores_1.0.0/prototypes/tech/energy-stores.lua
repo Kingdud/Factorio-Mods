@@ -1,4 +1,4 @@
-data:extend(
+data:extend({
 	{
 		effects = {
 			{
@@ -10,12 +10,12 @@ data:extend(
 			  type = "unlock-recipe"
 			}
 		},
-		icon = "__NuclearRebalance__/graphics/icons/nimh.png",
+		icon = "__EnhancedGridEnergyStores__/graphics/icons/nimh.png",
 		icon_size = 32,
 		name = "nimh-cell",
 		order = "l-a",
 		prerequisites = {
-			"accumulator"
+			"electric-energy-accumulators"
 		},
 		type = "technology",
 		unit = {
@@ -41,7 +41,7 @@ data:extend(
 			  type = "unlock-recipe"
 			}
 		},
-		icon = "__NuclearRebalance__/graphics/icons/li-ion.png",
+		icon = "__EnhancedGridEnergyStores__/graphics/icons/li-ion.png",
 		icon_size = 32,
 		name = "li-ion-cell",
 		order = "l-a",
@@ -76,8 +76,8 @@ data:extend(
 			  type = "unlock-recipe"
 			}
 		},
-		icon = "__NuclearRebalance__/graphics/icons/flywheel.png",
-		icon_size = 32,
+		icon = "__EnhancedGridEnergyStores__/graphics/icons/flywheel.png",
+		icon_size = 128,
 		name = "flywheel-cell",
 		order = "l-a",
 		prerequisites = {
@@ -98,4 +98,4 @@ data:extend(
 			time = 60
 		}
 	}
-}
+})

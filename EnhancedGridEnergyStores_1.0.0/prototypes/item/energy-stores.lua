@@ -1,118 +1,80 @@
+local nimh_tint = {r = .75, b = .5, g = .5, a = 1}
+local li_tint = {r = 0, b = 1, g = 0, a = 1}
+
 --////////////////////////////////////////
 --NiMH Battery section
 --////////////////////////////////////////
-
-data:extend(
+local item_nimh = table.deepcopy(data.raw.item["accumulator"])
+item_nimh.icon = nil
+item_nimh.icons = {
 	{
-		type = "recipe",
-		category = "advanced-crafting",
-		name = "nimh-foil",
-		enabled = false,
-		energy_required = 5,
-		ingredients =
-		{
-			{"steel-plate", 5},
-			{"stone", 5}
-		},
-		result = "nimh-foil"
-	},
-	{
-		--balance notes: Normal accumulator is 5 copper, 7 iron, and 20 sulfuric acid for 5 MJ
-		-- This recipie is 25,000 iron, 5000 stone, and 100 water for 11 GJ
-		-- Not counting fluids; that works out to 2.4 material/MJ for normal, and 2.7 material/MJ for nimh.
-		type = "recipe",
-		category = "advanced-crafting",
-		name = "nimh-grid-battery",
-		enabled = false,
-		energy_required = 25,
-		ingredients =
-		{
-			{"steel-plate", 100},
-			{"nimh-foil", 1000},
-			{"water-barrel", 2}
-		},
-		result = "nimh-grid-battery"
+		icon = "__base__/graphics/icons/accumulator.png",
+		tint = nimh_tint
 	}
 }
+item_nimh.name = "nimh-grid-battery"
+item_nimh.place_result = "nimh-grid-battery"
+data:extend({item_nimh})
+
+local item_nimh_foil = table.deepcopy(data.raw.item["iron-gear-wheel"])
+--to-do: make graphics
+-- item_nimh_foil.icon = nil
+-- item_nimh_foil.icons = {
+	-- {
+		-- icon = "__EnhancedGridEnergyStores__/graphics/icons/foil.png"
+		-- tint = nimh_tint
+	-- }
+-- }
+item_nimh_foil.name = "nimh-foil"
+data:extend({item_nimh_foil})
+
 
 --////////////////////////////////////////
 --Li-Ion Battery section
 --////////////////////////////////////////
-data:extend(
+local item_li = table.deepcopy(data.raw.item["accumulator"])
+item_li.icon = nil
+item_li.icons = {
 	{
-		type = "recipe",
-		category = "advanced-crafting",
-		name = "li-foil",
-		enabled = false,
-		energy_required = 5,
-		ingredients =
-		{
-			{"steel-plate", 5},
-			{"stone", 25},
-			{"plastic-bar", 1}
-		},
-		result = "li-foil"
-	},
-	{
-		--balance notes: Target is to be around 1.25 material/MJ. This is a huge efficiency step up.
-		type = "recipe",
-		category = "advanced-crafting",
-		name = "li-ion-grid-battery",
-		enabled = false,
-		energy_required = 25,
-		ingredients =
-		{
-			{"steel-plate", 100},
-			{"nimh-foil", 1000},
-		},
-		result = "li-ion-grid-battery"
+		icon = "__base__/graphics/icons/accumulator.png",
+		tint = li_tint
 	}
 }
+item_li.name = "li-ion-grid-battery"
+item_li.place_result = "li-ion-grid-battery"
+
+data:extend({item_li})
+
+local item_li_foil = table.deepcopy(data.raw.item["iron-gear-wheel"])
+--to-do: make graphics
+-- item_li_foil.icon = nil
+-- item_li_foil.icons = {
+	-- {
+		-- icon = "__EnhancedGridEnergyStores__/graphics/icons/foil.png"
+		-- tint = li_tint
+	-- }
+-- }
+item_li_foil.name = "li-foil"
+data:extend({item_li_foil})
 
 --////////////////////////////////////////
 --Flywheel Battery section
 --////////////////////////////////////////
-data:extend(
-	{
-		type = "recipe",
-		category = "advanced-crafting",
-		name = "high-precision-flywheel-segment",
-		enabled = false,
-		energy_required = 5,
-		ingredients =
-		{
-			{"steel-plate", 1000},
-			{"iron-plate", 10}
-		},
-		result = "high-precision-flywheel"
-	},
-	{
-		type = "recipe",
-		category = "advanced-crafting",
-		name = "vacuum-chamber",
-		enabled = false,
-		energy_required = 5,
-		ingredients =
-		{
-			{"steel-plate", 100},
-			{"copper-plate", 50},
-			{"pump", 1}
-		},
-		result = "vacuum-chamber"
-	},
-	{
-		--balance notes: Target is to be around 1.25 material/MJ. This is a huge efficiency step up.
-		type = "recipe",
-		category = "advanced-crafting",
-		name = "flywheel-grid-battery",
-		enabled = false,
-		energy_required = 25,
-		ingredients =
-		{
-			{"high-precision-flywheel-segment", 20},
-			{"vacuum-chamber", 1},
-			{"electric-engine-unit", 4}
-		},
-		result = "flywheel-grid-battery"
-	}
-}
+local item_flywheel = table.deepcopy(data.raw.item["accumulator"])
+item_flywheel.icon = "__EnhancedGridEnergyStores__/graphics/icons/flywheel.png"
+item_flywheel.name = "flywheel-grid-battery"
+item_flywheel.place_result = "flywheel-grid-battery"
+
+data:extend({item_flywheel})
+
+local item_flywheel_segment = table.deepcopy(data.raw.item["iron-gear-wheel"])
+--to-do: make graphics
+--item_flywheel_segment.icon = "__EnhancedGridEnergyStores__/graphics/icons/hp-flywheel-segment.png"
+item_flywheel_segment.name = "high-precision-flywheel-segment"
+data:extend({item_flywheel_segment})
+
+local item_vac_chamber = table.deepcopy(data.raw.item["iron-gear-wheel"])
+--to-do: make graphics
+--item_vac_chamber.icon = "__EnhancedGridEnergyStores__/graphics/icons/vacuum-chamber.png"
+item_vac_chamber.name = "vacuum-chamber"
+data:extend({item_vac_chamber})

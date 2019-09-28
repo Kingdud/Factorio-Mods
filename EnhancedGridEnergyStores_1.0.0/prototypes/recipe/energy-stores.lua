@@ -2,7 +2,7 @@
 --NiMH Battery section
 --////////////////////////////////////////
 
-data:extend(
+data:extend({
 	{
 		type = "recipe",
 		category = "advanced-crafting",
@@ -33,12 +33,12 @@ data:extend(
 		},
 		result = "nimh-grid-battery"
 	}
-}
+})
 
 --////////////////////////////////////////
 --Li-Ion Battery section
 --////////////////////////////////////////
-data:extend(
+data:extend({
 	{
 		type = "recipe",
 		category = "advanced-crafting",
@@ -67,12 +67,12 @@ data:extend(
 		},
 		result = "li-ion-grid-battery"
 	}
-}
+})
 
 --////////////////////////////////////////
 --Flywheel Battery section
 --////////////////////////////////////////
-data:extend(
+data:extend({
 	{
 		type = "recipe",
 		category = "advanced-crafting",
@@ -84,7 +84,7 @@ data:extend(
 			{"steel-plate", 1000},
 			{"iron-plate", 10}
 		},
-		result = "high-precision-flywheel"
+		result = "high-precision-flywheel-segment"
 	},
 	{
 		type = "recipe",
@@ -115,4 +115,4 @@ data:extend(
 		},
 		result = "flywheel-grid-battery"
 	}
-}
+})
