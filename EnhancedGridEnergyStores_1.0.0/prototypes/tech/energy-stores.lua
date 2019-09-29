@@ -59,7 +59,7 @@ data:extend({
 		},
 		type = "technology",
 		unit = {
-			count = 600,
+			count = 1000,
 			ingredients = {
 				{ "automation-science-pack", 1 },
 				{ "logistic-science-pack", 1 },
@@ -99,7 +99,7 @@ data:extend({
 		},
 		type = "technology",
 		unit = {
-			count = 800,
+			count = 4000,
 			ingredients = {
 				{ "automation-science-pack", 1 },
 				{ "logistic-science-pack", 1 },

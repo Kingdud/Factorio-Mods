@@ -17,8 +17,8 @@ of energy storage, allowing for twice the energy density of li-ion. In all cases
 Only technologies which exist in production (non-lab settings) today (2019) and which have an energy density greater than that of lead-acid
 batteries were considered. That is why pumped storage was not considered, it's energy density is quite low.
 
-Once newer and better battery technology is unlocked, there is no reason to continue to use the older technology. Thus, new satelite blueprints
-become available which use the newer battery technologies. At first, the new satelite blueprints simply swap the old accumulators for the new
-battery tech, but eventually the satelites become upgraded to have more sensors and more energy generation, enabling deep-space probes to be
-launched. This, in turn, allows a single satelite to bring pack more science packs when launched. Thus, upgrading battery technology not only
+Once newer and better battery technology is unlocked, there is no reason to continue to use the older technology. Thus, new satellite blueprints
+become available which use the newer battery technologies. At first, the new satellite blueprints simply swap the old accumulators for the new
+battery tech, but eventually the satellite become upgraded to have more sensors and more energy generation, enabling deep-space probes to be
+launched. This, in turn, allows a single satellite to bring pack more science packs when launched. Thus, upgrading battery technology not only
 simplifies the production chain, but also confers a benefit to space-science research.

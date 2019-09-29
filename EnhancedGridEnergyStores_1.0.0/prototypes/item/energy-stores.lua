@@ -17,14 +17,15 @@ item_nimh.place_result = "nimh-grid-battery"
 data:extend({item_nimh})
 
 local item_nimh_foil = table.deepcopy(data.raw.item["iron-gear-wheel"])
---to-do: make graphics
--- item_nimh_foil.icon = nil
--- item_nimh_foil.icons = {
-	-- {
-		-- icon = "__EnhancedGridEnergyStores__/graphics/icons/foil.png"
-		-- tint = nimh_tint
-	-- }
--- }
+item_nimh_foil.icon = nil
+item_nimh_foil.icons = {
+	{
+		icon = "__EnhancedGridEnergyStores__/graphics/icons/nimh-foil.png",
+		icon_size = 128,
+		tint = nimh_tint
+	}
+}
+item_nimh_foil.order = "c[iron-gear-wheel]b"
 item_nimh_foil.name = "nimh-foil"
 data:extend({item_nimh_foil})
 
@@ -46,14 +47,15 @@ item_li.place_result = "li-ion-grid-battery"
 data:extend({item_li})
 
 local item_li_foil = table.deepcopy(data.raw.item["iron-gear-wheel"])
---to-do: make graphics
--- item_li_foil.icon = nil
--- item_li_foil.icons = {
-	-- {
-		-- icon = "__EnhancedGridEnergyStores__/graphics/icons/foil.png"
-		-- tint = li_tint
-	-- }
--- }
+item_li_foil.icon = nil
+item_li_foil.icons = {
+	{
+		icon = "__EnhancedGridEnergyStores__/graphics/icons/li-ion-foil.png",
+		icon_size = 128,
+		tint = li_tint
+	}
+}
+item_li_foil.order = "c[iron-gear-wheel]c"
 item_li_foil.name = "li-foil"
 data:extend({item_li_foil})
 
@@ -69,13 +71,15 @@ item_flywheel.place_result = "flywheel-grid-battery"
 data:extend({item_flywheel})
 
 local item_flywheel_segment = table.deepcopy(data.raw.item["iron-gear-wheel"])
---to-do: make graphics
---item_flywheel_segment.icon = "__EnhancedGridEnergyStores__/graphics/icons/hp-flywheel-segment.png"
+item_flywheel_segment.icon = "__EnhancedGridEnergyStores__/graphics/icons/flywheel-segment.png"
+item_flywheel_segment.icon_size = 128
+item_flywheel_segment.order = "c[iron-gear-wheel]d"
 item_flywheel_segment.name = "high-precision-flywheel-segment"
 data:extend({item_flywheel_segment})
 
 local item_vac_chamber = table.deepcopy(data.raw.item["iron-gear-wheel"])
---to-do: make graphics
---item_vac_chamber.icon = "__EnhancedGridEnergyStores__/graphics/icons/vacuum-chamber.png"
+item_vac_chamber.icon = "__EnhancedGridEnergyStores__/graphics/icons/vacuum-chamber.png"
+item_vac_chamber.icon_size = 128
+item_vac_chamber.order = "c[iron-gear-wheel]e"
 item_vac_chamber.name = "vacuum-chamber"
 data:extend({item_vac_chamber})
