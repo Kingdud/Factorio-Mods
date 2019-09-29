@@ -1,3 +1,7 @@
+local nimh_sat_tint = {r = .75, b = .5, g = .5, a = 1}
+local li_ion_sat_tint = {r = 0, b = 1, g = 0, a = 1}
+local flywheel_sat_tint = {r= .5, g = .647, b = .5, a = 1}
+
 --We have new types of battery, why not make better satellites that use these better kinds
 -- of battery?
 
@@ -8,7 +12,7 @@ recipe_nimh_satellite.icon = nil
 recipe_nimh_satellite.icons = {
 	{
 		icon = "__base__/graphics/icons/satellite.png",
-		tint = {r= 1, g = .647, b = 0, a = 1},
+		tint = nimh_sat_tint,
 		icon_size = 32
 	}
 }
@@ -33,7 +37,7 @@ recipe_li_ion_satellite.icon = nil
 recipe_li_ion_satellite.icons = {
 	{
 		icon = "__base__/graphics/icons/satellite.png",
-		tint = {r= 1, g = .647, b = .25, a = 1},
+		tint = li_ion_sat_tint,
 		icon_size = 32
 	}
 }
@@ -59,7 +63,7 @@ recipe_flywheel_satellite.icon = nil
 recipe_flywheel_satellite.icons = {
 	{
 		icon = "__base__/graphics/icons/satellite.png",
-		tint = {r= .5, g = .647, b = .5, a = 1},
+		tint = flywheel_sat_tint,
 		icon_size = 32
 	}
 }

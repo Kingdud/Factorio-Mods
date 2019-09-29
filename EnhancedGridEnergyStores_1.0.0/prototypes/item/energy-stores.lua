@@ -62,6 +62,7 @@ data:extend({item_li_foil})
 --////////////////////////////////////////
 local item_flywheel = table.deepcopy(data.raw.item["accumulator"])
 item_flywheel.icon = "__EnhancedGridEnergyStores__/graphics/icons/flywheel.png"
+item_flywheel.icon_size = 128
 item_flywheel.name = "flywheel-grid-battery"
 item_flywheel.place_result = "flywheel-grid-battery"
 
