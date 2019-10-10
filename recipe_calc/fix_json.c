@@ -296,7 +296,7 @@ int main(int argc, char **argv)
 		int status;
 	    waitpid(pid, &status, 0);
 	} else {
-		execl("/bin/sed","sed","-i","-E","-e","/math.huge/d","-e","s/\\[\"(.+?)\"\\]/\\1/g","-e","s/([^ ]*) =/\"\\1\":/g", tmp, NULL);
+		execl("/bin/sed","sed","-i","-E","-e","/math.huge/d","-e","s/\\[\"(.+?)\"\\]/\\1/g","-e","s/([^ \t]*) =/\"\\1\":/g", tmp, NULL);
 		return 0;
 	}
 
