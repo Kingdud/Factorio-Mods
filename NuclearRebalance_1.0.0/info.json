@@ -1,11 +1,11 @@
 {
-    "name": "NuclearUPSGrade",
+    "name": "NuclearRebalance",
     "version": "1.0.0",
-    "title": "Nuclear UPS Grade",
+    "title": "Nuclear Rebalance",
     "author": "Kingdud",
     "contact": "",
     "homepage": "",
-    "factorio_version": "0.16",
-    "dependencies": ["base >= 0.16"],
-    "description": "Adds higher teir nuclear power options while also removing some nuclear mechanics to improve UPS efficiency. The tradeoff is that building nuclear reactors becomes extremely material intensive."
+    "factorio_version": "0.17",
+    "dependencies": ["base >= 0.17"],
+    "description": "Improves UPS with nuclear power by completely overhauling how nuclear energy is produced. Material costs are in-line with vanilla, build complexity is meant to help foster interest in how nuclear actually works."
 }

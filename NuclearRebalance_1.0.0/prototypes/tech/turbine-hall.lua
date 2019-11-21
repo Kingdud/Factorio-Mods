@@ -14,7 +14,7 @@ data:extend(
 			  type = "unlock-recipe"
 			}
 		},
-		icon = "__NuclearRebalance__/prototype/tech/turbine-hall-gen-1.png",
+		icon = "__NuclearRebalance__/graphics/technology/turbine-hall-gen-1.png",
 		icon_size = 128,
 		name = "turbine-hall-gen-1",
 		order = "l-a",
@@ -50,7 +50,7 @@ data:extend(
 			  type = "unlock-recipe"
 			}
 		},
-		icon = "__NuclearRebalance__/prototype/tech/turbine-hall-gen-2.png",
+		icon = "__NuclearRebalance__/graphics/technology/turbine-hall-gen-2.png",
 		icon_size = 128,
 		name = "turbine-hall-gen-2",
 		order = "l-a",
@@ -88,7 +88,7 @@ data:extend(
 			  type = "unlock-recipe"
 			}
 		},
-		icon = "__NuclearRebalance__/prototype/tech/turbine-hall-gen-3.png",
+		icon = "__NuclearRebalance__/graphics/technology/turbine-hall-gen-3.png",
 		icon_size = 128,
 		name = "turbine-hall-gen-3",
 		order = "l-a",
@@ -99,43 +99,6 @@ data:extend(
 		type = "technology",
 		unit = {
 			count = 32000,
-			ingredients = {
-				{ "automation-science-pack", 1 },
-				{ "logistic-science-pack", 1 },
-				{ "chemical-science-pack", 1 },
-				{ "production-science-pack", 1 },
-				{ "utility-science-pack", 1 },
-				{ "space-science-pack", 1 },
-			},
-			time = 60
-		}
-	},
-	{
-		effects = {
-			{
-			  recipe = "turbine-hall-gen-4",
-			  type = "unlock-recipe"
-			},
-			{
-			  recipe = "turbine-blades-gen-4",
-			  type = "unlock-recipe"
-			},
-			{
-			  recipe = "turbine-shaft-gen-4",
-			  type = "unlock-recipe"
-			}
-		},
-		icon = "__NuclearRebalance__/prototype/tech/turbine-hall-gen-3.png",
-		icon_size = 128,
-		name = "turbine-hall-gen-4",
-		order = "l-a",
-		prerequisites = {
-			"turbine-hall-gen-3",
-			"lmr-2"
-		},
-		type = "technology",
-		unit = {
-			count = 128000,
 			ingredients = {
 				{ "automation-science-pack", 1 },
 				{ "logistic-science-pack", 1 },

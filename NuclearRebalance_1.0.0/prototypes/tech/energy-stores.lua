@@ -2,16 +2,16 @@ data:extend(
 	{
 		effects = {
 			{
-			  recipe = "Nickle Oxide Foil",
+			  recipe = "nimh-foil",
 			  type = "unlock-recipe"
 			},
 			{
-			  recipe = "NiMH Grid Battery",
+			  recipe = "nimh-grid-battery",
 			  type = "unlock-recipe"
 			}
 		},
-		icon = "__NuclearRebalance__/prototype/tech/nimh-store.png",
-		icon_size = 128,
+		icon = "__NuclearRebalance__/graphics/icons/nimh.png",
+		icon_size = 32,
 		name = "nimh-cell",
 		order = "l-a",
 		prerequisites = {
@@ -33,16 +33,16 @@ data:extend(
 	{
 		effects = {
 			{
-			  recipe = "Lithium Foil",
+			  recipe = "li-foil",
 			  type = "unlock-recipe"
 			},
 			{
-			  recipe = "Li-ion Grid Battery",
+			  recipe = "li-ion-grid-battery",
 			  type = "unlock-recipe"
 			}
 		},
-		icon = "__NuclearRebalance__/prototype/tech/li-ion-store.png",
-		icon_size = 128,
+		icon = "__NuclearRebalance__/graphics/icons/li-ion.png",
+		icon_size = 32,
 		name = "li-ion-cell",
 		order = "l-a",
 		prerequisites = {
@@ -64,7 +64,7 @@ data:extend(
 	{
 		effects = {
 			{
-			  recipe = "high-precision-flywheel",
+			  recipe = "high-precision-flywheel-segment",
 			  type = "unlock-recipe"
 			},
 			{
@@ -72,12 +72,12 @@ data:extend(
 			  type = "unlock-recipe"
 			},
 			{
-			  recipe = "Flywheel Grid Battery",
+			  recipe = "flywheel-grid-battery",
 			  type = "unlock-recipe"
 			}
 		},
-		icon = "__NuclearRebalance__/prototype/tech/flywheel-store.png",
-		icon_size = 128,
+		icon = "__NuclearRebalance__/graphics/icons/flywheel.png",
+		icon_size = 32,
 		name = "flywheel-cell",
 		order = "l-a",
 		prerequisites = {
@@ -98,3 +98,4 @@ data:extend(
 			time = 60
 		}
 	}
+}

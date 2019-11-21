@@ -1,3 +1,18 @@
+Mass of Iron?
+	
+Mass of Steel?
+	--Iron and Steel have roughly the same mass (steel is 10% more dense IRL). so the 5:1 ratio in Factorio is basically saying one unit of steel is just plain larger than 5 units of iron.
+	--Two recipes use only steel: Rails (technically they use stone too, but not for the metal part) and Empty Barrels.
+	--Rails: 
+		--Standard rails in the U.S. are 130lbs/yard. 
+		--In Factorio, 5.5 units of iron ore (1 iron stick = .5 iron plate, 1 steel = 5 iron plate) yields 2 square meters of rail. 
+		--130 lb/yard = 64.4871 kg/meter
+		--4 linear meters (2 meters on 2 rails = 4 linear meters of rail) @ 64.4871 kg/meter = 257.9484 kg.
+		--If we assume the iron sticks are there for the rail spikes: 1 unit of steel must equal 257.9484 kg.
+	--Empty Barrel:
+		--55 gallon drums IRL are between 35 and 60lbs empty. (15.8757 - 27.2155kg).
+	--Thus, the mass of one unit of steel is somewhere between 16kg and 258kg. Hm.
+
 Components:
 
 LWR: Tier 1
@@ -65,25 +80,66 @@ Tier 3:
 -4GWth class condenser
 
 
-------Energy storage-------
-Nuclear energy is not particularly useful without a way to store and average that energy output as peaks come and go. 
+--------(approximate) Current Materials needs to build teir 1/2/3 reactors in Factorio using existing hardware / setups.
 
-* Current factorio accumulators are meant to be lead-acid batteries. 0.56MJ/L storage density. -- Current facotrio is bang-on accurate to real life!
-* According to research, lithium-ion batteries should max out around 2.6 Megajoules / Liter in terms of energy density.
-* This means the 2x2x2 meter accumulator in game, which can store 5MJ, should actually be able to store 20,800 MJ. Now, obviously, that would require the entire 2^3 volume to be the battery itself, which it isn't. But even saying we lose 10% to the casing and power equipment means we should be able to make higher teirs of the existing accumulator that store up to 19 GJ.
-* Lithium-ion is the highest energy density 'battery' I can find density data for.
-* After lithium-ion, the next best energy store that isn't itself a fuel is vacuum flywheels. They max out at 5.3 MJ/L, tend to be around 90% efficient, and would be subject to approximately the same 90% physical volume penalty.
-* Flywheels would be capable of far faster recharge and discharge rates than batteries. Real world examples show both fast and slow recharge designs. For balance purposes, allow flywheels to charge and discharge at 4x the rate of traditional batteries. This is still well below real world examples.
-* Zinc-air batteries also exist, but the tech appears to be in its infancy. Current models are only slightly better than flywheels.
+Needed @ 500Mw	
+Water	20000
+Iron	37105
+Copper	24965
+Stone	2000
+Oil	40000
+Coal	2000
+	
+Needed @ 1GW	
+Water	40000
+Iron	73950
+Copper	50880
+Stone	4000
+Oil	80000
+Coal	4000
+	
+Needed @ 1.5GW	
+Water	50000
+Iron	99325
+Copper	67845
+Stone	5000
+Oil	100000
+Coal	5000
 
-Tier 1: Nickle-metal hydride grid battery
--2x2 item size, 11GJ capacity, 650MW charge/discharge rate.
 
-Tier 2: Advanced L-ion grid battery
--2x2 item, 19GJ capacity, 1.1GW charge/discharge rate.
+-------(approximate) amount of material that should be used:
 
-Tier 3: Vacuum Flywheel grid storage
--3x3 item, 91 GJ capacity, 21GW charge/discharge rate.
--Reminder: Cylinder, not cube. 90% volume efficiency and 90% energy conversion efficiency! That's why it's 91 instead of 128GJ.
--Graphics notes: These would just have a little 'plug' on the surface. Most of their mass would actually be underground, in case the rotor exploded.
--Orientation cannot be changed. They must always be aligned with the planet's rotation for efficiency.
+Tier 1 (500MWe)
+
+
+---How to build a reactor:
+
+Tier 1:
+--RPV
+	10000 water, 10000 iron
+	--1 Sealed Tank of Purified Light Water: 10 iron, 2 steel, + Chemical Plant (water purification) ==> Sealed Tank of Purified Light Water
+	--20 RPV Section: 100 iron, 20 steel ==> RPV Section
+--Nuclear Site Concrete Prefab
+	2000 stone, 40000 oil, 2000 coal
+	--500 concrete, 500 red circuits
+--Turbine
+	20500 iron, 13000 copper
+	--100 Field Winding Section: 200 Copper Cable ==> Field Winding Section
+	--1 Turbine Shaft: 100 steel ==> Turbine Shaft
+	--10 Assembled Turbine Disc: 70 Turbine Blades, 1 Turbine Disc, 15 steel
+		--700 Turbine Blade: 5 iron, 4 steel ==> Turbine Blade (stacks to 100)
+		--10 Turbine Disc: 25 steel ==> Turbine Disc 
+	--1 Commutator: 5 steel, 30 copper, 30 commutator Plate
+		--30 Commutator plate: 100 copper 
+	--5 Permanent Magnet: 50 iron, 10 steel
+--Heat Exchanger
+	5000 iron, 6000 copper
+	--50 Copper Pipe matrix: 100 copper, 100 iron
+	--10 Brazing Supplies: 100 copper
+--Cooling Tower
+	10000 water, 1500 iron, 6000 copper
+	--1 Sealed Tank of Purified Light Water: 10 iron, 2 steel, + Chemical Plant (water purification) ==> Sealed Tank of Purified Light Water
+	--60 Radiator Section: 100 copper, 5 steel
+
+Tier 2:
+--
