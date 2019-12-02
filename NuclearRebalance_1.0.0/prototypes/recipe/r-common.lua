@@ -47,6 +47,25 @@ data:extend({
 })
 
 --////////////////////////////////////////
+--RPV section
+--////////////////////////////////////////
+data:extend({
+	{
+		type = "recipe",
+		category = "crafting",
+		name = "lwr-steam-generator",
+		result = "lwr-steam-generator",
+		enabled = false,
+		energy_required = 20,
+		ingredients =
+		{
+			{"steel-plate", 15},
+			{"pipe",100}
+		}
+	}
+})
+
+--////////////////////////////////////////
 --Electric Grid Interface section
 --////////////////////////////////////////
 data:extend({

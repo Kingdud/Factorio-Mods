@@ -1,50 +1,28 @@
-data:extend(
+data:extend({
 	{
 		effects = {
-			{
-			  recipe = "lmr-1",
-			  type = "unlock-recipe"
-			},
-			{
-			  recipe = "mercury-reactor-core",
-			  type = "unlock-recipe"
-			},
-			{
-			  recipe = "uranium-core-blanket",
-			  type = "unlock-recipe"
-			},
-			{
-			  recipe = "boronated-plastic",
-			  type = "unlock-recipe"
-			},
-			{
-			--boronated-plastic, steel, lead (stone)
-			  recipe = "laminated-bio-shield",
-			  type = "unlock-recipe"
-			},
-			{
-			  recipe = "electromagnetic-pump",
-			  type = "unlock-recipe"
-			}
+			{ recipe = "lwr-rod", type = "unlock-recipe" },
+			{ recipe = "lwr-fuel-rod-bundle", type = "unlock-recipe" },
+			{ recipe = "lwr-fuel-rod-reprocessing", type = "unlock-recipe" },
 		},
-		icon = "__NuclearRebalance__/graphics/technology/light-water-gen-1.png",
-		icon_size = 128,
-		name = "lwr-1",
+		--icon = "__NuclearRebalance__/graphics/technology/light-water-gen-2.png",
+		icon = "__base__/graphics/icons/productivity-module.png",
+		icon_size = 32,
+		name = "lmr-tech-step-one",
 		order = "l-a",
 		prerequisites = {
-			"nuclear-power",
-			"kovarex-enrichment-process",
+			"lwr-tech-final"
 		},
 		type = "technology",
 		unit = {
-			count = 1250,
+			count = 25,
 			ingredients = {
 				{ "automation-science-pack", 1 },
 				{ "logistic-science-pack", 1 },
 				{ "chemical-science-pack", 1 },
 				{ "production-science-pack", 1 },
-				{ "utility-science-pack", 1 }
 			},
-			time = 60
+			time = 45
 		}
     },
+})

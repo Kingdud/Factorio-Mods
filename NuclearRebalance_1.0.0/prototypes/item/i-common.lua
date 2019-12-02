@@ -32,6 +32,21 @@ data:extend({
 })
 
 --////////////////////////////////////////
+--RPV section
+--////////////////////////////////////////
+data:extend({
+	{
+		type = "item",
+		name = "lwr-steam-generator",
+		icon = "__base__/graphics/icons/nuclear-reactor.png",
+		icon_size = 32,
+		subgroup = "nuclear-common",
+		order = "b-[lwr-steam-generator]",
+		stack_size = 1
+	}
+})
+
+--////////////////////////////////////////
 --Electric Grid Interface section
 --////////////////////////////////////////
 data:extend({

@@ -5,10 +5,9 @@ data:extend({
 	{
 		burner = {
 			burnt_inventory_size = 1,
-			--Setting effectivity here actually makes it less efficient.
-			effectivity = 0.25,
+			effectivity = 0.33,
 			fuel_inventory_size = 3,
-			fuel_category = "nuclear"
+			fuel_category = "lmr-nuclear"
 		},
 		collision_box = {
 			{
@@ -22,11 +21,11 @@ data:extend({
 		},
 		corpse = "steam-engine-remnants",
 		dying_explosion = "medium-explosion",
-		--Setting effectivity here sets it for the tooltip but does nothing else
-		effectivity = .25,
+		effectivity = .33,
 		energy_source = {
 			type = "electric",
-			emissions_per_minute = .01,
+			--Sodium leaks are a constant problem.
+			emissions_per_minute = .3,
 			usage_priority = "primary-output"
 		},
 		fast_replaceable_group = "steam-engine",
@@ -89,13 +88,13 @@ data:extend({
 		icon = "__base__/graphics/icons/steam-engine.png",
 		icon_size = 32,
 		max_health = 400,
-		max_power_output = "500MW",
+		max_power_output = "1GW",
 		min_perceived_performance = 0.25,
 		minable = {
 			mining_time = 30,
-			result = "lwr"
+			result = "lmr"
 		},
-		name = "lwr",
+		name = "lmr",
 		performance_to_sound_speedup = 0.5,
 		selection_box = {
 		{

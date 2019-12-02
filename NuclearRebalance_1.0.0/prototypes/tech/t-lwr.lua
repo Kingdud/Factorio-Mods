@@ -1,6 +1,30 @@
 data:extend({
 	{
 		effects = {
+			{ recipe = "lwr-rod", type = "unlock-recipe" },
+			{ recipe = "lwr-fuel-rod-bundle", type = "unlock-recipe" },
+			{ recipe = "lwr-fuel-rod-reprocessing", type = "unlock-recipe" },
+		},
+		--icon = "__NuclearRebalance__/graphics/technology/light-water-gen-2.png",
+		icon = "__base__/graphics/icons/productivity-module.png",
+		icon_size = 32,
+		name = "lwr-tech-step-one",
+		order = "l-a",
+		prerequisites = {
+			"uranium-processing"
+		},
+		type = "technology",
+		unit = {
+			count = 25,
+			ingredients = {
+				{ "automation-science-pack", 1 },
+				{ "logistic-science-pack", 1 },
+			},
+			time = 15
+		}
+    },
+	{
+		effects = {
 			{ recipe = "rebar", type = "unlock-recipe" },
 			{ recipe = "structural-concrete", type = "unlock-recipe" },
 			{ recipe = "purified-water-tank", type = "unlock-recipe" },
@@ -11,9 +35,10 @@ data:extend({
 		--icon = "__NuclearRebalance__/graphics/technology/light-water-gen-2.png",
 		icon = "__base__/graphics/icons/productivity-module.png",
 		icon_size = 32,
-		name = "lwr-tech-step-one",
+		name = "lwr-tech-step-two",
 		order = "l-a",
 		prerequisites = {
+			"lwr-tech-step-one",
 			"circuit-network",
 			"concrete",
 			"fluid-handling",
@@ -41,10 +66,10 @@ data:extend({
 		--icon = "__NuclearRebalance__/graphics/technology/light-water-gen-2.png",
 		icon = "__base__/graphics/icons/productivity-module-2.png",
 		icon_size = 32,
-		name = "lwr-tech-step-two",
+		name = "lwr-tech-step-three",
 		order = "l-a",
 		prerequisites = {
-			"lwr-tech-step-one"
+			"lwr-tech-step-two"
 		},
 		type = "technology",
 		unit = {
@@ -72,11 +97,11 @@ data:extend({
 		name = "lwr-tech-final",
 		order = "l-a",
 		prerequisites = {
-			"lwr-tech-step-two"
+			"lwr-tech-step-three"
 		},
 		type = "technology",
 		unit = {
-			count = 400,
+			count = 375,
 			ingredients = {
 				{ "automation-science-pack", 1 },
 				{ "logistic-science-pack", 1 },

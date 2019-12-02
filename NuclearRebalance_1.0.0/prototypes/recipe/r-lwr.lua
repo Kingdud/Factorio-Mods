@@ -75,20 +75,7 @@ data:extend({
 			{"lwr-rpv-segment", 20},
 			{"lwr-steam-generator", 1},
 			{"purified-water-tank", 5},
-			{"heat-exchanger",75}
-		}
-	},
-	{
-		type = "recipe",
-		category = "crafting",
-		name = "lwr-steam-generator",
-		result = "lwr-steam-generator",
-		enabled = false,
-		energy_required = 20,
-		ingredients =
-		{
-			{"steel-plate", 15},
-			{"pipe",100}
+			{"heat-exchanger",205}
 		}
 	},
 	{
