@@ -63,7 +63,7 @@ data:extend({
 		ingredients =
 		{
 			{"steel-plate", 100},
-			{"nimh-foil", 1000},
+			{"li-foil", 1000},
 		},
 		result = "li-ion-grid-battery"
 	}
