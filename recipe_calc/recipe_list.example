@@ -1,0 +1,66 @@
+{
+	{
+		type = "recipe",
+		category = "crafting",
+		name = "rebar",
+		result = "rebar",
+		enabled = false,
+		energy_required = 5,
+		ingredients =
+		{
+			{"steel-plate", 70}
+		}
+	},
+	{
+		type = "recipe",
+		category = "crafting",
+		name = "structural-concrete",
+		result = "structural-concrete",
+		enabled = false,
+		energy_required = 5,
+		ingredients =
+		{
+			{"concrete", 100},
+			{"rebar",1}
+		}
+	},
+	{
+		type = "recipe",
+		category = "crafting",
+		name = "pre-cast-wall-section",
+		result = "pre-cast-wall-section",
+		enabled = false,
+		energy_required = 5,
+		ingredients =
+		{
+			{"structural-concrete", 10}
+		}
+	},
+	{
+		type = "recipe",
+		category = "crafting",
+		name = "purified-water-tank",
+		result = "purified-water-tank",
+		enabled = false,
+		energy_required = 5,
+		ingredients =
+		{
+			{"water", 30000},
+			{"storage-tank",1}
+		}
+	},
+	{
+		type = "recipe",
+		category = "crafting",
+		name = "fuel-storage",
+		result = "fuel-storage",
+		enabled = false,
+		energy_required = 5,
+		ingredients =
+		{
+			{"structural-concrete", 30},
+			{"pre-cast-wall-section",10},
+			{"purified-water-tank", 1}
+		}
+	},
+}
