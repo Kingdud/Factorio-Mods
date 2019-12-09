@@ -111,9 +111,10 @@ Approximate Crude Oil needed: 222,222
 ##Reference data:
 https://inis.iaea.org/collection/NCLCollectionStore/_Public/04/059/4059045.pdf
 https://web.archive.org/web/20060316092516/http://www.nuc.berkeley.edu/news/CEC/CEC_Nuclear_Workshop_PFP_8=051.pdf
-https://pdfs.semanticscholar.org/519e/a5c55a312f3f45ccfcc4a093a941366c6658.pdf
+https://pdfs.semanticscholar.org/519e/a5c55a312f3f45ccfcc4a093a941366c6658.pdf (see table 1)
 https://www.iaea.org/sites/default/files/publications/magazines/bulletin/bull20-6/20604782938.pdf
 https://www-pub.iaea.org/MTCD/Publications/PDF/te_1569_web.pdf
+https://ocw.mit.edu/courses/nuclear-engineering/22-06-engineering-of-nuclear-systems-fall-2010/lectures-and-readings/MIT22_06F10_lec06a.pdf (LWR reactor sizes, fuel info, etc)
 
 (these are all for how much energy should be in the fuels)
 https://www.imperial.ac.uk/media/imperial-college/research-centres-and-groups/nuclear-engineering/1-Introduction-to-water-reactors.pdf
@@ -121,3 +122,9 @@ https://www2.lbl.gov/abc/wallchart/chapters/14/1.html
 https://whatisnuclear.com/energy-density.html
 https://www.nuclear-power.net/nuclear-power-plant/nuclear-fuel/fuel-consumption-of-conventional-reactor/
 https://en.wikipedia.org/wiki/Nuclear_fuel
+https://old.reddit.com/r/askscience/comments/e5fl9x/can_anyone_explain_nuclear_reactor_breeding/
+https://www.osti.gov/servlets/purl/6198515 (table 5; be sure to multiply results by 6 to get the total fuel load for the entire core!)
+https://www.researchgate.net/publication/263104281_Proposal_for_a_Simplified_Thorium_Molten_Salt_Reactor (for MSR data)
+http://www.janleenkloosterman.nl/reports/thesis_frima_2013.pdf (More MSR data)
+http://ecolo.org/documents/documents_in_english/MSR-Molten-salt-reactor.pdf (msr fueling data, and good info on LMRs)
+http://www.egeneration.org/wp-content/Repository/Argonne_National_Laboratory_Analysis/NA_MCFBR.pdf (MSR data for uranium cycle)

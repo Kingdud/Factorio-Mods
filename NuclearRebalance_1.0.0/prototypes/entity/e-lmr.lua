@@ -6,7 +6,7 @@ data:extend({
 		burner = {
 			burnt_inventory_size = 1,
 			effectivity = 0.33,
-			fuel_inventory_size = 3,
+			fuel_inventory_size = 1,
 			fuel_category = "lmr-nuclear"
 		},
 		collision_box = {

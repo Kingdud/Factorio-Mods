@@ -75,3 +75,27 @@ data:extend({
 		stack_size = 1
 	}
 })
+
+--////////////////////////////////////////
+--Misc/Components section
+--////////////////////////////////////////
+data:extend({
+	{
+		type = "item",
+		name = "adv-nickel-alloy",
+		icon = "__base__/graphics/icons/steel-plate.png",
+		icon_size = 32,
+		subgroup = "nuclear-common",
+		order = "b[adv-nickel-alloy]",
+		stack_size = 100
+	},
+	{
+		type = "item",
+		name = "corrosion-resist-pipe",
+		icon = "__base__/graphics/icons/nuclear-reactor.png",
+		icon_size = 32,
+		subgroup = "nuclear-common",
+		order = "b[corrosion-resist-pipe]",
+		stack_size = 100
+	},
+})

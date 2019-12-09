@@ -1,0 +1,55 @@
+* Why does it take 345,000 refined uranium (u238 + u235) to make a LWR fuel rod assembly, but only around 6,900 units to refuel the reactor for the same energy output?
+
+In nuclear reactors, there is a concept of a burnup rate. The burnup rate is literally the amount of uranium in the fuel (since all Factorio reactors are uranium powered) which is used in making power. In a generation II nuclear reactor, the burnup rate is around 5%. The burnup rate is expressed in 'GWd/t' which stands for 'Gigawatt-days per ton'. If you'd like to learn more, https://www.nuclear-power.net/nuclear-power/reactor-physics/reactor-operation/fuel-burnup/ is an extremely helpful resource. Be sure to expand the sections for individual isotopes.
+
+The LWR researchable in this mod has a 3% burnup rate. The reason why is that it is meant to be a crude attempt at nuclear. A generation I design, and an early one at that. That's why it is only 25% efficient at converting heat to energy, whereas most modern/upgraded nuclear power plants in 2019 average 30-33% efficiency. Also, it encourages the player to research Liquid Metal Reactors, which offer both a higher burnup rate and a higher efficiency.
+
+Because of the 3% burnup rate, only 3% of the uranium in the fuel rod actually needs to be replaced with fresh fuel. For LWR, we assume the Factorio Engineer doesn't remember how to salvage the plutonium during the refueling process, so the full 3% needs to be restocked, but for LMR and MSR reactors, the Factorio engineer remembers how to preserve the Plutonium content of the fuel, completely removing the need (as both those reactors are breeders) for additional U235 in the fuel cycle. u235 can still be used for fuel, of course, but it will not be required for anything above a LWR.
+
+We are assuming that the Factorio Engineer's knowledge of Nuclear Chemsitry far surpasses our own and he can remove 100% all the 'bad' products from the fuel.
+
+As a bonus: because the burnup rate is only 3%, the 31.6TJ energy in a LWR Fuel Rod Assembly is only the energy in the 3% of the rod that will actually be burned. In reality, assuming 100% burnup was somehow possible, the reactor rod's 'true', 100%, energy value would be ~1,053 TJ. The energy is there, the Gen I LWR just can't tap into it.
+
+* These buildings are huge, but they are far smaller than the reactor layouts they are replacing. Bad balance!
+
+This is actually not true. https://www.iaea.org/sites/default/files/publications/magazines/bulletin/bull20-6/20604782938.pdf shows (PDF pages 7/8) the energy density for light metal reactors. http://www.world-nuclear.org/uploadedFiles/org/WNA/Publications/Nuclear_Information/Pocket%20Guide%20Reactors.pdf provides averages for Light Water Reactors. The sizes to focus on are just for the core itself, not the reactor vessel. A 1-1.5GWe class LWR reactor core is around 33 cubic meters. A 1.5GWe LMR is around half that size or less (8-15 m3). Cubic meters is not a metric in Factorio, only square meters. Thus, a LWR core is around (rounding up) 12 square meters for 1-1.5GWe, and a LMR needs around 9 square meters for the same power output. In Factorio, you need 8 reactors, at a size of 25 meters squared *each* in order to get 1.1GWe of output. That does not include the heat pipes, exchangers, or steam turbines.
+
+Even if we compare the reactor vessel sizes, LWR need around 25m2 for the RPV and LMRs need around 330 m2. LMRs need so much more room for the reactor vessel because they tend to be 'pool' designs, where the core is placed in a massive pool of sodium metal to help absorb heat. That's why the core on LMRs is so tiny but the reactor vessel itself is quite large. If you're struggling to keep track, here's a table:
+
+Reactor type (1-1.5GWe output) | Area of Active core | Area of Reactor Vessel
+Factorio Vanilla               |        ??m2         |        200m2
+Light Water Reactor            |        33m2         |         25m2
+Liquid Metal Reactor           |        12m2         |        330m2
+
+So, no, my reactor sizes are totally reasonable, even for the entire site, because look at any overhead photo of a nuclear plant and you'll quickly realize the turbine hall is smaller than the secondary containment building for even a single reactor core in most cases. At a large site, with 4 or more 1GWe+ cores (so the site output is > 4GWe) the turbine hall is only slighly larger than a single secondary containment building.
+
+See https://ocw.mit.edu/courses/nuclear-engineering/22-06-engineering-of-nuclear-systems-fall-2010/lectures-and-readings/MIT22_06F10_lec06a.pdf for great info about more modern LWR designs.
+
+* Why are there no outputs from the fuel cycle for the MSR?
+The MSR has a built in fuel reprocessing plant. It is also a breeder reactor. That means that it is capable of burning up 100% of the fuel you put into the reactor given enough time and online fuel reprocessing. The only output from such a plant would be (relatively) short term nuclear waste. Actinides and other nasty radioisotopes with half lives of less than a century or so. I did not want to burden the player with a resource which had no use (apart from maybe filling for anti-biter artillery shells) and instead show this waste as a huge pollution output on the MSR. There is an option in settings to disable MSR pollution is you prefer to RP that your engineer does something useful with this nuclear waste.
+
+* Why can I refuel LMR and MSR reactors with just u238? Isn't u235 needed?
+* Why does the recipe for LMR/MSR fuel resupply using u238 produce fuel with more energy than the u235 recipe?
+* Why do the LMR and MSR both take u235 to build but not to run?
+They are both breeder reactors. "Breeding", in the context of a nuclear reactor, means that they create fuel from materials within the core. Specifically, U238 captures 1 neutron and becomes Pu239. Pu239 actually has more fission energy than u235 (about 1% more). Thus, u235 is only needed in the first core, to get the reactor to go critical initially. After that, u238 gets converted to pu239, and a steady state is reached where there is enough pu239 to keep the reactor capable of going critical and converting additional u238 to pu239. 
+
+To keep the mod simple, pu239 is not created as a discrete resource. Rather, we assume the Factorio Engineer, during reprocessing, can carry the plutonium content of the spent fuel over into the reprocessed fuel. That's why the recipes for reprocessed fuel take 1% fewer materials tha they should given the burnup rates of their respective reactors.
+
+* What does 'burnup' mean?
+Burnup is a measure of what percentage of fuel put into a nuclear reactor core actually gets converted to energy. Unlike a gasoline powered car, for example, where 99% of the gasoline you put into the fuel tank gets burned in the engine (some is lost to pressure relief, evaporation, engine starts/stops, etc), in a nuclear reactor only a portion of the fuel put into the core actually gets consumed. The burnup % is this number. In real-world reactors, burnup is expressed a GWd/t (Gigawatt-days per ton). Meaning one ton of fuel, with the reactor operating at 100% power, will fuel the reactor for X days. This metric is used because, in a LWR for example, u235 splits into Krypton and Barium. But that isn't always what happens. Sometimes the u235 becomes u236, or pu239. The barium and krypton each split into multiple paths. The fuel cycle chain of fissions becomes a massive branching tree of possibilities, with a proability assigned to each branch.
+
+Because modeling that is extremely difficult, nuclear engineers don't bother. Instead, they say "We put this much fuel in by mass, and it was made of this composition. It should contain X energy." and then they turn the reactor on and see how long it burns and with how much power. Then they go back and say "We got Y power before we needed to refuel. The spent fuel contained X tons of Z materials. Therefore, our reactor is E efficient.". Ezpz lemon squeezy.
+
+* Reactors don't continue to use fuel when there isn't energy demand. Bug!
+Yes and no. Within Factorio there are three prototypes for power generation:
+
+1. Reactors - Take fuel and create heat.
+2. Boilers - Take fuel and create a fluid.
+3. Generators - Take fuel and create power directly.
+
+Reactors can *only* output heat. Nothing else. Boilers can *only* output a fluid, nothing else. Generators can *only* output power, nothing else. Only the reactor prototype uses its fuel on a timer instead of based on output energy demand. It is not possible to create a prototype, that has to be done by the Factorio Dev's in the game's base code. Mod makers cannot create new prototypes.
+
+I opted to use a Generator as the base type for the reactors in this mod as the fluid system is used in the other two options, and the fluid system's UPS impact is well known. This mods #1 goal is to improve UPS with nuclear. Everything else is secondary to that goal. I know it isn't realistic and that makes me sad, but my hands are tied.
+
+* Thorium!
+I thought about it. I even did a fair bit of development twoard it. But, at the end of the day, I'd need to add thorium as a resource, create a way to fabricate it, then deal with the complexity of it, and all for what? There are other molten salt reactor designs that use uranium and, at a physics level, there is no reason a molten salt reactor that uses uranium as its fuel(s) and operations in a fast spectrum cannot achieve most, if not all, of the same goals that a LFTR can for the purposes of power generation. Even the 'no long-lived waste!' should be attainable, since we're assuming a closed fuel cycle. The weapons proliferation risk is the one thing that wouldn't be solved, but, well, we're on a planet by ourselves. That is NOT a concern. I just didn't see the reason to do a LFTR justice when a uranium based MSR would do 99% of the same thing and be far less work.

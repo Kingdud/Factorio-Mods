@@ -61,6 +61,18 @@ data:extend({
     },
 	{
       group = "adv-nuclear",
+      name = "msr-common",
+      order = "g",
+      type = "item-subgroup"
+    },
+	{
+      group = "adv-nuclear",
+      name = "msr-intermediate",
+      order = "h",
+      type = "item-subgroup"
+    },
+	{
+      group = "adv-nuclear",
       name = "nuclear-finals",
       order = "z",
       type = "item-subgroup"

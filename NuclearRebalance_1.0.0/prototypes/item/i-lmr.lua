@@ -1,4 +1,166 @@
 --////////////////////////////////////////
+--Turbine Hall Items
+--////////////////////////////////////////
+data:extend({
+	{
+		type = "item",
+		name = "lmr-turbine-hall",
+		icon = "__base__/graphics/icons/nuclear-reactor.png",
+		icon_size = 32,
+		subgroup = "lmr-intermediate",
+		order = "f[lmr-turbine-hall]",
+		stack_size = 1
+	},
+	{
+		type = "item",
+		name = "lmr-hp-turbine",
+		icon = "__base__/graphics/icons/nuclear-reactor.png",
+		icon_size = 32,
+		subgroup = "lmr-intermediate",
+		order = "f[lmr-hp-turbine]",
+		stack_size = 1
+	},
+	{
+		type = "item",
+		name = "lmr-lp-turbine",
+		icon = "__base__/graphics/icons/nuclear-reactor.png",
+		icon_size = 32,
+		subgroup = "lmr-intermediate",
+		order = "f[lmr-lp-turbine]",
+		stack_size = 1
+	},
+	{
+		type = "item",
+		name = "lmr-hp-turbine-shaft",
+		icon = "__base__/graphics/icons/nuclear-reactor.png",
+		icon_size = 32,
+		subgroup = "lmr-common",
+		order = "e[lmr-hp-turbine-shaft]",
+		stack_size = 1
+	},
+	{
+		type = "item",
+		name = "lmr-lp-turbine-shaft",
+		icon = "__base__/graphics/icons/nuclear-reactor.png",
+		icon_size = 32,
+		subgroup = "lmr-common",
+		order = "e[lmr-lp-turbine-shaft]",
+		stack_size = 1
+	},
+	{
+		type = "item",
+		name = "lmr-hp-turbine-disk",
+		icon = "__base__/graphics/icons/nuclear-reactor.png",
+		icon_size = 32,
+		subgroup = "lmr-common",
+		order = "e[lmr-hp-turbine-disk]",
+		stack_size = 5
+	},
+	{
+		type = "item",
+		name = "lmr-lp-turbine-disk",
+		icon = "__base__/graphics/icons/nuclear-reactor.png",
+		icon_size = 32,
+		subgroup = "lmr-common",
+		order = "e[lmr-lp-turbine-disk]",
+		stack_size = 5
+	},
+	{
+		type = "item",
+		name = "lmr-hp-turbine-blade",
+		icon = "__base__/graphics/icons/nuclear-reactor.png",
+		icon_size = 32,
+		subgroup = "lmr-common",
+		order = "e[lmr-hp-turbine-blade]",
+		stack_size = 20
+	},
+	{
+		type = "item",
+		name = "lmr-lp-turbine-blade",
+		icon = "__base__/graphics/icons/nuclear-reactor.png",
+		icon_size = 32,
+		subgroup = "lmr-common",
+		order = "e[lmr-lp-turbine-blade]",
+		stack_size = 20
+	}
+})
+
+--////////////////////////////////////////
+--Reactor Hall Item
+--////////////////////////////////////////
+data:extend({
+	{
+		type = "item",
+		name = "lmr-reactor-vessel",
+		icon = "__base__/graphics/icons/nuclear-reactor.png",
+		icon_size = 32,
+		subgroup = "lmr-intermediate",
+		order = "f[lmr-reactor-vessel]",
+		stack_size = 1
+	},
+	{
+		type = "item",
+		name = "lmr-heat-exchange-loop",
+		icon = "__base__/graphics/icons/nuclear-reactor.png",
+		icon_size = 32,
+		subgroup = "lmr-intermediate",
+		order = "f[lmr-heat-exchange-loop]",
+		stack_size = 1
+	},
+	{
+		type = "item",
+		name = "lmr-heat-exchange-loop",
+		icon = "__base__/graphics/icons/nuclear-reactor.png",
+		icon_size = 32,
+		subgroup = "lmr-intermediate",
+		order = "f[lmr-heat-exchange-loop]",
+		stack_size = 1
+	},
+	{
+		type = "item",
+		name = "lmr-steam-loop",
+		icon = "__base__/graphics/icons/nuclear-reactor.png",
+		icon_size = 32,
+		subgroup = "lmr-intermediate",
+		order = "f[lmr-steam-loop]",
+		stack_size = 1
+	},
+	{
+		type = "item",
+		name = "lmr-em-pump",
+		icon = "__base__/graphics/icons/nuclear-reactor.png",
+		icon_size = 32,
+		subgroup = "lmr-common",
+		order = "e[lmr-em-pump]",
+		stack_size = 50
+	},
+	{
+		type = "item",
+		name = "lmr-sodium-coolant",
+		icon = "__base__/graphics/icons/nuclear-reactor.png",
+		icon_size = 32,
+		subgroup = "lmr-common",
+		order = "e[lmr-sodium-coolant]",
+		stack_size = 100
+	}
+})
+
+--////////////////////////////////////////
+--Electric Grid Interface section
+--////////////////////////////////////////
+data:extend({
+	{
+		type = "item",
+		name = "gen-two-electric-grid-interface",
+		icon = "__base__/graphics/icons/nuclear-reactor.png",
+		icon_size = 32,
+		subgroup = "lmr-intermediate",
+		order = "f[gen-two-electric-grid-interface]",
+		stack_size = 1
+	}
+})
+
+--////////////////////////////////////////
 --LMR Item
 --////////////////////////////////////////
 data:extend({

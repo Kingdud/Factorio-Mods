@@ -7,8 +7,8 @@ data:extend({
 			burnt_inventory_size = 1,
 			--Setting effectivity here actually makes it less efficient.
 			effectivity = 0.25,
-			fuel_inventory_size = 3,
-			fuel_category = "nuclear"
+			fuel_inventory_size = 1,
+			fuel_category = "lwr-nuclear"
 		},
 		collision_box = {
 			{
