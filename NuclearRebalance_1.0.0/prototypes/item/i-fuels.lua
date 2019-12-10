@@ -43,7 +43,7 @@ data:extend({
 	{
 		burnt_result = "used-up-lmr-rod",
 		fuel_category = "lmr-nuclear",
-		fuel_value = tostring(lmr_fuel_energy) .. "GJ",
+		fuel_value = tostring(lmr_fuel_energy_per_rod) .. "GJ",
 		icon = "__base__/graphics/icons/uranium-fuel-cell.png",
 		icon_size = 32,
 		name = "lmr-rod",

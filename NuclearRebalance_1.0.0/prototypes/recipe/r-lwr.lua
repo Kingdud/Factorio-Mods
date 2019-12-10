@@ -73,7 +73,7 @@ data:extend({
 		ingredients =
 		{
 			{"lwr-rpv-segment", 20},
-			{"lwr-steam-generator", 1},
+			{"steam-generator", 1},
 			{"purified-water-tank", 5},
 			{"heat-exchanger",205}
 		}

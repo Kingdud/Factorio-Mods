@@ -58,7 +58,7 @@ data:extend({
 data:extend({
 	{
 		enabled = false,
-		energy_required = 5,
+		energy_required = 1,
 		ingredients = {
 			{"uranium-235", tostring(lmr_u235_per_rod) },
 			{"uranium-238", tostring(lmr_u238_per_rod) }

@@ -53,8 +53,8 @@ data:extend({
 	{
 		type = "recipe",
 		category = "crafting",
-		name = "lwr-steam-generator",
-		result = "lwr-steam-generator",
+		name = "steam-generator",
+		result = "steam-generator",
 		enabled = false,
 		energy_required = 20,
 		ingredients =
@@ -100,6 +100,39 @@ data:extend({
 		ingredients =
 		{
 			{"steel-plate", 10}
+		}
+	}
+})
+
+--////////////////////////////////////////
+--Misc/Components section
+--////////////////////////////////////////
+data:extend({
+	{
+		type = "recipe",
+		category = "crafting",
+		name = "adv-nickel-alloy",
+		result = "adv-nickel-alloy",
+		enabled = false,
+		energy_required = 1,
+		ingredients =
+		{
+			{"stone", 1},
+			{"iron-ore", 1},
+			{"copper-ore", 1},
+			{"uranium-ore", 1}
+		}
+	},
+	{
+		type = "recipe",
+		category = "crafting",
+		name = "corrosion-resist-pipe",
+		result = "corrosion-resist-pipe",
+		enabled = false,
+		energy_required = 0.5,
+		ingredients =
+		{
+			{"adv-nickel-alloy", 1}
 		}
 	}
 })

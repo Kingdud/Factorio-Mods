@@ -111,7 +111,7 @@ data:extend({
 			{ recipe = "lwr-reactor-building", type = "unlock-recipe" },
 			{ recipe = "gen-one-site-infrastructure", type = "unlock-recipe" },
 			{ recipe = "lwr-rpv", type = "unlock-recipe" },
-			{ recipe = "lwr-steam-generator", type = "unlock-recipe" },
+			{ recipe = "steam-generator", type = "unlock-recipe" },
 			{ recipe = "lwr-rpv-segment", type = "unlock-recipe" },
 			{ recipe = "heat-exchanger", type = "unlock-recipe" }
 		},

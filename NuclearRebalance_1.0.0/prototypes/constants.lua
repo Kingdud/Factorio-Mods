@@ -29,7 +29,7 @@ lwr_total_rods = 22500
 lwr_rods_per_bundle = 155
 --lwr_bundles_per_core = math.ceil(lwr_total_rods / lwr_rods_per_bundle)
 lwr_u235_pct = 3 / 100
-lwr_u238_pct = (1 - lwr_u235_pct) / 100
+lwr_u238_pct = 1 - lwr_u235_pct
 
 --Burnup is the total amount of fuel in that actually gets consumed before refueling.
 lwr_burnup_pct = 3 / 100
@@ -51,7 +51,7 @@ lmr_power_output_gw = 1
 
 --Fast reactors require ~20% enrichment in order to operate.
 lmr_u235_pct = 20 / 100
-lmr_u238_pct = (1 - lmr_u235_pct) / 100
+lmr_u238_pct = 1 - lmr_u235_pct
 
 --fuel load = fissile content * fraction of core that's fissile.
 lmr_fuel_load_kg_per_gwe = 15000 * (1 / lmr_u235_pct)
@@ -118,7 +118,7 @@ lmr_u238_per_rod = math.ceil((lmr_total_fuel_needed * lmr_u238_pct)/lmr_rods_per
 -- the reality that some decay would happen while the reactor was shut down for refueling, so a tiny amount of makeup
 -- fissile fuel is reasonable.
 lmr_reprocessing_u235_needed = 1
-lmr_reprocessing_u238_needed = math.ceil((lmr_u238_per_rod * lmr_rods_per_core * lmr_burnup_pct) - lmr_reprocessing_u235_needed)
+lmr_reprocessing_u238_needed = math.ceil((lmr_u238_per_rod + lmr_u235_per_rod) * lmr_burnup_pct - lmr_reprocessing_u235_needed)
 
 --||||||||||||||||||||||||
 --MSR
@@ -139,6 +139,10 @@ lwr_fuel_energy = math.ceil((lwr_u235_energy_portion_gj + lwr_u238_energy_portio
 --||||||||||||||||||||||||
 --LMR
 --||||||||||||||||||||||||
-lmr_u235_energy_portion_gj = math.ceil(lmr_u235_per_rod * lmr_rods_per_core * u235_gj_per_unit)
-lmr_u238_energy_portion_gj = math.ceil(lmr_u238_per_rod * lmr_rods_per_core * u238_gj_per_unit_fast)
-lmr_fuel_energy = math.ceil((lmr_u235_energy_portion_gj + lmr_u238_energy_portion_gj) * lmr_burnup_pct)
+lmr_u235_energy_portion_gj = math.ceil(lmr_u235_per_rod * u235_gj_per_unit)
+lmr_u238_energy_portion_gj = math.ceil(lmr_u238_per_rod * u238_gj_per_unit_fast)
+
+--Equations for a one rod
+lmr_fuel_energy_per_rod = math.ceil((lmr_u235_energy_portion_gj + lmr_u238_energy_portion_gj) * lmr_burnup_pct)
+--Equations for a whole core
+lmr_fuel_energy_per_core = math.ceil((lmr_u235_energy_portion_gj + lmr_u238_energy_portion_gj) * lmr_rods_per_core * lmr_burnup_pct)

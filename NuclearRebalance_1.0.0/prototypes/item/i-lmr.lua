@@ -91,6 +91,15 @@ data:extend({
 data:extend({
 	{
 		type = "item",
+		name = "lmr-reactor-hall",
+		icon = "__base__/graphics/icons/nuclear-reactor.png",
+		icon_size = 32,
+		subgroup = "lmr-intermediate",
+		order = "f[lmr-reactor-hall]",
+		stack_size = 1
+	},
+	{
+		type = "item",
 		name = "lmr-reactor-vessel",
 		icon = "__base__/graphics/icons/nuclear-reactor.png",
 		icon_size = 32,
