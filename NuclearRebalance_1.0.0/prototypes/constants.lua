@@ -11,12 +11,17 @@
 --This calculation can't be perfect because you'd need to simulate the entire chain, from uranium to lead,
 -- and the energies of every fission event in between, to accurately determine how much energy a unit of
 -- u235 has. Instead, we will use burnup rates and the ~80TJ/kg fission energy of U235 to scale our fuel.
-u235_gj_per_unit = 79.39
-u238_gj_per_unit_thermal = 1.6842
+
+---Update: We are going to say that 1 unit in game is 1kg, instead of 1 gram, because it makes more sense in terms of
+-- the amount of uranium available on most maps. In the mod FAQ we will explain our choice and how the devs may/may not
+-- be incorrect with their values for base-game nuclear.
+SCALE_FACTOR = 1 --set to 1000 for grams instead of kg
+u235_gj_per_kg = 79390 / SCALE_FACTOR
+u238_gj_per_kg_thermal = 1684.2 / SCALE_FACTOR
 --In a fast reactor, u238 becomes pu239 or pu241. Both of these yield slightly more fission energy (around 1% more)
 -- than straight u235.
-u238_gj_per_unit_fast = 80.62
-msr_gj_per_thorium_g = 79.42
+u238_gj_per_kg_fast = 80620 / SCALE_FACTOR
+msr_gj_per_thorium_kg = 79420 / SCALE_FACTOR
 
 --||||||||||||||||||||||||
 --LWR constants
@@ -24,10 +29,11 @@ msr_gj_per_thorium_g = 79.42
 --In total, a LWR, at 500MWe scale, should need around 50 tons (metric? we assume so) of
 -- enriched uranium in the core. 50 tons, in factorio terms (see i-fuels.lua) ends up being
 -- around 50,000,000 units of refined uranium (either u238 or u235).
-lwr_total_enriched_uranium_per_core = 50000000
-lwr_total_rods = 22500
-lwr_rods_per_bundle = 155
---lwr_bundles_per_core = math.ceil(lwr_total_rods / lwr_rods_per_bundle)
+lwr_fuel_load_kg_per_gwe = 100000 * SCALE_FACTOR --total fuel inventory, not just fissile.
+lwr_total_enriched_uranium_per_core = lwr_fuel_load_kg_per_gwe * .5
+lwr_total_rods = 225 * (SCALE_FACTOR / 100)
+lwr_rods_per_bundle = math.floor(1.55 * (SCALE_FACTOR / 100))
+lwr_bundles_per_core = math.ceil(lwr_total_rods / lwr_rods_per_bundle)
 lwr_u235_pct = 3 / 100
 lwr_u238_pct = 1 - lwr_u235_pct
 
@@ -54,12 +60,13 @@ lmr_u235_pct = 20 / 100
 lmr_u238_pct = 1 - lmr_u235_pct
 
 --fuel load = fissile content * fraction of core that's fissile.
-lmr_fuel_load_kg_per_gwe = 15000 * (1 / lmr_u235_pct)
+--15 tons of fuel per gigawatt (fissile load only, IE, u235 content only)
+lmr_fissile_load_kg_per_gwe = 15000 * SCALE_FACTOR * (1 / lmr_u235_pct) --Note, this is fissile only, unlike for LWR where it's all fuel.
 lmr_rods_per_core = 155
 
 lmr_burnup_pct = 15 / 100
 
-local lmr_total_fuel_needed = lmr_power_output_gw * lmr_fuel_load_kg_per_gwe
+local lmr_total_fuel_needed = lmr_power_output_gw * lmr_fissile_load_kg_per_gwe
 
 --||||||||||||||||||||||||
 --MSR constants
@@ -80,8 +87,11 @@ msr_burnup_pct = 99 / 100
 -- breeder reactor, it will only ever need u238 as fuel.
 
 msr_target_power_output_gw = 1.5
-msr_fuel_load_kg_per_gwe = 400 * (1 / msr_u235_pct)
-local msr_total_fuel_needed = msr_fuel_load_kg_per_gwe * msr_target_power_output_gw
+msr_fuel_load_kg_per_gwe = 400 * SCALE_FACTOR * (1 / msr_u235_pct)
+local msr_total_fuel_needed = msr_fuel_load_kg_per_gwe * msr_target_power_output_gw --2000
+msr_reactor_segments = 1
+msr_salt_per_segment = 20
+
 
 
 
@@ -123,7 +133,9 @@ lmr_reprocessing_u238_needed = math.ceil((lmr_u238_per_rod + lmr_u235_per_rod) *
 --||||||||||||||||||||||||
 --MSR
 --||||||||||||||||||||||||
---None needed. MSRs burn uranium 235/238 directly.
+msr_inital_u235_inventory = math.ceil(msr_total_fuel_needed * msr_u235_pct / (msr_reactor_segments * msr_salt_per_segment))
+msr_inital_u238_inventory = msr_total_fuel_needed - msr_inital_u235_inventory
+--No reprocessing needed, done online, no special fuel for MSR.
 
 --///////////////////////////////////////////
 --Item relevant section
@@ -132,15 +144,15 @@ lmr_reprocessing_u238_needed = math.ceil((lmr_u238_per_rod + lmr_u235_per_rod) *
 --||||||||||||||||||||||||
 --LWR
 --||||||||||||||||||||||||
-lwr_u235_energy_portion_gj = math.ceil(lwr_recipe_u235 * lwr_rods_per_bundle * u235_gj_per_unit)
-lwr_u238_energy_portion_gj = math.ceil(lwr_recipe_u238 * lwr_rods_per_bundle * u238_gj_per_unit_thermal)
+lwr_u235_energy_portion_gj = math.ceil(lwr_recipe_u235 * lwr_rods_per_bundle * u235_gj_per_kg)
+lwr_u238_energy_portion_gj = math.ceil(lwr_recipe_u238 * lwr_rods_per_bundle * u238_gj_per_kg_thermal)
 lwr_fuel_energy = math.ceil((lwr_u235_energy_portion_gj + lwr_u238_energy_portion_gj) * lwr_burnup_pct)
 
 --||||||||||||||||||||||||
 --LMR
 --||||||||||||||||||||||||
-lmr_u235_energy_portion_gj = math.ceil(lmr_u235_per_rod * u235_gj_per_unit)
-lmr_u238_energy_portion_gj = math.ceil(lmr_u238_per_rod * u238_gj_per_unit_fast)
+lmr_u235_energy_portion_gj = math.ceil(lmr_u235_per_rod * u235_gj_per_kg)
+lmr_u238_energy_portion_gj = math.ceil(lmr_u238_per_rod * u238_gj_per_kg_fast)
 
 --Equations for a one rod
 lmr_fuel_energy_per_rod = math.ceil((lmr_u235_energy_portion_gj + lmr_u238_energy_portion_gj) * lmr_burnup_pct)

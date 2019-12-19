@@ -75,7 +75,8 @@ data:extend({
 			{"lwr-rpv-segment", 20},
 			{"steam-generator", 1},
 			{"purified-water-tank", 5},
-			{"heat-exchanger",205}
+			{"heat-exchanger",205},
+			{"lwr-fuel-rod-bundle", tostring(lwr_bundles_per_core - 1) }
 		}
 	},
 	{
@@ -187,5 +188,23 @@ data:extend({
 			{"gen-one-site-infrastructure", 1}
 		}
 	}
-	
+})
+
+--////////////////////////////////////////
+--Add a way for players to enrich uranium before kovarex is available.
+--////////////////////////////////////////
+data:extend({
+	{
+		type = "recipe",
+		category = "centrifuging",
+		name = "dirty-uranium-enrichment",
+		result = "uranium-235",
+		enabled = false,
+		energy_required = 60,
+		emissions_multiplier = 25,
+		ingredients =
+		{
+			{"uranium-238",20},
+		}
+	}
 })

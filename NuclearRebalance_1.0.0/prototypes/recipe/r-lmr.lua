@@ -29,7 +29,7 @@ data:extend({
 		ingredients =
 		{
 			{"lmr-hp-turbine-shaft", 1},
-			{"lmr-hp-turbine-disk", 8},
+			{"lmr-hp-turbine-disk", 8}
 		}
 	},
 	{
@@ -41,7 +41,7 @@ data:extend({
 		energy_required = 5,
 		ingredients =
 		{
-			{"steel-plate", 40},
+			{"steel-plate", 40}
 		}
 	},
 	{
@@ -54,7 +54,7 @@ data:extend({
 		ingredients =
 		{
 			{"lmr-hp-turbine-blade", 20},
-			{"turbine-disk-blank", 1},
+			{"turbine-disk-blank", 1}
 		}
 	},
 	{
@@ -66,7 +66,7 @@ data:extend({
 		energy_required = 0.5,
 		ingredients =
 		{
-			{"adv-nickel-alloy", 2},
+			{"adv-nickel-alloy", 2}
 		}
 	},
 	--||||||||||
@@ -82,7 +82,7 @@ data:extend({
 		ingredients =
 		{
 			{"lmr-lp-turbine-shaft", 1},
-			{"lmr-lp-turbine-disk", 14},
+			{"lmr-lp-turbine-disk", 14}
 		}
 	},
 	{
@@ -94,7 +94,7 @@ data:extend({
 		energy_required = 5,
 		ingredients =
 		{
-			{"steel-plate", 70},
+			{"steel-plate", 70}
 		}
 	},
 	{
@@ -107,7 +107,7 @@ data:extend({
 		ingredients =
 		{
 			{"lmr-lp-turbine-blade", 10},
-			{"turbine-disk-blank", 1},
+			{"turbine-disk-blank", 1}
 		}
 	},
 	{
@@ -119,7 +119,7 @@ data:extend({
 		energy_required = 0.5,
 		ingredients =
 		{
-			{"adv-nickel-alloy", 4},
+			{"adv-nickel-alloy", 4}
 		}
 	},
 })
@@ -156,7 +156,7 @@ data:extend({
 			{"lmr-em-pump", 6},
 			{"steel-plate", 50},
 			{"adv-nickel-alloy", 10},
-			{"lmr-sodium-coolant", 3},
+			{"lmr-sodium-coolant", 3}
 		}
 	},
 	{
@@ -171,7 +171,7 @@ data:extend({
 			{"heat-exchanger", 151},
 			{"lmr-em-pump", 3},
 			{"corrosion-resist-pipe", 10},
-			{"lmr-sodium-coolant", 1},
+			{"lmr-sodium-coolant", 1}
 		}
 	},
 	{
@@ -184,7 +184,7 @@ data:extend({
 		ingredients =
 		{
 			{"steam-generator", 1},
-			{"purified-water-tank", 1},
+			{"purified-water-tank", 1}
 		}
 	},
 })
@@ -203,7 +203,7 @@ data:extend({
 		ingredients =
 		{
 			{"electric-engine-unit", 1},
-			{"copper-cable", 200},
+			{"copper-cable", 200}
 		}
 	},
 	{
@@ -221,7 +221,7 @@ data:extend({
 				type = "fluid"
 			},
 			{"storage-tank", 1},
-			{"stone", 3000},
+			{"stone", 3000}
 		}
 	},
 })
@@ -236,7 +236,7 @@ data:extend({
 		name = "gen-two-electric-grid-interface",
 		result = "gen-two-electric-grid-interface",
 		enabled = false,
-		energy_required = 20,
+		energy_required = 10,
 		ingredients =
 		{
 			{"switchgear", 2},

@@ -67,7 +67,7 @@ data:extend({
 --MSR
 --///////////////////////////////////////////
 data.raw["item"]["uranium-235"].fuel_category = "msr-nuclear"
-data.raw["item"]["uranium-235"].fuel_value = tostring(u235_gj_per_unit) .. "GJ"
+data.raw["item"]["uranium-235"].fuel_value = tostring(u235_gj_per_kg) .. "GJ"
 
 data.raw["item"]["uranium-238"].fuel_category = "msr-nuclear"
-data.raw["item"]["uranium-238"].fuel_value = tostring(u238_gj_per_unit_fast) .. "GJ"
+data.raw["item"]["uranium-238"].fuel_value = tostring(u238_gj_per_kg_fast) .. "GJ"
