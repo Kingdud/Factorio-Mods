@@ -179,7 +179,7 @@ data:extend({
 		icon = "__base__/graphics/icons/nuclear-reactor.png",
 		icon_size = 32,
 		subgroup = "nuclear-finals",
-		order = "z[lmr]",
+		order = "z2[lmr]",
 		place_result = "lmr",
 		stack_size = 1
 	}

@@ -131,7 +131,7 @@ data:extend({
 		icon = "__base__/graphics/icons/nuclear-reactor.png",
 		icon_size = 32,
 		subgroup = "nuclear-finals",
-		order = "z[lwr]",
+		order = "z1[lwr]",
 		place_result = "lwr",
 		stack_size = 1
 	}
