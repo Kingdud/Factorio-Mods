@@ -14,7 +14,7 @@ data:extend({
 			{"structural-concrete", 12},
 			{"msr-reactor-vessel-segment", msr_reactor_segments},
 			{"corrosion-resist-pipe", 100},
-			{"heat-exchanger", 800},
+			{"adv-heat-exchanger", 100},
 			{"pump", 26}
 		}
 	},
@@ -22,7 +22,7 @@ data:extend({
 		type = "recipe",
 		category = "crafting",
 		name = "msr-reactor-vessel-segment",
-		result = "msr-reactor-vessel",
+		result = "msr-reactor-vessel-segment",
 		enabled = false,
 		energy_required = 5,
 		ingredients =
@@ -41,9 +41,9 @@ data:extend({
 		ingredients =
 		{
 			{"empty-barrel", 1},
-			{"stone", math.ceil(100 / msr_salt_per_segment}),
-			{"iron-ore", math.ceil(100 / msr_salt_per_segment}),
-			{"copper-ore", math.ceil(100 / msr_salt_per_segment}),
+			{"stone", math.ceil(1250 / msr_salt_per_segment)},
+			{"iron-ore", math.ceil(1250 / msr_salt_per_segment)},
+			{"copper-ore", math.ceil(1250 / msr_salt_per_segment)},
 			{"uranium-235", msr_inital_u235_inventory},
 			{"uranium-238", msr_inital_u238_inventory},
 		}
@@ -54,7 +54,7 @@ data:extend({
 --Turbine Hall
 --////////////////////////////////////////
 data:extend({
-	{
+	{	
 		type = "recipe",
 		category = "crafting",
 		name = "msr-turbine-hall",
@@ -105,7 +105,7 @@ data:extend({
 		energy_required = 5,
 		ingredients =
 		{
-			{"msr-hp-gas-blade", 52},
+			{"msr-hp-gas-blade", 104},
 			{"turbine-disk-blank", 1}
 		}
 	},
@@ -118,14 +118,13 @@ data:extend({
 		energy_required = 5,
 		ingredients =
 		{
-			{"adv-nickel-alloy", 1}
+			{"adv-nickel-alloy", 2}
 		}
 	},
 	--||||||||||
 	--Low Pressure Turbine
 	--||||||||||
 	{
-		{
 		type = "recipe",
 		category = "crafting",
 		name = "msr-lp-gas-turbine",
@@ -159,7 +158,7 @@ data:extend({
 		energy_required = 5,
 		ingredients =
 		{
-			{"msr-lp-gas-blade", 24},
+			{"msr-lp-gas-blade", 52},
 			{"turbine-disk-blank", 1}
 		}
 	},
@@ -172,7 +171,7 @@ data:extend({
 		energy_required = 5,
 		ingredients =
 		{
-			{"adv-nickel-alloy", 1}
+			{"adv-nickel-alloy", 4}
 		}
 	},
 })
@@ -190,7 +189,7 @@ data:extend({
 		energy_required = 45,
 		ingredients =
 		{
-			{"structural-concrete", 5},
+			{"structural-concrete", 20},
 			{"centrifuge", 1},
 			{"storage-tank", 1},
 			{"chemical-plant", 1},
@@ -244,13 +243,14 @@ data:extend({
 		name = "msr",
 		result = "msr",
 		enabled = false,
-		energy_required = 60,
+		energy_required = 600,
 		ingredients =
 		{
 			{"gen-three-electric-grid-interface", 4},
 			{"msr-reactor-hall", 1},
 			{"msr-turbine-hall", 1},
-			{"msr-online-repro-fac", 1}
+			{"msr-online-repro-fac", 1},
+			{"structural-concrete", 75}
 		}
 	}
 })

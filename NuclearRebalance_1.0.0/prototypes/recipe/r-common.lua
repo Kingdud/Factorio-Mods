@@ -134,5 +134,33 @@ data:extend({
 		{
 			{"adv-nickel-alloy", 1}
 		}
+	},
+	{
+		type = "recipe",
+		category = "crafting",
+		name = "water-heat-exchanger",
+		result = "water-heat-exchanger",
+		enabled = false,
+		energy_required = 2,
+		ingredients =
+		{
+			{"steel-plate", 20},
+			{"copper-plate", 20},
+			{"pipe", 50}
+		}
+	},
+	{
+		type = "recipe",
+		category = "crafting",
+		name = "adv-heat-exchanger",
+		result = "adv-heat-exchanger",
+		enabled = false,
+		energy_required = 0.5,
+		ingredients =
+		{
+			{"adv-nickel-alloy", 50},
+			{"copper-plate", 10},
+			{"corrosion-resist-pipe", 100}
+		}
 	}
 })

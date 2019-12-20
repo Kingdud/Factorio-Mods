@@ -75,7 +75,7 @@ data:extend({
 			{"lwr-rpv-segment", 20},
 			{"steam-generator", 1},
 			{"purified-water-tank", 5},
-			{"heat-exchanger",205},
+			{"water-heat-exchanger",50},
 			{"lwr-fuel-rod-bundle", tostring(lwr_bundles_per_core - 1) }
 		}
 	},

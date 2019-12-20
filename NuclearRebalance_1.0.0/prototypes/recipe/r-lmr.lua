@@ -156,7 +156,7 @@ data:extend({
 			{"lmr-em-pump", 6},
 			{"steel-plate", 50},
 			{"adv-nickel-alloy", 10},
-			{"lmr-sodium-coolant", 3}
+			{"lmr-sodium-coolant", 90}
 		}
 	},
 	{
@@ -168,7 +168,7 @@ data:extend({
 		energy_required = 60,
 		ingredients =
 		{
-			{"heat-exchanger", 151},
+			{"adv-heat-exchanger", 50},
 			{"lmr-em-pump", 3},
 			{"corrosion-resist-pipe", 10},
 			{"lmr-sodium-coolant", 1}
@@ -220,8 +220,8 @@ data:extend({
 				name = "light-oil",
 				type = "fluid"
 			},
-			{"storage-tank", 1},
-			{"stone", 3000}
+			{"empty-barrel", 1},
+			{"stone", 100}
 		}
 	},
 })

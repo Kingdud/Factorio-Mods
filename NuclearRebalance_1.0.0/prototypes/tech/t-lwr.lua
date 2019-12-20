@@ -113,7 +113,7 @@ data:extend({
 			{ recipe = "lwr-rpv", type = "unlock-recipe" },
 			{ recipe = "steam-generator", type = "unlock-recipe" },
 			{ recipe = "lwr-rpv-segment", type = "unlock-recipe" },
-			{ recipe = "heat-exchanger", type = "unlock-recipe" }
+			{ recipe = "water-heat-exchanger", type = "unlock-recipe" }
 		},
 		--icon = "__NuclearRebalance__/graphics/technology/light-water-gen-2.png",
 		icon = "__base__/graphics/icons/productivity-module-3.png",

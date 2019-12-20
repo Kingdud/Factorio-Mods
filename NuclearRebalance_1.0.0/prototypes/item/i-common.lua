@@ -98,4 +98,22 @@ data:extend({
 		order = "b[corrosion-resist-pipe]",
 		stack_size = 100
 	},
+	{
+		type = "item",
+		name = "water-heat-exchanger",
+		icon = "__base__/graphics/icons/nuclear-reactor.png",
+		icon_size = 32,
+		subgroup = "nuclear-common",
+		order = "b[water-heat-exchanger]",
+		stack_size = 100
+	},
+	{
+		type = "item",
+		name = "adv-heat-exchanger",
+		icon = "__base__/graphics/icons/nuclear-reactor.png",
+		icon_size = 32,
+		subgroup = "nuclear-common",
+		order = "b[adv-heat-exchanger]",
+		stack_size = 100
+	},
 })

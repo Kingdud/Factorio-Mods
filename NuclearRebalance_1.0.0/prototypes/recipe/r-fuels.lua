@@ -21,7 +21,7 @@ data:extend({
 		energy_required = 100,
 		ingredients = {
 			{"steel-plate", 5 },
-			{"lwr-rod", tostring(lwr_rods_per_bundle) },
+			{"lwr-rod", lwr_rods_per_bundle },
 		},
 		name = "lwr-fuel-rod-bundle",
 		result = "lwr-fuel-rod-bundle",

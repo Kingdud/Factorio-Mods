@@ -1,23 +1,28 @@
+require("prototypes.constants")
+
 --entity
 require("prototypes.entity.e-lwr")
 require("prototypes.entity.e-lmr")
+require("prototypes.entity.e-msr")
 
 --items
 require("prototypes.item.i-common")
 require("prototypes.item.i-fuels")
 require("prototypes.item.i-lwr")
 require("prototypes.item.i-lmr")
+require("prototypes.item.i-msr")
 
 --recipes
 require("prototypes.recipe.r-common")
 require("prototypes.recipe.r-fuels")
 require("prototypes.recipe.r-lwr")
 require("prototypes.recipe.r-lmr")
+require("prototypes.recipe.r-msr")
 
 --tech
 require("prototypes.tech.t-lwr")
 require("prototypes.tech.t-lmr")
---require("prototypes.tech.t-msr")
+require("prototypes.tech.t-msr")
 
 --Item group to collect all added items
 data:extend({

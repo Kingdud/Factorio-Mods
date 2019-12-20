@@ -31,8 +31,10 @@ msr_gj_per_thorium_kg = 79420 / SCALE_FACTOR
 -- around 50,000,000 units of refined uranium (either u238 or u235).
 lwr_fuel_load_kg_per_gwe = 100000 * SCALE_FACTOR --total fuel inventory, not just fissile.
 lwr_total_enriched_uranium_per_core = lwr_fuel_load_kg_per_gwe * .5
-lwr_total_rods = 225 * (SCALE_FACTOR / 100)
-lwr_rods_per_bundle = math.floor(1.55 * (SCALE_FACTOR / 100))
+--should be 22500
+lwr_total_rods = 225
+--Should be 155
+lwr_rods_per_bundle = 1
 lwr_bundles_per_core = math.ceil(lwr_total_rods / lwr_rods_per_bundle)
 lwr_u235_pct = 3 / 100
 lwr_u238_pct = 1 - lwr_u235_pct
@@ -88,7 +90,7 @@ msr_burnup_pct = 99 / 100
 
 msr_target_power_output_gw = 1.5
 msr_fuel_load_kg_per_gwe = 400 * SCALE_FACTOR * (1 / msr_u235_pct)
-local msr_total_fuel_needed = msr_fuel_load_kg_per_gwe * msr_target_power_output_gw --2000
+local msr_total_fuel_needed = msr_fuel_load_kg_per_gwe * msr_target_power_output_gw
 msr_reactor_segments = 1
 msr_salt_per_segment = 20
 
@@ -134,7 +136,7 @@ lmr_reprocessing_u238_needed = math.ceil((lmr_u238_per_rod + lmr_u235_per_rod) *
 --MSR
 --||||||||||||||||||||||||
 msr_inital_u235_inventory = math.ceil(msr_total_fuel_needed * msr_u235_pct / (msr_reactor_segments * msr_salt_per_segment))
-msr_inital_u238_inventory = msr_total_fuel_needed - msr_inital_u235_inventory
+msr_inital_u238_inventory = math.ceil(msr_total_fuel_needed * msr_u238_pct / (msr_reactor_segments * msr_salt_per_segment))
 --No reprocessing needed, done online, no special fuel for MSR.
 
 --///////////////////////////////////////////

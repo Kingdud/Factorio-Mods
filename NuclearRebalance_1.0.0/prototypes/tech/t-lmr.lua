@@ -7,6 +7,7 @@ data:extend({
 			{ recipe = "corrosion-resist-pipe", type = "unlock-recipe" },
 			{ recipe = "lmr-sodium-coolant", type = "unlock-recipe" },
 			{ recipe = "lmr-em-pump", type = "unlock-recipe" },
+			{ recipe = "adv-heat-exchanger", type = "unlock-recipe" },
 		},
 		--icon = "__NuclearRebalance__/graphics/technology/light-water-gen-2.png",
 		icon = "__base__/graphics/icons/productivity-module.png",
