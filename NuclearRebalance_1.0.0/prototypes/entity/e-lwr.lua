@@ -41,12 +41,12 @@ data:extend({
 				filename = "__NuclearRebalance__/graphics/entity/e-lwr-h.png",
 				frame_count = 1,
 				width = 771,
-				height = 529,
+				height = 606,
 				hr_version = nil,
 				line_length = 1,
 				shift = {
 					0,
-					-7.5
+					-11.5
 				},
 				scale = 3.28
 			},
@@ -54,13 +54,13 @@ data:extend({
 				draw_as_shadow = true,
 				filename = "__NuclearRebalance__/graphics/entity/e-lwr-h-shadow.png",
 				frame_count = 1,
-				width = 1007,
-				height = 465,
+				width = 1006,
+				height = 522,
 				hr_version = nil,
 				line_length = 1,
 				shift = {
 					12.125,
-					-4.125
+					-7
 				},
 				scale = 3.28
 			},
