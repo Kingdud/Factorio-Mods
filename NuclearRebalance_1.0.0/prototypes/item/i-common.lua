@@ -13,8 +13,8 @@ lmr_nuclear_smoke.end_scale = 9
 data:extend({lmr_nuclear_smoke})
 local msr_nuclear_smoke = util.table.deepcopy(data.raw["trivial-smoke"]["turbine-smoke"]);
 msr_nuclear_smoke.name = "msr-cooling-tower-smoke";
-msr_nuclear_smoke.start_scale = 12
-msr_nuclear_smoke.end_scale = 9
+msr_nuclear_smoke.start_scale = 15
+msr_nuclear_smoke.end_scale = 10
 data:extend({msr_nuclear_smoke})
 
 --////////////////////////////////////////

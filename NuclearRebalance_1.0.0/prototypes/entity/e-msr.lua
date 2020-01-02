@@ -41,15 +41,29 @@ data:extend({
 			{
 				filename = "__NuclearRebalance__/graphics/entity/e-msr-h.png",
 				frame_count = 1,
-				width = 973,
-				height = 704,
+				width = 587,
+				height = 925,
 				hr_version = nil,
 				line_length = 1,
 				shift = {
-					29.5,
-					-13
+					0,
+					-16.5
 				},
-				scale = 3.88,
+				scale = 3.18,
+			},
+			{
+				draw_as_shadow = true,
+				filename = "__NuclearRebalance__/graphics/entity/e-msr-h-shadow.png",
+				frame_count = 1,
+				width = 1008,
+				height = 705,
+				hr_version = nil,
+				line_length = 1,
+				shift = {
+					21,
+					-5.5
+				},
+				scale = 3.18
 			},
 			}
 		},
@@ -76,17 +90,17 @@ data:extend({
 		},
 		smoke = {
 			{
-				--Used when cooling tower is in upper-right.
+				--horizontal orientation.
 				east_position = {
-					18, -- 5 to 15 == more east
-					-38 -- -30 to -40 == more north
+					16, -- 5 to 15 == more east
+					-40 -- -30 to -40 == more north
 				},
 				frequency = 0.3125,
 				name = "msr-cooling-tower-smoke",
-				--Used when cooling tower is in lower-right.
+				--Vertical orientation
 				north_position = {
-					18,
-					-20
+					16,
+					-17.5
 				},
 				slow_down_factor = 1,
 				starting_frame_deviation = 60,
@@ -103,15 +117,29 @@ data:extend({
 			{
 				filename = "__NuclearRebalance__/graphics/entity/e-msr-v.png",
 				frame_count = 1,
-				width = 973,
-				height = 560,
+				width = 586,
+				height = 703,
 				hr_version = nil,
 				line_length = 1,
 				shift = {
-					29.5,
-					-3.85
+					0,
+					-5.25
 				},
-				scale = 3.88,
+				scale = 3.18,
+			},
+			{
+				draw_as_shadow = true,
+				filename = "__NuclearRebalance__/graphics/entity/e-msr-v-shadow.png",
+				frame_count = 1,
+				width = 996,
+				height = 597,
+				hr_version = nil,
+				line_length = 1,
+				shift = {
+					20.25,
+					0
+				},
+				scale = 3.18
 			},
 			}
 		}
