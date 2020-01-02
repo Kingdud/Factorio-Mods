@@ -11,12 +11,12 @@ data:extend({
 		},
 		collision_box = {
 			{
-			  -1.3500000000000001,
-			  -2.3500000000000001
+			  -19.9000000000001,
+			  -39.9000000000001
 			},
 			{
-			  1.3500000000000001,
-			  2.3500000000000001
+			  19.90000000000001,
+			  39.90000000000001
 			}
 		},
 		corpse = "steam-engine-remnants",
@@ -85,7 +85,7 @@ data:extend({
 				width = 254
 			}}
 		},
-		icon = "__base__/graphics/icons/steam-engine.png",
+		icon = "__NuclearRebalance__/graphics/icons/i-lmr.png",
 		icon_size = 32,
 		max_health = 400,
 		max_power_output = "1GW",
@@ -98,12 +98,12 @@ data:extend({
 		performance_to_sound_speedup = 0.5,
 		selection_box = {
 		{
-			-1.5,
-			-2.5
+			-19.5,
+			-39.5
 		},
 		{
-			1.5,
-			2.5
+			19.5,
+			39.5
 		}
 		},
 		smoke = nil,

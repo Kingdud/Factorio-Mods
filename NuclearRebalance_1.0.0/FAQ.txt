@@ -28,7 +28,7 @@ Even if we compare the reactor vessel sizes, LWR need around 25m2 for the RPV an
 
 Reactor type (1-1.5GWe output) | Area of Active core | Area of Reactor Vessel
 Factorio Vanilla               |        ??m2         |        200m2
-Light Water Reactor            |        33m2         |         25m2
+Light Water Reactor            |        11m2         |         25m2
 Liquid Metal Reactor           |        12m2         |        330m2
 
 So, no, my reactor sizes are totally reasonable, even for the entire site, because look at any overhead photo of a nuclear plant and you'll quickly realize the turbine hall is smaller than the secondary containment building for even a single reactor core in most cases. At a large site, with 4 or more 1GWe+ cores (so the site output is > 4GWe) the turbine hall is only slighly larger than a single secondary containment building.

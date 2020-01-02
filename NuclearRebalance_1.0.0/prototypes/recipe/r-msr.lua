@@ -65,7 +65,8 @@ data:extend({
 		{
 			{"structural-concrete", 20},
 			{"msr-hp-gas-turbine", 1},
-			{"msr-lp-gas-turbine", 3}
+			{"msr-lp-gas-turbine", 3},
+			{"msr-helium-gas", 100}
 		}
 	},
 	--||||||||||
@@ -172,6 +173,23 @@ data:extend({
 		ingredients =
 		{
 			{"adv-nickel-alloy", 4}
+		}
+	},
+	{
+		type = "recipe",
+		category = "chemistry",
+		name = "msr-helium-gas",
+		result = "msr-helium-gas",
+		enabled = false,
+		energy_required = 5,
+		ingredients =
+		{
+			{"empty-barrel", 1},
+			{
+				amount = 600,
+				name = "crude-oil",
+				type = "fluid"
+			},
 		}
 	},
 })

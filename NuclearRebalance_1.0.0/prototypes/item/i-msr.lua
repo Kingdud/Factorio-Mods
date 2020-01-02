@@ -56,10 +56,10 @@ data:extend({
 	{
 		type = "item",
 		name = "msr-hp-gas-shaft",
-		icon = "__base__/graphics/icons/nuclear-reactor.png",
-		icon_size = 32,
+		icon = "__NuclearRebalance__/graphics/icons/turbine-shaft-hp-gen3.png",
+		icon_size = 128,
 		subgroup = "msr-common",
-		order = "g[msr-hp-gas-turbine]",
+		order = "g[msr-hp-gas-shaft]",
 		stack_size = 1
 	},
 	{
@@ -68,16 +68,16 @@ data:extend({
 		icon = "__base__/graphics/icons/nuclear-reactor.png",
 		icon_size = 32,
 		subgroup = "msr-common",
-		order = "g[msr-hp-gas-turbine]",
+		order = "g[msr-hp-gas-disk]",
 		stack_size = 50
 	},
 	{
 		type = "item",
 		name = "msr-hp-gas-blade",
-		icon = "__base__/graphics/icons/nuclear-reactor.png",
-		icon_size = 32,
+		icon = "__NuclearRebalance__/graphics/icons/turbine-blade-hp-gen3.png",
+		icon_size = 128,
 		subgroup = "msr-common",
-		order = "g[msr-hp-gas-turbine]",
+		order = "g[msr-hp-gas-blade]",
 		stack_size = 100
 	},
 		{
@@ -95,25 +95,34 @@ data:extend({
 		icon = "__base__/graphics/icons/nuclear-reactor.png",
 		icon_size = 32,
 		subgroup = "msr-common",
-		order = "g[msr-lp-gas-turbine]",
+		order = "g[msr-lp-gas-shaft]",
 		stack_size = 1
 	},
 	{
 		type = "item",
 		name = "msr-lp-gas-disk",
-		icon = "__base__/graphics/icons/nuclear-reactor.png",
-		icon_size = 32,
+		icon = "__NuclearRebalance__/graphics/icons/turbine-disk-lp-gen3.png",
+		icon_size = 128,
 		subgroup = "msr-common",
-		order = "g[msr-lp-gas-turbine]",
+		order = "g[msr-lp-gas-disk]",
 		stack_size = 50
 	},
 	{
 		type = "item",
 		name = "msr-lp-gas-blade",
-		icon = "__base__/graphics/icons/nuclear-reactor.png",
-		icon_size = 32,
+		icon = "__NuclearRebalance__/graphics/icons/turbine-blade-lp-gen3.png",
+		icon_size = 128,
 		subgroup = "msr-common",
-		order = "g[msr-lp-gas-turbine]",
+		order = "g[msr-lp-gas-blade]",
+		stack_size = 100
+	},
+	{
+		type = "item",
+		name = "msr-helium-gas",
+		icon = "__NuclearRebalance__/graphics/icons/msr-helium.png",
+		icon_size = 128,
+		subgroup = "msr-common",
+		order = "g[msr-helium-gas]",
 		stack_size = 100
 	}
 })
@@ -140,8 +149,8 @@ data:extend({
 	{
 		type = "item",
 		name = "msr",
-		icon = "__base__/graphics/icons/nuclear-reactor.png",
-		icon_size = 32,
+		icon = "__NuclearRebalance__/graphics/icons/i-msr.png",
+		icon_size = 128,
 		subgroup = "nuclear-finals",
 		order = "z3[msr]",
 		place_result = "msr",

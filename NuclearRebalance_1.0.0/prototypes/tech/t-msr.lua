@@ -6,7 +6,7 @@ data:extend({
 			{ recipe = "msr-reactor-vessel-segment", type = "unlock-recipe" },
 			{ recipe = "msr-reactor-salt", type = "unlock-recipe" },
 			{ recipe = "msr-underground-century-storage-fac", type = "unlock-recipe" },
-			
+			{ recipe = "msr-helium-gas", type = "unlock-recipe" },
 		},
 		--icon = "__NuclearRebalance__/graphics/technology/light-water-gen-2.png",
 		icon = "__base__/graphics/icons/productivity-module.png",

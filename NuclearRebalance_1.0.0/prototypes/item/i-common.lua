@@ -1,4 +1,14 @@
 --////////////////////////////////////////
+--Smoke for the Cooling Towers
+--////////////////////////////////////////
+local nuclear_smoke = util.table.deepcopy(data.raw["trivial-smoke"]["turbine-smoke"]);
+nuclear_smoke.name = "cooling-tower-smoke";
+nuclear_smoke.start_scale = 12
+nuclear_smoke.end_scale = 9
+data:extend({nuclear_smoke})
+
+
+--////////////////////////////////////////
 --Site Infrastructure section
 --////////////////////////////////////////
 data:extend({
@@ -68,8 +78,8 @@ data:extend({
 	{
 		type = "item",
 		name = "turbine-disk-blank",
-		icon = "__base__/graphics/icons/nuclear-reactor.png",
-		icon_size = 32,
+		icon = "__NuclearRebalance__/graphics/icons/turbine-disk-blank.png",
+		icon_size = 64,
 		subgroup = "nuclear-common",
 		order = "b[turbine-disk-blank]",
 		stack_size = 1

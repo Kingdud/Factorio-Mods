@@ -32,8 +32,8 @@ data:extend({
 	{
 		type = "item",
 		name = "lmr-hp-turbine-shaft",
-		icon = "__base__/graphics/icons/nuclear-reactor.png",
-		icon_size = 32,
+		icon = "__NuclearRebalance__/graphics/icons/turbine-shaft-hp-gen2.png",
+		icon_size = 128,
 		subgroup = "lmr-common",
 		order = "e[lmr-hp-turbine-shaft]",
 		stack_size = 1
@@ -50,8 +50,8 @@ data:extend({
 	{
 		type = "item",
 		name = "lmr-hp-turbine-disk",
-		icon = "__base__/graphics/icons/nuclear-reactor.png",
-		icon_size = 32,
+		icon = "__NuclearRebalance__/graphics/icons/turbine-disk-hp-gen2.png",
+		icon_size = 128,
 		subgroup = "lmr-common",
 		order = "e[lmr-hp-turbine-disk]",
 		stack_size = 5
@@ -176,8 +176,8 @@ data:extend({
 	{
 		type = "item",
 		name = "lmr",
-		icon = "__base__/graphics/icons/nuclear-reactor.png",
-		icon_size = 32,
+		icon = "__NuclearRebalance__/graphics/icons/i-lmr.png",
+		icon_size = 128,
 		subgroup = "nuclear-finals",
 		order = "z2[lmr]",
 		place_result = "lmr",

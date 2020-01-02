@@ -80,8 +80,8 @@ data:extend({
 	{
 		type = "item",
 		name = "gen-one-turbine-shaft",
-		icon = "__base__/graphics/icons/nuclear-reactor.png",
-		icon_size = 32,
+		icon = "__NuclearRebalance__/graphics/icons/turbine-shaft-gen1.png",
+		icon_size = 128,
 		subgroup = "lwr-common",
 		order = "b[lwr]-[gen-one-turbine-shaft]",
 		stack_size = 10
@@ -128,8 +128,8 @@ data:extend({
 	{
 		type = "item",
 		name = "lwr",
-		icon = "__base__/graphics/icons/nuclear-reactor.png",
-		icon_size = 32,
+		icon = "__NuclearRebalance__/graphics/icons/i-lwr.png",
+		icon_size = 128,
 		subgroup = "nuclear-finals",
 		order = "z1[lwr]",
 		place_result = "lwr",

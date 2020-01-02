@@ -1,7 +1,7 @@
 require("prototypes.constants")
 
 --////////////////////////////////////////
---LWR Entity
+--MSR Entity
 --////////////////////////////////////////
 data:extend({
 	{
@@ -13,12 +13,12 @@ data:extend({
 		},
 		collision_box = {
 			{
-			  -1.3500000000000001,
-			  -2.3500000000000001
+			  -29.900000000000001,
+			  -29.900000000000001
 			},
 			{
-			  1.3500000000000001,
-			  2.3500000000000001
+			  29.900000000000001,
+			  29.900000000000001
 			}
 		},
 		corpse = "steam-engine-remnants",
@@ -26,11 +26,11 @@ data:extend({
 		effectivity = .55,
 		energy_source = {
 			type = "electric",
-			--Sodium leaks are a constant problem.
+			--While underground, we are still dumping waste underground, and that waste his HIGHLY pollutant.
 			emissions_per_minute = 5,
 			usage_priority = "primary-output"
 		},
-		fast_replaceable_group = "steam-engine",
+		fast_replaceable_group = "msr",
 		flags = {
 			"placeable-neutral",
 			"player-creation"
@@ -39,56 +39,22 @@ data:extend({
 		horizontal_animation = {
 			layers = {
 			{
-				filename = "__base__/graphics/entity/steam-engine/steam-engine-H.png",
-				frame_count = 32,
-				height = 128,
-				hr_version = {
-					filename = "__base__/graphics/entity/steam-engine/hr-steam-engine-H.png",
-					frame_count = 32,
-					height = 257,
-					line_length = 8,
-					scale = 0.5,
-					shift = {
-						0.03125,
-						-0.1484375
-					},
-					width = 352
-				},
-				line_length = 8,
+				filename = "__NuclearRebalance__/graphics/entity/e-msr-h.png",
+				frame_count = 1,
+				width = 973,
+				height = 704,
+				hr_version = nil,
+				line_length = 1,
 				shift = {
-					0.03125,
-					-0.15625
+					29.5,
+					-13
 				},
-				width = 176
+				scale = 3.88,
 			},
-			{
-				draw_as_shadow = true,
-				filename = "__base__/graphics/entity/steam-engine/steam-engine-H-shadow.png",
-				frame_count = 32,
-				height = 80,
-				hr_version = {
-					draw_as_shadow = true,
-					filename = "__base__/graphics/entity/steam-engine/hr-steam-engine-H-shadow.png",
-					frame_count = 32,
-					height = 160,
-					line_length = 8,
-					scale = 0.5,
-					shift = {
-						1.5,
-						0.75
-					},
-					width = 508
-				},
-				line_length = 8,
-				shift = {
-					1.5,
-					0.75
-				},
-				width = 254
-			}}
+			}
 		},
-		icon = "__base__/graphics/icons/steam-engine.png",
-		icon_size = 32,
+		icon = "__NuclearRebalance__/graphics/icons/i-msr.png",
+		icon_size = 128,
 		max_health = 400,
 		max_power_output = tostring(msr_target_power_output_gw) .. "GW",
 		min_perceived_performance = 0.25,
@@ -100,77 +66,53 @@ data:extend({
 		performance_to_sound_speedup = 0.5,
 		selection_box = {
 		{
-			-1.5,
-			-2.5
+			-29.5,
+			-29.5
 		},
 		{
-			1.5,
-			2.5
+			29.5,
+			29.5
 		}
 		},
-		smoke = nil,
+		smoke = {
+			{
+				--Used when cooling tower is in upper-right.
+				east_position = {
+					18, -- 5 to 15 == more east
+					-38 -- -30 to -40 == more north
+				},
+				frequency = 0.3125,
+				name = "cooling-tower-smoke",
+				--Used when cooling tower is in lower-right.
+				north_position = {
+					18,
+					-20
+				},
+				slow_down_factor = 1,
+				starting_frame_deviation = 60,
+				starting_vertical_speed = 0.08
+			}
+		},
 		type = "generator",
 		vehicle_impact_sound = {
-			filename = "__base__/sound/car-metal-impact.ogg",
+			filename = "__base__/sound/car-stone-impact.ogg",
 			volume = 0.65
 		},
 		vertical_animation = {
 			layers = {
 			{
-				filename = "__base__/graphics/entity/steam-engine/steam-engine-V.png",
-				frame_count = 32,
-				height = 195,
-				hr_version = {
-					filename = "__base__/graphics/entity/steam-engine/hr-steam-engine-V.png",
-					frame_count = 32,
-					height = 391,
-					line_length = 8,
-					scale = 0.5,
-					shift = {
-						0.1484375,
-						-0.1953125
-					},
-					width = 225
-				},
-				line_length = 8,
+				filename = "__NuclearRebalance__/graphics/entity/e-msr-v.png",
+				frame_count = 1,
+				width = 973,
+				height = 560,
+				hr_version = nil,
+				line_length = 1,
 				shift = {
-					0.15625,
-					-0.203125
+					29.5,
+					-3.85
 				},
-				width = 112
+				scale = 3.88,
 			},
-			{
-				draw_as_shadow = true,
-				filename = "__base__/graphics/entity/steam-engine/steam-engine-V-shadow.png",
-				frame_count = 32,
-				height = 153,
-				hr_version = {
-					draw_as_shadow = true,
-					filename = "__base__/graphics/entity/steam-engine/hr-steam-engine-V-shadow.png",
-					frame_count = 32,
-					height = 307,
-					line_length = 8,
-					scale = 0.5,
-				shift = {
-					1.265625,
-					0.2890625
-				},
-				width = 330
-				},
-				line_length = 8,
-				shift = {
-					1.265625,
-					0.296875
-				},
-				width = 165
-			}
-			}
-		},
-		working_sound = {
-			match_speed_to_activity = true,
-			sound = {
-				filename = "__base__/sound/steam-engine-90bpm.ogg",
-				volume = 0.6
 			}
 		}
 	}
