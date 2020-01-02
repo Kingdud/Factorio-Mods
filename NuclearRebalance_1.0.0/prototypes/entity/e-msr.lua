@@ -82,7 +82,7 @@ data:extend({
 					-38 -- -30 to -40 == more north
 				},
 				frequency = 0.3125,
-				name = "cooling-tower-smoke",
+				name = "msr-cooling-tower-smoke",
 				--Used when cooling tower is in lower-right.
 				north_position = {
 					18,

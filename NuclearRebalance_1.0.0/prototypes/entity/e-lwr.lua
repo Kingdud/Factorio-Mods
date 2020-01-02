@@ -89,22 +89,39 @@ data:extend({
 		},
 		smoke = {
 			{
-				--Used when cooling tower is in upper-right.
+				--Horizontal orientation; top stack.
 				east_position = {
-					18, -- 5 to 15 == more east
-					-38 -- -30 to -40 == more north
+					-28, -- 5 to 15 == more east
+					-32 -- -30 to -40 == more north
 				},
 				frequency = 0.3125,
-				name = "cooling-tower-smoke",
-				--Used when cooling tower is in lower-right.
+				name = "lwr-cooling-tower-smoke",
+				--Vertical orientation; left stack
 				north_position = {
-					18,
-					-15
+					-8,
+					6
 				},
 				slow_down_factor = 1,
 				starting_frame_deviation = 60,
 				starting_vertical_speed = 0.08
-			}
+			},
+			{
+				--Horizontal orientation; bottom stack.
+				east_position = {
+					-28, -- 5 to 15 == more east
+					-13 -- -30 to -40 == more north
+				},
+				frequency = 0.3125,
+				name = "lwr-cooling-tower-smoke",
+				--Vertical orientation; right stack
+				north_position = {
+					13,
+					6
+				},
+				slow_down_factor = 1,
+				starting_frame_deviation = 60,
+				starting_vertical_speed = 0.08
+			},
 		},
 		type = "generator",
 		vehicle_impact_sound = {
@@ -116,15 +133,29 @@ data:extend({
 			{
 				filename = "__NuclearRebalance__/graphics/entity/e-lwr-v.png",
 				frame_count = 1,
-				width = 1024,
-				height = 1024,
+				width = 383,
+				height = 1005,
 				hr_version = nil,
 				line_length = 1,
 				shift = {
 					0,
+					-11.5
+				},
+				scale = 3.26
+			},
+			{
+				draw_as_shadow = true,
+				filename = "__NuclearRebalance__/graphics/entity/e-lwr-v-shadow.png",
+				frame_count = 1,
+				width = 616,
+				height = 780,
+				hr_version = nil,
+				line_length = 1,
+				shift = {
+					12,
 					0
 				},
-				scale = 2.8
+				scale = 3.26
 			},
 			}
 		}

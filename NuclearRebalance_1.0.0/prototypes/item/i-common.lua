@@ -1,12 +1,21 @@
 --////////////////////////////////////////
 --Smoke for the Cooling Towers
 --////////////////////////////////////////
-local nuclear_smoke = util.table.deepcopy(data.raw["trivial-smoke"]["turbine-smoke"]);
-nuclear_smoke.name = "cooling-tower-smoke";
-nuclear_smoke.start_scale = 12
-nuclear_smoke.end_scale = 9
-data:extend({nuclear_smoke})
-
+local lwr_nuclear_smoke = util.table.deepcopy(data.raw["trivial-smoke"]["turbine-smoke"]);
+lwr_nuclear_smoke.name = "lwr-cooling-tower-smoke";
+lwr_nuclear_smoke.start_scale = 7
+lwr_nuclear_smoke.end_scale = 5
+data:extend({lwr_nuclear_smoke})
+local lmr_nuclear_smoke = util.table.deepcopy(data.raw["trivial-smoke"]["turbine-smoke"]);
+lmr_nuclear_smoke.name = "lmr-cooling-tower-smoke";
+lmr_nuclear_smoke.start_scale = 12
+lmr_nuclear_smoke.end_scale = 9
+data:extend({lmr_nuclear_smoke})
+local msr_nuclear_smoke = util.table.deepcopy(data.raw["trivial-smoke"]["turbine-smoke"]);
+msr_nuclear_smoke.name = "msr-cooling-tower-smoke";
+msr_nuclear_smoke.start_scale = 12
+msr_nuclear_smoke.end_scale = 9
+data:extend({msr_nuclear_smoke})
 
 --////////////////////////////////////////
 --Site Infrastructure section
