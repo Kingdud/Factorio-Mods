@@ -4,17 +4,17 @@
 local lwr_nuclear_smoke = util.table.deepcopy(data.raw["trivial-smoke"]["turbine-smoke"]);
 lwr_nuclear_smoke.name = "lwr-cooling-tower-smoke";
 lwr_nuclear_smoke.start_scale = 7
-lwr_nuclear_smoke.end_scale = 5
+lwr_nuclear_smoke.end_scale = 3.5
 data:extend({lwr_nuclear_smoke})
 local lmr_nuclear_smoke = util.table.deepcopy(data.raw["trivial-smoke"]["turbine-smoke"]);
 lmr_nuclear_smoke.name = "lmr-cooling-tower-smoke";
-lmr_nuclear_smoke.start_scale = 12
-lmr_nuclear_smoke.end_scale = 9
+lmr_nuclear_smoke.start_scale = 8
+lmr_nuclear_smoke.end_scale = 4
 data:extend({lmr_nuclear_smoke})
 local msr_nuclear_smoke = util.table.deepcopy(data.raw["trivial-smoke"]["turbine-smoke"]);
 msr_nuclear_smoke.name = "msr-cooling-tower-smoke";
 msr_nuclear_smoke.start_scale = 15
-msr_nuclear_smoke.end_scale = 10
+msr_nuclear_smoke.end_scale = 7.5
 data:extend({msr_nuclear_smoke})
 
 --////////////////////////////////////////

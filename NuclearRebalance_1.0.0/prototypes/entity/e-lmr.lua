@@ -37,56 +37,35 @@ data:extend({
 		horizontal_animation = {
 			layers = {
 			{
-				filename = "__base__/graphics/entity/steam-engine/steam-engine-H.png",
-				frame_count = 32,
-				height = 128,
-				hr_version = {
-					filename = "__base__/graphics/entity/steam-engine/hr-steam-engine-H.png",
-					frame_count = 32,
-					height = 257,
-					line_length = 8,
-					scale = 0.5,
-					shift = {
-						0.03125,
-						-0.1484375
-					},
-					width = 352
-				},
-				line_length = 8,
+				filename = "__NuclearRebalance__/graphics/entity/e-lmr-h.png",
+				frame_count = 1,
+				width = 685,
+				height = 518,
+				hr_version = nil,
+				line_length = 1,
 				shift = {
-					0.03125,
-					-0.15625
+					0,
+					-10 -- -y = up, +y = down
 				},
-				width = 176
+				scale = 3.7
 			},
 			{
 				draw_as_shadow = true,
-				filename = "__base__/graphics/entity/steam-engine/steam-engine-H-shadow.png",
-				frame_count = 32,
-				height = 80,
-				hr_version = {
-					draw_as_shadow = true,
-					filename = "__base__/graphics/entity/steam-engine/hr-steam-engine-H-shadow.png",
-					frame_count = 32,
-					height = 160,
-					line_length = 8,
-					scale = 0.5,
-					shift = {
-						1.5,
-						0.75
-					},
-					width = 508
-				},
-				line_length = 8,
+				filename = "__NuclearRebalance__/graphics/entity/e-lmr-h-shadow.png",
+				frame_count = 1,
+				width = 917,
+				height = 514,
+				hr_version = nil,
+				line_length = 1,
 				shift = {
-					1.5,
-					0.75
+					13,
+					-10
 				},
-				width = 254
+				scale = 3.7
 			}}
 		},
 		icon = "__NuclearRebalance__/graphics/icons/i-lmr.png",
-		icon_size = 32,
+		icon_size = 128,
 		max_health = 400,
 		max_power_output = "1GW",
 		min_perceived_performance = 0.25,
@@ -106,70 +85,77 @@ data:extend({
 			39.5
 		}
 		},
-		smoke = nil,
+		smoke = {
+			{
+				--Horizontal orientation; top stack.
+				east_position = {
+					33, -- 5 to 15 == more east
+					-27 -- -30 to -40 == more north
+				},
+				frequency = 0.3125,
+				name = "lmr-cooling-tower-smoke",
+				--Vertical orientation; left stack
+				north_position = {
+					-8,
+					11
+				},
+				slow_down_factor = 1,
+				starting_frame_deviation = 60,
+				starting_vertical_speed = 0.08
+			},
+			{
+				--Horizontal orientation; bottom stack.
+				east_position = {
+					33, -- 5 to 15 == more east
+					-9 -- -30 to -40 == more north
+				},
+				frequency = 0.3125,
+				name = "lmr-cooling-tower-smoke",
+				--Vertical orientation; right stack
+				north_position = {
+					12,
+					11
+				},
+				slow_down_factor = 1,
+				starting_frame_deviation = 60,
+				starting_vertical_speed = 0.08
+			},
+		},
 		type = "generator",
 		vehicle_impact_sound = {
-			filename = "__base__/sound/car-metal-impact.ogg",
+			filename = "__base__/sound/car-stone-impact.ogg",
 			volume = 0.65
 		},
 		vertical_animation = {
 			layers = {
 			{
-				filename = "__base__/graphics/entity/steam-engine/steam-engine-V.png",
-				frame_count = 32,
-				height = 195,
-				hr_version = {
-					filename = "__base__/graphics/entity/steam-engine/hr-steam-engine-V.png",
-					frame_count = 32,
-					height = 391,
-					line_length = 8,
-					scale = 0.5,
-					shift = {
-						0.1484375,
-						-0.1953125
-					},
-					width = 225
-				},
-				line_length = 8,
+				filename = "__NuclearRebalance__/graphics/entity/e-lmr-v.png",
+				frame_count = 1,
+				width = 343,
+				height = 875,
+				hr_version = nil,
+				line_length = 1,
 				shift = {
-					0.15625,
-					-0.203125
+					0,
+					-9.5
 				},
-				width = 112
+				scale = 3.6
 			},
 			{
 				draw_as_shadow = true,
-				filename = "__base__/graphics/entity/steam-engine/steam-engine-V-shadow.png",
-				frame_count = 32,
-				height = 153,
-				hr_version = {
-					draw_as_shadow = true,
-					filename = "__base__/graphics/entity/steam-engine/hr-steam-engine-V-shadow.png",
-					frame_count = 32,
-					height = 307,
-					line_length = 8,
-					scale = 0.5,
+				filename = "__NuclearRebalance__/graphics/entity/e-lmr-v-shadow.png",
+				frame_count = 1,
+				width = 620,
+				height = 871,
+				hr_version = nil,
+				line_length = 1,
 				shift = {
-					1.265625,
-					0.2890625
+					15.625,
+					-9.25
 				},
-				width = 330
-				},
-				line_length = 8,
-				shift = {
-					1.265625,
-					0.296875
-				},
-				width = 165
-			}
-			}
-		},
-		working_sound = {
-			match_speed_to_activity = true,
-			sound = {
-				filename = "__base__/sound/steam-engine-90bpm.ogg",
-				volume = 0.6
+				scale = 3.6
 			}
 		}
+	}
 	}
 })

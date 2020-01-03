@@ -69,7 +69,7 @@ data:extend({
 		},
 		icon = "__NuclearRebalance__/graphics/icons/i-msr.png",
 		icon_size = 128,
-		max_health = 400,
+		max_health = 7000,
 		max_power_output = tostring(msr_target_power_output_gw) .. "GW",
 		min_perceived_performance = 0.25,
 		minable = {

@@ -68,7 +68,7 @@ data:extend({
 		},
 		icon = "__NuclearRebalance__/graphics/icons/i-lwr.png",
 		icon_size = 128,
-		max_health = 400,
+		max_health = 400000,
 		max_power_output = "500MW",
 		min_perceived_performance = 0.25,
 		minable = {
