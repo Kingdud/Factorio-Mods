@@ -8,9 +8,8 @@ data:extend({
 			{ recipe = "msr-underground-century-storage-fac", type = "unlock-recipe" },
 			{ recipe = "msr-helium-gas", type = "unlock-recipe" },
 		},
-		--icon = "__NuclearRebalance__/graphics/technology/light-water-gen-2.png",
-		icon = "__base__/graphics/icons/productivity-module.png",
-		icon_size = 32,
+		icon = "__NuclearRebalance__/graphics/technology/msr-tech-step-one.png",
+		icon_size = 128,
 		name = "msr-tech-step-one",
 		order = "l-a",
 		prerequisites = {
@@ -41,9 +40,8 @@ data:extend({
 			{ recipe = "msr-lp-gas-disk", type = "unlock-recipe" },
 			{ recipe = "msr-lp-gas-blade", type = "unlock-recipe" },
 		},
-		--icon = "__NuclearRebalance__/graphics/technology/light-water-gen-2.png",
-		icon = "__base__/graphics/icons/productivity-module.png",
-		icon_size = 32,
+		icon = "__NuclearRebalance__/graphics/technology/msr-tech-step-two.png",
+		icon_size = 128,
 		name = "msr-tech-step-two",
 		order = "l-a",
 		prerequisites = {
@@ -69,9 +67,8 @@ data:extend({
 			{ recipe = "msr-reactor-hall", type = "unlock-recipe" },
 			{ recipe = "msr", type = "unlock-recipe" }
 		},
-		--icon = "__NuclearRebalance__/graphics/technology/light-water-gen-2.png",
-		icon = "__base__/graphics/icons/productivity-module-2.png",
-		icon_size = 32,
+		icon = "__NuclearRebalance__/graphics/icons/i-msr.png",
+		icon_size = 128,
 		name = "msr-tech-final",
 		order = "l-a",
 		prerequisites = {

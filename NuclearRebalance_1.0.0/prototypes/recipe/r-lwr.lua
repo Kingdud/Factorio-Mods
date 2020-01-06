@@ -197,8 +197,15 @@ data:extend({
 	{
 		type = "recipe",
 		category = "centrifuging",
+		icon = "__NuclearRebalance__/graphics/recipe/lwr-dirty-enrichment.png",
+		icon_size = 128,
 		name = "dirty-uranium-enrichment",
-		result = "uranium-235",
+		results = 
+		{
+			{type="item", name="uranium-235", amount=1},
+		},
+		main_product= "",
+		subgroup = "lwr-common",
 		enabled = false,
 		energy_required = 60,
 		emissions_multiplier = 25,

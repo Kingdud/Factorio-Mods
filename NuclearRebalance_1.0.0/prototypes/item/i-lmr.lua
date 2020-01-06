@@ -118,15 +118,6 @@ data:extend({
 	},
 	{
 		type = "item",
-		name = "lmr-heat-exchange-loop",
-		icon = "__base__/graphics/icons/nuclear-reactor.png",
-		icon_size = 32,
-		subgroup = "lmr-intermediate",
-		order = "f[lmr-heat-exchange-loop]",
-		stack_size = 1
-	},
-	{
-		type = "item",
 		name = "lmr-steam-loop",
 		icon = "__base__/graphics/icons/nuclear-reactor.png",
 		icon_size = 32,
@@ -161,10 +152,10 @@ data:extend({
 	{
 		type = "item",
 		name = "gen-two-electric-grid-interface",
-		icon = "__base__/graphics/icons/nuclear-reactor.png",
-		icon_size = 32,
+		icon = "__NuclearRebalance__/graphics/icons/gen-two-electric-grid-interface.png",
+		icon_size = 128,
 		subgroup = "lmr-intermediate",
-		order = "f[gen-two-electric-grid-interface]",
+		order = "f-1-[gen-two-electric-grid-interface]",
 		stack_size = 1
 	}
 })

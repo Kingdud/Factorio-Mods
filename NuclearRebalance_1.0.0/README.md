@@ -128,3 +128,4 @@ https://www.researchgate.net/publication/263104281_Proposal_for_a_Simplified_Tho
 http://www.janleenkloosterman.nl/reports/thesis_frima_2013.pdf (More MSR data)
 http://ecolo.org/documents/documents_in_english/MSR-Molten-salt-reactor.pdf (msr fueling data, and good info on LMRs)
 http://www.egeneration.org/wp-content/Repository/Argonne_National_Laboratory_Analysis/NA_MCFBR.pdf (MSR data for uranium cycle)
+https://www.ocean.washington.edu/courses/envir215/energynumbers.pdf (energy in coal)

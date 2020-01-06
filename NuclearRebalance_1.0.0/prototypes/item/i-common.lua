@@ -24,8 +24,8 @@ data:extend({
 	{
 		type = "item",
 		name = "rebar",
-		icon = "__base__/graphics/icons/nuclear-reactor.png",
-		icon_size = 32,
+		icon = "__NuclearRebalance__/graphics/icons/rebar.png",
+		icon_size = 128,
 		subgroup = "nuclear-common",
 		order = "b[rebar]",
 		stack_size = 100
@@ -33,8 +33,8 @@ data:extend({
 	{
 		type = "item",
 		name = "structural-concrete",
-		icon = "__base__/graphics/icons/nuclear-reactor.png",
-		icon_size = 32,
+		icon = "__NuclearRebalance__/graphics/icons/structural-concrete.png",
+		icon_size = 128,
 		subgroup = "nuclear-common",
 		order = "b[structural-concrete]",
 		stack_size = 100
@@ -42,7 +42,7 @@ data:extend({
 	{
 		type = "item",
 		name = "purified-water-tank",
-		icon = "__base__/graphics/icons/nuclear-reactor.png",
+		icon = "__NuclearRebalance__/graphics/icons/purified-water-tank.png",
 		icon_size = 32,
 		subgroup = "nuclear-common",
 		order = "b[purified-water-tank]",
@@ -57,8 +57,8 @@ data:extend({
 	{
 		type = "item",
 		name = "steam-generator",
-		icon = "__base__/graphics/icons/nuclear-reactor.png",
-		icon_size = 32,
+		icon = "__NuclearRebalance__/graphics/icons/steam-generator.png",
+		icon_size = 128,
 		subgroup = "nuclear-common",
 		order = "b-[steam-generator]",
 		stack_size = 1
@@ -72,8 +72,8 @@ data:extend({
 	{
 		type = "item",
 		name = "switchgear",
-		icon = "__base__/graphics/icons/nuclear-reactor.png",
-		icon_size = 32,
+		icon = "__NuclearRebalance__/graphics/icons/switchgear.png",
+		icon_size = 128,
 		subgroup = "nuclear-common",
 		order = "b[switchgear]",
 		stack_size = 1
@@ -102,8 +102,8 @@ data:extend({
 	{
 		type = "item",
 		name = "adv-nickel-alloy",
-		icon = "__base__/graphics/icons/steel-plate.png",
-		icon_size = 32,
+		icon = "__NuclearRebalance__/graphics/icons/adv-nickel-alloy.png",
+		icon_size = 128,
 		subgroup = "nuclear-common",
 		order = "b[adv-nickel-alloy]",
 		stack_size = 100
@@ -111,8 +111,8 @@ data:extend({
 	{
 		type = "item",
 		name = "corrosion-resist-pipe",
-		icon = "__base__/graphics/icons/nuclear-reactor.png",
-		icon_size = 32,
+		icon = "__NuclearRebalance__/graphics/icons/corrosion-resist-pipe.png",
+		icon_size = 128,
 		subgroup = "nuclear-common",
 		order = "b[corrosion-resist-pipe]",
 		stack_size = 100
@@ -120,19 +120,19 @@ data:extend({
 	{
 		type = "item",
 		name = "water-heat-exchanger",
-		icon = "__base__/graphics/icons/nuclear-reactor.png",
-		icon_size = 32,
+		icon = "__NuclearRebalance__/graphics/icons/water-heat-exchanger.png",
+		icon_size = 128,
 		subgroup = "nuclear-common",
-		order = "b[water-heat-exchanger]",
+		order = "b-heatex-[water-heat-exchanger]",
 		stack_size = 100
 	},
 	{
 		type = "item",
 		name = "adv-heat-exchanger",
-		icon = "__base__/graphics/icons/nuclear-reactor.png",
-		icon_size = 32,
+		icon = "__NuclearRebalance__/graphics/icons/adv-heat-exchanger.png",
+		icon_size = 128,
 		subgroup = "nuclear-common",
-		order = "b[adv-heat-exchanger]",
+		order = "b-heatex-[adv-heat-exchanger]",
 		stack_size = 100
 	},
 })

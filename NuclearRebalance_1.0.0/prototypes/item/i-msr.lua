@@ -23,8 +23,8 @@ data:extend({
 	{
 		type = "item",
 		name = "msr-reactor-salt",
-		icon = "__base__/graphics/icons/nuclear-reactor.png",
-		icon_size = 32,
+		icon = "__NuclearRebalance__/graphics/icons/msr-reactor-salt.png",
+		icon_size = 128,
 		subgroup = "msr-common",
 		order = "g[msr-reactor-salt]",
 		stack_size = 100
@@ -134,10 +134,10 @@ data:extend({
 	{
 		type = "item",
 		name = "gen-three-electric-grid-interface",
-		icon = "__base__/graphics/icons/nuclear-reactor.png",
-		icon_size = 32,
+		icon = "__NuclearRebalance__/graphics/icons/gen-three-electric-grid-interface.png",
+		icon_size = 128,
 		subgroup = "msr-intermediate",
-		order = "h[gen-three-electric-grid-interface]",
+		order = "h-1-[gen-three-electric-grid-interface]",
 		stack_size = 1
 	}
 })

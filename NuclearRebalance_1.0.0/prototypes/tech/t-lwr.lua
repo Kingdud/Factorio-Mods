@@ -4,9 +4,8 @@ data:extend({
 			{ recipe = "lwr-fuel-rod-reprocessing", type = "unlock-recipe" },
 			{ recipe = "dirty-uranium-enrichment", type = "unlock-recipe" },
 		},
-		--icon = "__NuclearRebalance__/graphics/technology/light-water-gen-2.png",
-		icon = "__base__/graphics/icons/productivity-module.png",
-		icon_size = 32,
+		icon = "__NuclearRebalance__/graphics/recipe/lwr-dirty-enrichment.png",
+		icon_size = 128,
 		name = "lwr-tech-fuel-reprocessing",
 		order = "l-a",
 		prerequisites = {
@@ -29,9 +28,8 @@ data:extend({
 			{ recipe = "lwr-rod", type = "unlock-recipe" },
 			{ recipe = "lwr-fuel-rod-bundle", type = "unlock-recipe" }
 		},
-		--icon = "__NuclearRebalance__/graphics/technology/light-water-gen-2.png",
-		icon = "__base__/graphics/icons/productivity-module.png",
-		icon_size = 32,
+		icon = "__NuclearRebalance__/graphics/technology/lwr-tech-icon-one.png",
+		icon_size = 128,
 		name = "lwr-tech-step-one",
 		order = "l-a",
 		prerequisites = {
@@ -56,9 +54,8 @@ data:extend({
 			{ recipe = "gen-one-electric-grid-interface", type = "unlock-recipe" },
 			{ recipe = "fuel-storage", type = "unlock-recipe" }
 		},
-		--icon = "__NuclearRebalance__/graphics/technology/light-water-gen-2.png",
-		icon = "__base__/graphics/icons/productivity-module.png",
-		icon_size = 32,
+		icon = "__NuclearRebalance__/graphics/technology/lwr-tech-icon-two.png",
+		icon_size = 128,
 		name = "lwr-tech-step-two",
 		order = "l-a",
 		prerequisites = {
@@ -87,9 +84,8 @@ data:extend({
 			{ recipe = "gen-one-turbine-blades", type = "unlock-recipe" },
 			{ recipe = "gen-one-turbine-disk", type = "unlock-recipe" }
 		},
-		--icon = "__NuclearRebalance__/graphics/technology/light-water-gen-2.png",
-		icon = "__base__/graphics/icons/productivity-module-2.png",
-		icon_size = 32,
+		icon = "__NuclearRebalance__/graphics/technology/lwr-tech-icon-three.png",
+		icon_size = 128,
 		name = "lwr-tech-step-three",
 		order = "l-a",
 		prerequisites = {
@@ -115,9 +111,8 @@ data:extend({
 			{ recipe = "lwr-rpv-segment", type = "unlock-recipe" },
 			{ recipe = "water-heat-exchanger", type = "unlock-recipe" }
 		},
-		--icon = "__NuclearRebalance__/graphics/technology/light-water-gen-2.png",
-		icon = "__base__/graphics/icons/productivity-module-3.png",
-		icon_size = 32,
+		icon = "__NuclearRebalance__/graphics/icons/i-lwr.png",
+		icon_size = 128,
 		name = "lwr-tech-final",
 		order = "l-a",
 		prerequisites = {

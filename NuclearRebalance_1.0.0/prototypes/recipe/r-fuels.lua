@@ -33,8 +33,8 @@ data:extend({
 		category = "centrifuging",
 		enabled = false,
 		energy_required = 60,
-		icon = "__base__/graphics/icons/nuclear-fuel-reprocessing.png",
-		icon_size = 32,
+		icon = "__NuclearRebalance__/graphics/recipe/lwr-fuel-reprocessing.png",
+		icon_size = 128,
 		ingredients = {
 			{"used-up-lwr-fuel-rod-bundle", 1},
 			{"steel-plate", 5},
@@ -73,8 +73,8 @@ data:extend({
 		category = "centrifuging",
 		enabled = false,
 		energy_required = 60,
-		icon = "__base__/graphics/icons/nuclear-fuel-reprocessing.png",
-		icon_size = 32,
+		icon = "__NuclearRebalance__/graphics/recipe/lmr-fuel-reprocessing.png",
+		icon_size = 128,
 		ingredients = {
 			{"used-up-lmr-rod", 1},
 			{"steel-plate", 1},

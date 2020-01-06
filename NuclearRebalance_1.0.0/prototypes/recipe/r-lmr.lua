@@ -222,7 +222,9 @@ data:extend({
 			},
 			{"empty-barrel", 1},
 			{"stone", 100}
-		}
+		},
+		icon_size = 32,
+		icon = "__NuclearRebalance__/graphics/recipe/lmr-sodium-coolant.png",
 	},
 })
 
