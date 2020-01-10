@@ -68,7 +68,7 @@ data:extend({
 			{ recipe = "lmr-reactor-hall", type = "unlock-recipe" },
 			{ recipe = "lmr", type = "unlock-recipe" },
 		},
-		icon = "__NuclearRebalance__/graphics/icons/i-lmr.png",
+		icon = "__NuclearRebalance__/graphics/icons/lmr/i-lmr.png",
 		icon_size = 128,
 		name = "lmr-tech-final",
 		order = "l-a",

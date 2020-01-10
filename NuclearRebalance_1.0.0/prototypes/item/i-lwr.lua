@@ -5,7 +5,7 @@ data:extend({
 	{
 		type = "item",
 		name = "fuel-storage",
-		icon = "__NuclearRebalance__/graphics/icons/fuel-storage.png",
+		icon = "__NuclearRebalance__/graphics/icons/lwr/fuel-storage.png",
 		icon_size = 128,
 		subgroup = "lwr-intermediate",
 		order = "c[lwr]-[fuel-storage]",
@@ -14,7 +14,7 @@ data:extend({
 	{
 		type = "item",
 		name = "lwr-reactor-building",
-		icon = "__NuclearRebalance__/graphics/icons/lwr-reactor-building.png",
+		icon = "__NuclearRebalance__/graphics/icons/lwr/lwr-reactor-building.png",
 		icon_size = 128,
 		subgroup = "lwr-intermediate",
 		order = "c[lwr]-[lwr-reactor-building]",
@@ -23,8 +23,8 @@ data:extend({
 	{
 		type = "item",
 		name = "lwr-turbine-hall",
-		icon = "__base__/graphics/icons/nuclear-reactor.png",
-		icon_size = 32,
+		icon = "__NuclearRebalance__/graphics/icons/lwr/lwr-turbine-hall.png",
+		icon_size = 128,
 		subgroup = "lwr-intermediate",
 		order = "c[lwr]-[lwr-turbine-hall]",
 		stack_size = 1
@@ -32,8 +32,8 @@ data:extend({
 	{
 		type = "item",
 		name = "gen-one-site-infrastructure",
-		icon = "__base__/graphics/icons/nuclear-reactor.png",
-		icon_size = 32,
+		icon = "__NuclearRebalance__/graphics/icons/lwr/gen-one-site-infrastructure.png",
+		icon_size = 128,
 		subgroup = "lwr-intermediate",
 		order = "c[lwr]-[gen-one-site-infrastructure]",
 		stack_size = 1
@@ -47,7 +47,7 @@ data:extend({
 	{
 		type = "item",
 		name = "lwr-rpv",
-		icon = "__NuclearRebalance__/graphics/icons/lwr-rpv.png",
+		icon = "__NuclearRebalance__/graphics/icons/lwr/lwr-rpv.png",
 		icon_size = 128,
 		subgroup = "lwr-intermediate",
 		order = "c[lwr]-[lwr-rpv]",
@@ -56,7 +56,7 @@ data:extend({
 	{
 		type = "item",
 		name = "lwr-rpv-segment",
-		icon = "__NuclearRebalance__/graphics/icons/lwr-rpv-segment.png",
+		icon = "__NuclearRebalance__/graphics/icons/lwr/lwr-rpv-segment.png",
 		icon_size = 128,
 		subgroup = "lwr-common",
 		order = "b[lwr]-[lwr-rpv-segment]",
@@ -71,7 +71,7 @@ data:extend({
 	{
 		type = "item",
 		name = "gen-one-turbine",
-		icon = "__NuclearRebalance__/graphics/icons/gen-one-turbine.png",
+		icon = "__NuclearRebalance__/graphics/icons/lwr/gen-one-turbine.png",
 		icon_size = 128,
 		subgroup = "lwr-intermediate",
 		order = "c[lwr]-[gen-one-turbine]",
@@ -80,7 +80,7 @@ data:extend({
 	{
 		type = "item",
 		name = "gen-one-turbine-shaft",
-		icon = "__NuclearRebalance__/graphics/icons/turbine-shaft-gen1.png",
+		icon = "__NuclearRebalance__/graphics/icons/lwr/turbine-shaft-gen1.png",
 		icon_size = 128,
 		subgroup = "lwr-common",
 		order = "b[lwr]-[gen-one-turbine-shaft]",
@@ -89,7 +89,7 @@ data:extend({
 	{
 		type = "item",
 		name = "gen-one-turbine-blades",
-		icon = "__NuclearRebalance__/graphics/icons/turbine-blade-gen1.png",
+		icon = "__NuclearRebalance__/graphics/icons/lwr/turbine-blade-gen1.png",
 		icon_size = 128,
 		subgroup = "lwr-common",
 		order = "b[lwr]-[gen-one-turbine-blades]",
@@ -98,7 +98,7 @@ data:extend({
 	{
 		type = "item",
 		name = "gen-one-turbine-disk",
-		icon = "__NuclearRebalance__/graphics/icons/turbine-disk-gen1.png",
+		icon = "__NuclearRebalance__/graphics/icons/lwr/turbine-disk-gen1.png",
 		icon_size = 128,
 		subgroup = "lwr-intermediate",
 		order = "c[lwr]-[gen-one-turbine-disk]",
@@ -113,7 +113,7 @@ data:extend({
 	{
 		type = "item",
 		name = "gen-one-electric-grid-interface",
-		icon = "__NuclearRebalance__/graphics/icons/gen-one-electric-grid-interface.png",
+		icon = "__NuclearRebalance__/graphics/icons/lwr/gen-one-electric-grid-interface.png",
 		icon_size = 128,
 		subgroup = "lwr-intermediate",
 		order = "c-1-[gen-one-electric-grid-interface]",
@@ -128,7 +128,7 @@ data:extend({
 	{
 		type = "item",
 		name = "lwr",
-		icon = "__NuclearRebalance__/graphics/icons/i-lwr.png",
+		icon = "__NuclearRebalance__/graphics/icons/lwr/i-lwr.png",
 		icon_size = 128,
 		subgroup = "nuclear-finals",
 		order = "z1[lwr]",

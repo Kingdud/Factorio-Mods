@@ -32,9 +32,9 @@ msr_gj_per_thorium_kg = 79420 / SCALE_FACTOR
 lwr_fuel_load_kg_per_gwe = 100000 * SCALE_FACTOR --total fuel inventory, not just fissile.
 lwr_total_enriched_uranium_per_core = lwr_fuel_load_kg_per_gwe * .5
 --should be 22500
-lwr_total_rods = 225
+lwr_total_rods = 1500
 --Should be 155
-lwr_rods_per_bundle = 1
+lwr_rods_per_bundle = 50
 lwr_bundles_per_core = math.ceil(lwr_total_rods / lwr_rods_per_bundle)
 lwr_u235_pct = 3 / 100
 lwr_u238_pct = 1 - lwr_u235_pct

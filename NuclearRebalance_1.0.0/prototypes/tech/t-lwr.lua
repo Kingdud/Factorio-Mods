@@ -111,7 +111,7 @@ data:extend({
 			{ recipe = "lwr-rpv-segment", type = "unlock-recipe" },
 			{ recipe = "water-heat-exchanger", type = "unlock-recipe" }
 		},
-		icon = "__NuclearRebalance__/graphics/icons/i-lwr.png",
+		icon = "__NuclearRebalance__/graphics/icons/lwr/i-lwr.png",
 		icon_size = 128,
 		name = "lwr-tech-final",
 		order = "l-a",

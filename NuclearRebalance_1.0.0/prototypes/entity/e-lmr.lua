@@ -64,7 +64,7 @@ data:extend({
 				scale = 3.7
 			}}
 		},
-		icon = "__NuclearRebalance__/graphics/icons/i-lmr.png",
+		icon = "__NuclearRebalance__/graphics/icons/lmr/i-lmr.png",
 		icon_size = 128,
 		max_health = 400,
 		max_power_output = "1GW",

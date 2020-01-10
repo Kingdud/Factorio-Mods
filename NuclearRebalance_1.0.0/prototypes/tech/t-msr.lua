@@ -67,7 +67,7 @@ data:extend({
 			{ recipe = "msr-reactor-hall", type = "unlock-recipe" },
 			{ recipe = "msr", type = "unlock-recipe" }
 		},
-		icon = "__NuclearRebalance__/graphics/icons/i-msr.png",
+		icon = "__NuclearRebalance__/graphics/icons/msr/i-msr.png",
 		icon_size = 128,
 		name = "msr-tech-final",
 		order = "l-a",
