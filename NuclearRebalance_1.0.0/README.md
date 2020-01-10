@@ -1,4 +1,4 @@
-#Nuclear UPS Grade
+#Nuclear UPS Grade / Nuclear Rebalance.
 
 The purpose of this mod is to make nuclear power viable late game. Normally, late-game megabases always use solar power because of its extreme UPS efficiency. 
 However, vanilla solar arrays which provide 1GW or more of power present two frustrations to players:
@@ -23,23 +23,13 @@ This is comparing apples to apples, the reactor pressure vessels themselves, not
 than the perfect-case scenario, nuclear energy is only around 40% as awesome as present-day (not even best case!) realities. Thus, the idea of this mod was born: to make nuclear power take fewer UPS, and increase the
 power densities to realistic levels while also increasing the materials costs and assembly complexities to realistic levels. 
 
-As reactor temperature increases, steam stops being a viable means to take heat out of the primary coolant loop. MSR reactors will need CO2 gas turbines, and MSR reactors will need helium turbines.
-Recipies for both gases are added in this mod and are part of oil processing. This is realistic, since CO2 emissions are a well known side-effect of burning fossil fuels and 
-[industrial helium is produced as part of natural gas production](https://www.popularmechanics.com/science/health/a4046/why-is-there-a-helium-shortage-10031229/).
-
 Make no mistake, Nuclear Power is not simple to build in the real world. No new raw materials will be added as part of this mod, instead, 
 the quantity of materials and physical size of land needed to build a nuclear site, as well as very long construction times, will be used to bring balance and realism.
 
 Balancing is always hard. Because it's impossible to get a finite mass or volume for one unit of iron/copper in Factorio, the recipes were scaled off what it takes to build a 500MWe, 1GWe, and 1.5GWe nuclear reactor using the 
-base-game components.
+base-game components. The energy that should be in a unit of uranium, however, was fairly easy to figure out. In game, Coal has 4MJ of energy. In real life, 1 Kg of coal (depending on quality) also has around 4 MJ of energy. Thus, one unit of u235/238 is probably one Kg as well. The energy values you see for LWR/LMR/MSR fuels are correct. There really is 80 TJ of energy per Kg of u238 in a fast neutron spectrum reactor. The burnup rates are also realistic, with the sources used to validate these numbers included below.
 
-##A note on fuel
-Unless my math is wrong (and by all means, inform me if you know better details for real-world stuff!) a 500MWe LWR should need around 50 million units of in-game refined (u235/238) uranium in order to turn on. That would be 
-*per* LWR. This is excessive, so in-game you will be allowed to power a reactor on with a single fuel rod bundle. That bundle will still take around 345,000 refined uranium to build, but that's far better than requring quite 
-so much mining before you can get power online. Don't worry, LMR and MSR reactors are *far* easier to fuel, largely because they are able to utilize far more of the energy in their cores!
-
-If you'd like to check my math, see constants.lua. The short version is that 1 unit of u-235 and u-238 in game is roughly 1 gram IRL. This actually works out nicely to each fuel rod needing around 3KG of 
-enriched uranium each, which is around what a IRL fuel rod weighs.
+Lots of good info can be found on the FAQ page, in case you have issues with logic or balance. Also, if you hate the artwork, I don't blame you. I'm not a huge fan of it either. I'm a great engineer, not a great artist. I'm happy to consider art replacements. I can't promise to use anything, but my bar for entry is low. Beating what's already there isn't exactly hard.
 
 ### build_manifest.stock_nuclear_500mw
 copper-ore 34,980
