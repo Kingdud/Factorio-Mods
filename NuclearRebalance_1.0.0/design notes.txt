@@ -1,0 +1,145 @@
+Mass of Iron?
+	
+Mass of Steel?
+	--Iron and Steel have roughly the same mass (steel is 10% more dense IRL). so the 5:1 ratio in Factorio is basically saying one unit of steel is just plain larger than 5 units of iron.
+	--Two recipes use only steel: Rails (technically they use stone too, but not for the metal part) and Empty Barrels.
+	--Rails: 
+		--Standard rails in the U.S. are 130lbs/yard. 
+		--In Factorio, 5.5 units of iron ore (1 iron stick = .5 iron plate, 1 steel = 5 iron plate) yields 2 square meters of rail. 
+		--130 lb/yard = 64.4871 kg/meter
+		--4 linear meters (2 meters on 2 rails = 4 linear meters of rail) @ 64.4871 kg/meter = 257.9484 kg.
+		--If we assume the iron sticks are there for the rail spikes: 1 unit of steel must equal 257.9484 kg.
+	--Empty Barrel:
+		--55 gallon drums IRL are between 35 and 60lbs empty. (15.8757 - 27.2155kg).
+	--Thus, the mass of one unit of steel is somewhere between 16kg and 258kg. Hm.
+
+Components:
+
+LWR: Tier 1
+1. Secondary Containment: RPV, steam generator.
+2. Turbine hall
+3. Condenser
+
+LMR: Tier 2
+--electromagnetic pumps, high throughput for energy use! Cost savings
+--Highest power density, good thermal efficiency
+--Contamination problems
+--High power density translates to fewer raw materials needed, because it's physically smaller.
+--Tier 1 can use a steam turbine, but teirs 2+ and MSR reactors must all use gas-turnbines, not steam.
+-Tier 1: Mercury (low efficiency)
+-Tier 2: Alkali metals (fragile, buildings have 1-10 HP, sneezing on them will cause them to explode!)
+-Tier 3: Lead
+
+MSR: Tier 3
+--Requires helium turbines to run.
+--Helium produced as byproduct of oil PG production. (1-2% yield from natural gas IRL, so 1 unit of helium per 100 units of light oil -> PG cracked)
+1. Seconday Containment: RPV, steam generator
+2. Turbine Hall
+3. Reprocessing facility
+
+RPV needs a supply of graphite (refined stone product?) to operate; long cycle time on use though.
+
+
+To bypass needing fluid to pass between buildings, the turbine hall, reactor building, and cooling solution will all be rolled into a single asset.
+I don't like this solution, but sometimes you do what you can, not what is ideal. For 1.0, I'm planning a very simple number of reactors available,
+but going forward I would like to add more recipies to make mix-and-match options more viable.
+
+Also going forward a teir with/without secondary containment where secondary containment is mostly a concrete & steel structure, but it provides a boon
+ against players and biters in that it has massive HP (10,000hp and 80% acid resist). Or, you can run without containment and when the core gets killed
+ ...well, 4TW of energy has to go somewhere (realistic-ish values for a prompt critical event on a 1GW class reactor). It's like using an atomic bomb,
+ but instead of killing everything in one big boom, it poisons the land for a century or two. Figuring out how to poison the land is a 2.0 (or later) thing.
+
+Not having secondary containment will cause higher pollution from nuclear.
+
+Recipe options v1.0:
+--Overall idea: The recpies available will be the most common version of the technology we know to build today for LWR, and the best version for LMR/MSR.
+
+Tier 1: 25% plant efficiency (1.0 nuclear power circa 1980)
+-With or without secondary containment
+-2GWth class RPV
+-LWR contra-flow steam generator
+-500MWe turbine hall
+-2GWth class Condenser
+
+--2.0 notes: 
+---Research lines for steam generator designs, upgrading from 'simple' heat exchanger to contra-flow heat exchanger for an efficiency gain.
+---Turbine research lines for intermediate and low pressure turbines for an efficiency gain.
+
+Tier 2:
+-With or without secondary containment
+-3GWth class RPV - LMR
+-LMR steam generator
+-1GWe turbine hall
+-3GWth class condenser
+
+Tier 3:
+-No explosion risk without containment. Poisoned area will be small, 1-chunk maximum size (1000 chunks maximum for other reactor types)
+-4GWth class RPV - MSR
+-MSR steam generator
+-1.8GWe turbine hall
+-4GWth class condenser
+
+
+--------(approximate) Current Materials needs to build teir 1/2/3 reactors in Factorio using existing hardware / setups.
+
+Needed @ 500Mw	
+Water	20000
+Iron	37105
+Copper	24965
+Stone	2000
+Oil	40000
+Coal	2000
+	
+Needed @ 1GW	
+Water	40000
+Iron	73950
+Copper	50880
+Stone	4000
+Oil	80000
+Coal	4000
+	
+Needed @ 1.5GW	
+Water	50000
+Iron	99325
+Copper	67845
+Stone	5000
+Oil	100000
+Coal	5000
+
+
+-------(approximate) amount of material that should be used:
+
+Tier 1 (500MWe)
+
+
+---How to build a reactor:
+
+Tier 1:
+--RPV
+	10000 water, 10000 iron
+	--1 Sealed Tank of Purified Light Water: 10 iron, 2 steel, + Chemical Plant (water purification) ==> Sealed Tank of Purified Light Water
+	--20 RPV Section: 100 iron, 20 steel ==> RPV Section
+--Nuclear Site Concrete Prefab
+	2000 stone, 40000 oil, 2000 coal
+	--500 concrete, 500 red circuits
+--Turbine
+	20500 iron, 13000 copper
+	--100 Field Winding Section: 200 Copper Cable ==> Field Winding Section
+	--1 Turbine Shaft: 100 steel ==> Turbine Shaft
+	--10 Assembled Turbine Disc: 70 Turbine Blades, 1 Turbine Disc, 15 steel
+		--700 Turbine Blade: 5 iron, 4 steel ==> Turbine Blade (stacks to 100)
+		--10 Turbine Disc: 25 steel ==> Turbine Disc 
+	--1 Commutator: 5 steel, 30 copper, 30 commutator Plate
+		--30 Commutator plate: 100 copper 
+	--5 Permanent Magnet: 50 iron, 10 steel
+--Heat Exchanger
+	5000 iron, 6000 copper
+	--50 Copper Pipe matrix: 100 copper, 100 iron
+	--10 Brazing Supplies: 100 copper
+--Cooling Tower
+	10000 water, 1500 iron, 6000 copper
+	--1 Sealed Tank of Purified Light Water: 10 iron, 2 steel, + Chemical Plant (water purification) ==> Sealed Tank of Purified Light Water
+	--60 Radiator Section: 100 copper, 5 steel
+
+Tier 2:
+--
