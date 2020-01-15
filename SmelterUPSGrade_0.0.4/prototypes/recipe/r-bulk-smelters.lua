@@ -1,3 +1,5 @@
+require("prototypes.constants")
+
 data:extend{
   {type = "recipe-category", name = "bulksmelting"},
 }
@@ -11,7 +13,7 @@ recipe_smelter.icon = nil
 recipe_smelter.icons = {
 	{
 		icon = "__base__/graphics/icons/electric-furnace.png",
-		tint = {r= 1, g = .647, b = 0, a = 1},
+		tint = building_tint,
 		icon_size = 32
 	}
 }
@@ -34,7 +36,7 @@ recipe_centrifuge.icon = nil
 recipe_centrifuge.icons = {
 	{
 		icon = "__base__/graphics/icons/centrifuge.png",
-		tint = {r= 1, g = .647, b = 0, a = 1},
+		tint = building_tint,
 		icon_size = 32
 	}
 }
@@ -59,108 +61,77 @@ data:extend{
 	{
 		type = "recipe",
 		icon = "__base__/graphics/icons/iron-plate.png",
-		icon_size = 32,
+		icon_size = 32
 		category = "bulksmelting",
-		energy_required = 3.5,
+		energy_required = 3.5 * ore_batching_factor,
 		enabled = false,
+		hide_from_player_crafting = true,
 		ingredients = 
 		{
-			{"iron-ore", 405}
+			{"iron-ore", r_ore_in}
 		},
 		name = "bulk-iron-plate",
 		--result = "iron-plate",
-		--result_count = 405,
+		--result_count = total_outputs_ore * MAX_OUTPUT_STACK_SIZE,
 		results = {
-			{type="item", name="iron-plate", amount=45},
-			{type="item", name="iron-plate", amount=45},
-			{type="item", name="iron-plate", amount=45},
-			{type="item", name="iron-plate", amount=45},
-			{type="item", name="iron-plate", amount=45},
-			{type="item", name="iron-plate", amount=45},
-			{type="item", name="iron-plate", amount=45},
-			{type="item", name="iron-plate", amount=45},
-			{type="item", name="iron-plate", amount=45}
+			--results get filled in later
 		},
 		subgroup = "raw-material"
 	},
 	{
 		type = "recipe",
 		icon = "__base__/graphics/icons/copper-plate.png",
-		icon_size = 32,
+		icon_size = 32
 		category = "bulksmelting",
-		energy_required = 3.5,
+		energy_required = 3.5 * ore_batching_factor,
 		enabled = false,
 		ingredients = 
 		{
-			{"copper-ore", 405}
+			{"copper-ore", r_ore_in}
 		},
 		name = "bulk-copper-plate",
 		--result = "copper-plate",
-		--result_count = 405,
+		--result_count = total_outputs_ore * MAX_OUTPUT_STACK_SIZE,
 		results = {
-			{type="item", name="copper-plate", amount=45},
-			{type="item", name="copper-plate", amount=45},
-			{type="item", name="copper-plate", amount=45},
-			{type="item", name="copper-plate", amount=45},
-			{type="item", name="copper-plate", amount=45},
-			{type="item", name="copper-plate", amount=45},
-			{type="item", name="copper-plate", amount=45},
-			{type="item", name="copper-plate", amount=45},
-			{type="item", name="copper-plate", amount=45}
+			--results get filled in later
 		},
 		subgroup = "raw-material"
 	},
 	{
 		type = "recipe",
 		icon = "__base__/graphics/icons/stone-brick.png",
-		icon_size = 32,
+		icon_size = 32
 		category = "bulksmelting",
-		energy_required = 3.5,
+		energy_required = 3.5 * ore_batching_factor,
 		enabled = false,
 		ingredients = 
 		{
-			{"stone", 405}
+			{"stone", r_ore_in}
 		},
 		name = "bulk-stone-brick",
 		--result = "stone-brick",
-		--result_count = 405,
+		--result_count = total_outputs_ore * MAX_OUTPUT_STACK_SIZE,
 		results = {
-			{type="item", name="stone-brick", amount=45},
-			{type="item", name="stone-brick", amount=45},
-			{type="item", name="stone-brick", amount=45},
-			{type="item", name="stone-brick", amount=45},
-			{type="item", name="stone-brick", amount=45},
-			{type="item", name="stone-brick", amount=45},
-			{type="item", name="stone-brick", amount=45},
-			{type="item", name="stone-brick", amount=45},
-			{type="item", name="stone-brick", amount=45}
+			--results get filled in later
 		},
 		subgroup = "raw-material"
 	},
 	{
 		type = "recipe",
 		icon = "__base__/graphics/icons/steel-plate.png",
-		icon_size = 32,
+		icon_size = 32
 		category = "bulksmelting",
 		enabled = false,
-		energy_required = 17.5,
+		energy_required = 17.5 * ore_batching_factor,
 		ingredients = 
 		{
-			{"iron-plate", 2025}
+			{"iron-plate", r_ore_in*5}
 		},
 		name = "bulk-steel",
 		--result = "steel-plate",
-		--result_count = 405,
+		--result_count = total_outputs_ore * MAX_OUTPUT_STACK_SIZE,
 		results = {
-			{type="item", name="steel-plate", amount=45},
-			{type="item", name="steel-plate", amount=45},
-			{type="item", name="steel-plate", amount=45},
-			{type="item", name="steel-plate", amount=45},
-			{type="item", name="steel-plate", amount=45},
-			{type="item", name="steel-plate", amount=45},
-			{type="item", name="steel-plate", amount=45},
-			{type="item", name="steel-plate", amount=45},
-			{type="item", name="steel-plate", amount=45}
+			--results get filled in later
 		},
 		subgroup = "raw-material"
 	},
@@ -169,25 +140,18 @@ data:extend{
 		type = "recipe",
 		category = "bulkcentrifuging",
 		enabled = false,
-		energy_required = 10,
+		hide_from_player_crafting = true,
+		energy_required = 10 * uranium_batching_factor,
 		icon = "__base__/graphics/icons/uranium-processing.png",
-		icon_size = 32,
+		icon_size = 32
 		ingredients = {
-			{"uranium-ore",4050}
+			{"uranium-ore",r_uranium_in}
 		},
 		name = "bulk-uranium-processing",
 		order = "k[uranium-processing]",
 		results = {
-			{
-			  amount = 405,
-			  name = "uranium-235",
-			  probability = 0.0070000000000000009
-			},
-			{
-			  amount = 405,
-			  name = "uranium-238",
-			  probability = 0.99299999999999997
-			}
+			{ amount = r_total_uranium_output, name = "uranium-235", probability = 0.0070000000000000009 },
+			{ amount = r_total_uranium_output, name = "uranium-238", probability = 0.99299999999999997	}
 		},
 		subgroup = "raw-material",
 	},
@@ -196,39 +160,60 @@ data:extend{
 		allow_decomposition = false,
 		category = "bulkcentrifuging",
 		enabled = false,
-		energy_required = 50,
+		hide_from_player_crafting = true,
+		energy_required = 50 * kovarex_batching_factor,
 		icon = "__base__/graphics/icons/kovarex-enrichment-process.png",
-		icon_size = 32,
+		icon_size = 32
 		ingredients = {
-			{"uranium-235",16200},
-			{"uranium-238",2025}
+			{"uranium-235",r_u235_in},
+			{"uranium-238",r_u238_in}
 		},
 		main_product = "",
 		name = "bulk-kovarex",
 		order = "r[uranium-processing]-c[kovarex-enrichment-process]",
 		results = {
 			--simple version, but it blocks output flow
-			--{amount = 16605,name = "uranium-235"},
-			--{amount = 810,name = "uranium-238"}
+			--{amount = r_u235_total_output * MAX_OUTPUT_STACK_SIZE,name = "uranium-235"},
+			--{amount = r_u238_total_output * MAX_OUTPUT_STACK_SIZE,name = "uranium-238"}
 			--Non-blocking version, requires 35 output slots.
-			{amount = 5,name = "uranium-235"},
-			{amount = 10,name = "uranium-238"},
 		},
 		subgroup = "intermediate-product",
 	},
 }
 
---We create stacks of 25 because a prod-module trigger creates stacks of 50, and we want the machine to keep working with 100% uptime
--- not block because it doesn't have enough output space for another stack of outputs. 32 would work, but math for 25 makes my brain
--- hurt less.
-local divisor = 25
+--Populate ore recipe results
+local remainder = 0
+for key,value in pairs({
+	["bulk-iron-plate"]="iron-plate",
+	["bulk-copper-plate"]="copper-plate",
+	["bulk-stone-brick"]="stone-brick",
+	["bulk-steel"]="steel-plate"}) do
+		for i=1,math.floor(total_outputs_ore),1 do
+			table.insert(data.raw.recipe[key].results,{amount = MAX_OUTPUT_STACK_SIZE,name = value})
+		end
+		
+		remainder = (total_outputs_ore - math.floor(total_outputs_ore)) * MAX_OUTPUT_STACK_SIZE
+		--this is needed to convert to an int
+		remainder = math.floor(remainder)
+		table.insert(data.raw.recipe[key].results,{amount = remainder,name = value})
+end
 
-for i=1, (16600/divisor) do
-	table.insert(data.raw.recipe["bulk-kovarex"].results,{amount = divisor,name = "uranium-235"})
+--populate kovarex results
+for i=1,math.floor(r_u235_total_output),1 do
+	table.insert(data.raw.recipe["bulk-kovarex"].results,{amount = MAX_OUTPUT_STACK_SIZE,name = "uranium-235"})
 end
-for i=1, (800/divisor) do
-	table.insert(data.raw.recipe["bulk-kovarex"].results,{amount = divisor,name = "uranium-238"})
+remainder = (r_u235_total_output - math.floor(r_u235_total_output)) * MAX_OUTPUT_STACK_SIZE
+--this is needed to convert to an int
+remainder = math.floor(remainder)
+table.insert(data.raw.recipe["bulk-kovarex"].results,{amount = remainder,name = "uranium-235"})
+
+for i=1,math.floor(r_u238_total_output),1 do
+	table.insert(data.raw.recipe["bulk-kovarex"].results,{amount = MAX_OUTPUT_STACK_SIZE,name = "uranium-238"})
 end
+remainder = (r_u238_total_output - math.floor(r_u238_total_output)) * MAX_OUTPUT_STACK_SIZE
+--this is needed to convert to an int
+remainder = math.floor(remainder)
+table.insert(data.raw.recipe["bulk-kovarex"].results,{amount = remainder,name = "uranium-238"})
 
 --Add above recipes to whitelist for productivity modules.
 for _,recipe in pairs({"bulk-iron-plate","bulk-copper-plate","bulk-stone-brick","bulk-steel","bulk-uranium-processing","bulk-kovarex"}) do

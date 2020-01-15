@@ -1,10 +1,9 @@
 --Item definitions
 local item_smelter = table.deepcopy(data.raw.item["electric-furnace"])
---item_smelter.icon = "__base__/graphics/icons/assembling-machine-2.png"
 item_smelter.icons = {
 	{
 		icon = "__base__/graphics/icons/electric-furnace.png",
-		tint = {r= 1, g = .647, b = 0, a = 1},
+		tint = building_tint,
 		icon_size = 32
 	}
 }
@@ -18,7 +17,7 @@ item_centrifuge.icon = nil
 item_centrifuge.icons = {
 	{
 		icon = "__base__/graphics/icons/centrifuge.png",
-		tint = {r= 1, g = .647, b = 0, a = 1},
+		tint = building_tint,
 		icon_size = 32
 	}
 }

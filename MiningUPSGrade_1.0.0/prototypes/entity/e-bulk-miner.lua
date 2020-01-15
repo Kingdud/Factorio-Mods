@@ -14,6 +14,7 @@ newitem.icons = {
 		icon_size = 32
 	}
 }
+newitem.module_specification.module_info_icon_scale = SCALE_FACTOR
 newitem.energy_source.emissions_per_minute = replacement_pollution_value
 newitem.energy_usage = tostring(replacement_miner_power) .. "kW"
 newitem.mining_speed = replacement_miner_speed

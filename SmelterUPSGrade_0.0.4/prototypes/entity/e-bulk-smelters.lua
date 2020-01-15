@@ -1,4 +1,4 @@
-local BUILDING_SCALE = 8.33
+require("prototypes.constants")
 
 --Entity definitions
 local entity_smelter = table.deepcopy(data.raw.furnace["electric-furnace"])
@@ -7,11 +7,12 @@ entity_smelter.icon = nil
 entity_smelter.icons = {
 	{
 		icon = "__base__/graphics/icons/electric-furnace.png",
-		tint = {r= 1, g = .647, b = 0, a = 1},
+		tint = building_tint,
+		icon_size = 32
 	}
 }
 entity_smelter.name = "bulk-smelter"
-entity_smelter.result_inventory_size = 9
+entity_smelter.result_inventory_size = r_output_windows_needed
 --This is what it should be, but it's 10% too slow for some reason I can't figure out.
 --entity_smelter.crafting_speed = 0.34625322997416
 entity_smelter.crafting_speed = 0.380878552971576
@@ -53,6 +54,8 @@ entity_smelter.minable = {
 }
 --For reasons I don't understand, the offsets need additional padding to scale correctly on top of the building scale itself.
 local OFFSET_SCALING_FACTOR = 1.95
+entity_smelter.scale_entity_info_icon = true
+entity_smelter.alert_icon_scale = BUILDING_SCALE
 entity_smelter.animation.layers[1].hr_version.scale = BUILDING_SCALE
 entity_smelter.animation.layers[1].hr_version.shift[1] = entity_smelter.animation.layers[1].hr_version.shift[1] * BUILDING_SCALE*OFFSET_SCALING_FACTOR
 entity_smelter.animation.layers[1].hr_version.shift[2] = entity_smelter.animation.layers[1].hr_version.shift[2] * BUILDING_SCALE*OFFSET_SCALING_FACTOR
@@ -87,7 +90,8 @@ local entity_centrifuge = table.deepcopy(data.raw["assembling-machine"]["centrif
 entity_centrifuge.icons = {
 	{
 		icon = "__base__/graphics/icons/centrifuge.png",
-		tint = {r= 1, g = .647, b = 0, a = 1},
+		tint = building_tint,
+		icon_size = 32
 	}
 }
 entity_centrifuge.name = "bulk-centrifuge"
@@ -95,6 +99,9 @@ entity_centrifuge.result_inventory_size = 1400
 entity_centrifuge.crafting_speed = 0.17312661498708
 --Similar to the smelter, this will pull too much power due to the beacons around it, so we detune it from 141750kW
 entity_centrifuge.energy_usage = "46428kW"
+entity_centrifuge.module_specification.module_info_icon_scale = BUILDING_SCALE
+new_mod_icon_shift = 1.5 * BUILDING_SCALE
+entity_centrifuge.module_specification.module_info_icon_shift = {0,	new_mod_icon_shift}
 entity_centrifuge.collision_box = {
 	{
 	  -24.8,
@@ -128,6 +135,8 @@ entity_centrifuge.minable = {
 	mining_time = 0.2,
 	result = "bulk-centrifuge"
 }
+entity_centrifuge.scale_entity_info_icon = true
+entity_centrifuge.alert_icon_scale = BUILDING_SCALE
 entity_centrifuge.animation.layers[1].hr_version.scale = BUILDING_SCALE
 entity_centrifuge.animation.layers[2].hr_version.scale = BUILDING_SCALE
 entity_centrifuge.animation.layers[3].hr_version.scale = BUILDING_SCALE

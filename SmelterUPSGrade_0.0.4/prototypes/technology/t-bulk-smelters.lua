@@ -3,8 +3,14 @@ data:extend(
   {
     type = "technology",
     name = "bulk-smelters",
-    icon = "__base__/graphics/icons/electric-furnace.png",
-    icon_size = 32,
+	icon = nil,
+	icons = {
+		{
+			icon = "__base__/graphics/icons/electric-furnace.png",
+			tint = building_tint,
+			icon_size = 32
+		}
+	},
     effects =
     {
 	  --someone less lazy than me can convert this to a for-loop so it will support other mods like Bobs/angels
