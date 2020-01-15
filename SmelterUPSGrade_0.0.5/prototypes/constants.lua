@@ -2,6 +2,7 @@ building_tint = {r= 1, g = .647, b = 0, a = 1}
 
 BUILDING_SCALE = 8.33
 MAX_OUTPUT_STACK_SIZE = 33
+local disable_stack_splitting = true
 
 --Ore->Plate/brick section
 ore_batching_factor = 1
@@ -11,6 +12,10 @@ local plate_out = 405
 r_ore_in = ore_in * ore_batching_factor
 total_outputs_ore = (plate_out * ore_batching_factor) / MAX_OUTPUT_STACK_SIZE
 r_output_windows_needed = math.ceil(total_outputs_ore)
+
+if (disable_stack_splitting) then
+	r_output_windows_needed = 1
+end
 
 --Uranium Ore section
 uranium_batching_factor = 1
@@ -35,3 +40,8 @@ r_u238_in = u238_in * kovarex_batching_factor
 
 r_u235_total_output = (u235_out * kovarex_batching_factor) / MAX_OUTPUT_STACK_SIZE
 r_u238_total_output = (u238_out * kovarex_batching_factor) / MAX_OUTPUT_STACK_SIZE
+
+uranium_output_windows_needed = math.ceil(r_u235_total_output + r_u238_total_output)
+if (disable_stack_splitting) then
+	uranium_output_windows_needed = 1
+end

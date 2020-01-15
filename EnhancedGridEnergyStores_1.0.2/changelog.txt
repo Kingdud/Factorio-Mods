@@ -1,8 +1,0 @@
-1.0.2
-* Russian localization from Diamonde123 on github!
-------------------------------
-1.0.1
-* Fixed lithium ion batter recipe
-------------------------------
-1.0.0
-* Initial Version

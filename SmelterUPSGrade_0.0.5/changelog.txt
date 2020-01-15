@@ -1,0 +1,20 @@
+---------------------------------------------------------------------------------------------------
+Version: 0.0.5
+Date: 1/14/2020
+  Changes:
+    - Optional release with some fixed graphics scaling assets, but also simplified the recipes. With the new stack inserter mod I created (MoveFullStacks) it is no longer nessessary to split the results into multiple chunks. If you do not like this and prefer to stick with vanilla stack inserters, please downgrade back to 0.0.4.
+  Options:
+    - The mod can be (manually, unzip and change) swapped over to using multiple output windows and even supports batching of jobs (IE: operate on sets of 4050 ore instead of 405). I found these settings to not improve throughput and so disabled them, but left the work I did in the mod.
+---------------------------------------------------------------------------------------------------
+Version: 0.0.4
+  Changes:
+    - Fixed recipies for copper plate, steel, and stone bricks to all use partial stacks like iron does, to achieve full uptime/throughput.
+    - Fix typos in 0.0.3 release.
+---------------------------------------------------------------------------------------------------
+Version: 0.0.2
+  Changes:
+    - Changed stack size of bulk smelters to be 1 instead of 50.
+---------------------------------------------------------------------------------------------------
+Version: 0.0.1
+  Info:
+    - Initial Release

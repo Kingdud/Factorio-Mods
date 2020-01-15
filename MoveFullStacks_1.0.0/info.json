@@ -6,9 +6,7 @@
 "title":"Move Full Stacks",
 "homepage":"",
 "dependencies": [
-	"base >= 0.17",
-	"?SmelterUPSGrade >= 0.0.4",
-	"?MiningUPSGrade >= 1.0.0"
+	"base >= 0.17"
 	],
 "description":"Rather than revert to rediculously fast inserters this mod allows stack inserters to grab whole stacks at a time. There are three upgrade levels, the first for grabbing stacks of 50 (so, generally, an entire stack of ore in one rotation). The next is for stacks of 100, and 200. All three researches require space science. The Factorio Mod API doesn't allow changing the base capacity of an inserter, so ALL stack inserters will get this upgrade. This is a limitation of the game. Sorry."
 }

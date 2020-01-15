@@ -95,7 +95,7 @@ entity_centrifuge.icons = {
 	}
 }
 entity_centrifuge.name = "bulk-centrifuge"
-entity_centrifuge.result_inventory_size = 1400
+entity_centrifuge.result_inventory_size = uranium_output_windows_needed
 entity_centrifuge.crafting_speed = 0.17312661498708
 --Similar to the smelter, this will pull too much power due to the beacons around it, so we detune it from 141750kW
 entity_centrifuge.energy_usage = "46428kW"
