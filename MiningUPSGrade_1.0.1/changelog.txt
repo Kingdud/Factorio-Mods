@@ -1,0 +1,12 @@
+---------------------------------------------------------------------------------------------------
+Version: 1.0.1
+Date: 1/21/2020
+  Changes:
+    - Added Mod Setting (startup) for how dense the new miners should be. Default is 25:1, but you can go up to 250:1. The Power/pollution/recipe costs scale with density!
+  Bugfix:
+    - Corrected the math for power usage. Explained what was going on with the math.
+---------------------------------------------------------------------------------------------------
+Version: 1.0.0
+Date: 1/14/2020
+  Info:
+    - Initial Release

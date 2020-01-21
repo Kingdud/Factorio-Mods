@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.0.4
+Date: 1/20/2020
+  Balance:
+    - Changed rewards for vanilla/nimh/li-ion/flywheel satellites from 1k/1k/2k/10k to 1k/2k/3.5k/16.5k to fairly align with material costs required to build them. I hadn't written recipe_calc (see github) at the time I made this mod. I just now got around to seeing what the material costs for building these was. Ouch!
+---------------------------------------------------------------------------------------------------
 Version: 1.0.3
 Date: 1/14/2020
   Changes:

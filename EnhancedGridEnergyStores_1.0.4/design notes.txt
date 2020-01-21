@@ -20,3 +20,12 @@ Tier 3: Vacuum Flywheel grid storage
 -Reminder: Cylinder, not cube. 90% volume efficiency and 90% energy conversion efficiency! That's why it's 91 instead of 128GJ.
 -Graphics notes: These would just have a little 'plug' on the surface. Most of their mass would actually be underground, in case the rotor exploded.
 -Orientation cannot be changed. They must always be aligned with the planet's rotation for efficiency.
+
+
+--Recipe cost data // added 1/20/2020--
+Vanilla satellite: 23,800 non-infinite items (mostly copper)
+nimh-sat: 53,100 non-inf (mostly 50% iron, 25% copper, 25% other)
+li-ion sat: 85,300 non-inf (iron/copper/stone all balanced-ish)
+flywheel sat: 399,233 non-inf, also 270k petro-gas
+
+Rebalancing of science rewards clearly needed! Old rewards are 1k/1k/2k/10k. Should be: 1k/2k/3.5k/16.5k
