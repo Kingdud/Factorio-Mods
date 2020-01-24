@@ -70,3 +70,5 @@ item_flywheel_satellite.result = "flywheel-satellite"
 item_flywheel_satellite.name = "flywheel-satellite"
 item_flywheel_satellite.order = "m[satellite]c"
 data:extend({item_flywheel_satellite})
+
+data.raw["rocket-silo"]["rocket-silo"].rocket_result_inventory_size = 9

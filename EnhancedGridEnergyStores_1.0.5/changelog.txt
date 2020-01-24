@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.0.5
+Date: 1/24/2020
+  Bugfix:
+    - Rocket result inventories do not allow higher-than-normal stack outputs unlike other assemblers. Thus, I had to increase the number of result boxes in order for the player to actually recieve all the space science packs they were supposed to!
+---------------------------------------------------------------------------------------------------
 Version: 1.0.4
 Date: 1/20/2020
   Balance:

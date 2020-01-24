@@ -16,9 +16,9 @@ data:extend({
 		name = "msr-reactor-vessel-segment",
 		icon = "__NuclearRebalance__/graphics/icons/msr/msr-reactor-vessel-segment.png",
 		icon_size = 128,
-		subgroup = "msr-common",
+		subgroup = "msr-intermediate",
 		order = "g[msr-reactor-vessel-segment]",
-		stack_size = 50
+		stack_size = 1
 	},
 	{
 		type = "item",
@@ -27,7 +27,7 @@ data:extend({
 		icon_size = 128,
 		subgroup = "msr-common",
 		order = "g[msr-reactor-salt]",
-		stack_size = 100
+		stack_size = 20
 	}
 })
 
