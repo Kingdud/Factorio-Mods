@@ -11,4 +11,5 @@ newitem.icons = {
 		icon_size = 32
 	}
 }
+newitem.stack_size = 1
 data:extend({newitem})
