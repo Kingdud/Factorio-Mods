@@ -135,6 +135,7 @@ entity_centrifuge.minable = {
 	mining_time = 0.2,
 	result = "bulk-centrifuge"
 }
+entity_centrifuge.fluid_boxes = nil
 entity_centrifuge.scale_entity_info_icon = true
 entity_centrifuge.alert_icon_scale = BUILDING_SCALE
 entity_centrifuge.animation.layers[1].hr_version.scale = BUILDING_SCALE

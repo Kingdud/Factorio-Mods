@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.0.6
+Date: 2/2/2020
+  Bugfix:
+    - Removed mod conflict with Hydrogen Power Systems; and any other mod that tries to put a fluid box on a centrifuge.
+---------------------------------------------------------------------------------------------------
 Version: 0.0.5
 Date: 1/14/2020
   Changes:
