@@ -4,7 +4,7 @@ item_smelter.icons = {
 	{
 		icon = "__base__/graphics/icons/electric-furnace.png",
 		tint = building_tint,
-		icon_size = 32
+		icon_size = data.raw.item["electric-furnace"].icon_size
 	}
 }
 item_smelter.name = "bulk-smelter"
@@ -18,7 +18,7 @@ item_centrifuge.icons = {
 	{
 		icon = "__base__/graphics/icons/centrifuge.png",
 		tint = building_tint,
-		icon_size = 32
+		icon_size = data.raw.item["centrifuge"].icon_size
 	}
 }
 item_centrifuge.name = "bulk-centrifuge"
