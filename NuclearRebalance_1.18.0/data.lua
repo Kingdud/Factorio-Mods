@@ -28,7 +28,8 @@ require("prototypes.tech.t-msr")
 data:extend({
 	{
 		icon = "__base__/graphics/icons/uranium-235.png",
-		icon_size = 32,
+		icon_mipmaps = 4,
+		icon_size = 64,
 		name = "adv-nuclear",
 		order = "Z",
 		order_in_recipe = "0",
