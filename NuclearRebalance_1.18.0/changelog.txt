@@ -1,8 +1,9 @@
 ---------------------------------------------------------------------------------------------------
 Version: 1.18.0
-Date: 2/9/2020
+Date: 3/3/2020
   Changes:
-    - info.json bump to support .18
+    - Changed base prototype from generator to the new burner-generator prototype, now that Wube finally published the new prototype spec.
+    - Created missing orientations, as the new prototype allows for 4 directions of placement instead of 2.
 ---------------------------------------------------------------------------------------------------
 Version: 1.0.2
 Date: 1/24/2020

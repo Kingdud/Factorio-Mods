@@ -68,65 +68,66 @@ data:extend({
 				},
 				}
 			},
+			--new
 			east = {
 				layers = {
 				{
 					filename = "__NuclearRebalance__/graphics/entity/e-msr-e.png",
 					frame_count = 1,
-					width = 587,
-					height = 715,
+					width = 586,
+					height = 707,
 					hr_version = nil,
 					line_length = 1,
 					shift = {
 						0,
-						-16.5
+						-6
 					},
-					scale = 3.18,
+					scale = 3.2,
 				},
 				{
 					draw_as_shadow = true,
 					filename = "__NuclearRebalance__/graphics/entity/e-msr-e-shadow.png",
 					frame_count = 1,
-					width = 769,
-					height = 602,
+					width = 770,
+					height = 604,
 					hr_version = nil,
 					line_length = 1,
 					shift = {
-						21,
-						-5.5
+						9.25,
+						-1 -- was -.5
 					},
-					scale = 3.18
-				},
-				}
+					scale = 3.2
+				}}
 			},
+			--Blender note: Multiply Y axis by 1.36 to get correct scaling.
 			south = {
 				layers = {
 				{
 					filename = "__NuclearRebalance__/graphics/entity/e-msr-s.png",
 					frame_count = 1,
-					width = 587,
-					height = 944,
+					width = 586,
+					height = 920,
 					hr_version = nil,
 					line_length = 1,
 					shift = {
 						0,
-						-16.5
+						-17
 					},
-					scale = 3.18,
+					scale = 3.2,
 				},
 				{
 					draw_as_shadow = true,
 					filename = "__NuclearRebalance__/graphics/entity/e-msr-s-shadow.png",
 					frame_count = 1,
 					width = 782,
-					height = 720,
+					height = 707,
 					hr_version = nil,
 					line_length = 1,
 					shift = {
-						21,
-						-5.5
+						9.8125,
+						-6.5
 					},
-					scale = 3.18
+					scale = 3.2
 				},
 				}
 			},
@@ -158,10 +159,9 @@ data:extend({
 						-5.5
 					},
 					scale = 3.18
-				},
-				}
+				}}
 			}
-		}
+		},
 		icon = "__NuclearRebalance__/graphics/icons/msr/i-msr.png",
 		icon_size = 128,
 		max_health = 7000,

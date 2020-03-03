@@ -34,36 +34,128 @@ data:extend({
 			"placeable-neutral",
 			"player-creation"
 		},
-		--For sanity's sake, the animation direction is based on which way the turbine hall is pointing.
-		horizontal_animation = {
-			layers = {
-			{
-				filename = "__NuclearRebalance__/graphics/entity/e-lwr-h.png",
-				frame_count = 1,
-				width = 771,
-				height = 606,
-				hr_version = nil,
-				line_length = 1,
-				shift = {
-					0,
-					-11.5
+		--For sanity's sake, the animation direction is based on which way the reactor hall is pointing, since the turbine hall is in the middle.
+		--Note: in blender, use 1.3 instead of 1.4 for the scaling offests, since the fence is 2m high, this will yield the desired result.
+		animation = {
+			north = {
+				layers = {
+				{
+					filename = "__NuclearRebalance__/graphics/entity/e-lwr-n.png",
+					frame_count = 1,
+					width = 383,
+					height = 1005,
+					hr_version = nil,
+					line_length = 1,
+					shift = {
+						0,
+						-11.5
+					},
+					scale = 3.26
 				},
-				scale = 3.28
+				{
+					draw_as_shadow = true,
+					filename = "__NuclearRebalance__/graphics/entity/e-lwr-n-shadow.png",
+					frame_count = 1,
+					width = 616,
+					height = 780,
+					hr_version = nil,
+					line_length = 1,
+					shift = {
+						12,
+						0
+					},
+					scale = 3.26
+				}}
 			},
-			{
-				draw_as_shadow = true,
-				filename = "__NuclearRebalance__/graphics/entity/e-lwr-h-shadow.png",
-				frame_count = 1,
-				width = 1006,
-				height = 522,
-				hr_version = nil,
-				line_length = 1,
-				shift = {
-					12.125,
-					-7
+			east = {
+				layers = {
+				{
+					filename = "__NuclearRebalance__/graphics/entity/e-lwr-e.png",
+					frame_count = 1,
+					width = 771,
+					height = 606,
+					hr_version = nil,
+					line_length = 1,
+					shift = {
+						0,
+						-11.5
+					},
+					scale = 3.28
 				},
-				scale = 3.28
+				{
+					draw_as_shadow = true,
+					filename = "__NuclearRebalance__/graphics/entity/e-lwr-e-shadow.png",
+					frame_count = 1,
+					width = 1006,
+					height = 522,
+					hr_version = nil,
+					line_length = 1,
+					shift = {
+						12.125,
+						-7
+					},
+					scale = 3.28
+				}}
 			},
+			south = {
+				layers = {
+				{
+					filename = "__NuclearRebalance__/graphics/entity/e-lwr-s.png",
+					frame_count = 1,
+					width = 381,
+					height = 1002,
+					hr_version = nil,
+					line_length = 1,
+					shift = {
+						0,
+						-11.5
+					},
+					scale = 3.26
+				},
+				{
+					draw_as_shadow = true,
+					filename = "__NuclearRebalance__/graphics/entity/e-lwr-s-shadow.png",
+					frame_count = 1,
+					width = 602,
+					height = 901,
+					hr_version = nil,
+					line_length = 1,
+					shift = {
+						11.875,
+						-6.25
+					},
+					scale = 3.26
+				}}
+			},
+			west = {
+				layers = {
+				{
+					filename = "__NuclearRebalance__/graphics/entity/e-lwr-w.png",
+					frame_count = 1,
+					width = 760,
+					height = 606,
+					hr_version = nil,
+					line_length = 1,
+					shift = {
+						0,
+						-11.5
+					},
+					scale = 3.3
+				},
+				{
+					draw_as_shadow = true,
+					filename = "__NuclearRebalance__/graphics/entity/e-lwr-w-shadow.png",
+					frame_count = 1,
+					width = 990,
+					height = 525,
+					hr_version = nil,
+					line_length = 1,
+					shift = {
+						11.875,--was 11.75
+						-7
+					},
+					scale = 3.3
+				}}
 			}
 		},
 		icon = "__NuclearRebalance__/graphics/icons/lwr/i-lwr.png",
@@ -127,37 +219,6 @@ data:extend({
 		vehicle_impact_sound = {
 			filename = "__base__/sound/car-stone-impact.ogg",
 			volume = 0.65
-		},
-		vertical_animation = {
-			layers = {
-			{
-				filename = "__NuclearRebalance__/graphics/entity/e-lwr-v.png",
-				frame_count = 1,
-				width = 383,
-				height = 1005,
-				hr_version = nil,
-				line_length = 1,
-				shift = {
-					0,
-					-11.5
-				},
-				scale = 3.26
-			},
-			{
-				draw_as_shadow = true,
-				filename = "__NuclearRebalance__/graphics/entity/e-lwr-v-shadow.png",
-				frame_count = 1,
-				width = 616,
-				height = 780,
-				hr_version = nil,
-				line_length = 1,
-				shift = {
-					12,
-					0
-				},
-				scale = 3.26
-			},
-			}
 		}
 	}
 })
