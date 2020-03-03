@@ -1,0 +1,14 @@
+---------------------------------------------------------------------------------------------------
+Version: 0.18.0
+Date: 3/3/2020
+  Bugfix:
+    - Fix for the newest version of 0.18
+    - Fixed icons to use the new icon_mipmaps feature. Not that I understand it, I just copy-pasted code from the data.raw implementation and it worked!
+---------------------------------------------------------------------------------------------------
+Version: 0.0.4
+  Bugfix:
+    - Fix for the newest version of 0.17
+---------------------------------------------------------------------------------------------------
+Version: 0.0.3
+  Locale:
+    - Translation to RU by Va7ya

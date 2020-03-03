@@ -1,0 +1,37 @@
+---------------------------------------------------------------------------------------------------
+Version: 1.18.1
+Date: 3/3/2020
+  Bugfix:
+    - Icons now look correct since I (kinda) have an idea what changed.
+---------------------------------------------------------------------------------------------------
+Version: 1.18.0
+Date: 2/9/2020
+  Changes:
+    - info.json bump to support .18
+---------------------------------------------------------------------------------------------------
+Version: 1.0.5
+Date: 1/24/2020
+  Bugfix:
+    - Rocket result inventories do not allow higher-than-normal stack outputs unlike other assemblers. Thus, I had to increase the number of result boxes in order for the player to actually recieve all the space science packs they were supposed to!
+---------------------------------------------------------------------------------------------------
+Version: 1.0.4
+Date: 1/20/2020
+  Balance:
+    - Changed rewards for vanilla/nimh/li-ion/flywheel satellites from 1k/1k/2k/10k to 1k/2k/3.5k/16.5k to fairly align with material costs required to build them. I hadn't written recipe_calc (see github) at the time I made this mod. I just now got around to seeing what the material costs for building these was. Ouch!
+---------------------------------------------------------------------------------------------------
+Version: 1.0.3
+Date: 1/14/2020
+  Changes:
+    - Added changelog.txt to this mod and all my other mods.
+---------------------------------------------------------------------------------------------------
+Version: 1.0.2
+  Localization:
+    - Russian localization from Diamonde123 on github!
+---------------------------------------------------------------------------------------------------
+Version: 1.0.1
+  Bugfix:
+    - Fixed lithium ion batter recipe
+---------------------------------------------------------------------------------------------------
+Version: 1.0.0
+  Info:
+    - Initial Version
