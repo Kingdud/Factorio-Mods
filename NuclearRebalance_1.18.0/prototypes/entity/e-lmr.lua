@@ -33,7 +33,7 @@ data:extend({
 			"placeable-neutral",
 			"player-creation"
 		},
-		fluid_box = nil,
+		--For sanity's sake, the animation direction is based on which way the turbine hall is pointing.
 		horizontal_animation = {
 			layers = {
 			{
@@ -121,7 +121,7 @@ data:extend({
 				starting_vertical_speed = 0.08
 			},
 		},
-		type = "generator",
+		type = "burner-generator",
 		vehicle_impact_sound = {
 			filename = "__base__/sound/car-stone-impact.ogg",
 			volume = 0.65

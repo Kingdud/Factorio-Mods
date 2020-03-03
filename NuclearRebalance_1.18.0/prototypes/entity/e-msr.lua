@@ -35,38 +35,133 @@ data:extend({
 			"placeable-neutral",
 			"player-creation"
 		},
-		fluid_box = nil,
-		horizontal_animation = {
-			layers = {
-			{
-				filename = "__NuclearRebalance__/graphics/entity/e-msr-h.png",
-				frame_count = 1,
-				width = 587,
-				height = 925,
-				hr_version = nil,
-				line_length = 1,
-				shift = {
-					0,
-					-16.5
+		--For sanity's sake, the animation direction is based on which way the turbine hall is pointing.
+		animation = {
+			north = {
+				layers = {
+				{
+					filename = "__NuclearRebalance__/graphics/entity/e-msr-n.png",
+					frame_count = 1,
+					width = 586,
+					height = 703,
+					hr_version = nil,
+					line_length = 1,
+					shift = {
+						0,
+						-5.25
+					},
+					scale = 3.18,
 				},
-				scale = 3.18,
-			},
-			{
-				draw_as_shadow = true,
-				filename = "__NuclearRebalance__/graphics/entity/e-msr-h-shadow.png",
-				frame_count = 1,
-				width = 1008,
-				height = 705,
-				hr_version = nil,
-				line_length = 1,
-				shift = {
-					21,
-					-5.5
+				{
+					draw_as_shadow = true,
+					filename = "__NuclearRebalance__/graphics/entity/e-msr-n-shadow.png",
+					frame_count = 1,
+					width = 996,
+					height = 597,
+					hr_version = nil,
+					line_length = 1,
+					shift = {
+						20.25,
+						0
+					},
+					scale = 3.18
 				},
-				scale = 3.18
+				}
 			},
+			east = {
+				layers = {
+				{
+					filename = "__NuclearRebalance__/graphics/entity/e-msr-e.png",
+					frame_count = 1,
+					width = 587,
+					height = 715,
+					hr_version = nil,
+					line_length = 1,
+					shift = {
+						0,
+						-16.5
+					},
+					scale = 3.18,
+				},
+				{
+					draw_as_shadow = true,
+					filename = "__NuclearRebalance__/graphics/entity/e-msr-e-shadow.png",
+					frame_count = 1,
+					width = 769,
+					height = 602,
+					hr_version = nil,
+					line_length = 1,
+					shift = {
+						21,
+						-5.5
+					},
+					scale = 3.18
+				},
+				}
+			},
+			south = {
+				layers = {
+				{
+					filename = "__NuclearRebalance__/graphics/entity/e-msr-s.png",
+					frame_count = 1,
+					width = 587,
+					height = 944,
+					hr_version = nil,
+					line_length = 1,
+					shift = {
+						0,
+						-16.5
+					},
+					scale = 3.18,
+				},
+				{
+					draw_as_shadow = true,
+					filename = "__NuclearRebalance__/graphics/entity/e-msr-s-shadow.png",
+					frame_count = 1,
+					width = 782,
+					height = 720,
+					hr_version = nil,
+					line_length = 1,
+					shift = {
+						21,
+						-5.5
+					},
+					scale = 3.18
+				},
+				}
+			},
+			west = {
+				layers = {
+				{
+					filename = "__NuclearRebalance__/graphics/entity/e-msr-w.png",
+					frame_count = 1,
+					width = 587,
+					height = 925,
+					hr_version = nil,
+					line_length = 1,
+					shift = {
+						0,
+						-16.5
+					},
+					scale = 3.18,
+				},
+				{
+					draw_as_shadow = true,
+					filename = "__NuclearRebalance__/graphics/entity/e-msr-w-shadow.png",
+					frame_count = 1,
+					width = 1008,
+					height = 705,
+					hr_version = nil,
+					line_length = 1,
+					shift = {
+						21,
+						-5.5
+					},
+					scale = 3.18
+				},
+				}
 			}
-		},
+		}
 		icon = "__NuclearRebalance__/graphics/icons/msr/i-msr.png",
 		icon_size = 128,
 		max_health = 7000,
@@ -107,41 +202,10 @@ data:extend({
 				starting_vertical_speed = 0.08
 			}
 		},
-		type = "generator",
+		type = "burner-generator",
 		vehicle_impact_sound = {
 			filename = "__base__/sound/car-stone-impact.ogg",
 			volume = 0.65
-		},
-		vertical_animation = {
-			layers = {
-			{
-				filename = "__NuclearRebalance__/graphics/entity/e-msr-v.png",
-				frame_count = 1,
-				width = 586,
-				height = 703,
-				hr_version = nil,
-				line_length = 1,
-				shift = {
-					0,
-					-5.25
-				},
-				scale = 3.18,
-			},
-			{
-				draw_as_shadow = true,
-				filename = "__NuclearRebalance__/graphics/entity/e-msr-v-shadow.png",
-				frame_count = 1,
-				width = 996,
-				height = 597,
-				hr_version = nil,
-				line_length = 1,
-				shift = {
-					20.25,
-					0
-				},
-				scale = 3.18
-			},
-			}
 		}
 	}
 })
