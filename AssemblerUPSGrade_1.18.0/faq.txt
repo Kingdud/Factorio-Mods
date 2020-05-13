@@ -1,0 +1,3 @@
+* The power usage is wrong!
+
+Yea. See, the fundamental problem is that if you play in expensive mode then you need more assemblers, and therefore more beacons, inserters, and other such gear. But there isn't a way to have an assembler take a different amount of power based on whether you are playing in expensive mode or not. You could, in theory, define two different entities and have a runtime script flip which one was the active type for the game, but I decided that I didn't want to learn active game LUA scripting and instead opted to just compute how much energy a normal factory would need and call it a day. The code is there to compute two different values (one for normal, one for expensive) but meh.

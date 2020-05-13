@@ -1,0 +1,15 @@
+{
+"name":"AssemblerUPSGrade",
+"author":"Kingdud",
+"version":"1.18.0",
+"factorio_version":"0.18",
+"title":"Assembler UPSGrade",
+"homepage":"",
+"dependencies": [
+	"base >= 0.17",
+	"?NuclearRebalance >= 1.0.0",
+	"?EnhancedGridEnergyStores >= 1.0.2",
+	"?GatlingPulseLaser >= 1.0.0"
+	],
+"description":"Provides Application Specific factories to reduce the entity count on megabase maps. Compression ratio is configurable. IE: you can decide to have each building be equivilant to 25 assemblers, or 1000. The recipes/costs/results/etc will all scale accordingly."
+}

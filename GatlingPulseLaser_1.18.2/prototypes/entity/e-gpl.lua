@@ -26,6 +26,7 @@ new_item.preparing_animation.layers[1].hr_version.tint = {r= .8, g = .1, b = 0, 
 
 new_item.name = "pulse-laser"
 new_item.minable.result="pulse-laser"
+new_item.rotation_speed = .1
 new_item.attack_parameters.ammo_type.action.action_delivery.duration = 6
 new_item.attack_parameters.ammo_type.action.action_delivery.beam = "pulse-laser-beam"
 --We removed the 2x dmg modifer, but we are still doing 2.5x the base damage, so 2.5x the energy cost per shot.

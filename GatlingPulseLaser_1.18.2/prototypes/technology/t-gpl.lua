@@ -2,8 +2,16 @@ data:extend({
   {
     type = "technology",
     name = "pulse-laser",
-    icon = "__base__/graphics/technology/laser-turrets.png",
+    icon = nil,
     icon_size = 128,
+	icons = {
+		{
+			icon = "__base__/graphics/technology/laser-turrets.png",
+			tint = {r= .8, g = .1, b = 0, a = 1},
+			icon_mipmaps = 4,
+			icon_size = 128,
+		}
+	},
     effects =
     {
 	  --someone less lazy than me can convert this to a for-loop so it will support other mods like Bobs/angels
