@@ -8,7 +8,8 @@ entity_smelter.icons = {
 	{
 		icon = "__base__/graphics/icons/electric-furnace.png",
 		tint = building_tint,
-		icon_size = 64
+		icon_size = 64,
+		icon_mipmaps = 4
 	}
 }
 entity_smelter.name = "bulk-smelter"
@@ -91,7 +92,8 @@ entity_centrifuge.icons = {
 	{
 		icon = "__base__/graphics/icons/centrifuge.png",
 		tint = building_tint,
-		icon_size = 64
+		icon_size = 64,
+		icon_mipmaps = 4
 	}
 }
 entity_centrifuge.name = "bulk-centrifuge"

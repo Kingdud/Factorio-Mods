@@ -92,8 +92,8 @@ function createEntityRecipe(name, n_ass_needed, e_ass_needed, bld_type, compress
 	new_recipe.result_count = 1
 	new_recipe.result = name
 	new_recipe.name = name
-	new_recipe.normal = { ingredients = nil, energy_required = 10, enabled = false, result = name }
-	new_recipe.expensive = { ingredients = nil, energy_required = 30, enabled = false, result = name }
+	new_recipe.normal = { ingredients = nil, energy_required = 10, enabled = false, result = name, overload_multiplier = 1.0, requester_paste_multiplier = 1}
+	new_recipe.expensive = { ingredients = nil, energy_required = 30, enabled = false, result = name, overload_multiplier = 1.0, requester_paste_multiplier = 1 }
 	
 	--Every factory layout needs: 1) red chests 2) blue chests 3) beacons 4) Assemblers 5) speed mods 6) prod mods 7) stack inserters
 	-- You could argue belts too, but in a high density construction we assume direct insertion and chests for load delivery/product

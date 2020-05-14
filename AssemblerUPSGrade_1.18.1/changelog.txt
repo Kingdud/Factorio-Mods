@@ -1,0 +1,10 @@
+---------------------------------------------------------------------------------------------------
+Version: 1.18.1
+Date: 5/14/2020
+  Changes:
+    - Set overload_multiplier and requester_paste_multiplier to 1 for all entity recipes (IE: the thing that makes the ASIF itself). This prevents shift-right clicking a logistic chest from requesting enough materials to build 30 asifs and prevents more than one completed ASIF from being stored in the assembler.
+---------------------------------------------------------------------------------------------------
+Version: 1.18.0
+Date: 5/13/2020
+  Info:
+    - Initial Release
