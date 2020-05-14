@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.18.2
+Date: 5/14/2020
+  Changes:
+    - Added a setting to allow for a capped maximum building size. Since placing massive (1000x1000+) buildings is not very fun and extremely difficult, allow for the maximum size of the building, regardless of compression ratio, to be specified as a mod setting.
+---------------------------------------------------------------------------------------------------
 Version: 1.18.1
 Date: 5/14/2020
   Changes:

@@ -1,7 +1,3 @@
---Reminder: -25 to +25 is a length of 50, not 25!
-building_size = 49.9 / 2
-building_scale = (building_size*2) / 3
-
 --Number of beacons around a standard building.
 beacon_count = 12
 
