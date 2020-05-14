@@ -1,3 +1,16 @@
-* The power usage is wrong!
+* The power usage in expensive mode is the same as in normal!
 
 Yea. See, the fundamental problem is that if you play in expensive mode then you need more assemblers, and therefore more beacons, inserters, and other such gear. But there isn't a way to have an assembler take a different amount of power based on whether you are playing in expensive mode or not. You could, in theory, define two different entities and have a runtime script flip which one was the active type for the game, but I decided that I didn't want to learn active game LUA scripting and instead opted to just compute how much energy a normal factory would need and call it a day. The code is there to compute two different values (one for normal, one for expensive) but meh.
+
+* The ingredients needed don't line up with what my (web based calculator) says!
+
+There are a few reasons for that:
+
+1. I floor() (round down) all fractional values on intermediate steps. I only do this once, so as to avoid the compounding problem, but that is one source.
+2. I assume a 40% (for assemblers) productivty bonus on all items produced at every level. Meaning if you have something like red circuits, I go ahead and assume 40% prod on the copper cable, and on the green circuits, while also computing the 40% on the red circuits themselves.
+
+The reason why I am ok with this is twofold: 1) they are still very close to what they 'should' be. 2) It'a an ASIF. The entire purpose is to find efficiencies and do more in the same area more efficiently. It makes sense that tailings could be re-used and fractional capacity optimized.
+
+* Prod and Speed modules benefit from productivity! They aren't supposed to!
+
+Yea, chalk it up to ASIF magic. But mostly it's because it would be a huge pain in the ass to have a special code path just for them.

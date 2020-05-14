@@ -18,21 +18,23 @@ data:extend({
 		enabled = false,
         type = "recipe"
     },
-	{
-		name = "asif-chem-block",
-        energy_required = 10,
-        ingredients = {
-			{"beacon", intermediate_beacon_cnt},
-			{"speed-module-3", intermediate_beacon_cnt * 2},
-			{"productivity-module-3", assembler_base_modules},
-			{"chemical-plant", 2},
-			{"pipe",8},
-			{"stack-inserter",2}
-        },
-        result = "asif-chem-block",
-		enabled = false,
-        type = "recipe"
-    },
+	-- {
+		-- name = "asif-chem-block",
+        -- energy_required = 10,
+        -- ingredients = {
+			-- {"beacon", intermediate_beacon_cnt},
+			-- {"speed-module-3", intermediate_beacon_cnt * 2},
+			-- {"productivity-module-3", assembler_base_modules},
+			-- {"chemical-plant", 2},
+			-- {"pipe",8},
+			-- {"stack-inserter",2}
+        -- },
+        -- result = "asif-chem-block",
+		-- enabled = false,
+		-- icon = "__AssemblerUPSGrade__/graphics/chem-blk.png",
+		-- icon_size = 64,
+        -- type = "recipe"
+    -- },
 	{
 		name = "asif-logi-block",
         energy_required = 1,

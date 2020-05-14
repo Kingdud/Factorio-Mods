@@ -5,12 +5,26 @@ building_scale = (building_size*2) / 3
 --Number of beacons around a standard building.
 beacon_count = 12
 
+NEED_FLUID_RECIPES = { "bc-asif", "spd-3-asif", "prod-3-asif" }
+
+TECH_DETAILS = {
+	["gc-asif"] = { cost = 250000, prereqs = {"asif"} },
+	["rc-asif"] = { cost = 500000, prereqs = {"gc-asif"} },
+	["bc-asif"] = { cost = 1000000, prereqs = {"rc-asif"} },
+	["lds-asif"] = { cost = 500000, prereqs = {"asif"} },
+	["eng-asif"] = { cost = 500000, prereqs = {"asif"} },
+	["spd-3-asif"] = { cost = 1000000, prereqs = {"bc-asif"} },
+	["prod-3-asif"] = { cost = 1000000, prereqs = {"bc-asif"} }
+}
+
 ITEM_LIST = {
 	["gc-asif"] = "electronic-circuit",
 	["rc-asif"] = "advanced-circuit",
 	["bc-asif"] = "processing-unit",
 	["lds-asif"] = "low-density-structure",
-	["eng-asif"] = "engine-unit"
+	["eng-asif"] = "engine-unit",
+	["spd-3-asif"] = "speed-module-3",
+	["prod-3-asif"] = "productivity-module-3"
 }
 base_recipes = {"copper-plate", "iron-plate", "steel-plate", "plastic-bar", "sulfuric-acid" }
 
@@ -70,3 +84,19 @@ chem_total_pwr_draw = chem_base_pwr_use * chem_per_unit_pwr_drain_penalty
 --Note: Productivity modules also cause additional items to be produced, so remember to
 -- factor in that effect as well. IE: Items per second = ProdModBonus * 1/final_speed
 --///
+
+--///
+--Color, tint, and graphics section
+--///
+
+GRAPHICS_MAP = {
+	["gc-asif"] = {icon = "gc-asif.png", tint = {r= .2, g = .6, b = .01, a = 1}},
+	["rc-asif"] = {icon = "rc-asif.png", tint = {r= .78, g = .01, b = .01, a = 1}},
+	["bc-asif"] = {icon = "bc-asif.png", tint = {r= .2, g = .13, b = .72, a = 1}},
+	["lds-asif"] = {icon = "lds-asif.png", tint = {r= .88, g = .75, b = 0.5, a = 1}},
+	["eng-asif"] = {icon = "eng-asif.png", tint = {r= .49, g = .35, b = .31, a = 1}},
+	["prod-3-asif"] = {icon = "prod-3-asif.png", tint = {r= 1, g = .88, b = .07, a = 1}},
+	["spd-3-asif"] = {icon = "spd-3-asif.png", tint = {r= .25, g = .93, b = .92, a = 1}},
+}
+
+recipe_tint = {r= 1, g = .533, b = 0, a = 1}

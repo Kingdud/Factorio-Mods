@@ -10,6 +10,14 @@ require("prototypes.technology.technology")
 for new_item,stock_item in pairs(ITEM_LIST) do
 	local compression_ratio = settings.startup[new_item .. "-ratio"].value
 	
+	--Add new crafting category
+	data:extend({
+		{
+			type = "recipe-category",
+			name = new_item
+		}
+	})
+	
 	local vanilla_mats = unwindVanillaRecipe(stock_item)
 	local nrips,erips = computeItemsPerSecond(stock_item)
 	
@@ -50,7 +58,7 @@ for new_item,stock_item in pairs(ITEM_LIST) do
 	--Create ASIFs
 	if crafting_cat == "crafting" or crafting_cat == "advanced-crafting" or crafting_cat == "basic-crafting" or crafting_cat == "crafting-with-fluid"
 	then
-		createEntityRecipe(new_item, normal_ass_needed, expensive_ass_needed, "a")
+		createEntityRecipe(new_item, normal_ass_needed, expensive_ass_needed, "a", compression_ratio)
 		createAssemblerEntity(new_item, compression_ratio, normal_ass_needed, expensive_ass_needed)
 	elseif crafting_cat == "chemistry"
 	then
@@ -59,8 +67,11 @@ for new_item,stock_item in pairs(ITEM_LIST) do
 	end
 	
 	--Create the recipe the ASIF uses to build components
-	createResultRecipes(stock_item, new_item, compression_ratio, nrips, erips, result)
+	createResultRecipes(stock_item, new_item, compression_ratio, ipsn, ipse, result)
 	
 	--Create items
 	createItem(stock_item, new_item)
+	
+	--Add research
+	addTechnology(new_item)
 end

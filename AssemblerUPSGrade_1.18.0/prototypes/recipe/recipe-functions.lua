@@ -28,23 +28,22 @@ require("prototypes.functions")
 --  factor in productivity bonuses, since they are transient (on both sides of the equation; transparent).
 --/////////////
 
-function createRecipeHelper(new_recipe, new_item_name, results_per_second, compression_ratio, items_needed)
+function createRecipeHelper(new_recipe, stock_item_name, results_per_second, compression_ratio, items_needed)
 	local counter = 1
-	local has_fluid = false
 	for item,quantity in pairs(items_needed) do
 		if data.raw.fluid[item]
 		then
 			new_recipe.ingredients[counter] = {type="fluid", name = item, amount = math.floor(quantity) }
-			has_fluid = true
 		else
 			new_recipe.ingredients[counter] = {item, math.floor(quantity) }
 		end
 		counter = counter + 1
 	end
 	new_recipe.energy_required = 1
-	new_recipe.result = new_item_name
+	new_recipe.result = stock_item_name
 	new_recipe.result_count = math.ceil(results_per_second)
-	return has_fluid
+	new_recipe.enabled = false
+	new_recipe.always_show_made_in = true
 end
 
 --This function only creates the recipes for the result products (IE: Green chips, red chips, etc). It does NOT
@@ -55,6 +54,9 @@ function createResultRecipes(stock_name, new_name, compression_ratio, nrips, eri
 	
 	new_recipe.ingredients = nil
 	new_recipe.name = recipe_name
+	new_recipe.main_product = recipe_name
+	new_recipe.icon = "__AssemblerUPSGrade__/graphics/recipe/" .. GRAPHICS_MAP[new_name].icon
+	new_recipe.icon_size = 64
 	if not new_recipe.normal
 	then
 		new_recipe.normal = {}
@@ -66,24 +68,18 @@ function createResultRecipes(stock_name, new_name, compression_ratio, nrips, eri
 	end
 	new_recipe.expensive.ingredients = {}
 	
-	local has_fluid = false
 	--normal
-	has_fluid = createRecipeHelper(new_recipe.normal, new_name, nrips, compression_ratio, items_needed.recip_n)
+	createRecipeHelper(new_recipe.normal, stock_name, nrips, compression_ratio, items_needed.recip_n)
 	--expensive
-	has_fluid = createRecipeHelper(new_recipe.expensive, new_name, erips, compression_ratio, items_needed.recip_e)
-	
-	if has_fluid
-	then
-		new_recipe.category = "crafting-with-fluid"
-	else
-		new_recipe.category = "advanced-crafting"
-	end
+	createRecipeHelper(new_recipe.expensive, stock_name, erips, compression_ratio, items_needed.recip_e)
+
+	new_recipe.category = new_name
 	
 	data:extend({new_recipe})
 end
 
 --This is where the recipe for the ASIF itself is made.
-function createEntityRecipe(name, n_ass_needed, e_ass_needed, bld_type)
+function createEntityRecipe(name, n_ass_needed, e_ass_needed, bld_type, compression_ratio)
 	local new_recipe = nil
 	if bld_type == "a"
 	then
@@ -115,7 +111,7 @@ function createEntityRecipe(name, n_ass_needed, e_ass_needed, bld_type)
 		{ "asif-logi-block", n_ass_needed },
 		{ "beacon", beacon_count },
 		{ "speed-module-3", beacon_count * 2 },
-		{ "substation", math.ceil(n_ass_needed / 6) }
+		{ "substation", math.ceil(n_ass_needed / 6) },
 	}
 	
 	new_recipe.expensive.ingredients = {
@@ -123,8 +119,15 @@ function createEntityRecipe(name, n_ass_needed, e_ass_needed, bld_type)
 		{ "asif-logi-block", e_ass_needed },
 		{ "beacon", beacon_count },
 		{ "speed-module-3", beacon_count * 2 },
-		{ "substation", math.ceil(e_ass_needed / 6) }
+		{ "substation", math.ceil(e_ass_needed / 6) },
 	}
+	
+	--an ugly hack, but whatever.
+	if has_value(NEED_FLUID_RECIPES, name)
+	then
+		table.insert(new_recipe.normal.ingredients, { "pipe", 8*compression_ratio })
+		table.insert(new_recipe.expensive.ingredients, { "pipe", 8*compression_ratio })
+	end
 	
 	data:extend({new_recipe})
 end
