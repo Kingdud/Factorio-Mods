@@ -1,11 +1,11 @@
 {
     "name": "GatlingPulseLaser",
-    "version": "1.18.2",
+    "version": "1.100.0",
     "title": "Gatling Pulse Laser",
     "author": "Kingdud",
     "contact": "",
     "homepage": "",
-    "factorio_version": "0.18",
+    "factorio_version": "1.0",
     "dependencies": [
 	"base >= 0.17",
 	"?NuclearRebalance >= 1.0.0",

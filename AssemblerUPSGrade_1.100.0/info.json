@@ -1,8 +1,8 @@
 {
 "name":"AssemblerUPSGrade",
 "author":"Kingdud",
-"version":"1.18.2",
-"factorio_version":"0.18",
+"version":"1.100.0",
+"factorio_version":"1.0",
 "title":"Assembler UPSGrade",
 "homepage":"",
 "dependencies": [
