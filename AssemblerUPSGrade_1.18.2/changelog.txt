@@ -1,4 +1,10 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.18.3
+Date: 5/14/2020
+  Changes:
+    - Fixed typos in mod settings. The evils of copy paste.
+    - Added ASIF for plastic bar manufacturing.
+---------------------------------------------------------------------------------------------------
 Version: 1.18.2
 Date: 5/14/2020
   Changes:

@@ -7,6 +7,11 @@ require("prototypes.entity.entities")
 require("prototypes.item.items")
 require("prototypes.technology.technology")
 
+--require("prototypes.recipe.rplasticbars")
+
+--Note: Plastic bars are not done here, they are done in the specific files just for plastic.
+-- Reason being that outside of actually making plastic bars, I normally want to stop at 
+-- plastic bars, 
 for new_item,stock_item in pairs(ITEM_LIST) do
 	local compression_ratio = settings.startup[new_item .. "-ratio"].value
 	
@@ -18,16 +23,18 @@ for new_item,stock_item in pairs(ITEM_LIST) do
 		}
 	})
 	
-	local vanilla_mats = unwindVanillaRecipe(stock_item)
+	--local vanilla_mats = unwindVanillaRecipe(stock_item, plastic_override)
 	local nrips,erips = computeItemsPerSecond(stock_item)
 	
 	local productivity_factor = 0
 	local crafting_cat = data.raw.recipe[stock_item].category or "crafting"
+	local plastic_override = false
 	if crafting_cat == "crafting" or crafting_cat == "advanced-crafting" or crafting_cat == "basic-crafting" or crafting_cat == "crafting-with-fluid"
 	then
 		productivity_factor = assembler_productivity_factor+1
 	elseif crafting_cat == "chemistry"
 	then
+		plastic_override = true
 		productivity_factor = chem_productivity_factor+1
 	end
 	
@@ -37,8 +44,9 @@ for new_item,stock_item in pairs(ITEM_LIST) do
 	
 	--Determine how many assemblers make up our ASIF
 	local result = { ["expensive"] = {}, ["normal"] = {}, ["recip_n"] = {}, ["recip_e"] = {} }
-	unwindAssemblersNeeded(stock_item, "n", ipsn, productivity_factor, result)
-	unwindAssemblersNeeded(stock_item, "e", ipse, productivity_factor, result)
+	
+	unwindAssemblersNeeded(stock_item, "n", ipsn, productivity_factor, result, plastic_override)
+	unwindAssemblersNeeded(stock_item, "e", ipse, productivity_factor, result, plastic_override)
 	
 	local normal_ass_needed = compression_ratio
 	local expensive_ass_needed = compression_ratio
@@ -62,7 +70,7 @@ for new_item,stock_item in pairs(ITEM_LIST) do
 		createAssemblerEntity(new_item, compression_ratio, normal_ass_needed, expensive_ass_needed)
 	elseif crafting_cat == "chemistry"
 	then
-		createEntityRecipe(new_item, normal_ass_needed, expensive_ass_needed, "c")
+		createEntityRecipe(new_item, normal_ass_needed, expensive_ass_needed, "c", compression_ratio)
 		createChemPlantEntity(new_item, compression_ratio, normal_ass_needed, expensive_ass_needed)
 	end
 	

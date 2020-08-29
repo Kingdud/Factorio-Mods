@@ -88,11 +88,11 @@ function getItemIngredient(ingredients)
 	end
 end
 
-function unwindVanillaRecipeHelper(name, nmultiplier, emultipler, mode, result)
+function unwindVanillaRecipeHelper(name, nmultiplier, emultipler, mode, result, base_recipe_list)
 	local normal_ingredients, expensive_ingredients = getItemIngredients(name)
 	local n_res_cnt, e_res_cnt = getResultCount(name)
 
-	if has_value(base_recipes, name) then
+	if has_value(base_recipe_list, name) then
 		if not result.expensive.name then
 			result.expensive.name = emultipler
 		else
@@ -141,9 +141,18 @@ end --end unwindVanillaRecipeHelper
 
 --The goal of this function is to tell you how many raw materials are needed
 -- to produce a given item. IE: A green circuit needs 1 iron plate and 1.5 copper plate.
-function unwindVanillaRecipe(name)
+function unwindVanillaRecipe(name, plastic_override)
 	local result = { ["expensive"] = {}, ["normal"] = {} }
 	local n_res_cnt, e_res_cnt = getResultCount(name)
+	
+	local base_recipe_list = nil
+	if plastic_override
+	then
+		base_recipe_list = base_recipes
+	else
+		base_recipe_list = plastic_base_recipes
+	end
+
 
 	--Check if normal / expensive mode definitions exist
 	if data.raw.recipe[name].normal then 
@@ -176,11 +185,19 @@ function unwindVanillaRecipe(name)
 	return result
 end --end unwindVanillaRecipe
 
-function unwindAssemblersNeeded(name, mode, main_item_ips, productivity_factor, result)
+function unwindAssemblersNeeded(name, mode, main_item_ips, productivity_factor, result, plastic_override)
 	
 	main_item_ips = (main_item_ips / productivity_factor)
 	
 	local normal_ingredients, expensive_ingredients = getItemIngredients(name)
+	
+	local base_recipe_list = nil
+	if plastic_override
+	then
+		base_recipe_list = plastic_base_recipes
+	else
+		base_recipe_list = base_recipes
+	end
 
 	--Check if normal / expensive mode definitions exist
 	if mode == "n" then 
@@ -190,7 +207,7 @@ function unwindAssemblersNeeded(name, mode, main_item_ips, productivity_factor, 
 			--This is how many of this item are needed per second to build the main result.
 			local ips_needed = main_item_ips * i_quant
 			
-			if not has_value(base_recipes, i_name) then
+			if not has_value(base_recipe_list, i_name) then
 				--Get how many items/second one assembler making this sub-component can crank out (factors in result cnt)
 				local ips, _ = computeItemsPerSecond(i_name)
 				ips = ips * productivity_factor
@@ -222,7 +239,7 @@ function unwindAssemblersNeeded(name, mode, main_item_ips, productivity_factor, 
 			--This is how many of this item are needed per second to build the main result.
 			local ips_needed = main_item_ips * i_quant
 			
-			if not has_value(base_recipes, i_name) then
+			if not has_value(base_recipe_list, i_name) then
 				--Get how many items/second one assembler making this sub-component can crank out
 				local _, ips = computeItemsPerSecond(i_name)
 				ips = ips * productivity_factor

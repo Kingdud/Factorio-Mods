@@ -1,13 +1,3 @@
--- asif=Application Specific Integrated Factory (ASIF)
--- gc-asif=Green Circuit ASIF
--- rc-asif=Red Circuit ASIF
--- bc-asif=Blue Circuit ASIF
--- lds-asif=Low Density Structure ASIF
--- eng-asif=Engines ASIF
--- spd-3-asif=Speed Module 3 ASIF
--- prod-3-asif=Productivity Module 3 ASIF
-
---TODO: Graphics
 data:extend(
 {
 	{
@@ -18,7 +8,7 @@ data:extend(
 		effects =
 		{
 			{type = "unlock-recipe", recipe = "asif-assembler-block" },
-			--{type = "unlock-recipe", recipe = "asif-chem-block" },
+			{type = "unlock-recipe", recipe = "asif-chem-block" },
 			{type = "unlock-recipe", recipe = "asif-logi-block" },
 		},
 		prerequisites = {"rocket-silo"},

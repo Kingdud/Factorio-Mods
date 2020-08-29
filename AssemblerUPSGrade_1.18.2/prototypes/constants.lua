@@ -1,7 +1,7 @@
 --Number of beacons around a standard building.
 beacon_count = 12
 
-NEED_FLUID_RECIPES = { "bc-asif", "spd-3-asif", "prod-3-asif" }
+NEED_FLUID_RECIPES = { "bc-asif", "spd-3-asif", "prod-3-asif", "pla-asif" }
 
 TECH_DETAILS = {
 	["gc-asif"] = { cost = 250000, prereqs = {"asif"} },
@@ -10,7 +10,8 @@ TECH_DETAILS = {
 	["lds-asif"] = { cost = 500000, prereqs = {"asif"} },
 	["eng-asif"] = { cost = 500000, prereqs = {"asif"} },
 	["spd-3-asif"] = { cost = 1000000, prereqs = {"bc-asif"} },
-	["prod-3-asif"] = { cost = 1000000, prereqs = {"bc-asif"} }
+	["prod-3-asif"] = { cost = 1000000, prereqs = {"bc-asif"} },
+	["pla-asif"] = { cost = 500000, prereqs = {"asif"} },
 }
 
 ITEM_LIST = {
@@ -20,9 +21,11 @@ ITEM_LIST = {
 	["lds-asif"] = "low-density-structure",
 	["eng-asif"] = "engine-unit",
 	["spd-3-asif"] = "speed-module-3",
-	["prod-3-asif"] = "productivity-module-3"
+	["prod-3-asif"] = "productivity-module-3",
+	["pla-asif"] = "plastic-bar"
 }
-base_recipes = {"copper-plate", "iron-plate", "steel-plate", "plastic-bar", "sulfuric-acid" }
+base_recipes = {"copper-plate", "iron-plate", "steel-plate", "plastic-bar", "sulfuric-acid"}
+plastic_base_recipes = {"copper-plate", "iron-plate", "steel-plate", "sulfuric-acid", "coal", "petroleum-gas" }
 
 --//modules (level 3)
 local spd_module_speed_bonus = data.raw.module["speed-module-3"].effect.speed.bonus
@@ -66,9 +69,11 @@ chem_base_speed = base_chem_entity.crafting_speed
 chem_base_pollution = base_chem_entity.energy_source.emissions_per_minute
 chem_base_modules = base_chem_entity.module_specification.module_slots
 
+local chem_modules_speed_effect = chem_base_modules * prod_mod_speed_penalty
 local chem_modules_pwr_penalty = chem_base_modules * prod_mod_pwr_penality
 chem_productivity_factor = chem_base_modules * prod_mod_prod_bonus
 
+chem_total_speed_bonus = chem_base_speed * (chem_modules_speed_effect + total_beacon_speed_bonus + 1)
 chem_per_unit_pwr_drain_penalty = (beacon_pwr_penalty + chem_modules_pwr_penalty + 1)
 chem_total_pwr_draw = chem_base_pwr_use * chem_per_unit_pwr_drain_penalty
 
@@ -93,6 +98,7 @@ GRAPHICS_MAP = {
 	["eng-asif"] = {icon = "eng-asif.png", tint = {r= .49, g = .35, b = .31, a = 1}},
 	["prod-3-asif"] = {icon = "prod-3-asif.png", tint = {r= 1, g = .88, b = .07, a = 1}},
 	["spd-3-asif"] = {icon = "spd-3-asif.png", tint = {r= .25, g = .93, b = .92, a = 1}},
+	["pla-asif"] = {icon = "pla-asif.png", tint = data.raw.recipe["plastic-bar"].crafting_machine_tint},
 }
 
 recipe_tint = {r= 1, g = .533, b = 0, a = 1}
