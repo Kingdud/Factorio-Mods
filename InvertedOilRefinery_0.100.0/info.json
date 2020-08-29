@@ -1,8 +1,8 @@
 {
   "name": "InvertedOilRefinery",
-  "version": "0.18.0",
+  "version": "0.100.0",
   "title": "Inverted Oil Refinery and Chemical Plants - You can invert the outputs and inputs.Fixed by Kingdud.",
   "author": "DellAquila,Kingdud",
   "description": "For when you wanna mirror the Oil Refinery or chemical plant in vanilla recipes.",
-  "factorio_version": "0.18"
+  "factorio_version": "1.0"
 }
