@@ -90,3 +90,86 @@ end
 r_speed_mods = r_beacons * 2
 r_prod_mods = (miners_in_miner-1) * 3
 r_belts = miners_in_miner * 4
+
+--//////////////////////////////////
+--Graphics data
+--//////////////////////////////////
+--Recreate with: for file in *; do echo -n "[\"$file\"] = {"; file $file | awk -F, '{print $2}' | awk -Fx '{print $1","$2"},"}'; done
+-- NEW_GRAPHICS = {
+	-- ["base_path"] = "__base__/graphics/entity/electric-mining-drill",
+	-- ["electric-mining-drill-E.png"] = { 840 , 784},
+	-- ["electric-mining-drill-E-drill-received-shadow.png"] = { 816 , 784},
+	-- ["electric-mining-drill-E-drill-shadow.png"] = { 880 , 776},
+	-- ["electric-mining-drill-E-fluid-background.png"] = { 42 , 70},
+	-- ["electric-mining-drill-E-fluid-flow.png"] = { 41 , 70},
+	-- ["electric-mining-drill-E-patch.png"] = { 100 , 110},
+	-- ["electric-mining-drill-E-patch-shadow.png"] = { 112 , 98},
+	-- ["electric-mining-drill-E-window-background.png"] = { 51 , 74},
+	-- ["electric-mining-drill-N.png"] = { 784 , 904},
+	-- ["electric-mining-drill-N-drill-received-shadow.png"] = { 800 , 816},
+	-- ["electric-mining-drill-N-drill-shadow.png"] = { 808 , 888},
+	-- ["electric-mining-drill-N-fluid-background.png"] = { 70 , 48},
+	-- ["electric-mining-drill-N-fluid-flow.png"] = { 68 , 50},
+	-- ["electric-mining-drill-N-patch.png"] = { 100 , 111},
+	-- ["electric-mining-drill-N-patch-shadow.png"] = { 110 , 98},
+	-- ["electric-mining-drill-N-window-background.png"] = { 72 , 54},
+	-- ["electric-mining-drill-radius-visualization.png"] = { 12 , 12},
+	-- ["electric-mining-drill-S.png"] = { 784 , 872},
+	-- ["electric-mining-drill-S-drill-received-shadow.png"] = { 800 , 784},
+	-- ["electric-mining-drill-S-drill-shadow.png"] = { 800 , 824},
+	-- ["electric-mining-drill-S-fluid-background.png"] = { 70 , 40},
+	-- ["electric-mining-drill-S-fluid-flow.png"] = { 68 , 40},
+	-- ["electric-mining-drill-S-patch.png"] = { 100 , 113},
+	-- ["electric-mining-drill-S-patch-shadow.png"] = { 110 , 98},
+	-- ["electric-mining-drill-S-window-background.png"] = { 71 , 44},
+	-- ["electric-mining-drill-W.png"] = { 840 , 784},
+	-- ["electric-mining-drill-W-drill-received-shadow.png"] = { 768 , 792},
+	-- ["electric-mining-drill-W-drill-shadow.png"] = { 912 , 776},
+	-- ["electric-mining-drill-W-fluid-background.png"] = { 42 , 69},
+	-- ["electric-mining-drill-W-fluid-flow.png"] = { 42 , 70},
+	-- ["electric-mining-drill-W-patch.png"] = { 100 , 108},
+	-- ["electric-mining-drill-W-patch-shadow.png"] = { 110 , 98},
+	-- ["electric-mining-drill-W-window-background.png"] = { 41 , 69},
+	-- ["hr-electric-mining-drill-E.png"] = { 1688 , 1576},
+	-- ["hr-electric-mining-drill-E-drill-received-shadow.png"] = { 1632 , 1672},
+	-- ["hr-electric-mining-drill-E-drill-shadow.png"] = { 1768 , 1560},
+	-- ["hr-electric-mining-drill-E-fluid-background.png"] = { 84 , 138},
+	-- ["hr-electric-mining-drill-E-fluid-flow.png"] = { 82 , 139},
+	-- ["hr-electric-mining-drill-E-patch.png"] = { 200 , 219},
+	-- ["hr-electric-mining-drill-E-patch-shadow.png"] = { 224 , 198},
+	-- ["hr-electric-mining-drill-E-window-background.png"] = { 104 , 147},
+	-- ["hr-electric-mining-drill-N.png"] = { 1568 , 1808},
+	-- ["hr-electric-mining-drill-N-drill-received-shadow.png"] = { 1632 , 1648},
+	-- ["hr-electric-mining-drill-N-drill-shadow.png"] = { 1608 , 1784},
+	-- ["hr-electric-mining-drill-N-fluid-background.png"] = { 138 , 94},
+	-- ["hr-electric-mining-drill-N-fluid-flow.png"] = { 136 , 99},
+	-- ["hr-electric-mining-drill-N-patch.png"] = { 200 , 222},
+	-- ["hr-electric-mining-drill-N-patch-shadow.png"] = { 220 , 197},
+	-- ["hr-electric-mining-drill-N-window-background.png"] = { 142 , 107},
+	-- ["hr-electric-mining-drill-S.png"] = { 1568 , 1752},
+	-- ["hr-electric-mining-drill-S-drill-received-shadow.png"] = { 1632 , 1632},
+	-- ["hr-electric-mining-drill-S-drill-shadow.png"] = { 1600 , 1648},
+	-- ["hr-electric-mining-drill-S-fluid-background.png"] = { 138 , 80},
+	-- ["hr-electric-mining-drill-S-fluid-flow.png"] = { 136 , 80},
+	-- ["hr-electric-mining-drill-S-patch.png"] = { 200 , 226},
+	-- ["hr-electric-mining-drill-S-patch-shadow.png"] = { 220 , 197},
+	-- ["hr-electric-mining-drill-S-window-background.png"] = { 141 , 86},
+	-- ["hr-electric-mining-drill-W.png"] = { 1688 , 1576},
+	-- ["hr-electric-mining-drill-W-drill-received-shadow.png"] = { 1584 , 1648},
+	-- ["hr-electric-mining-drill-W-drill-shadow.png"] = { 1832 , 1560},
+	-- ["hr-electric-mining-drill-W-fluid-background.png"] = { 83 , 137},
+	-- ["hr-electric-mining-drill-W-fluid-flow.png"] = { 83 , 140},
+	-- ["hr-electric-mining-drill-W-patch.png"] = { 200 , 220},
+	-- ["hr-electric-mining-drill-W-patch-shadow.png"] = { 220 , 197},
+	-- ["hr-electric-mining-drill-W-window-background.png"] = { 80 , 137},
+-- }
+
+-- function split(s, sep)
+    -- local fields = {}
+    
+    -- local sep = sep or " "
+    -- local pattern = string.format("([^%s]+)", sep)
+    -- string.gsub(s, pattern, function(c) fields[#fields + 1] = c end)
+    
+    -- return fields
+-- end
