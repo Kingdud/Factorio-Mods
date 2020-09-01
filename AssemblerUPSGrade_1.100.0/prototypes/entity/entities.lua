@@ -165,7 +165,6 @@ function createChemPlantEntity(name, compression_ratio, n_chem, e_chem)
 	
 	for _,dir in pairs({"north","east","south","west"})
 	do
-	log(dir)
 		for i,_ in pairs(new_entity.animation[dir].layers)
 		do
 			-- new_entity.animation[dir].layers[i].shift[1] = new_entity.animation[dir].layers[i].shift[1] * n_chem
