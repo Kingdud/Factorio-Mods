@@ -198,7 +198,7 @@ function createChemPlantEntity(name, compression_ratio, n_chem, e_chem)
 	new_entity.icon_size = 64
 	
 	-- Order: in-left, in-right, out-left, out-right
-	local new_pipe_conn_pos = { {-1,-1*new_drawing_box_size}, {1,-1*new_drawing_box_size}, {-1,new_drawing_box_size}, {1,new_drawing_box_size} }
+	local new_pipe_conn_pos = { {-1,math.floor(-1*new_drawing_box_size)}, {1,math.floor(-1*new_drawing_box_size)}, {-1,math.ceil(new_drawing_box_size)}, {1,math.ceil(new_drawing_box_size)} }
 	local pipe_counter = {1,3} -- input,output
 	for i,res in pairs(new_entity.fluid_boxes)
 	do
