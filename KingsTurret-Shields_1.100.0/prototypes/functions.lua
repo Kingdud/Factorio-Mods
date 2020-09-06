@@ -218,8 +218,7 @@ function setResearchValues(force)
 	else
 		regen_lvl = force.technologies["turret-shields-speed"].level
 	end
-	
-	log("debug: returning " .. size_lvl .. " " .. regen_lvl)
+
 	return size_lvl, regen_lvl
 end
 
