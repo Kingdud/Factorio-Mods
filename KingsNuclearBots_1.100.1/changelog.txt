@@ -1,0 +1,29 @@
+---------------------------------------------------------------------------------------------------
+Version: 1.100.1
+Date: 8/29/2020
+  Changes:
+    - Add a high-cargo version of the bots, to be used in places where (for example) picking up 100 repair packs per bot isn't a problem. IE: Deconstruction fleets / personal construction bots. Basically just a changeover from normal bots, since I originally did have massive cargo holds on construction bots, but got rid of it to make them behave better at base repair.
+---------------------------------------------------------------------------------------------------
+Version: 1.100.0
+Date: 8/29/2020
+  Changes:
+    - info.json bump to support 1.0
+---------------------------------------------------------------------------------------------------
+Version: 1.18.0
+Date: 2/9/2020
+  Changes:
+    - info.json bump to support .18
+--------------------------------------------------------------------------------------------------
+Version: 0.0.3
+Date: 1/29/2020
+  Changes
+    - Added setting to allow for larger stacks of uranium fuel cells; makes bulk movement easier.
+    - Changed construction robot size back to 1 and reduced the uranium fuel cell cost of building one from 1500 to 250. Reason being that a large inventory for construction bots is harmful when using bots to repair exterior defenses. Also, construction bots rarely have 100% uptime, so their fuel need should be far lower.
+---------------------------------------------------------------------------------------------------
+Version: 0.0.2
+  Changes:
+    - Increased logistics bot capacity from 15 to 100 items. Reason being, each bot now costs ~1000x as much material to produce as a normal logistics bot. True, they don't need power, but that much material investment warrants something better than a bot that can only move ~2x as much as a normal bot.
+---------------------------------------------------------------------------------------------------
+Version: 0.0.1
+  Info:
+    - Initial Release

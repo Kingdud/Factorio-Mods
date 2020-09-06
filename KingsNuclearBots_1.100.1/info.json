@@ -1,0 +1,9 @@
+{
+"name":"KingsNuclearBots",
+"author":"Kingdud",
+"version":"1.100.1",
+"factorio_version":"1.0",
+"title":"King's Nuclear Bots",
+"homepage":"",
+"description":"Nuclear powered robots that don't need to recharge. Forked from Buggi's Nuclear Bots and changed to have a more balanced formula, not have 3x the speed of normal bots, fire immunity, and some acid resistance for construction bots. Finally a use for all that Uranium that piles up! The recipie was scaled to require as much energy as a normal bot would use in 21 years - about the same time that a nuclear submarine reactor core lasts."
+}

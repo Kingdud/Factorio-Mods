@@ -238,7 +238,8 @@ end)
 script.on_event( defines.events.on_console_chat, function(event)
 	--log("debug script.on_event( defines.events.on_console_chat")
 	if event.player_index == 1 and event.message == "ts refresh" then
-		refresh_everything()
+		print("Command disabled. It breaks things, now that the mod is better written.")
+		--refresh_everything()
 	end
 	if event.message == "shieldstats" then
 		printShieldStats(game.players[event.player_index].force)
@@ -247,9 +248,18 @@ end)
 
 script.on_event(defines.events.on_runtime_mod_setting_changed, function(event)
 	--log("debug script.on_event(defines.events.on_runtime_mod_setting_changed")
-	global.research_enabled = settings.global["TS_research_enabled"].value
-	global.alternate_effect = settings.global["TS_alternate_effect"].value
-	refresh_everything()
+	
+	if event.setting == "TS_research_enabled" then
+		global.research_enabled = settings.global["TS_research_enabled"].value
+		game.players[event.player_index].force.technologies["turret-shields-base"].enabled = global.research_enabled
+		game.players[event.player_index].force.technologies["turret-shields-speed"].enabled = global.research_enabled
+		game.players[event.player_index].force.technologies["turret-shields-size"].enabled = global.research_enabled
+		update_electricity_force(event.players[event.player_index].force)
+	end
+	
+	if event.setting == "TS_alternate_effect" then
+		global.alternate_effect = settings.global["TS_alternate_effect"].value
+	end
 end)
 
 script.on_event(defines.events.on_research_finished,function(event)
@@ -316,10 +326,21 @@ script.on_event(defines.events.on_entity_damaged,function(event)
 	end
 end)
 
+--Building
+script.set_event_filter(defines.events.on_robot_built_entity, {{filter = "turret"}, {filter = "name", name = "turret-shield-combinator"}})
+script.set_event_filter(defines.events.on_built_entity, {{filter = "turret"}, {filter = "name", name = "turret-shield-combinator"}})
+script.set_event_filter(defines.events.script_raised_revive, {{filter = "turret"}, {filter = "name", name = "turret-shield-combinator"}})
+script.set_event_filter(defines.events.script_raised_built, {{filter = "turret"}, {filter = "name", name = "turret-shield-combinator"}})
+script.set_event_filter(defines.events.on_entity_cloned, {{filter = "turret"}, {filter = "name", name = "turret-shield-combinator"}})
+script.set_event_filter(defines.events.script_raised_revive, {{filter = "turret"}, {filter = "name", name = "turret-shield-combinator"}})
+
+--Destroying/removing
+script.set_event_filter(defines.events.on_entity_died, {{filter = "turret"}, {filter = "name", name = "turret-shield-combinator"}})
+script.set_event_filter(defines.events.on_player_mined_entity, {{filter = "turret"}, {filter = "name", name = "turret-shield-combinator"}})
+script.set_event_filter(defines.events.on_robot_mined_entity, {{filter = "turret"}, {filter = "name", name = "turret-shield-combinator"}})
+
+--Damaging
 script.set_event_filter(defines.events.on_entity_damaged, {{filter = "turret"}})
-script.set_event_filter(defines.events.on_entity_died, {{filter = "turret"}})
-script.set_event_filter(defines.events.on_player_mined_entity, {{filter = "turret"}})
-script.set_event_filter(defines.events.on_robot_mined_entity, {{filter = "turret"}})
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 script.on_event({defines.events.on_entity_died,defines.events.on_player_mined_entity,defines.events.on_robot_mined_entity},function(event)
