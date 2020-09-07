@@ -166,7 +166,7 @@ data:extend(
         cargo_centered = {0.0, 0.2},
         construction_vector = {0.30, 0.22},
     },
-	    {
+	{
         type = "construction-robot",
         name = "construction-robot-nuclear-big",
         icon = "__KingsNuclearBots__/graphics/icons/construction-robot-nuclear.png",
@@ -179,7 +179,7 @@ data:extend(
         dying_explosion = "massive-explosion",
         collision_box = {{0, 0}, {0, 0}},
         selection_box = {{-0.5, -1.5}, {0.5, -0.5}},
-        max_payload_size = 96,
+        max_payload_size = 97,
         speed = 0.06,
         transfer_distance = 0.5,
         max_energy = "1.5MJ",
