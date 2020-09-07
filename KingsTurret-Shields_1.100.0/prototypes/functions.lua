@@ -56,8 +56,7 @@ function printShieldStats(force)
 	local drain = (capacity / global.energy_consumption_multiplier) * global.power_usage
 	local total_drain = drain * global.turrets_size
 	
-	print("Shield HP: " .. capacity / global.energy_consumption_multiplier)
-	print("Shield Recharge Rate (units/s): " .. recharge / global.energy_consumption_multiplier)
+	print("Shield HP: " .. capacity / global.energy_consumption_multiplier .. " || Shield Recharge Rate (units/s): " .. recharge / global.energy_consumption_multiplier)
 	print("Shield Power Draw: " .. drain .. " kW (each) || " .. total_drain .. "kW (total)")
 end
 
