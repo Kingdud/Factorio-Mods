@@ -69,6 +69,10 @@ script.on_init(function()
 	global.iterate_e_updater = nil
 	global.iterate_e_updater_disconnected = nil
 	global.iterate_combinators = nil
+	
+	for k, force in pairs (game.forces) do
+		update_electricity_force(force)
+	end
 	--global.worker_key = nil
 end)
 
@@ -111,15 +115,6 @@ script.on_configuration_changed(function()
 	if global.version < 27 then
 		global.refresh_orientation={}
 		global.version=27
-	end
-	if global.version < 31 then
-		for k, force in pairs (game.forces) do
-			if force.technologies["turret-shields-base"].researched then
-				force.recipes["ts-shield-disabler"].enabled=true
-				force.recipes["turret-shield-combinator"].enabled=true
-			end
-		end
-		global.version=31
 	end
 	if global.version < 32 then
 		for tick, tbl in pairs(global.updater) do
@@ -167,15 +162,8 @@ script.on_event(defines.events.on_force_created,function(event)
 	--log("debug script.on_event(defines.events.on_force_created fired")
 	
 	global.forces[event.force.name] = {}
-	event.force.technologies["turret-shields-base"].enabled = global.research_enabled
-	event.force.technologies["turret-shields-speed"].enabled = global.research_enabled
-	event.force.technologies["turret-shields-size"].enabled = global.research_enabled
 
-	if global.research_enabled then
-		global.forces[event.force.name].enabled = event.force.technologies["turret-shields-base"].researched
-	else
-		global.forces[event.force.name].enabled = true
-	end
+	setTechAndRecipes(event.force)
 
 	for key, surface in pairs(game.surfaces) do
 		for i, turret in pairs(surface.find_entities_filtered{type= "ammo-turret", force = event.force.name}) do
@@ -251,10 +239,8 @@ script.on_event(defines.events.on_runtime_mod_setting_changed, function(event)
 	
 	if event.setting == "TS_research_enabled" then
 		global.research_enabled = settings.global["TS_research_enabled"].value
-		game.players[event.player_index].force.technologies["turret-shields-base"].enabled = global.research_enabled
-		game.players[event.player_index].force.technologies["turret-shields-speed"].enabled = global.research_enabled
-		game.players[event.player_index].force.technologies["turret-shields-size"].enabled = global.research_enabled
-		update_electricity_force(event.players[event.player_index].force)
+		setTechAndRecipes(game.players[event.player_index].force)
+		update_electricity_force(game.players[event.player_index].force)
 	end
 	
 	if event.setting == "TS_alternate_effect" then

@@ -1,5 +1,12 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.100.1
+Date: 9/5/2020
+  Bugfix:
+    - Fixed bug where research setting toggle crashed game.
+    - Fixed an issue where shields would be two ranks better than they were supposed to be.
+---------------------------------------------------------------------------------------------------
 Version: 1.100.0
+Date: 9/5/2020
   Changes:
     - Kingdud forks this mod from the original and updates this changelog to work in-game. Any updates prior to this one that reference 'me' are not referring to Kingdud.
     - Greatly simplify backend code. Completely remove on_tick function call.

@@ -207,15 +207,15 @@ function setResearchValues(force)
 	local size_lvl
 	local regen_lvl
 	
-	if force.technologies["turret-shields-size"].valid == false then
+	if not force.technologies["turret-shields-size"].enabled or force.technologies["turret-shields-size"].level == 1 then
 		size_lvl = -1
 	else
-		size_lvl = force.technologies["turret-shields-size"].level
+		size_lvl = force.technologies["turret-shields-size"].level - 2
 	end
-	if force.technologies["turret-shields-speed"].valid == false then
+	if not force.technologies["turret-shields-speed"].enabled or force.technologies["turret-shields-speed"].level == 1 then
 		regen_lvl = -1
 	else
-		regen_lvl = force.technologies["turret-shields-speed"].level
+		regen_lvl = force.technologies["turret-shields-speed"].level - 2
 	end
 
 	return size_lvl, regen_lvl
@@ -345,29 +345,52 @@ function refresh_everything()
 	end
 end
 
-function update_force(force)
-	if global.forces[force.name] == nil then
-		global.forces[force.name] = {}
-
-		global.forces[force.name].enabled = force.technologies["turret-shields-base"].researched
-		global.forces[force.name].research_speed_lvl = force.technologies["turret-shields-speed"].level
-		global.forces[force.name].research_size_lvl = force.technologies["turret-shields-size"].level
-
-		force.technologies["turret-shields-base"].enabled = global.research_enabled
-		force.technologies["turret-shields-speed"].enabled = global.research_enabled
-		force.technologies["turret-shields-size"].enabled = global.research_enabled
+function setTechAndRecipes(force)
+	log("Debug: entered setTechAndRecipes")
+	if not global.research_enabled then
+		log("Debug: Disabling adv research")
+		force.technologies["turret-shields-base"].researched = true
+		force.technologies["turret-shields-base"].enabled = false
+		force.recipes["ts-shield-disabler"].enabled = true
+		force.recipes["turret-shield-combinator"].enabled = true
+		force.technologies["turret-shields-size"].enabled = false
+		force.technologies["turret-shields-speed"].enabled = false
+		global.forces[force.name].research_speed_lvl = -1
+		global.forces[force.name].research_size_lvl = -1
+	else
+		force.technologies["turret-shields-base"].enabled = true
+		force.technologies["turret-shields-size"].enabled = true
+		force.technologies["turret-shields-speed"].enabled = true
+		global.forces[force.name].research_speed_lvl = force.technologies["turret-shields-speed"].level - 2
+		global.forces[force.name].research_size_lvl = force.technologies["turret-shields-size"].level - 2
 		
 		if force.technologies["turret-shields-base"].researched then
-			for key, surface in pairs(game.surfaces) do
-				for _, turret in pairs(surface.find_entities_filtered{type= "ammo-turret", force = force.name}) do
-					init_turret(turret)
-				end
-				for _, turret in pairs(surface.find_entities_filtered{type= "fluid-turret", force = force.name}) do
-					init_turret(turret)
-				end
-				for _, turret in pairs(surface.find_entities_filtered{type= "electric-turret", force = force.name}) do
-					init_turret(turret)
-				end
+			force.recipes["ts-shield-disabler"].enabled = true
+			force.recipes["turret-shield-combinator"].enabled = true
+		end
+	end
+end
+
+function update_force(force)
+	log("Debug: Entered force update for name " .. force.name .. " " .. tostring(global.forces[force.name]))
+	if global.forces[force.name] == nil then
+		log("Debug: Did not find force, created blank force")
+		global.forces[force.name] = {}
+	end
+	
+	setTechAndRecipes(force)
+	log("Debug: " .. tostring(force.technologies["turret-shields-base"].researched))
+	if force.technologies["turret-shields-base"].researched then
+		for key, surface in pairs(game.surfaces) do
+			for _, turret in pairs(surface.find_entities_filtered{type= "ammo-turret", force = force.name}) do
+				init_turret(turret)
+			end
+			for _, turret in pairs(surface.find_entities_filtered{type= "fluid-turret", force = force.name}) do
+				init_turret(turret)
+			end
+			for _, turret in pairs(surface.find_entities_filtered{type= "electric-turret", force = force.name}) do
+				log("Debug: found turret " .. turret.unit_number)
+				init_turret(turret)
 			end
 		end
 	end

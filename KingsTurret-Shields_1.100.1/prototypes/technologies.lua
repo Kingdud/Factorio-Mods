@@ -1,6 +1,8 @@
 --These need to be defined here because the global variable doesn't exist when this file is parsed.
 local research_size_steps = settings.startup["TS_research_size"].value
 local research_speed_steps = settings.startup["TS_research_speed"].value
+local baseHP = settings.startup["TS_base_shield"].value
+local base_charge = settings.startup["TS_base_charge_rate"].value
 
 local inverted_size_steps = 1 / research_size_steps
 local inverted_speed_steps = 1 / research_speed_steps
@@ -49,7 +51,7 @@ data:extend({
 		prerequisites = {"turret-shields-base"},
 		unit =
 		{
-			count_formula = "500*10^(L*" .. inverted_size_steps .. ")-200*" .. inverted_size_steps,
+			count_formula = baseHP * 2.5 .. "*10^(L*" .. inverted_size_steps .. ")-" .. baseHP * 2.5 .. "*" .. inverted_size_steps,
 			ingredients =
 			{
 				{"automation-science-pack", 1},
@@ -83,7 +85,7 @@ data:extend({
 			--Factorio doesn't support division, so we have to get creative.
 			--OG formula assuming 200 base shields and 54/s recharge. 9 research steps per order of magnitude
 			--500 * 10^(L / 9) - 54 / 9
-			count_formula = "500*10^(L*" .. inverted_speed_steps .. ")-500*" .. inverted_speed_steps,
+			count_formula = base_charge * 25 .. "*10^(L*" .. inverted_speed_steps .. ")-" .. base_charge * 25 .. "*" .. inverted_speed_steps,
 			ingredients =
 			{
 				{"automation-science-pack", 1},
