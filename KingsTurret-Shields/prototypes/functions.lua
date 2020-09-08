@@ -1,6 +1,9 @@
 require "constants"
 
 function getShieldValues(size, rate)
+	if DEBUG then
+		log("debug getShieldValues " .. size .. " " .. rate)
+	end
 	local energy_consumption_multiplier
 	local base_shield_val
 	local base_shield_recharge
@@ -52,9 +55,13 @@ function kts_print(str)
 end
 
 function printShieldStats(force)
+	if DEBUG then
+		log("debug printShieldStats " .. force.name)
+	end
+	
 	capacity, recharge = getShieldValues(setResearchValues(force))
 	local drain = (capacity / global.energy_consumption_multiplier) * global.power_usage
-	local total_drain = drain * global.turrets_size
+	local total_drain = drain * table_size(global.turrets)
 	
 	kts_print("Shield HP: " .. capacity / global.energy_consumption_multiplier .. " || Shield Recharge Rate (units/s): " .. recharge / global.energy_consumption_multiplier)
 	kts_print("Shield Power Draw: " .. drain .. " kW (each) || " .. total_drain .. "kW (total)")
@@ -62,6 +69,10 @@ end
 
 --Input is reference to global.turrets[<TURRET_ID>]
 function updateShieldGraphics(global_turret, recent_damage, needs_recharge)
+	if DEBUG then
+		log("debug updateShieldGraphics")
+	end
+	
 	if global_turret[HP_BAR] and global_turret[HP_BAR].valid then
 		global_turret[HP_BAR].destroy()
 	end
@@ -138,6 +149,10 @@ end
 
 --At the point this function is called, the entity has *already* taken damage to the hull. So if you had a 1000 HP turret that got hit for 120, it's HP, right now, is 880. 
 function handleDamageEvent(event)
+	if DEBUG then
+		log("debug handleDamageEvent")
+	end
+
 	--Damage is a positive number (IE: 35 incoming dmg is '35' rather than '-35'.
 	--We use original_damage_amount  instead of final_damage_amount because shields have no resists and the resists of the base entity (turret) already factored in to final_damage_amount.
 	--Reminder: 1 unit of damage takes 1kj * modifier to disspiate, so multiply all dmg by 1000.
@@ -205,6 +220,10 @@ function handleDamageEvent(event)
 end
 
 function setResearchValues(force)
+	if DEBUG then
+		log("debug setResearchValues " .. force.name)
+	end
+
 	local size_lvl
 	local regen_lvl
 	
@@ -222,7 +241,11 @@ function setResearchValues(force)
 	return size_lvl, regen_lvl
 end
 
-function update_electricity(turretID)		
+function update_electricity(turretID)
+	if DEBUG then
+		log("debug update_electricity " .. turretID)
+	end
+	
 	local old_energy
 	local turret = global.turrets[turretID][TURRET_ENTITY]
 	local position = global.turrets[turretID][TURRET_ENTITY].position
@@ -233,7 +256,7 @@ function update_electricity(turretID)
 
 	if global.turrets[turretID][ELECTRIC_GRID_INTERFACE] and global.turrets[turretID][ELECTRIC_GRID_INTERFACE].valid then
 		old_energy = global.turrets[turretID][ELECTRIC_GRID_INTERFACE].energy --energy currently in the buffer
-		ret = global.turrets[turretID][ELECTRIC_GRID_INTERFACE].destroy()
+		global.turrets[turretID][ELECTRIC_GRID_INTERFACE].destroy()
 	else
 		old_energy = 0
 	end
@@ -244,6 +267,10 @@ function update_electricity(turretID)
 end
 
 function update_electricity_force(force)
+	if DEBUG then
+		log("debug update_electricity_force " .. force.name)
+	end
+	
 	if not global.forces[force.name] then
 		update_force(force)
 	end
@@ -257,13 +284,15 @@ function update_electricity_force(force)
 end
 
 function init_turret(turret)
+	if DEBUG then
+		log("debug init_turret " .. turret.unit_number)
+	end
+	
 	if ignored_entities[turret.name] then return end
 
 	global.turrets[turret.unit_number]={game.tick,0}
 	global.turrets[turret.unit_number].disabled_until = 0
 	global.turrets[turret.unit_number][TURRET_ENTITY]=turret
-	
-	global.turrets_size = table_size(global.turrets)
 		
 	update_electricity(turret.unit_number)
 	
@@ -279,6 +308,10 @@ function init_turret(turret)
 end
 
 function refresh_hpbars()
+	if DEBUG then
+		log("debug refresh_hpbars")
+	end
+	
 	global.needsGFXUpdate = {}
 	for key, tbl in pairs(global.turrets) do
 		if tbl[TURRET_ENTITY] and tbl[TURRET_ENTITY].valid then
@@ -288,6 +321,10 @@ function refresh_hpbars()
 end
 
 function remove_hpbars()
+	if DEBUG then
+		log("debug remove_hpbars")
+	end
+	
 	for key, surface in pairs(game.surfaces) do
 		for i=0,9 do
 			for key, entity in pairs(surface.find_entities_filtered{name= "square-"..i}) do
@@ -303,6 +340,10 @@ function remove_hpbars()
 end
 
 function remove_energy()
+	if DEBUG then
+		log("debug remove_energy")
+	end
+	
 	for key, surface in pairs(game.surfaces) do
 		for key, entity in pairs(surface.find_entities_filtered{type= "electric-energy-interface"}) do
 			if string.sub(entity.name,1,22) == "ts-electric-interface-" then
@@ -347,6 +388,10 @@ function refresh_everything()
 end
 
 function setTechAndRecipes(force)
+	if DEBUG then
+		log("debug setTechAndRecipes " .. force.name)
+	end
+	
 	if not global.research_enabled then
 		force.technologies["turret-shields-base"].researched = true
 		force.technologies["turret-shields-base"].enabled = false
@@ -371,6 +416,10 @@ function setTechAndRecipes(force)
 end
 
 function update_force(force)
+	if DEBUG then
+		log("debug update_force " .. force.name)
+	end
+
 	if global.forces[force.name] == nil then
 		global.forces[force.name] = {}
 	end
@@ -392,6 +441,10 @@ function update_force(force)
 end
 
 function destroy_turret(key)
+	if DEBUG then
+		log("debug destroy_turret " .. key)
+	end
+	
 	if global.turrets[key] then
 		--if global.turrets[key].fx then global.turrets[key].fx.destroy() end
 		if global.turrets[key][HP_BAR] then global.turrets[key][HP_BAR].destroy() end
@@ -413,8 +466,7 @@ function destroy_turret(key)
 	global.electric_updater_disconnected[key] = nil
 	global.electric_updater[key] = nil
 	global.needsGFXUpdate[key] = nil
-	
-	global.turrets_size = table_size(global.turrets)
+
 	global.e_updater_size = table_size(global.electric_updater)
 	global.e_updater_disconnected_size = table_size(global.electric_updater_disconnected)
 end
@@ -424,6 +476,10 @@ if bool then return "true" else return "false" end
 end
 
 function toggle_shield(turret,onoff)
+	if DEBUG then
+		log("debug toggle_shield " .. turret.unit_number .. " " .. onoff)
+	end
+
 	if not onoff and not global.disabled_turrets[turret.unit_number] then
 		global.disabled_turrets[turret.unit_number] = {}
 		global.disabled_turrets[turret.unit_number][1] = turret.surface.create_entity{name = "ts-unplugged", position = {turret.position.x, turret.position.y}, force = "neutral"}

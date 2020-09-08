@@ -1,3 +1,6 @@
+--Always set to false before uploading a release!
+DEBUG=false
+
 SHIELD_STEPS_NORMAL = 9
 SHIELD_STEPS_LONG = 13
 

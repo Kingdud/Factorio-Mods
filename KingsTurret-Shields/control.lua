@@ -39,7 +39,9 @@ ignored_entities = {
 }
 
 script.on_init(function()
-	--log("debug script.on_init")
+	if DEBUG then
+		log("debug script.on_init")
+	end
 	
 	global.energy_consumption_multiplier = settings.startup["TS_energy_consumption_multiplier"].value
 	global.base_shield_val = settings.startup["TS_base_shield"].value
@@ -60,7 +62,6 @@ script.on_init(function()
 	refresh_everything()
 	global.version = 33
 	
-	global.turrets_size = 0
 	global.e_updater_size = 0
 	global.e_updater_disconnected_size = 0
 	global.combinators_size = 0
@@ -78,7 +79,9 @@ end)
 
 
 script.on_configuration_changed(function()
-	--log("debug script.on_configuration_changed")
+	if DEBUG then
+		log("debug script.on_configuration_changed")
+	end
 
 	global.energy_consumption_multiplier = settings.startup["TS_energy_consumption_multiplier"].value
 	global.base_shield_val = settings.startup["TS_base_shield"].value
@@ -128,7 +131,6 @@ script.on_configuration_changed(function()
 		for a, b in pairs(global.electric_updater_disconnected) do
 			global.electric_updater[a] = b[2]
 		end
-		global.turrets_size = table_size(global.turrets)
 		global.e_updater_size = table_size(global.electric_updater)
 		global.e_updater_disconnected_size = table_size(global.electric_updater_disconnected)
 		global.combinators_size = table_size(global.combinators)
@@ -159,7 +161,9 @@ script.on_configuration_changed(function()
 end)
 
 script.on_event(defines.events.on_force_created,function(event)
-	--log("debug script.on_event(defines.events.on_force_created fired")
+	if DEBUG then
+		log("debug script.on_event(defines.events.on_force_created fired")
+	end
 	
 	global.forces[event.force.name] = {}
 
@@ -179,7 +183,9 @@ script.on_event(defines.events.on_force_created,function(event)
 end)
 
 script.on_event(defines.events.on_player_selected_area,function(event)
-	--log("debug script.on_event(defines.events.on_player_selected_area")
+	if DEBUG then
+		log("debug script.on_event(defines.events.on_player_selected_area")
+	end
 	
     if event.item == "ts-shield-disabler" then
 		if global.energy_consumption then
@@ -218,13 +224,19 @@ script.on_event(defines.events.on_player_selected_area,function(event)
 end)
 
 script.on_event( defines.events.on_player_changed_force, function(event)
-	--log("debug script.on_event( defines.events.on_player_changed_force")
+	if DEBUG then
+		log("debug script.on_event( defines.events.on_player_changed_force")
+	end
+	
 	local force= game.players[event.player_index].force
 	update_force(force)
 end)
 
 script.on_event( defines.events.on_console_chat, function(event)
-	--log("debug script.on_event( defines.events.on_console_chat")
+	if DEBUG then
+		log("debug script.on_event( defines.events.on_console_chat")
+	end
+	
 	if event.player_index == 1 and event.message == "ts refresh" then
 		kts_print("Command disabled. It breaks things, now that the mod is better written.")
 		--refresh_everything()
@@ -235,7 +247,9 @@ script.on_event( defines.events.on_console_chat, function(event)
 end)
 
 script.on_event(defines.events.on_runtime_mod_setting_changed, function(event)
-	--log("debug script.on_event(defines.events.on_runtime_mod_setting_changed")
+	if DEBUG then
+		log("debug script.on_event(defines.events.on_runtime_mod_setting_changed")
+	end
 	
 	if event.setting == "TS_research_enabled" then
 		global.research_enabled = settings.global["TS_research_enabled"].value
@@ -249,7 +263,9 @@ script.on_event(defines.events.on_runtime_mod_setting_changed, function(event)
 end)
 
 script.on_event(defines.events.on_research_finished,function(event)
-	--log("debug script.on_event(defines.events.on_research_finished")
+	if DEBUG then
+		log("debug script.on_event(defines.events.on_research_finished")
+	end
 
 	force = event.research.force
 	if not global.research_enabled then return end
@@ -262,7 +278,10 @@ script.on_event(defines.events.on_research_finished,function(event)
 end)
 
 script.on_event(defines.events.script_raised_revive,function(event)
-	--log("debug script.on_event(defines.events.script_raised_revive")
+	if DEBUG then
+		log("debug script.on_event(defines.events.script_raised_revive")
+	end
+	
 	if global.forces[event.entity.force.name].enabled then
 		if event.entity.type == "ammo-turret"
 		or event.entity.type == "fluid-turret"
@@ -279,7 +298,10 @@ script.on_event(defines.events.script_raised_revive,function(event)
 end)
 
 script.on_event({defines.events.on_robot_built_entity,defines.events.on_built_entity,defines.events.script_raised_revive,defines.events.script_raised_built,defines.events.on_entity_cloned},function(event)
-	--log("debug script.on_event({defines.events.on_robot_built_entity")
+	if DEBUG then
+		log("debug script.on_event({defines.events.on_robot_built_entity")
+	end
+	
 	local entity = event.created_entity or event.entity or event.destination
 	if global.forces[entity.force.name].enabled then
 		if entity.type == "ammo-turret"
@@ -297,7 +319,10 @@ script.on_event({defines.events.on_robot_built_entity,defines.events.on_built_en
 end)
 
 script.on_event(defines.events.on_entity_damaged,function(event)
-	--log("debug script.on_event(defines.events.on_entity_damaged")
+	if DEBUG then
+		log("debug script.on_event(defines.events.on_entity_damaged")	
+	end
+	
 	if not event.entity.valid then
 		return
 	end
@@ -330,7 +355,10 @@ script.set_event_filter(defines.events.on_entity_damaged, {{filter = "turret"}})
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 script.on_event({defines.events.on_entity_died,defines.events.on_player_mined_entity,defines.events.on_robot_mined_entity},function(event)
-	--log("debug script.on_event({defines.events.on_entity_died")
+	if DEBUG then
+		log("debug script.on_event({defines.events.on_entity_died")
+	end
+	
 	if event.entity.type == "ammo-turret"
 	or event.entity.type == "fluid-turret"
 	or event.entity.type == "electric-turret" then

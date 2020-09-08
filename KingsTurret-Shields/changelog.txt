@@ -1,4 +1,14 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.100.4
+Date: 9/8/2020
+  Bugfix:
+    - Global turret count now updates correctly.
+---------------------------------------------------------------------------------------------------
+Version: 1.100.3
+Date: 9/8/2020
+  Bugfix:
+    - Crash fix. Fluid turrets were trying to update their orientation before setting their orientation.
+---------------------------------------------------------------------------------------------------
 Version: 1.100.2
 Date: 9/7/2020
   Compatibility:

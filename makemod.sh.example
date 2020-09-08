@@ -1,7 +1,8 @@
 #!/bin/bash
 
-BASE_PATH="/cygdrive/c/Users/user/AppData/Roaming/Factorio/My Mods Git"
-BASE_PATH_WIN="C:\Users\user\AppData\Roaming\Factorio\My Mods Git"
+BASE_PATH="</cygdrive path to your development folder>"
+BASE_PATH_WIN="<Same path as above, but using C:\ format instead of cygwin's /cygdrive format.>"
+MODS_FOLDER_WIN="<Directory where factorio saves it's mods, usually AppData/Roaming/Factorio/mods>"
 
 if [ $# -lt 1 ]
 then
@@ -9,14 +10,11 @@ then
 	exit 1
 fi
 
-if [ "${str:$i:1}" == '\\' ]
-then
-	modname=`echo $1 | tr -d '\\'`
-else
-	modname=$1
-fi
+modname=`echo $1 | tr -d '/'`
 
 version=`grep '"version"' "$BASE_PATH/$modname/info.json" | awk -F: '{print $2}' | tr -d '"' | tr -d ',' | tr -d ' ' | tr -d '\r\n'`
 
 robocopy "$BASE_PATH_WIN\\${modname}" "$BASE_PATH_WIN\\${modname}_${version}" /MIR /S
 /cygdrive/c/Program\ Files/7-Zip/7z.exe a -sdel "$BASE_PATH_WIN\\${modname}_${version}.zip" "$BASE_PATH_WIN\\${modname}_${version}"
+
+robocopy "$BASE_PATH_WIN" "$MODS_FOLDER_WIN" ${modname}_${version}.zip
