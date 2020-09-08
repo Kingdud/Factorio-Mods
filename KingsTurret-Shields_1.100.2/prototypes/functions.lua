@@ -72,6 +72,8 @@ function updateShieldGraphics(global_turret, recent_damage, needs_recharge)
 	local shield_bubble_amt
 	local gfx_prefix = ""
 	
+	global_turret[ORIENTATION] = global_turret[TURRET_ENTITY].orientation
+	
 	--Fluid turrets in a certain orientation get a longer graphic...for some reason.
 	if global_turret[TURRET_ENTITY].type == "fluid-turret" and  global_turret[ORIENTATION] % 0.5 ~= 0 then
 		shield_bubble_amt = max_shield / SHIELD_STEPS_LONG
@@ -97,7 +99,6 @@ function updateShieldGraphics(global_turret, recent_damage, needs_recharge)
 	end
 	
 	if global_turret[TURRET_ENTITY].type == "fluid-turret" and global_turret[TURRET_ENTITY].orientation % 0.25 == 0 then
-		global_turret[ORIENTATION] = global_turret[TURRET_ENTITY].orientation
 		if global_turret[TURRET_ENTITY].shooting_target ~= nil or global_turret[TURRET_ENTITY].orientation % 0.25 ~= 0 then
 			table.insert(global.refresh_orientation,global_turret[TURRET_ENTITY])
 		end
