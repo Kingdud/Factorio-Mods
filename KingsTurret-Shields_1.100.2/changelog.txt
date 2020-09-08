@@ -1,6 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.100.2
+Date: 9/7/2020
+  Compatibility:
+    - Experimental fix to make compatible with crafting_combinator
+---------------------------------------------------------------------------------------------------
 Version: 1.100.1
-Date: 9/5/2020
+Date: 9/7/2020
   Bugfix:
     - Fixed bug where research setting toggle crashed game.
     - Fixed an issue where shields would be two ranks better than they were supposed to be.

@@ -8,7 +8,47 @@ data:extend({
 			--Setting effectivity here actually makes it less efficient.
 			effectivity = 0.25,
 			fuel_inventory_size = 1,
-			fuel_category = "lwr-nuclear"
+			fuel_category = "lwr-nuclear",
+			smoke = {
+				--Two stacks = two smoke puffs.
+				{
+					--  4,4 is SE || 4,-4 is NE || -4, 4 is SW || -4, -4 is NW
+					--Horizontal orientation - stacks on left; top stack.
+					east_position = {
+						-28, -- 5 to 15 == more east
+						-32.5 -- -30 to -40 == more north
+					},
+					--Vertical orientation - stacks on bottom; left stack
+					north_position = { -9, 8 },
+					--Vertical orientation - stacks on top; right stack
+					south_position = { 12, -52 },
+					--Horizontal orientation - stacks on right; top stack.
+					west_position = { 32, -32.5 },
+					frequency = 6,
+					name = "lwr-cooling-tower-smoke",
+					slow_down_factor = 1,
+					starting_frame_deviation = 60,
+					starting_vertical_speed = 0.08
+				},
+				{
+					--Horizontal orientation - stacks on left; bottom stack.
+					east_position = {
+						-28, -- 5 to 15 == more east
+						-13 -- -30 to -40 == more north
+					},
+					--Vertical orientation - stacks on bottom; right stack
+					north_position = { 12, 8 },
+					--Vertical orientation - stacks on top; left stack
+					south_position = { -8.5, -52 },
+					--Horizontal orientation - stacks on right; bottom stack.
+					west_position = { 32, -15 },
+					frequency = 6,
+					name = "lwr-cooling-tower-smoke",
+					slow_down_factor = 1,
+					starting_frame_deviation = 60,
+					starting_vertical_speed = 0.08
+				},
+			},
 		},
 		collision_box = {
 			{
@@ -178,42 +218,6 @@ data:extend({
 			19.5,
 			39.5
 		}
-		},
-		smoke = {
-			{
-				--Horizontal orientation; top stack.
-				east_position = {
-					-28, -- 5 to 15 == more east
-					-32 -- -30 to -40 == more north
-				},
-				frequency = 0.3125,
-				name = "lwr-cooling-tower-smoke",
-				--Vertical orientation; left stack
-				north_position = {
-					-8,
-					6
-				},
-				slow_down_factor = 1,
-				starting_frame_deviation = 60,
-				starting_vertical_speed = 0.08
-			},
-			{
-				--Horizontal orientation; bottom stack.
-				east_position = {
-					-28, -- 5 to 15 == more east
-					-13 -- -30 to -40 == more north
-				},
-				frequency = 0.3125,
-				name = "lwr-cooling-tower-smoke",
-				--Vertical orientation; right stack
-				north_position = {
-					13,
-					6
-				},
-				slow_down_factor = 1,
-				starting_frame_deviation = 60,
-				starting_vertical_speed = 0.08
-			},
 		},
 		type = "burner-generator",
 		vehicle_impact_sound = {

@@ -226,7 +226,7 @@ end)
 script.on_event( defines.events.on_console_chat, function(event)
 	--log("debug script.on_event( defines.events.on_console_chat")
 	if event.player_index == 1 and event.message == "ts refresh" then
-		print("Command disabled. It breaks things, now that the mod is better written.")
+		kts_print("Command disabled. It breaks things, now that the mod is better written.")
 		--refresh_everything()
 	end
 	if event.message == "shieldstats" then

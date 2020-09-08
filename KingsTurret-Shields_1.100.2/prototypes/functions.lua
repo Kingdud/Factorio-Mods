@@ -47,7 +47,7 @@ function getShieldValues(size, rate)
 	return this_step_size_value * energy_consumption_multiplier, this_step_rate_value * energy_consumption_multiplier
 end
 
-function print(str)
+function kts_print(str)
 	game.print(str)
 end
 
@@ -56,8 +56,8 @@ function printShieldStats(force)
 	local drain = (capacity / global.energy_consumption_multiplier) * global.power_usage
 	local total_drain = drain * global.turrets_size
 	
-	print("Shield HP: " .. capacity / global.energy_consumption_multiplier .. " || Shield Recharge Rate (units/s): " .. recharge / global.energy_consumption_multiplier)
-	print("Shield Power Draw: " .. drain .. " kW (each) || " .. total_drain .. "kW (total)")
+	kts_print("Shield HP: " .. capacity / global.energy_consumption_multiplier .. " || Shield Recharge Rate (units/s): " .. recharge / global.energy_consumption_multiplier)
+	kts_print("Shield Power Draw: " .. drain .. " kW (each) || " .. total_drain .. "kW (total)")
 end
 
 --Input is reference to global.turrets[<TURRET_ID>]
@@ -148,7 +148,7 @@ function handleDamageEvent(event)
 	
 	--Now we figure out if we should apply hull damage due to the shield having been broken.
 	if event.tick <= global.turrets[event.entity.unit_number].disabled_until then
-		-- print("Turret took Hull dmg " .. event.final_damage_amount .. " Current HP " .. event.entity.health .. " to " .. event.entity.unit_number)
+		-- kts_print("Turret took Hull dmg " .. event.final_damage_amount .. " Current HP " .. event.entity.health .. " to " .. event.entity.unit_number)
 		
 		if event.entity.health <= 0 then
 			destroy_turret(event.entity.unit_number)
@@ -168,12 +168,12 @@ function handleDamageEvent(event)
 		--We can only absorb a part of the damage.
 		if damage >= shieldHP then
 			damage = damage - shieldHP
-			-- print("Partial Shiled absorb. " .. shieldHP / (global.energy_consumption_multiplier * 1000))
+			-- kts_print("Partial Shiled absorb. " .. shieldHP / (global.energy_consumption_multiplier * 1000))
 			shieldHP = 0
 			global.turrets[event.entity.unit_number].disabled_until = event.tick+SHIELD_BROKEN_REGEN_TIME
 			issue_hull_damage = true
 		else
-			-- print("Turret taking Shiled dmg " .. damage / (global.energy_consumption_multiplier * 1000) .. " Shield at " .. shieldHP / 2000 )
+			-- kts_print("Turret taking Shiled dmg " .. damage / (global.energy_consumption_multiplier * 1000) .. " Shield at " .. shieldHP / 2000 )
 			shieldHP = shieldHP - damage
 		end
 		
@@ -190,7 +190,7 @@ function handleDamageEvent(event)
 		--Remove the 1 dmg pt = 1kj and energy_consumption_multiplier factors
 		damage = damage / (global.energy_consumption_multiplier * 1000)
 	
-		-- print("Issuing rollover dmg " .. damage)
+		-- kts_print("Issuing rollover dmg " .. damage)
 		--We use the API function to damage because that re-factors in the resists for us!
 		--note: event.entity is the thing *being* hit, event.cause is the thing doing the hitting
 		--note: This could create an infinite loop; it is important to have the shield briefly stop absorbing damage once broken so this actually hits the turret rather than the shield.
@@ -346,9 +346,7 @@ function refresh_everything()
 end
 
 function setTechAndRecipes(force)
-	log("Debug: entered setTechAndRecipes")
 	if not global.research_enabled then
-		log("Debug: Disabling adv research")
 		force.technologies["turret-shields-base"].researched = true
 		force.technologies["turret-shields-base"].enabled = false
 		force.recipes["ts-shield-disabler"].enabled = true
@@ -372,14 +370,11 @@ function setTechAndRecipes(force)
 end
 
 function update_force(force)
-	log("Debug: Entered force update for name " .. force.name .. " " .. tostring(global.forces[force.name]))
 	if global.forces[force.name] == nil then
-		log("Debug: Did not find force, created blank force")
 		global.forces[force.name] = {}
 	end
 	
 	setTechAndRecipes(force)
-	log("Debug: " .. tostring(force.technologies["turret-shields-base"].researched))
 	if force.technologies["turret-shields-base"].researched then
 		for key, surface in pairs(game.surfaces) do
 			for _, turret in pairs(surface.find_entities_filtered{type= "ammo-turret", force = force.name}) do
@@ -389,7 +384,6 @@ function update_force(force)
 				init_turret(turret)
 			end
 			for _, turret in pairs(surface.find_entities_filtered{type= "electric-turret", force = force.name}) do
-				log("Debug: found turret " .. turret.unit_number)
 				init_turret(turret)
 			end
 		end

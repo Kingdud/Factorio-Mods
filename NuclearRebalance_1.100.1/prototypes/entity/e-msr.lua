@@ -9,7 +9,27 @@ data:extend({
 			burnt_inventory_size = 0,
 			effectivity = 0.55,
 			fuel_inventory_size = 1,
-			fuel_category = "msr-nuclear"
+			fuel_category = "msr-nuclear",
+			smoke = {
+				{
+					--Cooling tower in bottom-left.
+					east_position = {
+						-6, -- 5 to 15 == more east 0
+						-17.5 -- -30 to -40 == more north
+					},
+					frequency = 8,
+					name = "msr-cooling-tower-smoke",
+					--Cooling tower in bottom-right.
+					north_position = { 16, -17.5 },
+					--Cooling tower upper-left
+					south_position = { -6, -40 },
+					--Cooling tower upper-right
+					west_position = { 16, -40 },
+					slow_down_factor = 1,
+					starting_frame_deviation = 60,
+					starting_vertical_speed = 0.08
+				}
+			},
 		},
 		collision_box = {
 			{
@@ -182,25 +202,6 @@ data:extend({
 			29.5,
 			29.5
 		}
-		},
-		smoke = {
-			{
-				--horizontal orientation.
-				east_position = {
-					16, -- 5 to 15 == more east
-					-40 -- -30 to -40 == more north
-				},
-				frequency = 0.3125,
-				name = "msr-cooling-tower-smoke",
-				--Vertical orientation
-				north_position = {
-					16,
-					-17.5
-				},
-				slow_down_factor = 1,
-				starting_frame_deviation = 60,
-				starting_vertical_speed = 0.08
-			}
 		},
 		type = "burner-generator",
 		vehicle_impact_sound = {
