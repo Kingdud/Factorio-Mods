@@ -246,6 +246,7 @@ script.on_event(defines.events.on_runtime_mod_setting_changed, function(event)
 	
 	if event.setting == "TS_research_enabled" then
 		global.research_enabled = settings.global["TS_research_enabled"].value
+		rescan_for_turrets(force)
 		setTechAndRecipes(game.players[event.player_index].force)
 		update_electricity_force(game.players[event.player_index].force)
 	end
