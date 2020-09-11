@@ -1,4 +1,4 @@
-require "constants"
+require "prototypes.constants"
 
 function getShieldValues(size, rate)
 	if DEBUG then
@@ -271,6 +271,14 @@ function update_electricity_force(force)
 		log("debug update_electricity_force " .. force.name)
 	end
 	
+	if global.research_enabled and force.technologies["turret-shields-base"].researched then
+		global.forces[force.name].enabled = true
+	elseif global.research_enabled and not force.technologies["turret-shields-base"].researched then
+		global.forces[force.name].enabled = false
+	else
+		global.forces[force.name].enabled = true
+	end
+	
 	if not global.forces[force.name] then
 		update_force(force)
 	end
@@ -279,6 +287,20 @@ function update_electricity_force(force)
 		if tbl[TURRET_ENTITY] and tbl[TURRET_ENTITY].valid and tbl[TURRET_ENTITY].force.name == force.name then
 			update_electricity(tbl[TURRET_ENTITY].unit_number)
 			updateShieldGraphics(tbl, false, true)
+		end
+	end
+end
+
+function rescan_for_turrets(force)
+	for key, surface in pairs(game.surfaces) do
+		for i, turret in pairs(surface.find_entities_filtered{type= "ammo-turret", force}) do
+			init_turret(turret)
+		end
+		for i, turret in pairs(surface.find_entities_filtered{type= "fluid-turret", force}) do
+			init_turret(turret)
+		end
+		for i, turret in pairs(surface.find_entities_filtered{type= "electric-turret", force}) do
+			init_turret(turret)
 		end
 	end
 end

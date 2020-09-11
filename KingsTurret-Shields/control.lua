@@ -71,12 +71,13 @@ script.on_init(function()
 	global.iterate_e_updater_disconnected = nil
 	global.iterate_combinators = nil
 	
-	for k, force in pairs (game.forces) do
+	for k, force in pairs (game.forces) do	
 		update_electricity_force(force)
+		--technically causes a double-scan sometimes, but only once, and that's ok...ish.
+		rescan_for_turrets(force)
 	end
 	--global.worker_key = nil
 end)
-
 
 script.on_configuration_changed(function()
 	if DEBUG then
@@ -155,8 +156,10 @@ script.on_configuration_changed(function()
 		global.version = 33
 	end
 
-	for k, force in pairs (game.forces) do
+	for k, force in pairs (game.forces) do	
 		update_electricity_force(force)
+		--technically causes a double-scan sometimes, but only once, and that's ok...ish.
+		rescan_for_turrets(force)
 	end
 end)
 
@@ -169,17 +172,7 @@ script.on_event(defines.events.on_force_created,function(event)
 
 	setTechAndRecipes(event.force)
 
-	for key, surface in pairs(game.surfaces) do
-		for i, turret in pairs(surface.find_entities_filtered{type= "ammo-turret", force = event.force.name}) do
-			init_turret(turret)
-		end
-		for i, turret in pairs(surface.find_entities_filtered{type= "fluid-turret", force = event.force.name}) do
-			init_turret(turret)
-		end
-		for i, turret in pairs(surface.find_entities_filtered{type= "electric-turret", force = event.force.name}) do
-			init_turret(turret)
-		end
-	end
+	rescan_for_turrets(event.force)
 end)
 
 script.on_event(defines.events.on_player_selected_area,function(event)
@@ -275,6 +268,11 @@ script.on_event(defines.events.on_research_finished,function(event)
 	end
 	
 	update_electricity_force(force)
+	
+	--If we just researched the tech for the first time, ensure all existing turrets get shields.
+	if event.research.name == "turret-shields-base" then
+		rescan_for_turrets(force)
+	end
 end)
 
 script.on_event(defines.events.script_raised_revive,function(event)
