@@ -17,3 +17,9 @@ DMG_SINCE_LAST_TICK=9
 --Used to allow damage to pass through to the entity underneath when a shield breaks.
 SHIELD_BROKEN_REGEN_TIME = 10
 ENERGY_PER_DMG_POINT = 1000 --1 dmg absorbed = 1 kj energy needed to absorb
+
+GFX_NORMAL_HEIGHT=40
+GFX_NORMAL_WIDTH=260
+
+GFX_LIQUID_HEIGHT=40
+GFX_LIQUID_WIDTH=388

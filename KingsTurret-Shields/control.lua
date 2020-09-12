@@ -60,7 +60,7 @@ script.on_init(function()
 	global.disabled_turrets={}
 	global.combinators={}
 	refresh_everything()
-	global.version = 33
+	global.version = 34
 	
 	global.e_updater_size = 0
 	global.e_updater_disconnected_size = 0
@@ -155,6 +155,15 @@ script.on_configuration_changed(function()
 		end
 		global.version = 33
 	end
+	--Destroy any entity shield bars so they can be replaced with animation ones.
+	log("DEbug: version " .. global.version)
+	if global.version < 34 then
+		remove_hpbars()
+		for key, value in pairs(global.turrets) do
+			value[HP_BAR] = nil
+		end
+		global.version = 34
+	end
 
 	for k, force in pairs (game.forces) do	
 		update_electricity_force(force)
@@ -246,7 +255,10 @@ script.on_event(defines.events.on_runtime_mod_setting_changed, function(event)
 	
 	if event.setting == "TS_research_enabled" then
 		global.research_enabled = settings.global["TS_research_enabled"].value
-		rescan_for_turrets(force)
+		if not global.research_enabled then
+			game.players[event.player_index].force.technologies["turret-shields-base"].researched = true
+		end
+		rescan_for_turrets(game.players[event.player_index].force)
 		setTechAndRecipes(game.players[event.player_index].force)
 		update_electricity_force(game.players[event.player_index].force)
 	end

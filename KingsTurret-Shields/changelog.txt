@@ -1,4 +1,10 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.100.7
+Date: 9/12/2020
+  Bugfix:
+    - Shield bars updated to use draw_animation instead of create entities in the world. No more problems building turret walls because of 'square-0'!
+    - Other entity-based animations replaced with draw_animation calls.
+---------------------------------------------------------------------------------------------------
 Version: 1.100.6
 Date: 9/11/2020
   Bugfix:

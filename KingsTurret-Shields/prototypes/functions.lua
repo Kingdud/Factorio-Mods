@@ -73,8 +73,8 @@ function updateShieldGraphics(global_turret, recent_damage, needs_recharge)
 		log("debug updateShieldGraphics")
 	end
 	
-	if global_turret[HP_BAR] and global_turret[HP_BAR].valid then
-		global_turret[HP_BAR].destroy()
+	if global_turret[HP_BAR] and rendering.is_valid(global_turret[HP_BAR]) then
+		rendering.destroy(global_turret[HP_BAR])
 	end
 	
 	local max_shield = global_turret[ELECTRIC_GRID_INTERFACE].electric_buffer_size
@@ -82,6 +82,13 @@ function updateShieldGraphics(global_turret, recent_damage, needs_recharge)
 	--The number of shield bubbles to display on the graphic
 	local shield_bubble_amt
 	local gfx_prefix = ""
+	--How long should this graphic stick around. 0 = forever.
+	local gfx_time_to_live = 0
+	
+	--Once the shield is charged, we stop showing the charge bar, we already removed it above, so we are done.
+	if max_shield == shieldHP then
+		gfx_time_to_live = 41
+	end
 	
 	global_turret[ORIENTATION] = global_turret[TURRET_ENTITY].orientation
 	
@@ -98,11 +105,15 @@ function updateShieldGraphics(global_turret, recent_damage, needs_recharge)
 	--debug
 	--log("ShieldHP " .. shieldHP .. " Max shield " .. max_shield .. " num bubbles " .. num_shield_bubbles .. " turretid " .. global_turret[TURRET_ENTITY].unit_number .. " recharge " .. tostring(needs_recharge))
 	
+	local the_surface = global_turret[TURRET_ENTITY].surface
 	local position = global_turret[TURRET_ENTITY].position
-	local surface = global_turret[TURRET_ENTITY].surface
 	
-	global_turret[HP_BAR] = surface.create_entity{name = gfx_prefix .. "square-" .. num_shield_bubbles, position = {position.x+0.01, position.y + 1.3}, force = "neutral"}
-	global_turret[HP_BAR].destructible = false
+	global_turret[HP_BAR] = rendering.draw_animation({
+		animation = gfx_prefix .. "square-" .. num_shield_bubbles,
+		target = position,
+		time_to_live = gfx_time_to_live,
+		surface = the_surface
+	})
 	
 	if global_turret[TURRET_ENTITY].name == "laser-turret" then
 		position.y = position.y -0.16
@@ -138,11 +149,11 @@ function updateShieldGraphics(global_turret, recent_damage, needs_recharge)
 					effect = effect.."2"
 					global_turret[SHIELD_EFFECT_ENTITY].destroy()
 				end
-				global_turret[SHIELD_EFFECT_ENTITY] = surface.create_entity{name = "shield-effect-alternate"..effect, position = {position.x-0.06, position.y -0.38}, force = "neutral"}
+				global_turret[SHIELD_EFFECT_ENTITY] = the_surface.create_entity{name = "shield-effect-alternate"..effect, position = {position.x-0.06, position.y -0.38}, force = "neutral"}
 				global_turret[SHIELD_VALUE_ON_LAST_TICK] = game.tick
 			end
 		else
-			surface.create_trivial_smoke{name="shield-effect"..effect, position = {position.x, position.y -0.48}}
+			the_surface.create_trivial_smoke{name="shield-effect"..effect, position = {position.x, position.y -0.48}}
 		end
 	end
 end

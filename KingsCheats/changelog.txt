@@ -1,0 +1,15 @@
+---------------------------------------------------------------------------------------------------
+Version: 1.100.0
+Date: 8/29/2020
+  Changes:
+    - info.json bump to support 1.0
+---------------------------------------------------------------------------------------------------
+Version: 1.18.0
+Date: 2/9/2020
+  Changes:
+    - info.json bump to support .18
+---------------------------------------------------------------------------------------------------
+Version: 1.0.0
+Date: 1/19/2020
+  Info:
+    - Initial Release. Just my own overrides for default Factorio stuff because I want clean runs not annoyance.
