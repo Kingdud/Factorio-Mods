@@ -1,10 +1,10 @@
 data:extend({
   {
     type = "int-setting",
-    name = "bulkteleport-checks-per-second",
+    name = "bulkteleport-seconds-between-checks",
     order = "aa",
     setting_type = "runtime-global",
-    default_value = 20,
+    default_value = 1,
     minimum_value = 1,
     maximum_value = 60,
   },
@@ -57,5 +57,23 @@ data:extend({
     default_value = 0.99,
     minimum_value = 0.1,
     maximum_value = 1.0,
+  },
+  {
+    type = "double-setting",
+    name = "bulkteleport-smalltp-energy-need",
+    order = "ad",
+    setting_type = "runtime-global",
+    default_value = 1000,
+    minimum_value = 30,
+    maximum_value = 50000,
+  },
+  {
+    type = "double-setting",
+    name = "bulkteleport-bigtp-energy-need",
+    order = "ad",
+    setting_type = "runtime-global",
+    default_value = 4000,
+    minimum_value = 45,
+    maximum_value = 200000,
   },
 })

@@ -3,7 +3,7 @@ data:extend({
 	{
 		type = "technology",
 		name = "bulkteleport-tech1",
-		icon = "__bulkteleport__/graphics/tech1.png",
+		icon = "__Kingsbulkteleport__/graphics/tech1.png",
 		icon_size = 128,
 		effects = {
 			{ type = "unlock-recipe", recipe = "bulkteleport-send1" },
@@ -32,7 +32,7 @@ data:extend({
 	{
 		type = "technology",
 		name = "bulkteleport-tech2",
-		icon = "__bulkteleport__/graphics/tech2.png",
+		icon = "__Kingsbulkteleport__/graphics/tech2.png",
 		icon_size = 128,
 		effects = {
 			{ type = "unlock-recipe", recipe = "bulkteleport-send2" },

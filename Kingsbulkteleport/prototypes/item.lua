@@ -3,7 +3,7 @@ local function teleporter(tier)
 		{
 			type = "item",
 			name = "bulkteleport-send"..tier,
-			icon = "__bulkteleport__/graphics/send"..tier..".png",
+			icon = "__Kingsbulkteleport__/graphics/send"..tier..".png",
 			icon_size = 32,
 			flags = {},
 			stack_size = 10,
@@ -14,7 +14,7 @@ local function teleporter(tier)
 		{
 			type = "item",
 			name = "bulkteleport-recv"..tier,
-			icon = "__bulkteleport__/graphics/recv"..tier..".png",
+			icon = "__Kingsbulkteleport__/graphics/recv"..tier..".png",
 			icon_size = 32,
 			flags = {},
 			stack_size = 10,
@@ -29,7 +29,7 @@ local function teleporter(tier)
 			{
 				type = "item",
 				name = "bulkteleport-job-"..i.."-"..tier,
-				icon = "__bulkteleport__/graphics/job.png",
+				icon = "__Kingsbulkteleport__/graphics/job.png",
 				icon_size = 32,
 				flags = {"hidden"},
 				stack_size = 1,

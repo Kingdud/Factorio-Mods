@@ -1,11 +1,18 @@
 local function energizer(job, name, energy, tiles)
 	local s_corner = tiles/2 - 0.5
+	local sound_file
+	
+	if name == "send" then
+		sound_file = "__cargoteleport__/sound/energize.ogg"
+	else
+		sound_file = "__cargoteleport__/sound/de-energize.ogg"
+	end
 
 	data:extend({
 		{
 			type = "item",
 			name = "bulkteleport-energizer-"..name,
-			icon = "__bulkteleport__/graphics/"..name..".png",
+			icon = "__Kingsbulkteleport__/graphics/"..name..".png",
 			icon_size = 32,
 			flags = {"hidden","only-in-cursor"},
 			stack_size = 10,
@@ -13,7 +20,7 @@ local function energizer(job, name, energy, tiles)
 		{
 			type = "furnace",
 			name = "bulkteleport-energizer-"..name,
-			icon = "__bulkteleport__/graphics/"..name..".png",
+			icon = "__Kingsbulkteleport__/graphics/"..name..".png",
 			icon_size = 32,
 			flags = {
 				"placeable-neutral",
@@ -27,15 +34,11 @@ local function energizer(job, name, energy, tiles)
 			collision_box = nil,
 			selection_box = {{-s_corner, -s_corner}, {0, 0}},
 			module_specification = {
-				module_slots = 2,
+				module_slots = 0,
 			},
 			corpse = "big-remnants",
 			dying_explosion = "medium-explosion",
-			allowed_effects = {
-				"consumption",
-				"speed",
-				"pollution",
-			},
+			allowed_effects = nil,
 			crafting_categories = {
 				"bulkteleport",
 			},
@@ -50,7 +53,7 @@ local function energizer(job, name, energy, tiles)
 			result_inventory_size = 1,
 			source_inventory_size = 1,
 			animation = {
-				filename = "__bulkteleport__/graphics/"..name.."-frames-lr.png",
+				filename = "__Kingsbulkteleport__/graphics/"..name.."-frames-lr.png",
 				width = tiles*48,
 				height = tiles*48,
 				frame_count = 30,
@@ -58,7 +61,7 @@ local function energizer(job, name, energy, tiles)
 				shift = {0, 0},
 				animation_speed = 1.0,
 				hr_version = {
-					filename = "__bulkteleport__/graphics/"..name.."-frames-hr.png",
+					filename = "__Kingsbulkteleport__/graphics/"..name.."-frames-hr.png",
 					width = tiles*96,
 					height = tiles*96,
 					frame_count = 30,
@@ -75,7 +78,7 @@ local function energizer(job, name, energy, tiles)
 			working_sound = {
 				apparent_volume = 1.5,
 				sound = {
-					filename = "__bulkteleport__/sound/teleport1.ogg",
+					filename = sound_file,
 					volume = 0.7
 				}
 			},
@@ -98,7 +101,7 @@ local function buffer(name, size, tiles)
 		{
 			type = "item",
 			name = "bulkteleport-buffer-"..name,
-			icon = "__bulkteleport__/graphics/"..name.."-b.png",
+			icon = "__Kingsbulkteleport__/graphics/"..name.."-b.png",
 			icon_size = 32,
 			flags = {"hidden","only-in-cursor"},
 			stack_size = 10,
@@ -106,7 +109,7 @@ local function buffer(name, size, tiles)
 		{
 			type = "container",
 			name = "bulkteleport-buffer-"..name,
-			icon = "__bulkteleport__/graphics/"..name.."-b.png",
+			icon = "__Kingsbulkteleport__/graphics/"..name.."-b.png",
 			icon_size = 32,
 			flags = {"placeable-neutral", "player-creation"},
 			minable = {mining_time = 1, result = "bulkteleport-"..name},
@@ -126,7 +129,7 @@ local function buffer(name, size, tiles)
 			inventory_size = size,
 			vehicle_impact_sound = { filename = "__base__/sound/car-metal-impact.ogg", volume = 0.65 },
 			picture = {
-				filename = "__bulkteleport__/graphics/job.png",
+				filename = "__Kingsbulkteleport__/graphics/job.png",
 				priority = "low",
 				width = 32,
 				height = 32,
@@ -150,12 +153,21 @@ local function tank(name, fluid, tiles)
 
 	local pipeA = tiles/2 - 0.5
 	local pipeB = tiles/2 + 0.5
+	
+	local fluid_base_level = 0
+	if name == "send" then
+		--This setting helps the tank fill quickly, prevents fluid from leaving.
+		fluid_base_level = -2
+	else
+		--This setting helps the tank empty, fluid will be very hard to pump back in.
+		fluid_base_level = 2
+	end
 
 	data:extend({
 		{
 			type = "item",
 			name = "bulkteleport-buffer-"..name,
-			icon = "__bulkteleport__/graphics/"..name.."-b.png",
+			icon = "__Kingsbulkteleport__/graphics/"..name.."-b.png",
 			icon_size = 32,
 			flags = {"hidden"},
 			stack_size = 10,
@@ -163,7 +175,7 @@ local function tank(name, fluid, tiles)
 		{
 			type = "storage-tank",
 			name = "bulkteleport-buffer-"..name,
-			icon = "__bulkteleport__/graphics/"..name.."-b.png",
+			icon = "__Kingsbulkteleport__/graphics/"..name.."-b.png",
 			icon_size = 32,
 			flags = {"placeable-neutral", "player-creation", "not-rotatable"},
 			minable = {mining_time = 1, result = "bulkteleport-"..name},
@@ -176,6 +188,7 @@ local function tank(name, fluid, tiles)
 			selection_box = {{0, 0}, {s_corner, s_corner}},
 			fluid_box = {
 				base_area = fluid/100,
+				base_level = fluid_base_level,
 				pipe_covers = pipecoverspictures(),
 				pipe_connections = {
 					{ position = {-pipeA, -pipeB} },
@@ -191,7 +204,7 @@ local function tank(name, fluid, tiles)
 			pictures = {
 				picture =
 				{
-					filename = "__bulkteleport__/graphics/job.png",
+					filename = "__Kingsbulkteleport__/graphics/job.png",
 					priority = "low",
 					width = 32,
 					height = 32,
@@ -283,11 +296,11 @@ local function dummy(name, tiles)
 			collision_box = {{-corner, -corner}, {corner, corner}},
 			selection_box = {{-corner, -corner}, {corner, corner}},
 			picture = {
-				filename = "__bulkteleport__/graphics/"..name.."-frames-lr.png",
+				filename = "__Kingsbulkteleport__/graphics/"..name.."-frames-lr.png",
 				width = tiles*48,
 				height = tiles*48,
 				hr_version = {
-					filename = "__bulkteleport__/graphics/"..name.."-frames-hr.png",
+					filename = "__Kingsbulkteleport__/graphics/"..name.."-frames-hr.png",
 					width = tiles*96,
 					height = tiles*96,
 					scale = 0.5,
@@ -318,11 +331,11 @@ local function fluid_teleporter(tier, energy, fluid, tiles)
 	dummy("recv"..tier, tiles)
 end
 
-local power = 30
 local slots = 250
 local fluid = 50000
+local tech_1_2_multipler = 4
 
-teleporter(1, power.."MW", slots, 4)
-teleporter(2, (power*1.5).."MW", slots*4, 6)
-fluid_teleporter(3, power.."MW", fluid, 4)
-fluid_teleporter(4, (power*1.5).."MW", fluid*4, 6)
+teleporter(1, 		settings.global["bulkteleport-smalltp-energy-need"].value.."MW", 	slots, 4)
+teleporter(2, 		settings.global["bulkteleport-bigtp-energy-need"].value.."MW", 		slots*tech_1_2_multipler, 6)
+fluid_teleporter(3, settings.global["bulkteleport-smalltp-energy-need"].value.."MW", 	fluid, 4)
+fluid_teleporter(4, settings.global["bulkteleport-bigtp-energy-need"].value.."MW", 		fluid*tech_1_2_multipler, 6)

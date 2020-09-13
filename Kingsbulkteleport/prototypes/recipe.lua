@@ -1,4 +1,4 @@
-local function teleporter(tier, time, ingredients)
+local function teleporter(tier, ingredients)
 	data:extend({
 		{
 			type = "recipe",
@@ -6,7 +6,7 @@ local function teleporter(tier, time, ingredients)
 			category = "crafting",
 			subgroup = "bulkteleport",
 			enabled = false,
-			icon = "__bulkteleport__/graphics/send"..tier..".png",
+			icon = "__Kingsbulkteleport__/graphics/send"..tier..".png",
 			icon_size = 32,
 			ingredients = ingredients,
 			results = {
@@ -22,7 +22,7 @@ local function teleporter(tier, time, ingredients)
 			category = "crafting",
 			subgroup = "bulkteleport",
 			enabled = false,
-			icon = "__bulkteleport__/graphics/recv"..tier..".png",
+			icon = "__Kingsbulkteleport__/graphics/recv"..tier..".png",
 			icon_size = 32,
 			ingredients = ingredients,
 			results = {
@@ -42,7 +42,7 @@ local function teleporter(tier, time, ingredients)
 			category = "bulkteleport",
 			subgroup = "bulkteleport",
 			enabled = true,
-			icon = "__bulkteleport__/graphics/job.png",
+			icon = "__Kingsbulkteleport__/graphics/job.png",
 			icon_size = 32,
 			ingredients = {
 				{ type = "item", name = "bulkteleport-job-"..i.."-"..tier, amount = 1 },
@@ -51,36 +51,34 @@ local function teleporter(tier, time, ingredients)
 				{ type = "item", name = "bulkteleport-job-"..i.."-"..tier, amount = 1, probability = 0 },
 			},
 			hidden = true,
-			energy_required = time+(i-1),
+			energy_required = 4,
 			order = "c",
 		}})
 	end
 end
 
-local cycle = 10
-
-teleporter(1, cycle, {
+teleporter(1, {
 	{ type = "item", name = "advanced-circuit", amount = 50 },
 	{ type = "item", name = "concrete", amount = 100 },
 	{ type = "item", name = "steel-plate", amount = 100 },
 	{ type = "item", name = "accumulator", amount = 50 },
 })
 
-teleporter(2, cycle*1.5, {
+teleporter(2, {
 	{ type = "item", name = "processing-unit", amount = 25 },
 	{ type = "item", name = "concrete", amount = 150 },
 	{ type = "item", name = "steel-plate", amount = 150 },
 	{ type = "item", name = "accumulator", amount = 75 },
 })
 
-teleporter(3, cycle, {
+teleporter(3, {
 	{ type = "item", name = "advanced-circuit", amount = 50 },
 	{ type = "item", name = "concrete", amount = 100 },
 	{ type = "item", name = "steel-plate", amount = 100 },
 	{ type = "item", name = "accumulator", amount = 50 },
 })
 
-teleporter(4, cycle*1.5, {
+teleporter(4, {
 	{ type = "item", name = "processing-unit", amount = 25 },
 	{ type = "item", name = "concrete", amount = 150 },
 	{ type = "item", name = "steel-plate", amount = 150 },

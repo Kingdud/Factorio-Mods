@@ -5,9 +5,9 @@ Date: 9/13/2020
     - Forked from bulkteleporters_0.2.0 by Dorfl
     - Rewrote teleporter search algorithm: All teleporters are now checked at least once a second, or every X seconds according to mod setting.
     - Rewrote teleporter search algorithm: First matching empty reciever gets first matching full / priority sender. No more 'emptiest' logic.
-    - Greatly increased power draw from teleporting.
+    - Greatly increased power draw from teleporting. From 30MW to 1GW for the small, and from 45MW to 4GW for the large.
     - Teleporting cycles now are 4 seconds regardless of distance.
     - Replaced Teleporter sounds.
     - Allowed any signal (iron plate icon, ammo icon, etc) to be used as a signal instead of only A-Z 0-9.
     - Changed Fluid Teleporter to use the base_level property. DeMaterializers now want to empty, and Materializers want to fill.
-    - 
+    - Teleporters no longer benefit from modules or beacons.
