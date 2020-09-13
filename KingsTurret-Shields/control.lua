@@ -378,8 +378,8 @@ script.on_event({defines.events.on_entity_died,defines.events.on_player_mined_en
 			global.disabled_turrets[event.entity.unit_number]=nil
 			global.needsGFXUpdate[event.entity.unit_number] = nil
 		end
-		if global.turrets[event.entity.unit_number] and global.turrets[event.entity.unit_number][3] and global.turrets[event.entity.unit_number][3].valid then
-			global.turrets[event.entity.unit_number][3].destroy()
+		if global.turrets[event.entity.unit_number] and global.turrets[event.entity.unit_number][HP_BAR] and rendering.is_valid(global.turrets[event.entity.unit_number][HP_BAR]) then
+			rendering.destroy(global.turrets[event.entity.unit_number][HP_BAR])
 		end
 		if global.turrets[event.entity.unit_number] and global.turrets[event.entity.unit_number][7] and global.turrets[event.entity.unit_number][7].valid then 
 			global.turrets[event.entity.unit_number][7].destroy()

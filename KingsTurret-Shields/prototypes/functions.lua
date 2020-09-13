@@ -469,7 +469,7 @@ function destroy_turret(key)
 	
 	if global.turrets[key] then
 		--if global.turrets[key].fx then global.turrets[key].fx.destroy() end
-		if global.turrets[key][HP_BAR] then global.turrets[key][HP_BAR].destroy() end
+		if global.turrets[key][HP_BAR] then rendering.destroy(global.turrets[key][HP_BAR]) end
 		if global.turrets[key][ELECTRIC_GRID_INTERFACE] then global.turrets[key][ELECTRIC_GRID_INTERFACE].destroy() end
 		--if global.turrets[key].disabled then global.turrets[key].disabled.destroy() end
 		if global.iterate_turrets == key then
@@ -506,8 +506,8 @@ function toggle_shield(turret,onoff)
 		global.disabled_turrets[turret.unit_number] = {}
 		global.disabled_turrets[turret.unit_number][1] = turret.surface.create_entity{name = "ts-unplugged", position = {turret.position.x, turret.position.y}, force = "neutral"}
 		global.disabled_turrets[turret.unit_number][SHIELD_VALUE_ON_PREVIOUS_TICK] = turret
-		if global.turrets[turret.unit_number] and global.turrets[turret.unit_number][HP_BAR] and global.turrets[turret.unit_number][HP_BAR].valid then
-			global.turrets[turret.unit_number][HP_BAR].destroy()
+		if global.turrets[turret.unit_number] and global.turrets[turret.unit_number][HP_BAR] and is_valid(global.turrets[turret.unit_number][HP_BAR]) then
+			rendering.destroy(global.turrets[turret.unit_number][HP_BAR])
 			global.needsGFXUpdate[turret.unit_number] = nil
 		end
 		if global.turrets[turret.unit_number] and global.turrets[turret.unit_number][ELECTRIC_GRID_INTERFACE] and global.turrets[turret.unit_number][ELECTRIC_GRID_INTERFACE].valid then
