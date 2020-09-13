@@ -71,6 +71,11 @@ script.on_init(function()
 	global.iterate_e_updater_disconnected = nil
 	global.iterate_combinators = nil
 	
+	remove_hpbars()
+	for key, value in pairs(global.turrets) do
+		value[HP_BAR] = nil
+	end
+	
 	for k, force in pairs (game.forces) do	
 		update_electricity_force(force)
 		--technically causes a double-scan sometimes, but only once, and that's ok...ish.
@@ -156,7 +161,6 @@ script.on_configuration_changed(function()
 		global.version = 33
 	end
 	--Destroy any entity shield bars so they can be replaced with animation ones.
-	log("DEbug: version " .. global.version)
 	if global.version < 34 then
 		remove_hpbars()
 		for key, value in pairs(global.turrets) do
@@ -239,9 +243,10 @@ script.on_event( defines.events.on_console_chat, function(event)
 		log("debug script.on_event( defines.events.on_console_chat")
 	end
 	
-	if event.player_index == 1 and event.message == "ts refresh" then
-		kts_print("Command disabled. It breaks things, now that the mod is better written.")
-		--refresh_everything()
+	if event.player_index == 1 and event.message == "kts reset" then
+		rendering.clear("KingsTurret-Shields")
+		remove_energy()
+		rescan_for_turrets(game.players[event.player_index].force)
 	end
 	if event.message == "shieldstats" then
 		printShieldStats(game.players[event.player_index].force)

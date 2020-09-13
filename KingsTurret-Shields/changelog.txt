@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.100.9
+Date: 9/12/2020
+  Bugfix:
+    - More fixes related to migration from OwnlyMe's version.
+  Info:
+    - Added console command 'kts reset'. Use this if you have HP bars or electrical icons dangling around. It should clear them. Note: it will reset your shields to 0 and they will all have to recharge.
+---------------------------------------------------------------------------------------------------
 Version: 1.100.8
 Date: 9/12/2020
   Bugfix:
