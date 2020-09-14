@@ -1,4 +1,14 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.100.12
+Date: 9/14/2020
+  Change:
+    - Added "max research level" setting. If you get a failure to load map that says 'Reached id limit for entity', lower the max research level to lower the total number of entities.
+---------------------------------------------------------------------------------------------------
+Version: 1.100.11
+Date: 9/14/2020
+  Changes:
+    - Repair Turret mod is now marked as incompatible with this one. It causes some sort of duplicate entity problem.
+---------------------------------------------------------------------------------------------------
 Version: 1.100.10
 Date: 9/14/2020
   Bugfix:

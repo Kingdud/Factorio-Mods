@@ -4,10 +4,12 @@ local neutral_flags = {"not-repairable", "not-blueprintable", "not-deconstructab
 local energy_consumption_multiplier = settings.startup["TS_energy_consumption_multiplier"].value
 local power_usage = settings.startup["TS_power_drain"].value/100
 
+local max_research_lvl = settings.startup["TS_max_research_level"].value
+
 --outer loop = Shield size iteration
-for size=-1,99,1 do
+for size=-1,max_research_lvl,1 do
 	--outer loop = Shield charge rate iteration
-	for rate=-1,99,1 do
+	for rate=-1,max_research_lvl,1 do
 		capacity, recharge = getShieldValues(size, rate)
 	
 		data:extend({

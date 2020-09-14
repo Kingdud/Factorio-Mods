@@ -75,7 +75,16 @@ data:extend(
 	order = "h",
     per_user = false,
 	},
-
+	{
+    type = "int-setting",
+    name = "TS_max_research_level",
+    setting_type = "startup",
+    default_value = 25,
+    maximum_value = 100,
+    minimum_value = 5,
+	order = "h",
+    per_user = false,
+	},
 })
 
 

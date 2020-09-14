@@ -3,6 +3,7 @@ local research_size_steps = settings.startup["TS_research_size"].value
 local research_speed_steps = settings.startup["TS_research_speed"].value
 local baseHP = settings.startup["TS_base_shield"].value
 local base_charge = settings.startup["TS_base_charge_rate"].value
+local max_research_lvl = settings.startup["TS_max_research_level"].value
 
 local inverted_size_steps = 1 / research_size_steps
 local inverted_speed_steps = 1 / research_speed_steps
@@ -64,7 +65,7 @@ data:extend({
 			},
 			time = 60
 		},
-		max_level = 100,
+		max_level = max_research_lvl,
 		upgrade = true,
 		enabled = true,
 		order = "e-l-a"
@@ -98,7 +99,7 @@ data:extend({
 			},
 			time = 60
 		},
-		max_level = 100,
+		max_level = max_research_lvl,
 		upgrade = true,
 		enabled = true,
 		order = "e-l-a"
