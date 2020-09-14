@@ -173,8 +173,13 @@ function handleDamageEvent(event)
 	--If some mod has an effect that heals with damage, we ignore that.
 	if damage < 0 then return end
 	
+	--Ensure the turret still exists
+	if not global.turrets[event.entity.unit_number] then
+		return
+	end
+	
 	--Now we figure out if we should apply hull damage due to the shield having been broken.
-	if event.tick <= global.turrets[event.entity.unit_number].disabled_until then
+	if global.turrets[event.entity.unit_number].disabled_until and event.tick <= global.turrets[event.entity.unit_number].disabled_until then
 		-- kts_print("Turret took Hull dmg " .. event.final_damage_amount .. " Current HP " .. event.entity.health .. " to " .. event.entity.unit_number)
 		
 		if event.entity.health <= 0 then
