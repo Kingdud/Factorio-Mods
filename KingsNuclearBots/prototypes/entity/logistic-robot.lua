@@ -1,3 +1,9 @@
+local payload = 97
+
+if settings.startup["bigger-cargo"].value == true then
+	payload = 197
+end
+
 data:extend(
 {
     -- entity
