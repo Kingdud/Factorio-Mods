@@ -155,7 +155,7 @@ local function tank(name, fluid, tiles)
 	local pipeB = tiles/2 + 0.5
 	
 	local fluid_base_level = 0
-	if name == "send" then
+	if string.find(name, "send", 1) ~= nil then
 		--This setting helps the tank fill quickly, prevents fluid from leaving.
 		fluid_base_level = -1
 	else

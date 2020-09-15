@@ -527,7 +527,7 @@ local function OnNthTick(event)
 				
 				for name, count in pairs(shipment) do
 					if game.fluid_prototypes[name] then
-						send_buf.insert_fluid({
+						recv_buf.insert_fluid({
 							name = name,
 							amount = count,
 							temperature = temp
