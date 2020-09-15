@@ -4,11 +4,10 @@ Date: 9/13/2020
   Changes:
     - Forked from bulkteleporters_0.2.0 by Dorfl
     - Rewrote teleporter search algorithm: All teleporters are now checked at least once a second, or every X seconds according to mod setting.
-    - Rewrote teleporter search algorithm: Priority recievers are not allowed. Only senders. Configuring a priority reciever (giving a reciver a green signal) will have no additional effect.
-    - Rewrote teleporter search algorithm: Sender and Reciver teleporters will be empty for the duration of their cycles. Any items inserted into a reciever during a cycle will be overwritten and lost. Any items inserted into a sender...won't actually do anything until the next cycle. If you need constant uptime/throughput, service the entity with two teleporters!
+    - Rewrote teleporter search algorithm: Priority receivers are not allowed. Only senders. Configuring a priority receiver (giving a reciver a green signal) will have no additional effect.
+    - Rewrote teleporter search algorithm: Senders will remain full and Receiver teleporters will be empty for the duration of their cycles. Any items inserted into a receiver during a cycle will be overwritten and lost. Any items inserted into a sender...won't actually do anything until the next cycle. If you need constant uptime/throughput, service the entity with two teleporters!
     - Greatly increased power draw from teleporting. From 30MW to 1GW for the small, and from 45MW to 4GW for the large.
     - Teleporting cycles now are 4 seconds regardless of distance. (total energy from 300MJ to 4GJ for small, and 450MJ to 16GJ for large).
     - Replaced Teleporter sounds.
-    - Allowed any signal (iron plate icon, ammo icon, etc) to be used as a signal instead of only A-Z 0-9.
     - Changed Fluid Teleporter to use the base_level property. DeMaterializers now want to empty, and Materializers want to fill.
     - Teleporters no longer benefit from modules or beacons.
