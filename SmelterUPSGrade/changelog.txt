@@ -1,4 +1,10 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.100.1
+Date: 9/15/2020
+  Changes:
+    - Allowed smelters to be scaled in the same way that AssemblerUPSGrade scales assemblers.
+    - Smelters still need modules and beacons around the permieter to achieve full throughput, unlike Assembler ASIFs.
+---------------------------------------------------------------------------------------------------
 Version: 1.100.0
 Date: 8/29/2020
   Changes:
