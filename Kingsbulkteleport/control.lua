@@ -1,3 +1,9 @@
+--///////////////////////////////////
+--Global Variable members:
+-- global.buffers[sender_or_reciever_unitID] = the buffer entity associated with a given sender or reciever.
+-- global.senders = a table of all dematerializers.
+-- global.recievers = a table of all rematerializers.
+--///////////////////////////////////
 
 local function serialize(t)
 	local s = {}
@@ -10,64 +16,12 @@ local function serialize(t)
 	return "{ "..table.concat(s, ", ").." }"
 end
 
-local function queue()
-	return {first = 0, last = -1}
-end
-
-local function qlen(list)
-	return math.max(0, list.last - list.first + 1)
-end
-
-local function first(list)
-	return list[list.first]
-end
-
-local function last(list)
-	return list[list.last]
-end
-
-local function shove (list, value)
-	local first = list.first - 1
-	list.first = first
-	list[first] = value
-end
-
-local function push (list, value)
-	local last = list.last + 1
-	list.last = last
-	list[last] = value
-end
-
-local function shift (list)
-	local first = list.first
-	if first > list.last then return nil end
-	local value = list[first]
-	list[first] = nil
-	list.first = first + 1
-	return value
-end
-
-local function pop (list)
-	local last = list.last
-	if list.first > last then return nil end
-	local value = list[last]
-	list[last] = nil
-	list.last = last - 1
-	return value
-end
-
 local function prefixed(str, start)
 	return str:sub(1, #start) == start
 end
 
 local function suffixed(str, ending)
 	return ending == "" or str:sub(-#ending) == ending
-end
-
-local function distance(a, b)
-	local x = b.x - a.x
-	local y = b.y - a.y
-	return math.sqrt(x*x + y*y)
 end
 
 local entity_component_counterparts = {
@@ -236,18 +190,6 @@ local function chase_away_ghosts(surface, position)
 	end
 end
 
-local function purge_state(id)
-	if id then
-		local state = global.entities[id]
-		if state then
-			for _, net in ipairs(state.networks) do
-				global.networks[net][id] = nil
-			end
-			global.entities[id] = nil
-		end
-	end
-end
-
 local function OnEntityCreated(event)
 	local entity = event.created_entity
 
@@ -287,19 +229,18 @@ local function OnEntityCreated(event)
 		return
 	end
 
+	chase_away_ghosts(entity.surface, entity.position)
 	-- placed from item
 	if prefixed(entity.name, "bulkteleport-send") or prefixed(entity.name, "bulkteleport-recv") then
-		chase_away_ghosts(entity.surface, entity.position)
-
 		local buffer, energizer = create_components(entity)
 
 		if buffer and energizer then
-			global.entities[buffer.unit_number] = {
-				entity = buffer,
-				energizer = energizer,
-				networks = {},
-			}
-			push(global.queue, buffer.unit_number)
+			global.buffers[energizer.unit_number] = buffer
+			if prefixed(entity.name, "bulkteleport-send") then
+				global.senders[energizer.unit_number] = energizer
+			else
+				global.recievers[energizer.unit_number] = energizer
+			end
 		else
 			game.print("Placing a teleporter failed. Please report a bug if you can reproduce it!")
 		end
@@ -310,18 +251,16 @@ local function OnEntityCreated(event)
 
 	-- placed from blueprint
 	if prefixed(entity.name, "bulkteleport-buffer-send") or prefixed(entity.name, "bulkteleport-buffer-recv") then
-		chase_away_ghosts(entity.surface, entity.position)
-
 		local buffer = entity
 		local energizer = create_component_counterpart(buffer)
 
 		if energizer then
-			global.entities[buffer.unit_number] = {
-				entity = buffer,
-				energizer = energizer,
-				networks = {},
-			}
-			push(global.queue, buffer.unit_number)
+			global.buffers[energizer.unit_number] = buffer
+			if prefixed(entity.name, "bulkteleport-buffer-send") then
+				global.senders[energizer.unit_number] = energizer
+			else
+				global.recievers[energizer.unit_number] = energizer
+			end
 		else
 			buffer.destroy()
 			game.print("Placing a teleporter from a blueprint failed. Please report a bug if you can reproduce it!")
@@ -338,8 +277,26 @@ local function OnEntityRemoved(event)
 	end
 
 	if prefixed(entity.name, "bulkteleport-") then
-		purge_state(entity.unit_number)
 		local counterpart = find_component_counterpart(entity)
+		
+		--Remove from data structures as well
+		if prefixed(entity.name, "bulkteleport-buffer-send") then
+			--counterpart is energizer
+			local eid = counterpart.unit_number
+			global.buffers[eid] = nil
+			global.senders[eid] = nil
+		elseif prefixed(entity.name, "bulkteleport-send") then
+			global.senders[entity.unit_number] = nil
+			global.buffers[entity.unit_number] = nil
+		elseif prefixed(entity.name, "bulkteleport-buffer-recv") then
+			local eid = counterpart.unit_number
+			global.recievers[eid] = nil
+			global.buffers[eid] = nil
+		else
+			global.recievers[entity.unit_number] = nil
+			global.buffers[entity.unit_number] = nil
+		end
+		
 		if entity.health >= 1 and counterpart and counterpart.valid then
 			counterpart.destroy()
 		end
@@ -381,56 +338,6 @@ local function OnEntityDamaged(event)
 	end
 end
 
-local signal_ops = {
-	["signal-red"] = function(state, name, count)
-		state.red = true
-	end,
-	["signal-green"] = function(state, name, count)
-		state.green = true
-	end,
-	["signal-blue"] = function(state, name, count)
-		state.priority = true
-	end,
-}
-
-local signal_default = function(state, name, count)
-	local id = state.entity.unit_number
-	local gnets = global.networks
-	local snets = state.networks
-
-	local net = name.."-"..count
-	snets[#snets+1] = net
-	gnets[net] = gnets[net] or {}
-	gnets[net][id] = true
-end
-
-local function check_networks(state)
-	local id = state.entity.unit_number
-	local gnets = global.networks
-	local snets = state.networks
-
-	for _, net in ipairs(snets) do
-		gnets[net][id] = nil
-	end
-
-	for i = 1,#snets,1 do
-		snets[i] = nil
-	end
-
-	state.green = nil
-	state.red = nil
-	state.priority = nil
-
-	local signals = state.entity.get_merged_signals()
-	if signals ~= nil then
-		for _, v in ipairs(signals) do
-			if v.signal.type == "virtual" and v.signal.name ~= nil then
-				(signal_ops[v.signal.name] or signal_default)(state, v.signal.name, v.count)
-			end
-		end
-	end
-end
-
 local fluidic_entity_names = {
 	["bulkteleport-energizer-send3"] = true,
 	["bulkteleport-energizer-recv3"] = true,
@@ -448,10 +355,10 @@ end
 
 local function inventory_counts(inventory)
 	local blocked_slots = #inventory - (inventory.get_bar() or #inventory)
-	local free_slots = inventory.insert({ name = "bulkteleport-job-1-1", count = #inventory })
+	local free_slots = inventory.insert({ name = "bulkteleport-job-1", count = #inventory })
 
 	if free_slots > 0 then
-		inventory.remove({ name = "bulkteleport-job-1-1", count = free_slots })
+		inventory.remove({ name = "bulkteleport-job-1", count = free_slots })
 	end
 
 	return #inventory, blocked_slots, free_slots
@@ -491,103 +398,22 @@ local function is_full(entity)
 		return entity.get_fluid_count() >= (entity.prototype.fluid_capacity * full)
 	end
 	local inventory = entity.get_inventory(defines.inventory.chest)
-	return not inventory.can_insert({ name = "bulkteleport-job-1-1", count = 1 })
-end
-
-local function find_target(state)
-
-	local id = state.entity.unit_number
-	local name = "bulkteleport-buffer-recv" .. state.entity.name:sub(-1)
-	local ballpark = used_space(state.entity) * 0.75
-
-	local selected = nil
-	local priority = nil
-	local found = 0
-	local busy = 0
-
-	local function emptiest(stateA, stateB)
-		return free_space(stateA.entity) > free_space(stateB.entity) and stateA or stateB
-	end
-
-	for _, net in ipairs(state.networks) do
-		for tid, _ in pairs(global.networks[net]) do
-
-			local target = global.entities[tid]
-			local tEntity = target.entity
-			local tEnergizer = target.energizer
-
-			if target and tEntity.valid
-				and target.is_target
-				and tEntity.name == name
-				and tEntity.surface == state.entity.surface
-				and not tEntity.to_be_deconstructed(tEntity.force)
-			then
-				found = found + 1
-
-				if not tEnergizer.is_crafting()
-					and tEnergizer.energy > 0
-					and not target.shipment
-					and not target.red
-					and free_space(tEntity) >= ballpark
-				then
-
-					selected = selected and emptiest(target, selected) or target
-
-					if target.priority then
-						priority = priority and emptiest(target, priority) or target
-					end
-
-				else
-					busy = busy + 1
-				end
-			end
-		end
-	end
-
-	return priority or selected, found, busy
+	return not inventory.can_insert({ name = "bulkteleport-job-1", count = 1 })
 end
 
 local function notify(state, msg)
-
-	if state.notify_msg == msg
-		and (state.notify_tick or 0) > game.tick - 60*5
-	then
-		return
-	end
-
-	if (state.notify_tick or 0) > game.tick - 60 then
-		return
-	end
-
-	state.notify_msg = msg
-	state.notify_tick = game.tick
-
-	state.entity.surface.create_entity({
+	state.surface.create_entity({
 		name = "flying-text",
-		position = state.entity.position,
+		position = state.position,
 		color = {r=1,g=1,b=1},
 		text = msg,
 	})
 end
 
 local function warning(state, msg)
-
-	if state.warning_msg == msg
-		and (state.warning_tick or 0) > game.tick - 60*5
-	then
-		return
-	end
-
-	if (state.warning_tick or 0) > game.tick - 60 then
-		return
-	end
-
-	state.warning_msg = msg
-	state.warning_tick = game.tick
-
-	state.entity.surface.create_entity({
+	state.surface.create_entity({
 		name = "flying-text",
-		position = state.entity.position,
+		position = state.position,
 		color = {r=1,g=0.6,b=0.6},
 		text = msg,
 	})
@@ -601,215 +427,288 @@ local function beam_color(surface)
 	return { r = math.min(1.0, math.max(0.0, r-d)), g = math.min(1.0, math.max(0.0, g-d)), b = math.min(1.0, math.max(0.0, b-d)) }
 end
 
-local function OnNthTick(event)
+local SENDERS = 1
+local P_SENDERS = 2
+local RECIEVERS = 3
 
-	local q = global.queue
-	local qp = global.paused
-
-	-- The paused queue does not really reduce mod load, it just makes the main
-	-- queue shorter so that active teleporters are more responsive.
-	if qlen(qp) > 0 and first(qp) < game.tick - 300 then
-		shift(qp)
-		push(q, shift(qp))
+local function check_networks(energizer_id, networks, is_sender)
+	local buffer = global.buffers[energizer_id]
+	local signals = buffer.get_merged_signals()
+	local temp_network = {}
+	local is_priority = false
+	
+	--If this energizer is currently busy, do nothing.
+	if is_sender then
+		if global.senders[energizer_id].is_crafting() then return end
+	else
+		if global.recievers[energizer_id].is_crafting() then return end
 	end
+	
+	if signals ~= nil then
+		for _, v in ipairs(signals) do
+			if v.signal.type == "virtual" and v.signal.name ~= nil then
+				if v.signal.name == "signal-red" then
+					return
+				elseif v.signal.name == "signal-green" then
+					is_priority = true
+				else
+					temp_network[v.signal.name .. v.count] = energizer_id
+				end
+			end
+		end
+	end
+	
+	if table_size(temp_network) == 0 then
+		warning(buffer, "no network...")
+		return
+	end
+	
+	--If we aren't full, and we also aren't priority, then we aren't up for consideration on this check.
+	if is_sender and not is_priority and not is_full(buffer) then
+		return
+	end
+	--If we are a reciever, and we are not empty, then we aren't up for consideration on this check.
+	if not is_sender and not is_empty(buffer) then
+		return
+	end
+	
+	for network, eID in pairs(temp_network) do
+		if is_sender then
+			if is_priority then
+				if not networks[P_SENDERS][network] then
+					networks[P_SENDERS][network] = {eID}
+				else
+					table.insert(networks[P_SENDERS][network], eID)
+				end
+			else
+				if not networks[SENDERS][network] then
+					networks[SENDERS][network] = {eID}
+				else
+					table.insert(networks[SENDERS][network], eID)
+				end
+			end
+		else
+			if not networks[RECIEVERS][network] then
+				networks[RECIEVERS][network] = {eID}
+			else
+				table.insert(networks[RECIEVERS][network], eID)
+			end
+		end
+	end
+end
 
-	local id = shift(q)
-	local state = global.entities[id]
+local function OnNthTick(event)	
+	-- Networks Design:
+	-- networks[<type>][<signal name>..<count>] ==> The in-game signal 'Iron Plate' with a value of '1', becomes "iron-plate1"
+	-- networks[senders][<signal name>..<count>] = {sender id 1, id2, id3, etc}
+	-- networks[priority_senders][<signal name>..<count>]
+	-- networks[recievers][<signal name>..<count>]
+	local networks = {{}, {}, {}}
+	
+	--Step 1, Move any existing, completed, transfer jobs.
+	for jobTick, job_list in pairs(global.teleportJobs) do
+		if jobTick > event.tick then
+			goto done_moving_inventory
+		end
+		
+		for idx, job in pairs(job_list) do
+			local send_entity = global.senders[job[1]]
+			local recv_entity = global.recievers[job[2]]
+			local send_buf = global.buffers[job[1]]
+			local recv_buf = global.buffers[job[2]]
+			local shipment
 
-	if id and state and state.entity.valid and state.energizer and state.energizer.valid then
-
-		if not state.energizer.is_crafting() and state.energizer.energy > 0 and not state.entity.to_be_deconstructed(state.entity.force) then
-			check_networks(state)
-
-			if #state.networks == 0 then
-				warning(state, "no network...")
-
-			elseif state.is_source or prefixed(state.entity.name, "bulkteleport-buffer-send") then
-				local source = state
-				source.is_source = true
-
-				local empty = is_empty(source.entity)
-				local full = not empty and is_full(source.entity)
-				local shipment = not source.red and not empty and (full or source.green)
-
-				if shipment then
-					local target, found, busy = find_target(source)
-
-					if target then
-
-						local range = distance(source.entity.position, target.entity.position)
-						local cost = math.min(10, math.ceil(range/1000))
-
-						-- in theory the same
-						local s_recipe = "bulkteleport-job-"..cost.."-"..source.entity.name:sub(-1)
-						local t_recipe = "bulkteleport-job-"..cost.."-"..target.entity.name:sub(-1)
-
-						source.energizer.insert({ name = s_recipe })
-						target.energizer.insert({ name = t_recipe })
-
-						if settings.global["bulkteleport-show-beam"].value then
-
-							local s_duration = game.recipe_prototypes[s_recipe].energy / source.energizer.crafting_speed
-							local t_duration = game.recipe_prototypes[t_recipe].energy / target.energizer.crafting_speed
-							local duration = math.min(s_duration, t_duration)
-
-							local s_position = { source.energizer.position.x, source.energizer.position.y - 1 }
-							local t_position = { target.energizer.position.x, target.energizer.position.y - 1 }
-
-							if settings.global["bulkteleport-show-beam-pretty"].value then
-								-- slower
-								source.energizer.surface.create_entity({
-									name = "electric-beam",
-									position = s_position,
-									source_position = s_position,
-									target_position = t_position,
-									duration = math.ceil(duration*60),
-								})
-							else
-								-- faster
-								rendering.draw_line({
-									color = beam_color(source.energizer.surface),
-									width = 2,
-									gap_length = 0.5,
-									dash_length = 0.5,
-									from = s_position,
-									to = t_position,
-									surface = source.energizer.surface,
-									forces = { source.energizer.force },
-									time_to_live = math.ceil(duration*60),
-								})
-							end
-						end
-
-						if is_fluidic(source.entity) then
-							target.shipment = source.entity.get_fluid_contents()
-							target.temperature = source.entity.fluidbox[1].temperature
-							source.entity.clear_fluid_inside()
-						else
-							local inventory = source.entity.get_inventory(defines.inventory.chest)
-							target.shipment = inventory.get_contents()
-							inventory.clear()
-						end
-
-						notify(source, string.format("%dm (%d)", range, cost))
-						notify(target, string.format("%dm (%d)", range, cost))
-
-					elseif found == 0 then
-						warning(source, "no target...")
+			--We already know that either both sender and reciever are fluidic or not.
+			if is_fluidic(send_entity) then
+				shipment = send_buf.get_fluid_contents()
+				local temp = send_buf.fluidbox[1].temperature
+				send_buf.clear_fluid_inside()
+				recv_buf.clear_fluid_inside()
+				
+				for name, count in pairs(shipment) do
+					if game.fluid_prototypes[name] then
+						send_buf.insert_fluid({
+							name = name,
+							amount = count,
+							temperature = temp
+						})
 					end
 				end
-
-			elseif state.is_target or prefixed(state.entity.name, "bulkteleport-buffer-recv") then
-				local target = state
-				target.is_target = true
-
-				local energizer = target.energizer
-
-				-- shipment arrived; try to export
-				if not energizer.is_crafting() and target.shipment then
-
-					if is_fluidic(target.entity) then
-
-						if is_empty(target.entity) then
-							target.entity.clear_fluid_inside()
-						end
-
-						local overflow = {}
-						local retry = false
-
-						for name, count in pairs(target.shipment) do
-							if game.fluid_prototypes[name] then
-								local inserted = target.entity.insert_fluid({
-									name = name,
-									amount = count,
-									temperature = target.temperature
-								})
-								if count-inserted > 1 then
-									retry = true
-									overflow[name] = count-inserted
-								end
-							end
-						end
-						if retry then
-							target.shipment = overflow
-						else
-							target.shipment = nil
-							target.temperature = nil
-						end
-
-					else
-
-						local overflow = {}
-						local retry = false
-						local inventory = target.entity.get_inventory(defines.inventory.chest)
-
-						for name, count in pairs(target.shipment) do
-							if game.item_prototypes[name] then
-								local inserted = inventory.insert({
-									name = name,
-									count = count
-								})
-								if inserted < count then
-									retry = true
-									overflow[name] = count-inserted
-								end
-							end
-						end
-						if retry then
-							target.shipment = overflow
-						else
-							target.shipment = nil
-						end
+			else
+				local send_inventory = send_buf.get_inventory(defines.inventory.chest)
+				local recv_inventory = recv_buf.get_inventory(defines.inventory.chest)
+				shipment = send_inventory.get_contents()
+				send_inventory.clear()
+				recv_inventory.clear()
+				
+				for name, count in pairs(shipment) do
+					if game.item_prototypes[name] then
+						recv_inventory.insert({
+							name = name,
+							count = count
+						})
 					end
 				end
 			end
-
-			push(qp, game.tick)
-			push(qp, id)
-
-		else
-			push(q, id)
-
+			
+			job_list[idx] = nil
+			::next_delivery::
 		end
+		
+		global.teleportJobs[jobTick] = nil
+	end
+	::done_moving_inventory::
+	
+	--Step 2, build list of all senders.
+	for thing,sender in pairs(global.senders) do
+		check_networks(sender.unit_number, networks, true)
+	end
+	
+	--Step 3, iterate through list of recievers.
+	for _,reciever in pairs(global.recievers) do
+		check_networks(reciever.unit_number, networks, false)
+	end
+	
+	local send_eID = 0
+	local recv_eID = 0
+	--Step 4, go through recievers, find any priority (or normal) senders to fulfill them
+	for network, recievers in pairs(networks[RECIEVERS]) do
+		for _, recv_eID in pairs(recievers) do
+			if networks[P_SENDERS][network] and next(networks[P_SENDERS][network]) ~= nil then
+				send_eID = table.remove(networks[P_SENDERS][network])
+				recv_eID = recv_eID
+			elseif networks[SENDERS][network] and next(networks[SENDERS][network]) ~= nil then
+				send_eID = table.remove(networks[SENDERS][network])
+				recv_eID = recv_eID
+			else
+				--We have no senders for any reciever on this network. Abort search.
+				goto next_network_continue
+			end
+			
+			--4 seconds to send, 60 ticks per second.
+			if not global.teleportJobs[event.tick + 4*60] then
+				global.teleportJobs[event.tick + 4*60] = {{send_eID, recv_eID}}
+			else
+				table.insert(global.teleportJobs[event.tick + 4*60], {send_eID, recv_eID})
+			end
+		end
+		::next_network_continue::
+	end
+	
+	--Step 5, At this point, all empty recivers that could be filled have been. Now we issue out the teleport jobs.
+	for timeslot, shipment_list in pairs(global.teleportJobs) do
+		for shipment_idx, shipment in pairs(shipment_list) do
+			--Confirm that sender and reciever are the same tier
+			local sender_tier = global.senders[shipment[1]].name:sub(-1)
+			local reciever_teir = global.recievers[shipment[2]].name:sub(-1)
+			local sender = global.senders[shipment[1]]
+			local reciever = global.recievers[shipment[2]]
+			
+			if sender.is_crafting() or reciever.is_crafting() then goto next_shipment end
+			
+			if sender_tier ~= reciever_teir then
+				warning(sender, "Mismatch (de)materializer teirs on network")
+				warning(reciever, "Mismatch (de)materializer teirs on network")
+				goto next_shipment
+			end
+			
+			if is_fluidic(sender) ~= is_fluidic(reciever) then
+				warning(sender, "Mixing fluid and material teleporters not allowed")
+				warning(reciever, "Mixing fluid and material teleporters not allowed")
+				goto next_shipment
+			end
+			
+			--Get both energizers spinning up.
+			local recipe = "bulkteleport-job-"..sender_tier
+			
+			sender.insert({ name = recipe })
+			reciever.insert({ name = recipe })
+			
+			--Draw the beam between the two teleporters.
+			if settings.global["bulkteleport-show-beam"].value then
+				local duration = game.recipe_prototypes[recipe].energy / sender.crafting_speed
 
-	else
-		purge_state(id)
+				local s_position = { sender.position.x, sender.position.y - 1 }
+				local t_position = { reciever.position.x, reciever.position.y - 1 }
+
+				if settings.global["bulkteleport-show-beam-pretty"].value then
+					-- slower
+					sender.surface.create_entity({
+						name = "electric-beam",
+						position = s_position,
+						source_position = s_position,
+						target_position = t_position,
+						duration = math.ceil(duration*60),
+					})
+				else
+					-- faster
+					rendering.draw_line({
+						color = beam_color(sender.surface),
+						width = 2,
+						gap_length = 0.5,
+						dash_length = 0.5,
+						from = s_position,
+						to = t_position,
+						surface = sender.surface,
+						forces = { sender.force },
+						time_to_live = math.ceil(duration*60),
+					})
+				end
+			end
+		end
+		
+		::next_shipment::
 	end
 end
 
-local function check_state()
-	global.queue = global.queue or queue()
-	global.paused = global.paused or queue()
-	global.entities = global.entities or {}
-	global.networks = global.networks or {}
+function do_dump(o)
+   if type(o) == 'table' then
+      local s = '{ '
+      for k,v in pairs(o) do
+         if type(k) ~= 'number' then k = '"'..k..'"' end
+         s = s .. '['..k..'] = ' .. do_dump(v) .. ','
+      end
+      return s .. '} '
+   else
+      return tostring(o)
+   end
+end
+
+local function init_data_structures()
+	global.teleportJobs = {}
+	global.senders = {}
+	global.recievers = {}
+	global.buffers = {}
+	
+	for _, surface in pairs(game.surfaces) do
+		for i=1,4 do
+			for _, entity in pairs(surface.find_entities_filtered{name= "bulkteleport-energizer-send"..i}) do
+				global.senders[entity.unit_number] = entity
+				global.buffers[entity.unit_number] = find_component_counterpart(entity)
+			end
+			for _, entity in pairs(surface.find_entities_filtered{name= "bulkteleport-energizer-recv"..i}) do
+				global.recievers[entity.unit_number] = entity
+				global.buffers[entity.unit_number] = find_component_counterpart(entity)
+			end
+		end
+	end
 end
 
 local function set_tick_handler()
-	script.on_nth_tick(nil)
-	script.on_nth_tick(math.ceil(60/math.min(60, settings.global["bulkteleport-checks-per-second"].value)), OnNthTick)
+	script.on_nth_tick(settings.global["bulkteleport-seconds-between-checks"].value*60, OnNthTick)
 end
 
 local function OnSettingChanged()
-	check_state()
 	set_tick_handler()
 end
 
---local function OnGuiOpened(event)
---	if event.gui_type == defines.gui_type.entity
---		and event.entity and prefixed(event.entity.name, "bulkteleport-buffer-")
---	then
---		game.print(serialize(game.players[event.player_index].gui.center.children))
---	end
---end
-
 script.on_configuration_changed(function(delta)
-	check_state()
 	set_tick_handler()
+	init_data_structures()
 end)
 
 script.on_init(function()
-	check_state()
-	set_tick_handler()
+	init_data_structures()
 	script.on_event({defines.events.on_built_entity, defines.events.on_robot_built_entity}, OnEntityCreated)
 	script.on_event({defines.events.on_player_mined_entity, defines.events.on_robot_mined_entity, defines.events.on_entity_died}, OnEntityRemoved)
 	script.on_event({defines.events.on_entity_damaged}, OnEntityDamaged)
@@ -825,3 +724,12 @@ script.on_load(function()
 	script.on_event({defines.events.on_runtime_mod_setting_changed}, OnSettingChanged)
 --	script.on_event({defines.events.on_gui_opened}, OnGuiOpened)
 end)
+
+--Building
+script.set_event_filter(defines.events.on_robot_built_entity, {{filter = "type", type = "furnace"}, {filter = "type", type = "container"}, {filter = "type", type = "storage-tank"}})
+script.set_event_filter(defines.events.on_built_entity, {{filter = "type", type = "furnace"}, {filter = "type", type = "container"}, {filter = "type", type = "storage-tank"}})
+
+--Destroying/removing
+script.set_event_filter(defines.events.on_entity_died, {{filter = "type", type = "furnace"}, {filter = "type", type = "container"}, {filter = "type", type = "storage-tank"}})
+script.set_event_filter(defines.events.on_player_mined_entity, {{filter = "type", type = "furnace"}, {filter = "type", type = "container"}, {filter = "type", type = "storage-tank"}})
+script.set_event_filter(defines.events.on_robot_mined_entity, {{filter = "type", type = "furnace"}, {filter = "type", type = "container"}, {filter = "type", type = "storage-tank"}})

@@ -3,9 +3,9 @@ local function energizer(job, name, energy, tiles)
 	local sound_file
 	
 	if name == "send" then
-		sound_file = "__cargoteleport__/sound/energize.ogg"
+		sound_file = "__Kingsbulkteleport__/sound/energize.ogg"
 	else
-		sound_file = "__cargoteleport__/sound/de-energize.ogg"
+		sound_file = "__Kingsbulkteleport__/sound/de-energize.ogg"
 	end
 
 	data:extend({
@@ -157,10 +157,10 @@ local function tank(name, fluid, tiles)
 	local fluid_base_level = 0
 	if name == "send" then
 		--This setting helps the tank fill quickly, prevents fluid from leaving.
-		fluid_base_level = -2
+		fluid_base_level = -1
 	else
 		--This setting helps the tank empty, fluid will be very hard to pump back in.
-		fluid_base_level = 2
+		fluid_base_level = 1
 	end
 
 	data:extend({
@@ -331,11 +331,20 @@ local function fluid_teleporter(tier, energy, fluid, tiles)
 	dummy("recv"..tier, tiles)
 end
 
+local small_pwr_cost = 250
+local big_pwr_cost = 1000
 local slots = 250
 local fluid = 50000
 local tech_1_2_multipler = 4
 
-teleporter(1, 		settings.global["bulkteleport-smalltp-energy-need"].value.."MW", 	slots, 4)
-teleporter(2, 		settings.global["bulkteleport-bigtp-energy-need"].value.."MW", 		slots*tech_1_2_multipler, 6)
-fluid_teleporter(3, settings.global["bulkteleport-smalltp-energy-need"].value.."MW", 	fluid, 4)
-fluid_teleporter(4, settings.global["bulkteleport-bigtp-energy-need"].value.."MW", 		fluid*tech_1_2_multipler, 6)
+if settings.startup["bulkteleport-smalltp-energy-need"] then
+	small_pwr_cost = settings.startup["bulkteleport-smalltp-energy-need"].value
+end
+if settings.startup["bulkteleport-bigtp-energy-need"] then
+	big_pwr_cost = settings.startup["bulkteleport-bigtp-energy-need"].value
+end
+
+teleporter(1, 		small_pwr_cost .. "MW", 	slots, 4)
+teleporter(2, 		big_pwr_cost .. "MW", 		slots*tech_1_2_multipler, 6)
+fluid_teleporter(3, small_pwr_cost .. "MW", 	fluid, 4)
+fluid_teleporter(4, big_pwr_cost .. "MW", 		fluid*tech_1_2_multipler, 6)

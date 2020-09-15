@@ -24,18 +24,16 @@ local function teleporter(tier)
 		},
 	})
 
-	for i = 1,10,1 do
-		data:extend({
-			{
-				type = "item",
-				name = "bulkteleport-job-"..i.."-"..tier,
-				icon = "__Kingsbulkteleport__/graphics/job.png",
-				icon_size = 32,
-				flags = {"hidden"},
-				stack_size = 1,
-			},
-		})
-	end
+	data:extend({
+		{
+			type = "item",
+			name = "bulkteleport-job-"..tier,
+			icon = "__Kingsbulkteleport__/graphics/job.png",
+			icon_size = 32,
+			flags = {"hidden"},
+			stack_size = 1,
+		},
+	})
 end
 
 teleporter(1)

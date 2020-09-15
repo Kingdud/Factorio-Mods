@@ -34,27 +34,25 @@ local function teleporter(tier, ingredients)
 		},
 	})
 
-	-- rough range-based energy cost
-	for i = 1,10,1 do
-		data:extend({{
-			type = "recipe",
-			name = "bulkteleport-job-"..i.."-"..tier,
-			category = "bulkteleport",
-			subgroup = "bulkteleport",
-			enabled = true,
-			icon = "__Kingsbulkteleport__/graphics/job.png",
-			icon_size = 32,
-			ingredients = {
-				{ type = "item", name = "bulkteleport-job-"..i.."-"..tier, amount = 1 },
-			},
-			results = {
-				{ type = "item", name = "bulkteleport-job-"..i.."-"..tier, amount = 1, probability = 0 },
-			},
-			hidden = true,
-			energy_required = 4,
-			order = "c",
-		}})
-	end
+
+	data:extend({{
+		type = "recipe",
+		name = "bulkteleport-job-"..tier,
+		category = "bulkteleport",
+		subgroup = "bulkteleport",
+		enabled = true,
+		icon = "__Kingsbulkteleport__/graphics/job.png",
+		icon_size = 32,
+		ingredients = {
+			{ type = "item", name = "bulkteleport-job-"..tier, amount = 1 },
+		},
+		results = {
+			{ type = "item", name = "bulkteleport-job-"..tier, amount = 1, probability = 0 },
+		},
+		hidden = true,
+		energy_required = 4,
+		order = "c",
+	}})
 end
 
 teleporter(1, {

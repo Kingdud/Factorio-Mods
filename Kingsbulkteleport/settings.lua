@@ -59,7 +59,7 @@ data:extend({
     maximum_value = 1.0,
   },
   {
-    type = "double-setting",
+    type = "int-setting",
     name = "bulkteleport-smalltp-energy-need",
     order = "ad",
     setting_type = "runtime-global",
@@ -68,7 +68,7 @@ data:extend({
     maximum_value = 50000,
   },
   {
-    type = "double-setting",
+    type = "int-setting",
     name = "bulkteleport-bigtp-energy-need",
     order = "ad",
     setting_type = "runtime-global",
