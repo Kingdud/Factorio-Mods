@@ -6,6 +6,9 @@ local stacksize = 50
 
 if settings.startup["ore_stacks_200"].value then
 	stacksize = 200
+	data.raw.item["iron-plate"].stack_size = stacksize
+	data.raw.item["copper-plate"].stack_size = stacksize
+	data.raw.item["steel-plate"].stack_size = stacksize
 elseif settings.startup["ore_stacks_100"].value then
 	stacksize = 100
 end
@@ -16,12 +19,13 @@ data.raw.item["stone"].stack_size = stacksize
 data.raw.item["uranium-ore"].stack_size = stacksize
 data.raw.item["coal"].stack_size = stacksize
 
+local density_factor = 10
 --make biters tougher
 data.raw["unit-spawner"]["biter-spawner"].result_units[2] = { "medium-biter", {{0.2,0}, {0.6,0.3}, {0.7,0.1}, {.99,0}} }
 data.raw["unit-spawner"]["biter-spawner"].result_units[3] = { "big-biter", {{0.5,0}, {.99,0}} }
 data.raw["unit-spawner"]["biter-spawner"].result_units[4] = { "behemoth-biter", {{0.9,0}, {.99,1}} }
 data.raw["unit-spawner"]["biter-spawner"].spawning_cooldown = spawn_cooldowns
-data.raw["unit-spawner"]["biter-spawner"].pollution_absorption_absolute = 1600
+data.raw["unit-spawner"]["biter-spawner"].pollution_absorption_absolute = 1600 * density_factor
 data.raw["unit-spawner"]["biter-spawner"].max_count_of_owned_units = max_bugs_per_spawner
 data.raw["unit-spawner"]["biter-spawner"].max_friends_around_to_spawn = max_bugs_per_spawner
 
@@ -29,13 +33,12 @@ data.raw["unit-spawner"]["spitter-spawner"].result_units[3] = { "medium-spitter"
 data.raw["unit-spawner"]["spitter-spawner"].result_units[4] = { "big-spitter", {{0.5,0}, {.99,0}} }
 data.raw["unit-spawner"]["spitter-spawner"].result_units[5] = { "behemoth-spitter", {{0.9,0}, {.99,1}} }
 data.raw["unit-spawner"]["spitter-spawner"].spawning_cooldown = spawn_cooldowns
-data.raw["unit-spawner"]["spitter-spawner"].pollution_absorption_absolute = 800
+data.raw["unit-spawner"]["spitter-spawner"].pollution_absorption_absolute = 800 * density_factor
 data.raw["unit-spawner"]["spitter-spawner"].max_count_of_owned_units = max_bugs_per_spawner
 data.raw["unit-spawner"]["spitter-spawner"].max_friends_around_to_spawn = max_bugs_per_spawner
 
 local movespeed = 1
 --Since I can't make more biters, I have to make them bigger and meaner. Lame!
-local density_factor = 10
 --data.raw.unit["behemoth-biter"].movement_speed = movespeed
 --data.raw.unit["behemoth-biter"].distance_per_frame = movespeed + .08
 data.raw.unit["behemoth-biter"].ai_settings.do_separation = false

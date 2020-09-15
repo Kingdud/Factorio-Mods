@@ -15,10 +15,10 @@ script.on_configuration_changed(function()
 	game.map_settings.pollution.diffusion_ratio = 0.25
 	game.map_settings.pollution.expected_max_per_chunk = 3200
 
-	game.map_settings.path_finder.long_cache_size = 6000
+	game.map_settings.path_finder.long_cache_size = 15000
 	game.map_settings.path_finder.max_steps_worked_per_tick  = 10000
 	game.map_settings.path_finder.max_work_done_per_tick = 80000
-	game.map_settings.path_finder.short_cache_size = 50
+	game.map_settings.path_finder.short_cache_size = 25
 
 	game.map_settings.max_expansion_cooldown = 120
 	game.map_settings.min_expansion_cooldown = 60
