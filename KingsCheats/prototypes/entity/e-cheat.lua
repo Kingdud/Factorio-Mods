@@ -19,7 +19,8 @@ data.raw.item["stone"].stack_size = stacksize
 data.raw.item["uranium-ore"].stack_size = stacksize
 data.raw.item["coal"].stack_size = stacksize
 
-local density_factor = 10
+
+local density_factor = settings.startup["biter-multipler"].value
 --make biters tougher
 data.raw["unit-spawner"]["biter-spawner"].result_units[2] = { "medium-biter", {{0.2,0}, {0.6,0.3}, {0.7,0.1}, {.99,0}} }
 data.raw["unit-spawner"]["biter-spawner"].result_units[3] = { "big-biter", {{0.5,0}, {.99,0}} }
