@@ -724,12 +724,3 @@ script.on_load(function()
 	script.on_event({defines.events.on_runtime_mod_setting_changed}, OnSettingChanged)
 --	script.on_event({defines.events.on_gui_opened}, OnGuiOpened)
 end)
-
---Building
-script.set_event_filter(defines.events.on_robot_built_entity, {{filter = "type", type = "furnace"}, {filter = "type", type = "container"}, {filter = "type", type = "storage-tank"}})
-script.set_event_filter(defines.events.on_built_entity, {{filter = "type", type = "furnace"}, {filter = "type", type = "container"}, {filter = "type", type = "storage-tank"}})
-
---Destroying/removing
-script.set_event_filter(defines.events.on_entity_died, {{filter = "type", type = "furnace"}, {filter = "type", type = "container"}, {filter = "type", type = "storage-tank"}})
-script.set_event_filter(defines.events.on_player_mined_entity, {{filter = "type", type = "furnace"}, {filter = "type", type = "container"}, {filter = "type", type = "storage-tank"}})
-script.set_event_filter(defines.events.on_robot_mined_entity, {{filter = "type", type = "furnace"}, {filter = "type", type = "container"}, {filter = "type", type = "storage-tank"}})
