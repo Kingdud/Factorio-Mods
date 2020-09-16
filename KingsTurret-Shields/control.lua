@@ -283,9 +283,8 @@ script.on_event(defines.events.on_research_finished,function(event)
 	
 	if event.research.name == "turret-shields-base" or event.research.name == "turret-shields-size" or event.research.name == "turret-shields-speed" then
 		printShieldStats(force)
+		update_electricity_force(force)
 	end
-	
-	update_electricity_force(force)
 	
 	--If we just researched the tech for the first time, ensure all existing turrets get shields.
 	if event.research.name == "turret-shields-base" then
