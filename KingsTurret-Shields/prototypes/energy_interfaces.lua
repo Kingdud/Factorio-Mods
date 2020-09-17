@@ -3,7 +3,6 @@ local neutral_flags = {"not-repairable", "not-blueprintable", "not-deconstructab
 --These have to be here since the global variable doesn't exist when this file is parsed.
 local energy_consumption_multiplier = settings.startup["TS_energy_consumption_multiplier"].value
 local power_usage = settings.startup["TS_power_drain"].value/100
-local drain = (capacity/energy_consumption_multiplier) * power_usage
 
 local max_research_lvl = settings.startup["TS_max_research_level"].value
 
@@ -12,6 +11,7 @@ for size=-1,max_research_lvl,1 do
 	--outer loop = Shield charge rate iteration
 	for rate=-1,max_research_lvl,1 do
 		capacity, recharge = getShieldValues(size, rate)
+		local drain = (capacity/energy_consumption_multiplier) * power_usage
 	
 		data:extend({
 			{
