@@ -207,7 +207,7 @@ script.on_event(defines.events.on_player_selected_area,function(event)
 						global.disabled_turrets[entity.unit_number][2] = entity
 						destroy_turret(entity.unit_number)
 						--if global.turrets[entity.unit_number] and global.turrets[entity.unit_number][3] and global.turrets[entity.unit_number][3].valid then global.turrets[entity.unit_number][3].destroy() end
-						--if global.turrets[entity.unit_number] and global.turrets[entity.unit_number][7] and global.turrets[entity.unit_number][7].valid then global.turrets[entity.unit_number][7].destroy() end
+						--if global.turrets[entity.unit_number] and global.turrets[entity.unit_number][ELECTRIC_GRID_INTERFACE] and global.turrets[entity.unit_number][ELECTRIC_GRID_INTERFACE].valid then global.turrets[entity.unit_number][ELECTRIC_GRID_INTERFACE].destroy() end
 						--global.turrets[entity.unit_number]=nil
 					end
 				end
@@ -361,7 +361,7 @@ script.set_event_filter(defines.events.on_entity_cloned, {{filter = "turret"}, {
 script.set_event_filter(defines.events.script_raised_revive, {{filter = "turret"}, {filter = "name", name = "turret-shield-combinator"}})
 
 --Destroying/removing
-script.set_event_filter(defines.events.on_entity_died, {{filter = "turret"}, {filter = "name", name = "turret-shield-combinator"}})
+--script.set_event_filter(defines.events.on_entity_died, {{filter = "turret"}, {filter = "name", name = "turret-shield-combinator"}})
 script.set_event_filter(defines.events.on_player_mined_entity, {{filter = "turret"}, {filter = "name", name = "turret-shield-combinator"}})
 script.set_event_filter(defines.events.on_robot_mined_entity, {{filter = "turret"}, {filter = "name", name = "turret-shield-combinator"}})
 
@@ -385,8 +385,8 @@ script.on_event({defines.events.on_entity_died,defines.events.on_player_mined_en
 		if global.turrets[event.entity.unit_number] and global.turrets[event.entity.unit_number][HP_BAR] and rendering.is_valid(global.turrets[event.entity.unit_number][HP_BAR]) then
 			rendering.destroy(global.turrets[event.entity.unit_number][HP_BAR])
 		end
-		if global.turrets[event.entity.unit_number] and global.turrets[event.entity.unit_number][7] and global.turrets[event.entity.unit_number][7].valid then 
-			global.turrets[event.entity.unit_number][7].destroy()
+		if global.turrets[event.entity.unit_number] and global.turrets[event.entity.unit_number][ELECTRIC_GRID_INTERFACE] and global.turrets[event.entity.unit_number][ELECTRIC_GRID_INTERFACE].valid then 
+			global.turrets[event.entity.unit_number][ELECTRIC_GRID_INTERFACE].destroy()
 			global.needsGFXUpdate[event.entity.unit_number] = nil
 		end
 		if global.iterate_turrets == event.entity.unit_number then

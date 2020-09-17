@@ -1,8 +1,12 @@
 ---------------------------------------------------------------------------------------------------
 Version: 1.100.13
 Date: 9/16/2020
+  Changes:
+    - Shields now default to 25 KJ per hitpoint instead of 1 KJ/HP. I failed at reading the Factorio Wiki and erroneously thought the personal equipment shields would take 1-2KJ/HP. Existing games will not be effected by this change. New games will.
+    - Removed filtering on entity death to see if it resolves an issue where eletrical interfaces do not get cleaned up sometimes.
   Bugfix:
     - Researching non-shield technologies no longer causes shields to be refreshed.
+    - Fixed issue where shields would fail to charge if size was upgraded before recharge rate. This behavior was never intended.
 ---------------------------------------------------------------------------------------------------
 Version: 1.100.12
 Date: 9/14/2020
