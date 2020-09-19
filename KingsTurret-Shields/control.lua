@@ -354,18 +354,18 @@ script.set_event_filter(defines.events.on_built_entity, {{filter = "turret"}, {f
 script.set_event_filter(defines.events.script_raised_revive, {{filter = "turret"}, {filter = "name", name = "turret-shield-combinator"}})
 script.set_event_filter(defines.events.script_raised_built, {{filter = "turret"}, {filter = "name", name = "turret-shield-combinator"}})
 script.set_event_filter(defines.events.on_entity_cloned, {{filter = "turret"}, {filter = "name", name = "turret-shield-combinator"}})
-script.set_event_filter(defines.events.script_raised_revive, {{filter = "turret"}, {filter = "name", name = "turret-shield-combinator"}})
 
 --Destroying/removing
 --script.set_event_filter(defines.events.on_entity_died, {{filter = "turret"}, {filter = "name", name = "turret-shield-combinator"}})
 script.set_event_filter(defines.events.on_player_mined_entity, {{filter = "turret"}, {filter = "name", name = "turret-shield-combinator"}})
 script.set_event_filter(defines.events.on_robot_mined_entity, {{filter = "turret"}, {filter = "name", name = "turret-shield-combinator"}})
+script.set_event_filter(defines.events.script_raised_destroy, {{filter = "turret"}, {filter = "name", name = "turret-shield-combinator"}})
 
 --Damaging
 script.set_event_filter(defines.events.on_entity_damaged, {{filter = "turret"}})
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
-script.on_event({defines.events.on_entity_died,defines.events.on_player_mined_entity,defines.events.on_robot_mined_entity},function(event)
+script.on_event({defines.events.on_entity_died,defines.events.on_player_mined_entity,defines.events.on_robot_mined_entity,defines.events.script_raised_destroy},function(event)
 	if DEBUG then
 		log("debug script.on_event({defines.events.on_entity_died")
 	end
