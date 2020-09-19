@@ -370,6 +370,43 @@ function remove_energy()
 	end
 end
 
+function more_shields_than_turrets_fix()
+	local num_shields = 0
+	local num_turrets = 0
+
+	for key, surface in pairs(game.surfaces) do
+		for key, entity in pairs(surface.find_entities_filtered{type= "electric-energy-interface"}) do
+			if string.sub(entity.name,1,22) == "ts-electric-interface-" then
+				num_shields = num_shields + 1
+			end
+		end
+	end
+	
+	for k, force in pairs (game.forces) do	
+		for key, surface in pairs(game.surfaces) do
+			for i, turret in pairs(surface.find_entities_filtered{type= "ammo-turret", force}) do
+				num_turrets = num_turrets + 1
+			end
+			for i, turret in pairs(surface.find_entities_filtered{type= "fluid-turret", force}) do
+				num_turrets = num_turrets + 1
+			end
+			for i, turret in pairs(surface.find_entities_filtered{type= "electric-turret", force}) do
+				num_turrets = num_turrets + 1
+			end
+		end
+	end
+	
+	if num_shields > num_turrets then
+		kts_print("Fixing duplicate shields problem. Found " .. num_shields .. " shields for " .. num_turrets .. " turrets. Sorry about the recharge.")
+		remove_energy()
+		for k, force in pairs (game.forces) do	
+			rescan_for_turrets(force)
+		end
+	else
+		kts_print("Shield and turret counts match. Nothing to fix.")
+	end
+end
+
 function refresh_everything()
 	game.print("refreshing all turret shields")
 	global.iterate_turrets = nil

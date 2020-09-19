@@ -60,7 +60,7 @@ script.on_init(function()
 	global.disabled_turrets={}
 	global.combinators={}
 	refresh_everything()
-	global.version = 34
+	global.version = 35
 	
 	global.e_updater_size = 0
 	global.e_updater_disconnected_size = 0
@@ -77,8 +77,6 @@ script.on_init(function()
 	end
 	
 	for k, force in pairs (game.forces) do	
-		update_electricity_force(force)
-		--technically causes a double-scan sometimes, but only once, and that's ok...ish.
 		rescan_for_turrets(force)
 	end
 	--global.worker_key = nil
@@ -169,10 +167,9 @@ script.on_configuration_changed(function()
 		global.version = 34
 	end
 
+	more_shields_than_turrets_fix()
 	for k, force in pairs (game.forces) do	
 		update_electricity_force(force)
-		--technically causes a double-scan sometimes, but only once, and that's ok...ish.
-		rescan_for_turrets(force)
 	end
 end)
 
@@ -245,8 +242,7 @@ script.on_event( defines.events.on_console_chat, function(event)
 	
 	if event.player_index == 1 and event.message == "kts reset" then
 		rendering.clear("KingsTurret-Shields")
-		remove_energy()
-		rescan_for_turrets(game.players[event.player_index].force)
+		more_shields_than_turrets_fix()
 	end
 	if event.message == "shieldstats" then
 		printShieldStats(game.players[event.player_index].force)
