@@ -7,11 +7,6 @@ require("prototypes.entity.entities")
 require("prototypes.item.items")
 require("prototypes.technology.technology")
 
---require("prototypes.recipe.rplasticbars")
-
---Note: Plastic bars are not done here, they are done in the specific files just for plastic.
--- Reason being that outside of actually making plastic bars, I normally want to stop at 
--- plastic bars, 
 for new_item,stock_item in pairs(ITEM_LIST) do
 	local compression_ratio = settings.startup[new_item .. "-ratio"].value
 	
@@ -22,9 +17,6 @@ for new_item,stock_item in pairs(ITEM_LIST) do
 			name = new_item
 		}
 	})
-	
-	--local vanilla_mats = unwindVanillaRecipe(stock_item, plastic_override)
-	local nrips,erips = computeItemsPerSecond(stock_item)
 	
 	local productivity_factor = 0
 	local crafting_cat = data.raw.recipe[stock_item].category or "crafting"
@@ -37,6 +29,8 @@ for new_item,stock_item in pairs(ITEM_LIST) do
 		plastic_override = true
 		productivity_factor = chem_productivity_factor+1
 	end
+	
+	local nrips,erips = computeItemsPerSecond(stock_item, plastic_override)
 	
 	--We need to add productivity factor to items_per_second from the recipe calculation, since unwindAssemblersNeeded requires it to be there.
 	local ipsn = nrips * productivity_factor * compression_ratio
@@ -76,10 +70,10 @@ for new_item,stock_item in pairs(ITEM_LIST) do
 	
 	--Create the recipe the ASIF uses to build components
 	createResultRecipes(stock_item, new_item, compression_ratio, ipsn, ipse, result)
-	
-	--Create items
-	createItem(stock_item, new_item)
+	createItem(plastic_override, new_item)
 	
 	--Add research
 	addTechnology(new_item)
 end
+	
+	--Create items

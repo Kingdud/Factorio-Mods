@@ -1,7 +1,9 @@
+DEBUG = false
+
 --Number of beacons around a standard building.
 beacon_count = 12
 
-NEED_FLUID_RECIPES = { "bc-asif", "spd-3-asif", "prod-3-asif", "pla-asif" }
+NEED_FLUID_RECIPES = { "bc-asif", "spd-3-asif", "prod-3-asif", "pla-asif", "rf-asif", "sfpg-asif", "sflo-asif", "sfho-asif", "rcu-asif" }
 
 TECH_DETAILS = {
 	["gc-asif"] = { cost = 250000, prereqs = {"asif"} },
@@ -9,9 +11,12 @@ TECH_DETAILS = {
 	["bc-asif"] = { cost = 1000000, prereqs = {"rc-asif"} },
 	["lds-asif"] = { cost = 500000, prereqs = {"asif"} },
 	["eng-asif"] = { cost = 500000, prereqs = {"asif"} },
+	["pla-asif"] = { cost = 500000, prereqs = {"asif"} },
+	--RF is handled on its own since it unlocks multiple recipes.
+	--["rf-asif"] = { cost = 500000, prereqs = {"asif"} },
+	["rcu-asif"] = { cost = 1000000, prereqs = {"bc-asif"} },
 	["spd-3-asif"] = { cost = 1000000, prereqs = {"bc-asif"} },
 	["prod-3-asif"] = { cost = 1000000, prereqs = {"bc-asif"} },
-	["pla-asif"] = { cost = 500000, prereqs = {"asif"} },
 }
 
 ITEM_LIST = {
@@ -20,12 +25,21 @@ ITEM_LIST = {
 	["bc-asif"] = "processing-unit",
 	["lds-asif"] = "low-density-structure",
 	["eng-asif"] = "engine-unit",
+	["pla-asif"] = "plastic-bar",
+	["rf-asif"] = "rocket-fuel",
+	["sfpg-asif"] = "solid-fuel-from-petroleum-gas",
+	["sflo-asif"] = "solid-fuel-from-light-oil",
+	["sfho-asif"] = "solid-fuel-from-heavy-oil",
+	["rcu-asif"] = "rocket-control-unit",
 	["spd-3-asif"] = "speed-module-3",
 	["prod-3-asif"] = "productivity-module-3",
-	["pla-asif"] = "plastic-bar"
 }
-base_recipes = {"copper-plate", "iron-plate", "steel-plate", "plastic-bar", "sulfuric-acid"}
-plastic_base_recipes = {"copper-plate", "iron-plate", "steel-plate", "sulfuric-acid", "coal", "petroleum-gas" }
+base_recipes = {"copper-plate", "iron-plate", "steel-plate", "plastic-bar", "sulfuric-acid", "solid-fuel", "light-oil"}
+plastic_base_recipes = {"coal", "petroleum-gas", "light-oil", "heavy-oil" }
+
+ITEM_LIST_SF = {
+
+}
 
 --//modules (level 3)
 local spd_module_speed_bonus = data.raw.module["speed-module-3"].effect.speed.bonus
@@ -96,9 +110,14 @@ GRAPHICS_MAP = {
 	["bc-asif"] = {icon = "bc-asif.png", tint = {r= .2, g = .13, b = .72, a = 1}},
 	["lds-asif"] = {icon = "lds-asif.png", tint = {r= .88, g = .75, b = 0.5, a = 1}},
 	["eng-asif"] = {icon = "eng-asif.png", tint = {r= .49, g = .35, b = .31, a = 1}},
+	["pla-asif"] = {icon = "pla-asif.png", tint = data.raw.recipe["plastic-bar"].crafting_machine_tint},
+	["rf-asif"] = {icon = "rf-asif.png", tint = {r= .8, g = .65, b = .11, a = 1}},
+	["sfpg-asif"] = {icon = "sfpg-asif.png", tint = data.raw.recipe["solid-fuel-from-petroleum-gas"].crafting_machine_tint},
+	["sflo-asif"] = {icon = "sflo-asif.png", tint = data.raw.recipe["solid-fuel-from-light-oil"].crafting_machine_tint},
+	["sfho-asif"] = {icon = "sfho-asif.png", tint = data.raw.recipe["solid-fuel-from-heavy-oil"].crafting_machine_tint},
+	["rcu-asif"] = {icon = "rcu-asif.png", tint = {r= 1, g = 1, b = 1, a = 1}},
 	["prod-3-asif"] = {icon = "prod-3-asif.png", tint = {r= 1, g = .88, b = .07, a = 1}},
 	["spd-3-asif"] = {icon = "spd-3-asif.png", tint = {r= .25, g = .93, b = .92, a = 1}},
-	["pla-asif"] = {icon = "pla-asif.png", tint = data.raw.recipe["plastic-bar"].crafting_machine_tint},
 }
 
 recipe_tint = {r= 1, g = .533, b = 0, a = 1}

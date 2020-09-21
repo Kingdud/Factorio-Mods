@@ -44,6 +44,9 @@ function updateAssFluidBoxes(new_entity, assemblers, half_side_len)
 end
 
 function createAssemblerEntity(name, compression_ratio, n_ass, e_ass)
+	if DEBUG then
+		log("Debug: createAssemblerEntity " .. name)
+	end
 		
 	--Pollution
 	--modify here if you wish to create separate entities for normal/expensive mode.
@@ -60,6 +63,7 @@ function createAssemblerEntity(name, compression_ratio, n_ass, e_ass)
 	new_entity.energy_usage = computePowerDraw(n_ass, assembler_total_pwr_draw) .. "kW"
 	new_entity.allowed_effects = nil
 	new_entity.module_specification.module_slots = 0
+	new_entity.scale_entity_info_icon = true
 	--new_entity.base_productivity = .1*assembler_base_modules
 	new_entity.fast_replaceable_group = name
 	new_entity.minable.result = name
@@ -82,15 +86,11 @@ function createAssemblerEntity(name, compression_ratio, n_ass, e_ass)
 		scale_factor = override_size / 3 / 1.725
 	end
 	
-	new_entity.alert_icon_shift[1] = new_entity.alert_icon_shift[1] * n_ass
-	new_entity.alert_icon_shift[2] = new_entity.alert_icon_shift[2] * n_ass
+	new_entity.alert_icon_shift[1] = new_entity.alert_icon_shift[1] * scale_factor
+	new_entity.alert_icon_shift[2] = new_entity.alert_icon_shift[2] * scale_factor
 	new_entity.alert_icon_scale = scale_factor
 	for i,_ in pairs(new_entity.animation.layers)
 	do
-		-- new_entity.animation.layers[i].shift[1] = new_entity.animation.layers[i].shift[1] * n_ass
-		-- new_entity.animation.layers[i].shift[2] = new_entity.animation.layers[i].shift[2] * n_ass
-		-- new_entity.animation.layers[i].hr_version.shift[1] = new_entity.animation.layers[i].hr_version.shift[1] * n_ass
-		-- new_entity.animation.layers[i].hr_version.shift[2] = new_entity.animation.layers[i].hr_version.shift[2] * n_ass
 		new_entity.animation.layers[i].scale = scale_factor
 		new_entity.animation.layers[i].hr_version.scale = scale_factor
 		if new_entity.animation.layers[i].hr_version.filename == "__base__/graphics/entity/assembling-machine-3/hr-assembling-machine-3.png"
@@ -98,8 +98,6 @@ function createAssemblerEntity(name, compression_ratio, n_ass, e_ass)
 			new_entity.animation.layers[i].hr_version.filename = "__AssemblerUPSGrade__/graphics/entity/" .. GRAPHICS_MAP[name].icon
 			new_entity.animation.layers[i].hr_version.height = 214
 		end
-		new_entity.animation.layers[i].tint = GRAPHICS_MAP[name].tint
-		--new_entity.animation.layers[i].hr_version.tint = GRAPHICS_MAP[name].tint
 	end
 	
 	new_entity.collision_box = { {-1*new_collison_size, -1*new_collison_size}, {new_collison_size,new_collison_size} }
@@ -123,6 +121,10 @@ function createAssemblerEntity(name, compression_ratio, n_ass, e_ass)
 		new_entity.fluid_boxes = nil
 	end
 	
+	if DEBUG then
+		log("Debug createAssemblerEntity : " .. do_dump(new_entity))
+	end
+	
 	data:extend({new_entity})
 end
 
@@ -141,6 +143,7 @@ function createChemPlantEntity(name, compression_ratio, n_chem, e_chem)
 	new_entity.energy_usage = computePowerDraw(n_chem, chem_total_pwr_draw) .. "kW"
 	new_entity.allowed_effects = nil
 	new_entity.module_specification.module_slots = 0
+	new_entity.scale_entity_info_icon = true
 	--new_entity.base_productivity = .1*chem_base_modules
 	new_entity.fast_replaceable_group = name
 	new_entity.minable.result = name
@@ -163,24 +166,66 @@ function createChemPlantEntity(name, compression_ratio, n_chem, e_chem)
 		scale_factor = override_size / 3 / 2
 	end
 	
+	--We want this before the scale factor gets reduced below.
+	local edge_art = {
+		filename = "__AssemblerUPSGrade__/graphics/entity/bld-border.png",
+		frame_count = new_entity.animation["north"].layers[1].frame_count,
+		line_length = 6,
+		height = 256,
+		priority = "high",
+		scale = scale_factor * .75,
+		width = 256,
+	}
+	
+	--This is the smokestack color and the window color bit being scaled to the correct size.
+	for i,_ in pairs(new_entity.working_visualisations) do
+		--smokestack
+		if new_entity.working_visualisations[i].animation then
+			new_entity.working_visualisations[i].animation.scale = scale_factor
+			new_entity.working_visualisations[i].animation.hr_version.scale = scale_factor
+			new_entity.working_visualisations[i].animation.shift[1] = new_entity.working_visualisations[i].animation.shift[1] * scale_factor
+			new_entity.working_visualisations[i].animation.shift[2] = new_entity.working_visualisations[i].animation.shift[2] * scale_factor
+			new_entity.working_visualisations[i].animation.hr_version.shift[1] = new_entity.working_visualisations[i].animation.hr_version.shift[1] * scale_factor
+			new_entity.working_visualisations[i].animation.hr_version.shift[2] = new_entity.working_visualisations[i].animation.hr_version.shift[2] * scale_factor
+			
+			for _, dir in pairs({"north_position","east_position","west_position","south_position"}) do
+				new_entity.working_visualisations[i][dir][1] = new_entity.working_visualisations[i][dir][1] * scale_factor * 2
+				--For reasons that are unclear to me, the outside smoke animation needs a little extra bump north for some reason.
+				if i == 3 then
+					new_entity.working_visualisations[i][dir][2] = new_entity.working_visualisations[i][dir][2] * scale_factor * 2.25
+				else
+					new_entity.working_visualisations[i][dir][2] = new_entity.working_visualisations[i][dir][2] * scale_factor * 2
+				end
+			end
+		else
+			for _, dir in pairs({"north_animation","east_animation","west_animation","south_animation"}) do
+				new_entity.working_visualisations[i][dir].scale = scale_factor
+				new_entity.working_visualisations[i][dir].hr_version.scale = scale_factor
+				new_entity.working_visualisations[i][dir].shift[1] = new_entity.working_visualisations[i][dir].shift[1] * scale_factor * 2
+				new_entity.working_visualisations[i][dir].shift[2] = new_entity.working_visualisations[i][dir].shift[2] * scale_factor * 2
+				new_entity.working_visualisations[i][dir].hr_version.shift[1] = new_entity.working_visualisations[i][dir].hr_version.shift[1] * scale_factor * 2
+				new_entity.working_visualisations[i][dir].hr_version.shift[2] = new_entity.working_visualisations[i][dir].hr_version.shift[2] * scale_factor * 2
+			end
+		end
+	end
+	
+	--Reduce scale factor since the original art is actually too large for the entity box.
+	scale_factor = scale_factor - 1.5
+
+	new_entity.alert_icon_scale = scale_factor
+	
 	for _,dir in pairs({"north","east","south","west"})
 	do
 		for i,_ in pairs(new_entity.animation[dir].layers)
 		do
-			-- new_entity.animation[dir].layers[i].shift[1] = new_entity.animation[dir].layers[i].shift[1] * n_chem
-			-- new_entity.animation[dir].layers[i].shift[2] = new_entity.animation[dir].layers[i].shift[2] * n_chem
-			-- new_entity.animation[dir].layers[i].hr_version.shift[1] = new_entity.animation[dir].layers[i].hr_version.shift[1] * n_chem
-			-- new_entity.animation[dir].layers[i].hr_version.shift[2] = new_entity.animation[dir].layers[i].hr_version.shift[2] * n_chem
+			-- new_entity.animation[dir].layers[i].shift[1] = new_entity.animation[dir].layers[i].shift[1] * scale_factor
+			new_entity.animation[dir].layers[i].shift[2] = new_entity.animation[dir].layers[i].shift[2] - 2
+			-- new_entity.animation[dir].layers[i].hr_version.shift[1] = new_entity.animation[dir].layers[i].hr_version.shift[1] * scale_factor
+			new_entity.animation[dir].layers[i].hr_version.shift[2] = new_entity.animation[dir].layers[i].hr_version.shift[2] - 2
 			new_entity.animation[dir].layers[i].scale = scale_factor
 			new_entity.animation[dir].layers[i].hr_version.scale = scale_factor
-			if new_entity.animation[dir].layers[i].hr_version.filename == "__base__/graphics/entity/chemical-plant/hr-chemical-plant.png"
-			then
-				--new_entity.animation[dir].layers[i].hr_version.filename = "__AssemblerUPSGrade__/graphics/entity/chem-asif.png"
-				--new_entity.animation[dir].layers[i].hr_version.height = new_entity.animation[dir].layers[i].hr_version.height + 38
-			end
-			new_entity.animation[dir].layers[i].tint = GRAPHICS_MAP[name].tint
-			--new_entity.animation[dir].layers[i].hr_version.tint = GRAPHICS_MAP[name].tint
 		end
+		table.insert(new_entity.animation[dir].layers, edge_art)
 	end
 	
 	new_entity.collision_box = { {-1*new_collison_size, -1*new_collison_size}, {new_collison_size,new_collison_size} }
@@ -197,8 +242,17 @@ function createChemPlantEntity(name, compression_ratio, n_chem, e_chem)
 	-- }
 	new_entity.icon_size = 64
 	
-	-- Order: in-left, in-right, out-left, out-right
-	local new_pipe_conn_pos = { {-1,math.floor(-1*new_drawing_box_size)}, {1,math.floor(-1*new_drawing_box_size)}, {-1,math.ceil(new_drawing_box_size)}, {1,math.ceil(new_drawing_box_size)} }
+	local new_pipe_con_edge_offset = (new_drawing_box_size/3)
+	local new_pipe_conn_pos = { 
+		-- in-left
+		{math.floor(-1*new_drawing_box_size+new_pipe_con_edge_offset),	math.floor(-1*new_drawing_box_size)}, 
+		-- in-right
+		{math.ceil(new_drawing_box_size - new_pipe_con_edge_offset),math.floor(-1*new_drawing_box_size)}, 
+		-- out-left
+		{math.floor(-1*new_drawing_box_size+new_pipe_con_edge_offset),math.ceil(new_drawing_box_size)}, 
+		-- out-right
+		{math.ceil(new_drawing_box_size - new_pipe_con_edge_offset),math.ceil(new_drawing_box_size)}
+	}
 	local pipe_counter = {1,3} -- input,output
 	for i,res in pairs(new_entity.fluid_boxes)
 	do

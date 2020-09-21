@@ -30,7 +30,7 @@ require("prototypes.functions")
 
 function createRecipeHelper(new_recipe, stock_item_name, results_per_second, compression_ratio, items_needed)
 	local counter = 1
-	for item,quantity in pairs(items_needed) do
+	for item,quantity in pairs(items_needed) do	
 		if data.raw.fluid[item]
 		then
 			new_recipe.ingredients[counter] = {type="fluid", name = item, amount = math.floor(quantity) }
@@ -40,7 +40,12 @@ function createRecipeHelper(new_recipe, stock_item_name, results_per_second, com
 		counter = counter + 1
 	end
 	new_recipe.energy_required = 1
-	new_recipe.result = stock_item_name
+	if stock_item_name == "solid-fuel-from-petroleum-gas" or stock_item_name == "solid-fuel-from-light-oil" or stock_item_name == "solid-fuel-from-heavy-oil" then
+		new_recipe.result = "solid-fuel"
+	else
+		new_recipe.result = stock_item_name
+	end
+	
 	new_recipe.result_count = math.ceil(results_per_second)
 	new_recipe.enabled = false
 	new_recipe.always_show_made_in = true
@@ -52,6 +57,7 @@ function createResultRecipes(stock_name, new_name, compression_ratio, nrips, eri
 	local recipe_name = new_name .. "-recipe"
 	local new_recipe = util.table.deepcopy(data.raw.recipe[stock_name])
 	
+	new_recipe.result = nil
 	new_recipe.ingredients = nil
 	new_recipe.name = recipe_name
 	new_recipe.main_product = recipe_name
@@ -74,6 +80,10 @@ function createResultRecipes(stock_name, new_name, compression_ratio, nrips, eri
 	createRecipeHelper(new_recipe.expensive, stock_name, erips, compression_ratio, items_needed.recip_e)
 
 	new_recipe.category = new_name
+	
+	if DEBUG then
+		log("Debug createResultRecipes: " .. do_dump(new_recipe))
+	end
 	
 	data:extend({new_recipe})
 end

@@ -1,4 +1,16 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.100.2
+Date: 9/21/2020
+  Changes:
+    - Sorry to existing Plastic Bar ASIF users, I moved the fluid inputs to the edges to better align with the model, and also to explore options to create more fluid ports later on, if needed.
+    - Added Rocket Control Unit and Rocket Fuel ASIFs.
+    - Changed default ratios for all ASIFs to match what would be needed for 10k science/min. Existing save games will not be affected by this change.
+    - Added black bar around all chemical plant ASIFs as the original model doesn't scale well and it's hard to tell where the edges are.
+  Bugfix:
+    - Fixed chemical plant basied ASIF smoke and the 'window' on the chemical plant. Both will now colorized correctly given the recipe they are running.
+    - Made recipe and alert icons both scale correctly to building size, and be in the correct spot.
+    - Fixed a bug in recipe generation causing plastic bars to take more resources and produce less outputs than they were supposed to (to the tune of ~2x the resources for 1/2 the production. Sorry!)
+---------------------------------------------------------------------------------------------------
 Version: 1.100.1
 Date: 9/1/2020
   Bugfix:

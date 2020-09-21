@@ -30,7 +30,53 @@ data:extend(
 	}
 })
 
+data:extend(
+{
+	{
+		type = "technology",
+		name = "rf-asif",
+		icon = "__AssemblerUPSGrade__/graphics/" .. GRAPHICS_MAP["rf-asif"].icon,
+		icon_size = 64,
+		effects =
+		{
+			{type = "unlock-recipe", recipe = "rf-asif" },
+			{type = "unlock-recipe", recipe = "rf-asif-recipe" },
+			{type = "unlock-recipe", recipe = "sfpg-asif" },
+			{type = "unlock-recipe", recipe = "sfpg-asif-recipe" },
+			{type = "unlock-recipe", recipe = "sflo-asif" },
+			{type = "unlock-recipe", recipe = "sflo-asif-recipe" },
+			{type = "unlock-recipe", recipe = "sfho-asif" },
+			{type = "unlock-recipe", recipe = "sfho-asif-recipe" },
+		},
+		prerequisites = {"asif"},
+		unit =
+		{
+			count = 500000,
+			ingredients =
+			{
+				{"automation-science-pack", 1},
+				{"logistic-science-pack", 1},
+				{"chemical-science-pack", 1},		
+				{"production-science-pack", 1},
+				{"utility-science-pack", 1},
+				{"space-science-pack", 1}	
+			},
+			time = 60
+		},
+		order = "a-b-c"
+	}
+})
+
 function addTechnology(name)
+	if DEBUG then
+		log("Debug addTechnology " .. name)
+	end
+	
+	--Handled elsewhere.
+	if name == "rf-asif" or name == "sfpg-asif" or name == "sflo-asif" or name == "sfho-asif" then
+		return
+	end
+
 	data:extend(
 	{
 		{

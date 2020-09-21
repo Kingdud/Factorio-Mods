@@ -39,13 +39,18 @@ function getResultCount(name)
 		return 1,1
 	end
 	
-	local n_res_cnt = the_recipe.normal and the_recipe.normal.result_count 
+	--This is not perfect, it will break on things like uranium processing, which have multiple result outputs (u-235 and u238)
+	local n_res_cnt = (the_recipe.normal and the_recipe.normal.result_count)
+		or (the_recipe.normal and the_recipe.normal.results and the_recipe.normal.results.amount)
+		or (the_recipe.results and the_recipe.results[1].amount)
 		or the_recipe.result_count 
-		or the_recipe.expensive and the_recipe.expensive.result_count
+		or (the_recipe.expensive and the_recipe.expensive.result_count)
 		or 1
-	local e_res_cnt = the_recipe.expensive and the_recipe.expensive.result_count 
+	local e_res_cnt = (the_recipe.expensive and the_recipe.expensive.result_count)
+		or (the_recipe.expensive and the_recipe.expensive.results and the_recipe.expensive.results.amount)
+		or (the_recipe.results and the_recipe.results[1].amount)
 		or the_recipe.result_count 
-		or the_recipe.normal and the_recipe.normal.result_count
+		or (the_recipe.normal and the_recipe.normal.result_count)
 		or 1
 		
 	return n_res_cnt, e_res_cnt
@@ -53,13 +58,18 @@ end
 
 --Computes how many items per second are produced by the given recipe (assuming fully beaconed/moduled).
 -- Productivty NOT factored in!
-function computeItemsPerSecond(name)
+function computeItemsPerSecond(name, chemistry_override)
 	local normal_time, expensive_time = getItemCreateTime(name)
+	local building_mod_bonus = assembler_total_speed_bonus
+	
+	if chemistry_override then
+		building_mod_bonus = chem_total_speed_bonus
+	end
 	
 	local n_res_cnt, e_res_cnt = getResultCount(name)
 	
-	local normal_ips = n_res_cnt / (normal_time / assembler_total_speed_bonus)
-	local expensive_ips = e_res_cnt / (expensive_time / assembler_total_speed_bonus)
+	local normal_ips = n_res_cnt / (normal_time / building_mod_bonus)
+	local expensive_ips = e_res_cnt / (expensive_time / building_mod_bonus)
 	
 	return normal_ips, expensive_ips
 end
@@ -80,8 +90,7 @@ end
 
 --This function ensures format of <item name>,<item quant> even when fluids are in play.
 function getItemIngredient(ingredients)
-	if not ingredients[1]
-	then
+	if not ingredients[1] then
 		return ingredients.name, ingredients.amount
 	else
 		return ingredients[1], ingredients[2]
@@ -145,15 +154,6 @@ function unwindVanillaRecipe(name, plastic_override)
 	local result = { ["expensive"] = {}, ["normal"] = {} }
 	local n_res_cnt, e_res_cnt = getResultCount(name)
 	
-	local base_recipe_list = nil
-	if plastic_override
-	then
-		base_recipe_list = base_recipes
-	else
-		base_recipe_list = plastic_base_recipes
-	end
-
-
 	--Check if normal / expensive mode definitions exist
 	if data.raw.recipe[name].normal then 
 		for _,val in pairs(data.raw.recipe[name].normal.ingredients) do
@@ -186,14 +186,12 @@ function unwindVanillaRecipe(name, plastic_override)
 end --end unwindVanillaRecipe
 
 function unwindAssemblersNeeded(name, mode, main_item_ips, productivity_factor, result, plastic_override)
-	
 	main_item_ips = (main_item_ips / productivity_factor)
 	
 	local normal_ingredients, expensive_ingredients = getItemIngredients(name)
 	
 	local base_recipe_list = nil
-	if plastic_override
-	then
+	if plastic_override then
 		base_recipe_list = plastic_base_recipes
 	else
 		base_recipe_list = base_recipes
@@ -209,7 +207,7 @@ function unwindAssemblersNeeded(name, mode, main_item_ips, productivity_factor, 
 			
 			if not has_value(base_recipe_list, i_name) then
 				--Get how many items/second one assembler making this sub-component can crank out (factors in result cnt)
-				local ips, _ = computeItemsPerSecond(i_name)
+				local ips, _ = computeItemsPerSecond(i_name, plastic_override)
 				ips = ips * productivity_factor
 				
 				--main_item_ips * val[2] is saying "we need to build 100 units per second, and 
@@ -221,7 +219,7 @@ function unwindAssemblersNeeded(name, mode, main_item_ips, productivity_factor, 
 					result.normal[i_name] = ips_needed / ips
 				end
 				
-				unwindAssemblersNeeded(i_name, "n", ips_needed / res_cnt, productivity_factor, result)
+				unwindAssemblersNeeded(i_name, "n", ips_needed / res_cnt, productivity_factor, result, plastic_override)
 			else
 				if result.recip_n[i_name] then
 					result.recip_n[i_name] = result.recip_n[i_name] + math.floor(ips_needed)
@@ -238,10 +236,10 @@ function unwindAssemblersNeeded(name, mode, main_item_ips, productivity_factor, 
 			local _, res_cnt = getResultCount(i_name)
 			--This is how many of this item are needed per second to build the main result.
 			local ips_needed = main_item_ips * i_quant
-			
+
 			if not has_value(base_recipe_list, i_name) then
 				--Get how many items/second one assembler making this sub-component can crank out
-				local _, ips = computeItemsPerSecond(i_name)
+				local _, ips = computeItemsPerSecond(i_name, plastic_override)
 				ips = ips * productivity_factor
 
 				--main_item_ips * val[2] is saying "we need to build 100 units per second, and 
@@ -253,7 +251,7 @@ function unwindAssemblersNeeded(name, mode, main_item_ips, productivity_factor, 
 					result.expensive[i_name] = ips_needed / ips
 				end
 				
-				unwindAssemblersNeeded(i_name, "e", ips_needed / res_cnt, productivity_factor, result)
+				unwindAssemblersNeeded(i_name, "e", ips_needed / res_cnt, productivity_factor, result, plastic_override)
 			else
 				if result.recip_e[i_name] then
 					result.recip_e[i_name] = result.recip_e[i_name] + math.floor(ips_needed)
@@ -263,4 +261,17 @@ function unwindAssemblersNeeded(name, mode, main_item_ips, productivity_factor, 
 			end
 		end
 	end
+end
+
+function do_dump(o)
+   if type(o) == 'table' then
+      local s = '{ '
+      for k,v in pairs(o) do
+         if type(k) ~= 'number' then k = '"'..k..'"' end
+         s = s .. '['..k..'] = ' .. do_dump(v) .. ','
+      end
+      return s .. '} '
+   else
+      return tostring(o)
+   end
 end
