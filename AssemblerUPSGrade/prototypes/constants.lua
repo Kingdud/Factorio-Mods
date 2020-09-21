@@ -37,8 +37,20 @@ ITEM_LIST = {
 base_recipes = {"copper-plate", "iron-plate", "steel-plate", "plastic-bar", "sulfuric-acid", "solid-fuel", "light-oil"}
 plastic_base_recipes = {"coal", "petroleum-gas", "light-oil", "heavy-oil" }
 
-ITEM_LIST_SF = {
-
+ORDER_MAP = {
+	["gc-asif"] = "a",
+	["rc-asif"] = "b",
+	["bc-asif"] = "c",
+	["lds-asif"] = "e",
+	["eng-asif"] = "d",
+	["pla-asif"] = "f",
+	["rf-asif"] = "h",
+	["sfpg-asif"] = "g2",
+	["sflo-asif"] = "g1",
+	["sfho-asif"] = "g3",
+	["rcu-asif"] = "i",
+	["spd-3-asif"] = "z1",
+	["prod-3-asif"] = "z2",
 }
 
 --//modules (level 3)

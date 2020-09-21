@@ -7,6 +7,15 @@ require("prototypes.entity.entities")
 require("prototypes.item.items")
 require("prototypes.technology.technology")
 
+data:extend({
+	{
+		type = "item-subgroup",
+		name = "asif-buildings",
+		group = "production",
+		order = "e1",
+	}
+})
+
 for new_item,stock_item in pairs(ITEM_LIST) do
 	local compression_ratio = settings.startup[new_item .. "-ratio"].value
 	

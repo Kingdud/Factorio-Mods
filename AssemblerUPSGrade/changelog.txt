@@ -6,6 +6,8 @@ Date: 9/21/2020
     - Added Rocket Control Unit and Rocket Fuel ASIFs.
     - Changed default ratios for all ASIFs to match what would be needed for 10k science/min. Existing save games will not be affected by this change.
     - Added black bar around all chemical plant ASIFs as the original model doesn't scale well and it's hard to tell where the edges are.
+    - Added a subgroup just for ASIFs and moved all the ASIF buildings into that sub-group, then re-ordered them.
+    - Removed the no longer needed or used Chemical Factory model. If anyone could make a tint mask for assemblers that'd be great, and I could reduce the size of this mod by about 20MB. I tried to make one...I don't understand graphics.
   Bugfix:
     - Fixed chemical plant basied ASIF smoke and the 'window' on the chemical plant. Both will now colorized correctly given the recipe they are running.
     - Made recipe and alert icons both scale correctly to building size, and be in the correct spot.

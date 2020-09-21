@@ -11,10 +11,11 @@ function createItem(is_chem_plant, new_name)
 	
 	newitem.name = new_name
 	newitem.place_result = new_name
-	newitem.order = newitem.order .. "z"
+	newitem.order = ORDER_MAP[new_name]
 	newitem.icon = "__AssemblerUPSGrade__/graphics/" .. GRAPHICS_MAP[new_name].icon
 	newitem.stack_size = 1
 	newitem.icon_mipmaps = 1
+	newitem.subgroup = "asif-buildings"
 	
 	if DEBUG then
 		log("Debug createItem: " .. do_dump(newitem))
