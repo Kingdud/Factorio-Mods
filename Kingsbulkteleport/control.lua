@@ -437,10 +437,13 @@ local function check_networks(energizer_id, networks, is_sender)
 	local temp_network = {}
 	local is_priority = false
 	
-	--If this energizer is currently busy, do nothing.
 	if is_sender then
+		--if this sender has no power, skip it.
+		if global.senders[energizer_id].energy == 0 then return end
+		--If this energizer is currently busy, do nothing.
 		if global.senders[energizer_id].is_crafting() then return end
 	else
+		if global.recievers[energizer_id].energy == 0 then return end
 		if global.recievers[energizer_id].is_crafting() then return end
 	end
 	
@@ -497,6 +500,40 @@ local function check_networks(energizer_id, networks, is_sender)
 	end
 end
 
+function draw_teleport_beam(recipe, sender, reciever)
+	--Draw the beam between the two teleporters.
+	if settings.global["bulkteleport-show-beam"].value then
+		local duration = game.recipe_prototypes[recipe].energy / sender.crafting_speed
+
+		local s_position = { sender.position.x, sender.position.y - 1 }
+		local t_position = { reciever.position.x, reciever.position.y - 1 }
+
+		if settings.global["bulkteleport-show-beam-pretty"].value then
+			-- slower
+			sender.surface.create_entity({
+				name = "electric-beam",
+				position = s_position,
+				source_position = s_position,
+				target_position = t_position,
+				duration = math.ceil(duration*60),
+			})
+		else
+			-- faster
+			rendering.draw_line({
+				color = beam_color(sender.surface),
+				width = 2,
+				gap_length = 0.5,
+				dash_length = 0.5,
+				from = s_position,
+				to = t_position,
+				surface = sender.surface,
+				forces = { sender.force },
+				time_to_live = math.ceil(duration*60),
+			})
+		end
+	end
+end
+
 local function OnNthTick(event)	
 	-- Networks Design:
 	-- networks[<type>][<signal name>..<count>] ==> The in-game signal 'Iron Plate' with a value of '1', becomes "iron-plate1"
@@ -505,11 +542,15 @@ local function OnNthTick(event)
 	-- networks[recievers][<signal name>..<count>]
 	local networks = {{}, {}, {}}
 	
+	log("Debug: " .. do_dump(global.teleportJobs))
+	
 	--Step 1, Move any existing, completed, transfer jobs.
 	for jobTick, job_list in pairs(global.teleportJobs) do
 		if jobTick > event.tick then
 			goto done_moving_inventory
 		end
+		
+		--We only get here if the shipment has had time to complete (IE: 4 seconds have passed).
 		
 		for idx, job in pairs(job_list) do
 			local send_entity = global.senders[job[1]]
@@ -517,7 +558,21 @@ local function OnNthTick(event)
 			local send_buf = global.buffers[job[1]]
 			local recv_buf = global.buffers[job[2]]
 			local shipment
-
+			local sender_tier = send_entity.name:sub(-1)
+			local recipe = "bulkteleport-job-"..sender_tier
+			
+			--Ensure that both have finished their cycles. IE: localized power problems may slow one down.
+			if send_entity.is_crafting() or send_entity.energy == 0 then
+				warning(recv_buf, "Sender still busy or offline")
+				draw_teleport_beam(recipe, send_entity, recv_entity)
+				goto next_delivery
+			end
+			if recv_entity.is_crafting() or recv_entity.energy == 0 then
+				warning(send_buf, "Reciever still busy or offline")
+				draw_teleport_beam(recipe, send_entity, recv_entity)
+				goto next_delivery
+			end			
+			
 			--We already know that either both sender and reciever are fluidic or not.
 			if is_fluidic(send_entity) then
 				shipment = send_buf.get_fluid_contents()
@@ -525,8 +580,11 @@ local function OnNthTick(event)
 				send_buf.clear_fluid_inside()
 				recv_buf.clear_fluid_inside()
 				
+				log("A")
 				for name, count in pairs(shipment) do
+					log("b-" ..name)
 					if game.fluid_prototypes[name] then
+						log("c")
 						recv_buf.insert_fluid({
 							name = name,
 							amount = count,
@@ -551,11 +609,15 @@ local function OnNthTick(event)
 				end
 			end
 			
+			log("d")
 			job_list[idx] = nil
 			::next_delivery::
+			log("e")
 		end
 		
-		global.teleportJobs[jobTick] = nil
+		if table_size(global.teleportJobs[jobTick]) == 0 then
+			global.teleportJobs[jobTick] = nil
+		end
 	end
 	::done_moving_inventory::
 	
@@ -585,11 +647,13 @@ local function OnNthTick(event)
 				goto next_network_continue
 			end
 			
+			local teleport_job = {send_eID, recv_eID}
+			
 			--4 seconds to send, 60 ticks per second.
-			if not global.teleportJobs[event.tick + 4*60] then
-				global.teleportJobs[event.tick + 4*60] = {{send_eID, recv_eID}}
+			if not global.teleportJobs[event.tick + 4*60 - 1] then
+				global.teleportJobs[event.tick + 4*60 - 1] = {teleport_job}
 			else
-				table.insert(global.teleportJobs[event.tick + 4*60], {send_eID, recv_eID})
+				table.insert(global.teleportJobs[event.tick + 4*60 - 1], teleport_job)
 			end
 		end
 		::next_network_continue::
@@ -624,37 +688,7 @@ local function OnNthTick(event)
 			sender.insert({ name = recipe })
 			reciever.insert({ name = recipe })
 			
-			--Draw the beam between the two teleporters.
-			if settings.global["bulkteleport-show-beam"].value then
-				local duration = game.recipe_prototypes[recipe].energy / sender.crafting_speed
-
-				local s_position = { sender.position.x, sender.position.y - 1 }
-				local t_position = { reciever.position.x, reciever.position.y - 1 }
-
-				if settings.global["bulkteleport-show-beam-pretty"].value then
-					-- slower
-					sender.surface.create_entity({
-						name = "electric-beam",
-						position = s_position,
-						source_position = s_position,
-						target_position = t_position,
-						duration = math.ceil(duration*60),
-					})
-				else
-					-- faster
-					rendering.draw_line({
-						color = beam_color(sender.surface),
-						width = 2,
-						gap_length = 0.5,
-						dash_length = 0.5,
-						from = s_position,
-						to = t_position,
-						surface = sender.surface,
-						forces = { sender.force },
-						time_to_live = math.ceil(duration*60),
-					})
-				end
-			end
+			draw_teleport_beam(recipe, sender, reciever)
 		end
 		
 		::next_shipment::

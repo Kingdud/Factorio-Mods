@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.100.1
+Date: 9/22/2020
+  Bugfix:
+    - Teleporters that are unpowered can no longer send and recieve shipments. Shipments will wait for the source/dest to both be online, and complete their cycles, before transferring cargo.
+---------------------------------------------------------------------------------------------------
 Version: 1.100.0
 Date: 9/13/2020
   Changes:
