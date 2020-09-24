@@ -83,14 +83,14 @@ function createAssemblerEntity(name, compression_ratio, n_ass, e_ass)
 		new_drawing_box_size = (3 * n_ass) / 2
 	end
 	local new_collison_size = new_drawing_box_size - 0.3
-	local scale_factor = n_ass / 1.725
+	local scale_factor = n_ass / 1.875
 	
 	local override_size = settings.startup["max-bld-size"].value
 	if override_size ~= 0
 	then
 		new_drawing_box_size = override_size / 2
 		new_collison_size = new_drawing_box_size - 0.3
-		scale_factor = override_size / 3 / 1.725
+		scale_factor = override_size / 3 / 1.875
 	end
 	
 	new_entity.alert_icon_shift[1] = new_entity.alert_icon_shift[1] * scale_factor
@@ -100,11 +100,11 @@ function createAssemblerEntity(name, compression_ratio, n_ass, e_ass)
 	do
 		new_entity.animation.layers[i].scale = scale_factor
 		new_entity.animation.layers[i].hr_version.scale = scale_factor
-		if new_entity.animation.layers[i].hr_version.filename == "__base__/graphics/entity/assembling-machine-3/hr-assembling-machine-3.png"
-		then
-			new_entity.animation.layers[i].hr_version.filename = "__AssemblerUPSGrade__/graphics/entity/" .. GRAPHICS_MAP[name].icon
-			new_entity.animation.layers[i].hr_version.height = 214
+		
+		if new_entity.animation.layers[i].hr_version.filename == "__base__/graphics/entity/assembling-machine-3/hr-assembling-machine-3.png" then
+			new_entity.animation.layers[i].hr_version.filename = "__AssemblerUPSGrade__/graphics/entity/assembler-model.png"
 		end
+
 	end
 	
 	new_entity.collision_box = { {-1*new_collison_size, -1*new_collison_size}, {new_collison_size,new_collison_size} }
@@ -128,17 +128,31 @@ function createAssemblerEntity(name, compression_ratio, n_ass, e_ass)
 		new_entity.fluid_boxes = nil
 	end
 	
-	--We want this before the scale factor gets reduced below.
 	local edge_art = {
 		filename = "__AssemblerUPSGrade__/graphics/entity/assembler-border.png",
 		frame_count = new_entity.animation.layers[1].frame_count,
 		line_length = new_entity.animation.layers[1].line_length,
 		height = 256,
 		priority = "high",
-		scale = scale_factor * .5,
+		scale = scale_factor * .7025,
 		width = 256,
 	}
 	table.insert(new_entity.animation.layers, edge_art)
+	
+	local color_mask = {
+		filename = "__AssemblerUPSGrade__/graphics/entity/ass-mach-tint_mask.png",
+		frame_count = new_entity.animation.layers[1].frame_count,
+		line_length = new_entity.animation.layers[1].line_length,
+		height = 237,
+		priority = "high",
+		scale = scale_factor,
+		width = 214,
+		tint = GRAPHICS_MAP[name].tint,
+		flags = {"mask"},
+		apply_runtime_tint = true,
+		shift = new_entity.animation.layers[1].hr_version.shift
+	}
+	table.insert(new_entity.animation.layers, color_mask)
 	
 	if DEBUG then
 		log("Debug createAssemblerEntity : " .. do_dump(new_entity))

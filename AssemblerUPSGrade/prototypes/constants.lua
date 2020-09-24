@@ -128,7 +128,7 @@ GRAPHICS_MAP = {
 	["sflo-asif"] = {icon = "sflo-asif.png", tint = data.raw.recipe["solid-fuel-from-light-oil"].crafting_machine_tint},
 	["sfho-asif"] = {icon = "sfho-asif.png", tint = data.raw.recipe["solid-fuel-from-heavy-oil"].crafting_machine_tint},
 	["rcu-asif"] = {icon = "rcu-asif.png", tint = {r= 1, g = 1, b = 1, a = 1}},
-	["prod-3-asif"] = {icon = "prod-3-asif.png", tint = {r= 1, g = .88, b = .07, a = 1}},
+	["prod-3-asif"] = {icon = "prod-3-asif.png", tint = {r= 240, g = 66, b = 19, a = 255}},
 	["spd-3-asif"] = {icon = "spd-3-asif.png", tint = {r= .25, g = .93, b = .92, a = 1}},
 }
 

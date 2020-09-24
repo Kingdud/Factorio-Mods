@@ -3,6 +3,8 @@ Version: 1.100.4
 Date: 9/24/2020
   Changes:
     - Assemblers now have black borders around them like chem plants did in the previous release. Now that I know how to add the border, it's super simple and is a HUGE QoL improvement, at least for me. :)
+    - Dramatically reduced the size of the mod by making my own tint mask for assemblers, since, ya know, yet another easy request the factorio devs decided not to honor over the year+ since someone else asked for it. https://forums.factorio.com/viewtopic.php?t=67139
+    - Some assembler colors have changed, hopefully they are easier to visually distingusih now. Don't worry, green chips still have a green assembler, but the shades for Prod modules, Engines, Rocket Fuel, and low Density Structures should all be much eaiser to tell apart now.
   Bugfix:
     - Beacon power drain was not correct in previous versions, this has been fixed. Specifically, factory power usage was scaled such that the entire factory, including beacons was 'off' when idle, as if the entire factory had a power switch connected to it. This is not realistic for most bases; beacon power usage has been moved to the 'drain' category, to more accurately reflect how most bases are built. Fuck me I'm bad at math. I wasn't off by a little bit, I was off by HUGE amounts. >.< Sorry.
 ---------------------------------------------------------------------------------------------------
