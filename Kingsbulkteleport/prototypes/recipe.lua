@@ -50,7 +50,7 @@ local function teleporter(tier, ingredients)
 			{ type = "item", name = "bulkteleport-job-"..tier, amount = 1, probability = 0 },
 		},
 		hidden = true,
-		energy_required = 4,
+		energy_required = 3.98,
 		order = "c",
 	}})
 end
