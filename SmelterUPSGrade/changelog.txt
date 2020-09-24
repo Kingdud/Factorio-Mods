@@ -1,9 +1,13 @@
 ---------------------------------------------------------------------------------------------------
 Version: 1.100.1
-Date: 9/15/2020
+Date: 9/24/2020
+  Bugfix:
+    - Power drain and usage is now correct.
   Changes:
     - Allowed smelters to be scaled in the same way that AssemblerUPSGrade scales assemblers.
-    - Smelters still need modules and beacons around the permieter to achieve full throughput, unlike Assembler ASIFs.
+    - Smelters and Centrifuges now have black borders around the models to make them easier to place.
+    - !!!WARNING!!! Smelter recipes have changed dramatically. There are new intermediates.
+    - !!!WARNING!!! Smelters no longer benefit from modules or beacons; these bonuses are built-in now.
 ---------------------------------------------------------------------------------------------------
 Version: 1.100.0
 Date: 8/29/2020

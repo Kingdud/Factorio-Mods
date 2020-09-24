@@ -1,0 +1,5 @@
+{
+  "recipe": [ ["bulk-steel", "bulk-steel-plate"],
+		   ["bulk-kovarex", "bulk-kovarex-enrichment-process"]
+		 ]
+}

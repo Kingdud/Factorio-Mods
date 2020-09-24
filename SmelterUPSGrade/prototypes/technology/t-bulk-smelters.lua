@@ -14,38 +14,46 @@ data:extend(
     effects =
     {
 	  --someone less lazy than me can convert this to a for-loop so it will support other mods like Bobs/angels
-      {
-        type = "unlock-recipe",
-        recipe = "bulk-smelter"
-      },
-      {
-        type = "unlock-recipe",
-        recipe = "bulk-centrifuge"
-      },
-	  {
-        type = "unlock-recipe",
-        recipe = "bulk-iron-plate"
-      },
-	  {
-        type = "unlock-recipe",
-        recipe = "bulk-copper-plate"
-      },
-	  {
-        type = "unlock-recipe",
-        recipe = "bulk-stone-brick"
-      },
-	  {
-        type = "unlock-recipe",
-        recipe = "bulk-steel"
-      },
-	  {
-        type = "unlock-recipe",
-        recipe = "bulk-kovarex"
-      },
-	  {
-        type = "unlock-recipe",
-        recipe = "bulk-uranium-processing"
-      },
+		{
+			type = "unlock-recipe",
+			recipe = "bulk-smelter"
+		},
+		{
+			type = "unlock-recipe",
+			recipe = "bulk-centrifuge"
+		},
+		{
+			type = "unlock-recipe",
+			recipe = "bulk-iron-plate"
+		},
+		{
+			type = "unlock-recipe",
+			recipe = "bulk-copper-plate"
+		},
+		{
+			type = "unlock-recipe",
+			recipe = "bulk-stone-brick"
+		},
+		{
+			type = "unlock-recipe",
+			recipe = "bulk-steel-plate"
+		},
+		{
+			type = "unlock-recipe",
+			recipe = "bulk-kovarex-enrichment-process"
+		},
+		{
+			type = "unlock-recipe",
+			recipe = "bulk-uranium-processing"
+		},
+		{
+			type = "unlock-recipe",
+			recipe = "centrifuge-block"
+		},
+		{
+			type = "unlock-recipe",
+			recipe = "smelter-block"
+		},
     },
     prerequisites = {"advanced-material-processing-2", "rocket-silo"},
     unit =

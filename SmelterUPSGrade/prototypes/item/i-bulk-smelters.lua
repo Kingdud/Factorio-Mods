@@ -30,3 +30,26 @@ item_centrifuge.place_result = "bulk-centrifuge"
 
 data:extend({item_smelter})
 data:extend({item_centrifuge})
+
+data:extend({
+    {
+      icon = "__SmelterUPSGrade__/graphics/smelter-blk.png",
+      icon_mipmaps = 1,
+      icon_size = 64,
+      name = "smelter-block",
+      order = "h[smelter-block]",
+      stack_size = 50,
+      subgroup = "intermediate-product",
+      type = "item"
+    },
+	{
+      icon = "__SmelterUPSGrade__/graphics/centri-blk.png",
+      icon_mipmaps = 1,
+      icon_size = 64,
+      name = "centrifuge-block",
+      order = "h[centrifuge-block]",
+      stack_size = 50,
+      subgroup = "intermediate-product",
+      type = "item"
+    },
+})
