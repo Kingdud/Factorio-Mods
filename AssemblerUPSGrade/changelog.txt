@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.100.4
+Date: 9/24/2020
+  Changes:
+    - Assemblers now have black borders around them like chem plants did in the previous release. Now that I know how to add the border, it's super simple and is a HUGE QoL improvement, at least for me. :)
+  Bugfix:
+    - Beacon power drain was not correct in previous versions, this has been fixed. Specifically, factory power usage was scaled such that the entire factory, including beacons was 'off' when idle, as if the entire factory had a power switch connected to it. This is not realistic for most bases; beacon power usage has been moved to the 'drain' category, to more accurately reflect how most bases are built. Fuck me I'm bad at math. I wasn't off by a little bit, I was off by HUGE amounts. >.< Sorry.
+---------------------------------------------------------------------------------------------------
 Version: 1.100.3
 Date: 9/21/2020
   Bugfix:
