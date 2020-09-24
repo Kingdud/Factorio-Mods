@@ -542,8 +542,6 @@ local function OnNthTick(event)
 	-- networks[recievers][<signal name>..<count>]
 	local networks = {{}, {}, {}}
 	
-	log("Debug: " .. do_dump(global.teleportJobs))
-	
 	--Step 1, Move any existing, completed, transfer jobs.
 	for jobTick, job_list in pairs(global.teleportJobs) do
 		if jobTick > event.tick then
