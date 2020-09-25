@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.100.1
+Date: 9/24/2020
+  Bugfix:
+    - Fixed miner power drain and draw. Suprise surprise, mistakes I made in older mods followed me here!
+---------------------------------------------------------------------------------------------------
 Version: 1.100.0
 Date: 8/29/2020
   Bugfix:

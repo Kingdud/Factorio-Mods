@@ -30,7 +30,7 @@ local prod_mod_pollution_penalty = data.raw.module["productivity-module-3"].effe
 local base_miner_beacon_count = 8
 
 --Total number of beacons around 25 normal miners
-local buffed_beacon_count = base_miner_beacon_count + ((base_miner_beacon_count/2) * (miners_in_miner-1))
+local buffed_beacon_count = base_miner_beacon_count + math.ceil((base_miner_beacon_count/2) * miners_in_miner)
 
 local vanilla_beacon_pwr_bonus = spd_module_pwr_penality * base_miner_beacon_count + 1
 
@@ -66,17 +66,20 @@ local new_bld_pollution_bonus = new_bld_sum_energy_mods * (.1 * modules + 1)
 replacement_miner_speed = ((buffed_base_miner_speed * miners_in_miner) / new_bld_speed_bonus)
 
 --To compute power draw of new miner:
---1. Compute the energy use of the power draw of the beacons + miners for vanilla
+--1. Compute the energy use of the power draw of the (internal) beacons + miners for vanilla
 local vanilla_miner_power_pre_beacon = miner_base_pwr_use * miners_in_miner
 local vanilla_beacon_pwr_drain = beacon_pwr_use * buffed_beacon_count
-local vanilla_power_draw = vanilla_miner_power_pre_beacon * vanilla_beacon_pwr_bonus + vanilla_beacon_pwr_drain
+local vanilla_power_draw = vanilla_miner_power_pre_beacon * sum_energy_modifiers
 --2. Compute the energy use of the beacons around the new building and the power bonus from that.
 local new_bld_pwr_bonus = .7 * beacons + 1
 local new_bld_beacon_power_draw = beacons * beacon_pwr_use
 --3. Solve for X (X * new_bld_pwr_bonus + new_bld_beacon_power_draw = vanilla_power_draw)
 --And people ask when they'll use algebra while in school. psh. I use that shit all the time!
-replacement_miner_power = (vanilla_power_draw - new_bld_beacon_power_draw) / new_bld_pwr_bonus
+replacement_miner_drain = (buffed_beacon_count - beacons) * beacon_pwr_use
+replacement_miner_power = vanilla_power_draw / new_bld_sum_energy_mods
 --Why? Because We want to end up with the same total power usage (after beacons + miners) as we would with the vanilla buildings.
+
+--Result targets for 25 miners: Beacons + drain == 51.84MW || Miners (post beacon) == 20.25MW (810kW each / 594kW each without prod mods; 14.85MW total) || total: 72.09mW
 
 replacement_pollution_value = buffed_pollution_value / new_bld_pollution_bonus
 
