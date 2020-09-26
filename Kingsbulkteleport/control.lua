@@ -1,8 +1,10 @@
 --///////////////////////////////////
 --Global Variable members:
 -- global.buffers[sender_or_reciever_unitID] = the buffer entity associated with a given sender or reciever.
--- global.senders = a table of all dematerializers.
--- global.recievers = a table of all rematerializers.
+-- global.senders = a table of all dematerializer entities.
+-- global.recievers = a table of all rematerializer entities.
+-- global.teleportJobs = A table of all pending teleport jobs
+-- global.busyList = A map of all transporters currently busy trying to send (since calling is_crafting() isn't reliable in all cases)
 --///////////////////////////////////
 
 local function serialize(t)
@@ -241,6 +243,7 @@ local function OnEntityCreated(event)
 			else
 				global.recievers[energizer.unit_number] = energizer
 			end
+			global.busyList[energizer.unit_number] = false
 		else
 			game.print("Placing a teleporter failed. Please report a bug if you can reproduce it!")
 		end
@@ -261,6 +264,7 @@ local function OnEntityCreated(event)
 			else
 				global.recievers[energizer.unit_number] = energizer
 			end
+			global.busyList[energizer.unit_number] = false
 		else
 			buffer.destroy()
 			game.print("Placing a teleporter from a blueprint failed. Please report a bug if you can reproduce it!")
@@ -285,16 +289,20 @@ local function OnEntityRemoved(event)
 			local eid = counterpart.unit_number
 			global.buffers[eid] = nil
 			global.senders[eid] = nil
+			global.busyList[eid] = nil
 		elseif prefixed(entity.name, "bulkteleport-send") then
 			global.senders[entity.unit_number] = nil
 			global.buffers[entity.unit_number] = nil
+			global.busyList[entity.unit_number] = nil
 		elseif prefixed(entity.name, "bulkteleport-buffer-recv") then
 			local eid = counterpart.unit_number
 			global.recievers[eid] = nil
 			global.buffers[eid] = nil
+			global.busyList[eid] = nil
 		else
 			global.recievers[entity.unit_number] = nil
 			global.buffers[entity.unit_number] = nil
+			global.busyList[entity.unit_number] = nil
 		end
 		
 		if entity.health >= 1 and counterpart and counterpart.valid then
@@ -437,13 +445,17 @@ local function check_networks(energizer_id, networks, is_sender)
 	local temp_network = {}
 	local is_priority = false
 	
+	if global.busyList[energizer_id] then
+		return
+	end
+	
 	if is_sender then
-		--if this sender has no power, skip it.
-		if global.senders[energizer_id].energy == 0 then return end
+		--If the buffer is < 90% full, disable sending.
+		if global.senders[energizer_id].energy <= global.senders[energizer_id].electric_buffer_size * .9 then return end
 		--If this energizer is currently busy, do nothing.
 		if global.senders[energizer_id].is_crafting() then return end
 	else
-		if global.recievers[energizer_id].energy == 0 then return end
+		if global.recievers[energizer_id].energy <= global.recievers[energizer_id].electric_buffer_size * .9 then return end
 		if global.recievers[energizer_id].is_crafting() then return end
 	end
 	
@@ -467,7 +479,7 @@ local function check_networks(energizer_id, networks, is_sender)
 	end
 	
 	--If we aren't full, and we also aren't priority, then we aren't up for consideration on this check.
-	if is_sender and not is_priority and not is_full(buffer) then
+	if ( is_sender and not is_priority and not is_full(buffer) ) or (is_sender and is_empty(buffer)) then
 		return
 	end
 	--If we are a reciever, and we are not empty, then we aren't up for consideration on this check.
@@ -569,7 +581,7 @@ local function OnNthTick(event)
 				warning(send_buf, "Reciever still busy or offline")
 				draw_teleport_beam(recipe, send_entity, recv_entity)
 				goto next_delivery
-			end			
+			end
 			
 			--We already know that either both sender and reciever are fluidic or not.
 			if is_fluidic(send_entity) then
@@ -578,11 +590,11 @@ local function OnNthTick(event)
 				send_buf.clear_fluid_inside()
 				recv_buf.clear_fluid_inside()
 				
-				log("A")
+				global.busyList[job[1]] = false
+				global.busyList[job[2]] = false
+				
 				for name, count in pairs(shipment) do
-					log("b-" ..name)
 					if game.fluid_prototypes[name] then
-						log("c")
 						recv_buf.insert_fluid({
 							name = name,
 							amount = count,
@@ -597,6 +609,10 @@ local function OnNthTick(event)
 				send_inventory.clear()
 				recv_inventory.clear()
 				
+				--True, the send may fail below, but if it does, we've already wiped out both inventories, so...yeah.
+				global.busyList[job[1]] = false
+				global.busyList[job[2]] = false
+				
 				for name, count in pairs(shipment) do
 					if game.item_prototypes[name] then
 						recv_inventory.insert({
@@ -607,10 +623,8 @@ local function OnNthTick(event)
 				end
 			end
 			
-			log("d")
 			job_list[idx] = nil
 			::next_delivery::
-			log("e")
 		end
 		
 		if table_size(global.teleportJobs[jobTick]) == 0 then
@@ -683,6 +697,9 @@ local function OnNthTick(event)
 			--Get both energizers spinning up.
 			local recipe = "bulkteleport-job-"..sender_tier
 			
+			global.busyList[shipment[1]] = true
+			global.busyList[shipment[2]] = true
+			
 			sender.insert({ name = recipe })
 			reciever.insert({ name = recipe })
 			
@@ -711,16 +728,19 @@ local function init_data_structures()
 	global.senders = {}
 	global.recievers = {}
 	global.buffers = {}
+	global.busyList = {}
 	
 	for _, surface in pairs(game.surfaces) do
 		for i=1,4 do
 			for _, entity in pairs(surface.find_entities_filtered{name= "bulkteleport-energizer-send"..i}) do
 				global.senders[entity.unit_number] = entity
 				global.buffers[entity.unit_number] = find_component_counterpart(entity)
+				global.busyList[entity.unit_number] = false
 			end
 			for _, entity in pairs(surface.find_entities_filtered{name= "bulkteleport-energizer-recv"..i}) do
 				global.recievers[entity.unit_number] = entity
 				global.buffers[entity.unit_number] = find_component_counterpart(entity)
+				global.busyList[entity.unit_number] = false
 			end
 		end
 	end
@@ -741,8 +761,8 @@ end)
 
 script.on_init(function()
 	init_data_structures()
-	script.on_event({defines.events.on_built_entity, defines.events.on_robot_built_entity}, OnEntityCreated)
-	script.on_event({defines.events.on_player_mined_entity, defines.events.on_robot_mined_entity, defines.events.on_entity_died}, OnEntityRemoved)
+	script.on_event({defines.events.on_built_entity, defines.events.on_robot_built_entity, defines.events.script_raised_built, defines.events.script_raised_revive}, OnEntityCreated)
+	script.on_event({defines.events.on_player_mined_entity, defines.events.on_robot_mined_entity, defines.events.on_entity_died, defines.events.script_raised_destroy}, OnEntityRemoved)
 	script.on_event({defines.events.on_entity_damaged}, OnEntityDamaged)
 	script.on_event({defines.events.on_runtime_mod_setting_changed}, OnSettingChanged)
 --	script.on_event({defines.events.on_gui_opened}, OnGuiOpened)
@@ -750,8 +770,8 @@ end)
 
 script.on_load(function()
 	set_tick_handler()
-	script.on_event({defines.events.on_built_entity, defines.events.on_robot_built_entity}, OnEntityCreated)
-	script.on_event({defines.events.on_player_mined_entity, defines.events.on_robot_mined_entity, defines.events.on_entity_died}, OnEntityRemoved)
+	script.on_event({defines.events.on_built_entity, defines.events.on_robot_built_entity, defines.events.script_raised_built, defines.events.script_raised_revive}, OnEntityCreated)
+	script.on_event({defines.events.on_player_mined_entity, defines.events.on_robot_mined_entity, defines.events.on_entity_died, defines.events.script_raised_destroy}, OnEntityRemoved)
 	script.on_event({defines.events.on_entity_damaged}, OnEntityDamaged)
 	script.on_event({defines.events.on_runtime_mod_setting_changed}, OnSettingChanged)
 --	script.on_event({defines.events.on_gui_opened}, OnGuiOpened)

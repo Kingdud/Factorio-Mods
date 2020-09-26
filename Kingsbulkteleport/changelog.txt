@@ -1,4 +1,17 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.100.3
+Date: 9/25/2020
+  Bugfix:
+    - Fixed a bug where empty priority teleporters would attempt to send, causing a crash.
+	- Fixed a crash with Creative Mod (and probably many others).
+---------------------------------------------------------------------------------------------------
+Version: 1.100.2
+Date: 9/25/2020
+  Changes:
+    - Teleporters will not start jobs if their internal buffers are < 90% capacity. In reality, this means if your power grid is suffering due to a brownout, teleporters will stop running, which should help the brownout recover.
+  Bugfix:
+    - Fixed a bug where the same teleporter could be assigned to multiple jobs at once.
+---------------------------------------------------------------------------------------------------
 Version: 1.100.1
 Date: 9/22/2020
   Bugfix:

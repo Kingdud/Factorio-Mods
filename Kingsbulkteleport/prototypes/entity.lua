@@ -48,6 +48,7 @@ local function energizer(job, name, energy, tiles)
 				usage_priority = "secondary-input",
 				emissions_per_second_per_watt = 0.00001,
 				drain = "1MW",
+				buffer_capacity = "1MJ"
 			},
 			energy_usage = energy,
 			result_inventory_size = 1,
