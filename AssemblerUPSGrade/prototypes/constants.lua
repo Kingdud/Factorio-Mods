@@ -4,6 +4,7 @@ DEBUG = false
 beacon_count = 12
 
 NEED_FLUID_RECIPES = { "bc-asif", "spd-3-asif", "prod-3-asif", "pla-asif", "rf-asif", "sfpg-asif", "sflo-asif", "sfho-asif", "rcu-asif" }
+MAX_FLUID_PER_INPUT_PER_SECOND = 12000
 
 TECH_DETAILS = {
 	["gc-asif"] = { cost = 250000, prereqs = {"asif"} },
@@ -36,6 +37,7 @@ ITEM_LIST = {
 }
 base_recipes = {"copper-plate", "iron-plate", "steel-plate", "plastic-bar", "sulfuric-acid", "solid-fuel", "light-oil"}
 plastic_base_recipes = {"coal", "petroleum-gas", "light-oil", "heavy-oil" }
+FLUID_NAMES = {"sulfuric-acid", "petroleum-gas", "light-oil", "heavy-oil" }
 
 ORDER_MAP = {
 	["gc-asif"] = "a",

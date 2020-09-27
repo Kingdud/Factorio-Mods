@@ -46,7 +46,7 @@ for new_item,stock_item in pairs(ITEM_LIST) do
 	local ipse = erips * productivity_factor * compression_ratio
 	
 	--Determine how many assemblers make up our ASIF
-	local result = { ["expensive"] = {}, ["normal"] = {}, ["recip_n"] = {}, ["recip_e"] = {} }
+	local result = { ["expensive"] = {}, ["normal"] = {}, ["recip_n"] = {}, ["recip_e"] = {}, ["fluid_per_second"] = 0 }
 	
 	unwindAssemblersNeeded(stock_item, "n", ipsn, productivity_factor, result, plastic_override)
 	unwindAssemblersNeeded(stock_item, "e", ipse, productivity_factor, result, plastic_override)
@@ -70,11 +70,11 @@ for new_item,stock_item in pairs(ITEM_LIST) do
 	if crafting_cat == "crafting" or crafting_cat == "advanced-crafting" or crafting_cat == "basic-crafting" or crafting_cat == "crafting-with-fluid"
 	then
 		createEntityRecipe(new_item, normal_ass_needed, expensive_ass_needed, "a", compression_ratio)
-		createAssemblerEntity(new_item, compression_ratio, normal_ass_needed, expensive_ass_needed)
+		createAssemblerEntity(new_item, compression_ratio, normal_ass_needed, expensive_ass_needed, result.fluid_per_second)
 	elseif crafting_cat == "chemistry"
 	then
 		createEntityRecipe(new_item, normal_ass_needed, expensive_ass_needed, "c", compression_ratio)
-		createChemPlantEntity(new_item, compression_ratio, normal_ass_needed, expensive_ass_needed)
+		createChemPlantEntity(new_item, compression_ratio, normal_ass_needed, expensive_ass_needed, result.fluid_per_second)
 	end
 	
 	--Create the recipe the ASIF uses to build components

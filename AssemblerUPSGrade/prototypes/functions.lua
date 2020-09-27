@@ -205,6 +205,10 @@ function unwindAssemblersNeeded(name, mode, main_item_ips, productivity_factor, 
 			--This is how many of this item are needed per second to build the main result.
 			local ips_needed = main_item_ips * i_quant
 			
+			if has_value(FLUID_NAMES, i_name) then
+				result.fluid_per_second = result.fluid_per_second + ips_needed
+			end
+			
 			if not has_value(base_recipe_list, i_name) then
 				--Get how many items/second one assembler making this sub-component can crank out (factors in result cnt)
 				local ips, _ = computeItemsPerSecond(i_name, plastic_override)
@@ -242,6 +246,12 @@ function unwindAssemblersNeeded(name, mode, main_item_ips, productivity_factor, 
 				local _, ips = computeItemsPerSecond(i_name, plastic_override)
 				ips = ips * productivity_factor
 
+				--WARNING! This will compound with normal above and give a value that's rediculously too high.
+				--Fix appears to be that no expensive recipes actually use a different amount of fluid.
+				-- if has_value(FLUID_NAMES, i_name) then
+					-- result.fluid_per_second = result.fluid_per_second + ips_needed
+				-- end
+				
 				--main_item_ips * val[2] is saying "we need to build 100 units per second, and 
 				-- each unit take val[2] items to build", thus, we divide by the IPS per assembler
 				-- to get how many assemblers we need.

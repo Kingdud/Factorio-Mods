@@ -1,4 +1,10 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.100.5
+Date: 9/26/2020
+  Changes:
+    - NOTE: Existing ASIFs will need to be picked up and placed down again to see the changes to the fluid boxes; blame the Factorio devs for this, not me!
+    - Assmelbers and Chemical plants that use liquids will now have additional fluid inputs spawned along their perimiter for every 12000 fluid/second the building needs. IE: if your plastic bar factory needs 47k gas per second, then a total of 4 fluid inputs (2 extras) will be spawned. These inputs will only spawn along a single edge of the building, and will be spaced at least 4 units apart.
+---------------------------------------------------------------------------------------------------
 Version: 1.100.4
 Date: 9/24/2020
   Changes:
