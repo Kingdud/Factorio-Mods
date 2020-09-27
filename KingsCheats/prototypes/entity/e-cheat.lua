@@ -9,6 +9,8 @@ if settings.startup["ore_stacks_200"].value then
 	data.raw.item["iron-plate"].stack_size = stacksize
 	data.raw.item["copper-plate"].stack_size = stacksize
 	data.raw.item["steel-plate"].stack_size = stacksize
+	data.raw.item["sulfur"].stack_size = stacksize
+	data.raw.item["plastic-bar"].stack_size = stacksize
 elseif settings.startup["ore_stacks_100"].value then
 	stacksize = 100
 end
