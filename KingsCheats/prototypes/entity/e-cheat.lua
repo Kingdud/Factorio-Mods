@@ -20,6 +20,7 @@ data.raw.item["copper-ore"].stack_size = stacksize
 data.raw.item["stone"].stack_size = stacksize
 data.raw.item["uranium-ore"].stack_size = stacksize
 data.raw.item["coal"].stack_size = stacksize
+data.raw["logistic-robot"]["logistic-robot"].max_payload_size = 7
 
 
 local density_factor = settings.startup["biter-multipler"].value

@@ -356,13 +356,13 @@ function remove_hpbars()
 	end
 end
 
-function remove_energy()
+function remove_energy(force)
 	if DEBUG then
 		log("debug remove_energy")
 	end
 	
 	for key, surface in pairs(game.surfaces) do
-		for key, entity in pairs(surface.find_entities_filtered{type= "electric-energy-interface"}) do
+		for key, entity in pairs(surface.find_entities_filtered{type= "electric-energy-interface", force}) do
 			if string.sub(entity.name,1,22) == "ts-electric-interface-" then
 				entity.destroy()
 			end
@@ -373,17 +373,14 @@ end
 function more_shields_than_turrets_fix()
 	local num_shields = 0
 	local num_turrets = 0
-
-	for key, surface in pairs(game.surfaces) do
-		for key, entity in pairs(surface.find_entities_filtered{type= "electric-energy-interface"}) do
-			if string.sub(entity.name,1,22) == "ts-electric-interface-" then
-				num_shields = num_shields + 1
-			end
-		end
-	end
 	
 	for k, force in pairs (game.forces) do	
 		for key, surface in pairs(game.surfaces) do
+			for key, entity in pairs(surface.find_entities_filtered{type= "electric-energy-interface", force}) do
+				if string.sub(entity.name,1,22) == "ts-electric-interface-" then
+					num_shields = num_shields + 1
+				end
+			end
 			for i, turret in pairs(surface.find_entities_filtered{type= "ammo-turret", force}) do
 				num_turrets = num_turrets + 1
 			end
@@ -394,16 +391,15 @@ function more_shields_than_turrets_fix()
 				num_turrets = num_turrets + 1
 			end
 		end
-	end
-	
-	if num_shields > num_turrets then
-		kts_print("Fixing duplicate shields problem. Found " .. num_shields .. " shields for " .. num_turrets .. " turrets. Sorry about the recharge.")
-		remove_energy()
-		for k, force in pairs (game.forces) do	
+		if num_shields > num_turrets then
+			kts_print("Fixing duplicate shields problem for " .. force.name .. ". Found " .. num_shields .. " shields for " .. num_turrets .. " turrets. Sorry about the recharge.")
+			remove_energy(force)
 			rescan_for_turrets(force)
+		else
+			kts_print("Shield and turret counts match for " .. force.name .. ". Nothing to fix.")
 		end
-	else
-		kts_print("Shield and turret counts match. Nothing to fix.")
+		num_shields = 0
+		num_turrets = 0
 	end
 end
 
@@ -422,9 +418,9 @@ function refresh_everything()
 	global.needsGFXUpdate = {}
 	for k, force in pairs (game.forces) do
 		global.forces[force.name] = {}
+		remove_energy(force)
 	end
 	refresh_hpbars()
-	remove_energy()
 	
 	global.base_shield_val = settings.startup["TS_base_shield"].value
 	global.base_shield_recharge = settings.startup["TS_base_charge_rate"].value
