@@ -15,10 +15,8 @@ data:extend({
     effects =
     {
 	  --someone less lazy than me can convert this to a for-loop so it will support other mods like Bobs/angels
-      {
-        type = "unlock-recipe",
-        recipe = "pulse-laser"
-      },
+      { type = "unlock-recipe", recipe = "pulse-laser" },
+	  { type = "unlock-recipe", recipe = "p-pulse-laser" },
     },
     prerequisites = {"laser-turrets", "rocket-silo"},
     unit =

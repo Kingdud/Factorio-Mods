@@ -116,3 +116,21 @@ data:extend({
 		result = "flywheel-grid-battery"
 	}
 })
+
+--////////////////////////////////////////
+--Flywheel Battery section
+--////////////////////////////////////////
+data:extend({
+	{
+		type = "recipe",
+		category = "advanced-crafting",
+		name = "p-flywheel-grid-battery",
+		enabled = false,
+		energy_required = 5,
+		ingredients =
+		{
+			{"flywheel-grid-battery", 1},
+		},
+		result = "p-flywheel-grid-battery"
+	},
+})

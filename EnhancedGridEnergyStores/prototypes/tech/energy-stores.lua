@@ -72,22 +72,11 @@ data:extend({
 	},
 	{
 		effects = {
-			{
-			  recipe = "high-precision-flywheel-segment",
-			  type = "unlock-recipe"
-			},
-			{
-			  recipe = "vacuum-chamber",
-			  type = "unlock-recipe"
-			},
-			{
-			  recipe = "flywheel-grid-battery",
-			  type = "unlock-recipe"
-			},
-			{
-			  recipe = "flywheel-satellite",
-			  type = "unlock-recipe"
-			}			
+			{ recipe = "high-precision-flywheel-segment", type = "unlock-recipe" },
+			{ recipe = "vacuum-chamber", type = "unlock-recipe" },
+			{ recipe = "flywheel-grid-battery", type = "unlock-recipe" },
+			{ recipe = "p-flywheel-grid-battery", type = "unlock-recipe" },
+			{ recipe = "flywheel-satellite", type = "unlock-recipe"	}			
 		},
 		icon = "__EnhancedGridEnergyStores__/graphics/icons/flywheel.png",
 		icon_size = 128,

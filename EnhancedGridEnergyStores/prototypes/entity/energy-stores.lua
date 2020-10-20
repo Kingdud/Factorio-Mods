@@ -139,6 +139,29 @@ entity_flywheel.energy_source = {
 
 data:extend({entity_flywheel})
 
+--/////////////////////
+--Flywheel -- personal edition
+--/////////////////////
+
+local p_flywheel = table.deepcopy(data.raw["battery-equipment"]["battery-mk2-equipment"])
+
+--I didn't bother changing this because the default in-equipment batteries are so OP compared to normal accumulators.
+p_flywheel.energy_source = {
+	buffer_capacity = "91GJ",
+    input_flow_limit = "21GW",
+    output_flow_limit = "21GW",
+    type = "electric",
+    usage_priority = "tertiary"
+}
+p_flywheel.name = "p-flywheel-grid-battery"
+p_flywheel.sprite.filename = "__EnhancedGridEnergyStores__/graphics/icons/flywheel.png"
+p_flywheel.sprite.height = 128
+p_flywheel.sprite.width = 128
+p_flywheel.sprite.tint = {r= .8, g = .1, b = 0, a = 1}
+p_flywheel.shape.width = 2
+
+data:extend({p_flywheel})
+
 --to-do:
 --local entity_dead_flywheel = table.deepcopy(data.raw.corpse["accumulator-remnants"])
 --entity_dead_flywheel.animation[1].tint = dead_flywheel_tint

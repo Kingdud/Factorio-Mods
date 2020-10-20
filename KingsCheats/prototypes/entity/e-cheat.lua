@@ -20,7 +20,16 @@ data.raw.item["copper-ore"].stack_size = stacksize
 data.raw.item["stone"].stack_size = stacksize
 data.raw.item["uranium-ore"].stack_size = stacksize
 data.raw.item["coal"].stack_size = stacksize
+
+--I didn't want to tweak these, but the factorio devs made stupid blueprints that are actually impossible to build at full throughput while beaconed.
+data.raw.item["low-density-structure"].stack_size = 100
+data.raw.item["rocket-fuel"].stack_size = 100
+
+
 data.raw["logistic-robot"]["logistic-robot"].max_payload_size = 7
+
+--Make artillery-turrets not have boosted manual targeting range.
+data.raw["artillery-turret"]["artillery-turret"].manual_range_modifier = 1
 
 
 local density_factor = settings.startup["biter-multipler"].value
@@ -63,3 +72,50 @@ data.raw.unit["behemoth-spitter"].max_health = 1500 * density_factor
 data.raw.unit["behemoth-spitter"].pollution_to_join_attack = 400 * density_factor
 data.raw.unit["behemoth-spitter"].attack_parameters.damage_modifier = 60 * density_factor
 data.raw.fire["acid-splash-fire-spitter-behemoth"].on_damage_tick_effect.action_delivery.target_effects[2].damage.amount = 1 * density_factor
+
+--Disable worm and spawner dying explosions to speed up nukes.
+for _,worm in pairs(data.raw.turret) do
+	worm.dying_explosion = nil
+end
+for _,spawner in pairs(data.raw["unit-spawner"]) do
+	spawner.dying_explosion = nil
+end
+
+--Custom oil pump, no more pesky beacons!
+local newpump = table.deepcopy(data.raw["mining-drill"]["pumpjack"])
+for _,layer in pairs(newpump.animations.north.layers) do
+	layer.tint = { r = 128, b = 128, g = 128, a = 255 }
+end
+newpump.energy_source.emissions_per_minute = 108
+newpump.energy_source.drain = "5760kW"
+newpump.energy_usage = "972kW"
+newpump.minable.result = "super-pumpjack"
+newpump.name = "super-pumpjack"
+newpump.module_specification.module_slots = 0
+newpump.allowed_effects = {}
+newpump.mining_speed =  8
+
+data:extend({newpump})
+
+newpump = table.deepcopy(data.raw.item["pumpjack"])
+newpump.name = "super-pumpjack"
+newpump.place_result = "super-pumpjack"
+newpump.icons = {
+	{
+		icon = "__base__/graphics/icons/pumpjack.png",
+		tint = { r = 128, b = 128, g = 128, a = 255 }
+	}
+}
+data:extend({newpump})
+
+newpump = table.deepcopy(data.raw.recipe["pumpjack"])
+newpump.name = "super-pumpjack"
+newpump.result = "super-pumpjack"
+newpump.ingredients = {
+	{"pumpjack", 1},
+	{"speed-module-3", 26},
+	{"beacon", 12}
+}
+newpump.enabled = true
+data:extend({newpump})
+

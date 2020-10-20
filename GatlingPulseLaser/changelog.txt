@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.100.1
+Date: 10/13/2020
+  Changes:
+    - Added personal GPL. It will drain batteries quickly, but decimate anything near you. Uses the same power per shot (~30x the personal defense laser) as a normal GPL, but with the lower range of the default personal laser. The enhanced batteries available in Enhanced Grid Energy Stores are strongly recommended!
+---------------------------------------------------------------------------------------------------
 Version: 1.100.0
 Date: 8/29/2020
   Changes:

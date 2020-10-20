@@ -52,3 +52,18 @@ new_item.resistances =
 }
 
 data:extend({new_item})
+
+local new_p_beam = table.deepcopy(data.raw["active-defense-equipment"]["personal-laser-defense-equipment"])
+
+new_p_beam.name = "p-pulse-laser"
+new_p_beam.attack_parameters.ammo_type.action.action_delivery.duration = 6
+new_p_beam.attack_parameters.ammo_type.action.action_delivery.beam = "pulse-laser-beam"
+--We removed the 2x dmg modifer, but we are still doing 2.5x the base damage, so 2.5x the energy cost per shot.
+new_p_beam.attack_parameters.ammo_type.energy_consumption = tostring(energy_per_shot_kj) .. "kJ"
+new_p_beam.attack_parameters.cooldown = 6
+new_p_beam.attack_parameters.damage_modifier = 1
+--The old buffer could hold ~4 shots, so can this one.
+new_p_beam.energy_source.buffer_capacity = tostring(energy_per_shot_kj*4) .. "kJ"
+new_p_beam.sprite.tint = {r= .8, g = .1, b = 0, a = 1}
+
+data:extend({new_p_beam})

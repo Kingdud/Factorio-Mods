@@ -83,3 +83,23 @@ item_vac_chamber.icon_size = 128
 item_vac_chamber.order = "c[iron-gear-wheel]e"
 item_vac_chamber.name = "vacuum-chamber"
 data:extend({item_vac_chamber})
+
+--////////////////////////////////////////
+--Personal Flywheel Battery section
+--////////////////////////////////////////
+local item_p_flywheel = table.deepcopy(data.raw.item["flywheel-grid-battery"])
+item_p_flywheel.icon = nil
+item_p_flywheel.icons = {
+	{
+		icon = "__EnhancedGridEnergyStores__/graphics/icons/flywheel.png",
+		icon_size = 128,
+		tint = {r= .8, g = .1, b = 0, a = 1}
+	}
+}
+item_p_flywheel.name = "p-flywheel-grid-battery"
+item_p_flywheel.placed_as_equipment_result = "p-flywheel-grid-battery"
+item_p_flywheel.subgroup = "equipment"
+item_p_flywheel.place_result = nil
+item_p_flywheel.order = "b[battery]-b[p-flywheel-grid-battery]"
+
+data:extend({item_p_flywheel})
