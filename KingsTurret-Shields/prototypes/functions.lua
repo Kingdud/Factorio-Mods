@@ -481,6 +481,10 @@ function update_electricity_force(force)
 	if DEBUG then
 		log("debug update_electricity_force " .. force.name)
 	end
+
+	if global.forces[force.name] == nil then
+		global.forces[force.name] = {}
+	end
 	
 	if global.research_enabled and force.technologies["turret-shields-base"].researched then
 		global.forces[force.name].enabled = true
