@@ -24,6 +24,7 @@ data.raw.item["coal"].stack_size = stacksize
 --I didn't want to tweak these, but the factorio devs made stupid blueprints that are actually impossible to build at full throughput while beaconed.
 data.raw.item["low-density-structure"].stack_size = 100
 data.raw.item["rocket-fuel"].stack_size = 100
+data.raw.item["rocket-control-unit"].stack_size = 100
 
 
 data.raw["logistic-robot"]["logistic-robot"].max_payload_size = 7
@@ -49,6 +50,9 @@ data.raw["unit-spawner"]["spitter-spawner"].spawning_cooldown = spawn_cooldowns
 data.raw["unit-spawner"]["spitter-spawner"].pollution_absorption_absolute = 800 * density_factor
 data.raw["unit-spawner"]["spitter-spawner"].max_count_of_owned_units = max_bugs_per_spawner
 data.raw["unit-spawner"]["spitter-spawner"].max_friends_around_to_spawn = max_bugs_per_spawner
+
+data.raw["energy-shield-equipment"]["aircraft-energy-shield"].max_shield_value = 250 * density_factor
+data.raw["energy-shield-equipment"]["aircraft-energy-shield"].energy_per_shield = 18 / density_factor .. "kJ"
 
 local movespeed = 1
 --Since I can't make more biters, I have to make them bigger and meaner. Lame!
