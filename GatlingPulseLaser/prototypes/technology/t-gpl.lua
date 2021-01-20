@@ -6,7 +6,7 @@ data:extend({
     icon_size = 128,
 	icons = {
 		{
-			icon = "__base__/graphics/technology/laser-turrets.png",
+			icon = "__base__/graphics/technology/laser-turret.png",
 			tint = {r= .8, g = .1, b = 0, a = 1},
 			icon_mipmaps = 4,
 			icon_size = 128,
@@ -18,7 +18,7 @@ data:extend({
       { type = "unlock-recipe", recipe = "pulse-laser" },
 	  { type = "unlock-recipe", recipe = "p-pulse-laser" },
     },
-    prerequisites = {"laser-turrets", "rocket-silo"},
+    prerequisites = {"laser-turret", "rocket-silo"},
     unit =
     {
       count = 2500,

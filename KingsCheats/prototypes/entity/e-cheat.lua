@@ -75,7 +75,7 @@ data.raw.unit["behemoth-spitter"].dying_explosion = nil
 data.raw.unit["behemoth-spitter"].max_health = 1500 * density_factor
 data.raw.unit["behemoth-spitter"].pollution_to_join_attack = 400 * density_factor
 data.raw.unit["behemoth-spitter"].attack_parameters.damage_modifier = 60 * density_factor
-data.raw.fire["acid-splash-fire-spitter-behemoth"].on_damage_tick_effect.action_delivery.target_effects[2].damage.amount = 1 * density_factor
+--data.raw.fire["acid-splash-fire-spitter-behemoth"].on_damage_tick_effect.action_delivery.target_effects[2].damage.amount = 1 * density_factor
 
 --Disable worm and spawner dying explosions to speed up nukes.
 for _,worm in pairs(data.raw.turret) do

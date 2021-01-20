@@ -1,11 +1,11 @@
 {
     "name": "NuclearRebalance",
-    "version": "1.100.1",
+    "version": "1.110.0",
     "title": "Nuclear Rebalance",
     "author": "Kingdud",
     "contact": "",
     "homepage": "",
-    "factorio_version": "1.0",
+    "factorio_version": "1.1",
     "dependencies": ["base >= 0.17"],
     "description": "Improves UPS with nuclear power by completely overhauling how nuclear energy is produced. Material costs are in-line with vanilla, build complexity is meant to help foster interest in how nuclear actually works."
 }

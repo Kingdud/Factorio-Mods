@@ -27,15 +27,23 @@ function create_entity(e_type)
 		entity.animation.layers[2].hr_version.scale = BUILDING_SCALE
 		entity.animation.layers[2].hr_version.shift[1] = entity.animation.layers[2].hr_version.shift[1] * BUILDING_SCALE*OFFSET_SCALING_FACTOR
 		entity.animation.layers[2].hr_version.shift[2] = entity.animation.layers[2].hr_version.shift[2] * BUILDING_SCALE*OFFSET_SCALING_FACTOR
-		entity.working_visualisations[1].animation.hr_version.scale = BUILDING_SCALE
-		entity.working_visualisations[1].animation.hr_version.shift[1] = entity.working_visualisations[1].animation.hr_version.shift[1] * BUILDING_SCALE*OFFSET_SCALING_FACTOR
-		entity.working_visualisations[1].animation.hr_version.shift[2] = entity.working_visualisations[1].animation.hr_version.shift[2] * BUILDING_SCALE*OFFSET_SCALING_FACTOR
-		entity.working_visualisations[2].animation.hr_version.scale = BUILDING_SCALE
-		entity.working_visualisations[2].animation.hr_version.shift[1] = entity.working_visualisations[2].animation.hr_version.shift[1] * BUILDING_SCALE*OFFSET_SCALING_FACTOR
-		entity.working_visualisations[2].animation.hr_version.shift[2] = entity.working_visualisations[2].animation.hr_version.shift[2] * BUILDING_SCALE*OFFSET_SCALING_FACTOR
-		entity.working_visualisations[3].animation.hr_version.scale = BUILDING_SCALE
-		entity.working_visualisations[3].animation.hr_version.shift[1] = entity.working_visualisations[3].animation.hr_version.shift[1] * BUILDING_SCALE*OFFSET_SCALING_FACTOR
-		entity.working_visualisations[3].animation.hr_version.shift[2] = entity.working_visualisations[3].animation.hr_version.shift[2] * BUILDING_SCALE*OFFSET_SCALING_FACTOR
+		for z, _ in pairs(entity.working_visualisations) do
+			if entity.working_visualisations[z].animation.layers then
+				for i, _ in pairs(entity.working_visualisations[z].animation.layers) do
+					entity.working_visualisations[z].animation.layers[i].hr_version.scale = BUILDING_SCALE
+					tmp = entity.working_visualisations[z].animation.layers[i].hr_version.shift[1]
+					entity.working_visualisations[z].animation.layers[i].hr_version.shift[1] = tmp * BUILDING_SCALE*OFFSET_SCALING_FACTOR
+					tmp = entity.working_visualisations[z].animation.layers[i].hr_version.shift[2]
+					entity.working_visualisations[z].animation.layers[i].hr_version.shift[2] = tmp * BUILDING_SCALE*OFFSET_SCALING_FACTOR
+				end
+			else
+				entity.working_visualisations[z].animation.hr_version.scale = BUILDING_SCALE
+				tmp = entity.working_visualisations[z].animation.hr_version.shift[1]
+				entity.working_visualisations[z].animation.hr_version.shift[1] = tmp * BUILDING_SCALE*OFFSET_SCALING_FACTOR
+				tmp = entity.working_visualisations[z].animation.hr_version.shift[2]
+				entity.working_visualisations[z].animation.hr_version.shift[2] = tmp * BUILDING_SCALE*OFFSET_SCALING_FACTOR
+			end
+		end
 		
 		local edge_art = {
 			filename = "__SmelterUPSGrade__/graphics/smelter_border.png",
@@ -63,17 +71,21 @@ function create_entity(e_type)
 		entity.fluid_boxes = nil
 		entity.scale_entity_info_icon = true
 		entity.alert_icon_scale = BUILDING_SCALE
-		entity.animation.layers[1].hr_version.scale = BUILDING_SCALE
-		entity.animation.layers[2].hr_version.scale = BUILDING_SCALE
-		entity.animation.layers[3].hr_version.scale = BUILDING_SCALE
-
-		entity.idle_animation.layers[1].hr_version.scale = BUILDING_SCALE
-		entity.idle_animation.layers[2].hr_version.scale = BUILDING_SCALE
-		entity.idle_animation.layers[3].hr_version.scale = BUILDING_SCALE
-		entity.idle_animation.layers[4].hr_version.scale = BUILDING_SCALE
-		entity.idle_animation.layers[5].hr_version.scale = BUILDING_SCALE
-		entity.idle_animation.layers[6].hr_version.scale = BUILDING_SCALE
 		
+		for z, _ in pairs(entity.working_visualisations) do
+			if entity.working_visualisations[z].animation and entity.working_visualisations[z].animation.layers then
+				for i, _ in pairs(entity.working_visualisations[z].animation.layers) do
+					entity.working_visualisations[z].animation.layers[i].hr_version.scale = BUILDING_SCALE
+				end
+			else
+				entity.working_visualisations[z].scale = BUILDING_SCALE
+			end
+		end
+
+		for i, _ in pairs(entity.idle_animation.layers) do
+			entity.idle_animation.layers[i].hr_version.scale = BUILDING_SCALE
+		end
+	
 		local edge_art = {
 			filename = "__SmelterUPSGrade__/graphics/centrifuge-border.png",
 			frame_count = 64,
@@ -84,7 +96,7 @@ function create_entity(e_type)
 			width = 256,
 		}
 		
-		table.insert(entity.animation.layers, edge_art)
+		table.insert(entity.working_visualisations[2].animation.layers, edge_art)
 		table.insert(entity.idle_animation.layers, edge_art)
 	end
 	

@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.110.0
+Date: 1/19/2021
+  Changes:
+    - Update for version 1.1
+  Coming soon:
+    - Possibly in a different mod, but ASIFs for Efficiency Module 3s, since some mods use those, and also ASIFs for Oil Refining / cracking.
+---------------------------------------------------------------------------------------------------
 Version: 1.100.5
 Date: 9/26/2020
   Changes:

@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.110.0
+Date: 1/18/2020
+  Changes:
+    - Version bump for 1.1
+  Coming soon:
+    - Miners no longer require perimeter beacons. This brings functionality of this mod in line with other UPSgrade mods.
+---------------------------------------------------------------------------------------------------
 Version: 1.100.1
 Date: 9/24/2020
   Bugfix:

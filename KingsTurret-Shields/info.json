@@ -1,6 +1,6 @@
 {
   "name": "KingsTurret-Shields",
-  "version": "1.100.17",
+  "version": "1.110.0",
   "title": "King's Turret Shields",
   "author": "Kingdud",
   "contact": "",
@@ -10,5 +10,5 @@
 	"?EnhancedGridEnergyStores >= 1.0.0"
   ],
   "description": "Forked from Turret-Shields by OwnlyMe. Cleaned up the code, removed a lot of options, internal tweaks to how power and damage affect the shield. Lightweight scripted shields with power consumption (configurable or researchable)",
-  "factorio_version": "1.0"
+  "factorio_version": "1.1"
 }

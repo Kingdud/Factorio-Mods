@@ -1,11 +1,11 @@
 {
     "name": "EnhancedGridEnergyStores",
-    "version": "1.100.2",
+    "version": "1.110.0",
     "title": "Enhanced Energy Grid Storage",
     "author": "Kingdud",
     "contact": "",
     "homepage": "",
-    "factorio_version": "1.0",
+    "factorio_version": "1.1",
     "dependencies": [
 		"base >= 0.17",
 		"?NuclearRebalance >= 1.0.0"

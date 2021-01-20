@@ -1,12 +1,12 @@
 
 {
   "name": "Invulnerable-Rails-and-Poles-continued",
-  "version": "100.0.1",
+  "version": "110.0.1",
   "title": "Invulnerable Rails and Poles [Continued]",
   "author": "Kingdud",
   "contact": "~",
   "homepage": "https://forums.factorio.com/viewtopic.php?f=94&t=44161",
   "description": "Big Electric Poles and Railtrack are invulnerable, and ignored by biters. This mod can be safely removed, but the invulnerability will remain on any entity unless you remove and rebuild it. Originally by Ranakastrasz. Updated for .17",
   "dependencies": ["base"],
-  "factorio_version": "1.0"
+  "factorio_version": "1.1"
 }
