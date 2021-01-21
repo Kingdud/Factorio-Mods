@@ -16,6 +16,9 @@ newitem.icons = {
 	}
 }
 newitem.module_specification.module_info_icon_scale = SCALE_FACTOR
+newitem.module_specification.module_slots = 0
+newitem.allowed_effects = {}
+newitem.base_productivity = .3
 newitem.energy_source.emissions_per_minute = replacement_pollution_value
 newitem.energy_source.drain = replacement_miner_drain .. "kW"
 newitem.energy_usage = tostring(replacement_miner_power) .. "kW"

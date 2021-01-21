@@ -9,7 +9,8 @@ local miner_base_speed = data.raw["mining-drill"]["electric-mining-drill"].minin
 local miner_base_pollution = data.raw["mining-drill"]["electric-mining-drill"].energy_source.emissions_per_minute
 tmp = string.gsub(data.raw["beacon"]["beacon"].energy_usage,"%kW","")
 local beacon_pwr_use = tonumber(tmp)
-local modules = 3
+local modules = 0
+local internal_modules = 3
 
 --//////////////////////////////////
 --Module stats
@@ -28,17 +29,21 @@ local prod_mod_pollution_penalty = data.raw.module["productivity-module-3"].effe
 --//////////////////////////////////
 --We assume you could get 8 beacons around miners
 local base_miner_beacon_count = 8
-
---Total number of beacons around 25 normal miners
+--# of beacons that would be around 25 actual miners.
 local buffed_beacon_count = base_miner_beacon_count + math.ceil((base_miner_beacon_count/2) * miners_in_miner)
 
-local vanilla_beacon_pwr_bonus = spd_module_pwr_penality * base_miner_beacon_count + 1
+local vanilla_beacon_pwr_bonus = spd_module_pwr_penality * base_miner_beacon_count + internal_modules * (spd_module_pwr_penality + prod_mod_pwr_penality) + 1
 
 --Mining speed and power use of a single miner with beacons
-local buffed_base_miner_speed = (base_miner_beacon_count * spd_module_speed_bonus + 1) * miner_base_speed
+--We give the buffed building both 3 speed and 3 prod mods internally, but disallow it to benefit from beacons.
+--We can't *only* disallow beacons, so this is our one 'hack' that makes this better than a normal miner, since, out of the box, it's flat out better than 25 beaconed miners. Sadface
+local buffed_base_miner_speed = (base_miner_beacon_count * spd_module_speed_bonus + internal_modules * (spd_module_speed_bonus + prod_mod_speed_penalty) +  1) * miner_base_speed
+--Drain vs draw: drain is always happening, draw is only when the building is 'active' (mining)
+local buffed_energy_draw = miner_base_pwr_use * vanilla_beacon_pwr_bonus
+local total_energy_drain = buffed_beacon_count * beacon_pwr_use
+
 --For pollution it's <base pollution> * <speed bonus> * <pollution bonus>
-local sum_energy_modifiers = spd_module_pwr_penality * base_miner_beacon_count + prod_mod_pwr_penality * modules + 1
-local buffed_pollution_value = miner_base_pollution * (sum_energy_modifiers * (prod_mod_pollution_penalty * modules + 1)) * miners_in_miner
+local total_pollution_value = miner_base_pollution * (vanilla_beacon_pwr_bonus + internal_modules * prod_mod_pollution_penalty) * miners_in_miner
 
 --Now we know how fast each of the replaced miners would be able to mine, how much power they would consume,
 -- and how much energy the beacons to do that would take.
@@ -48,45 +53,27 @@ local buffed_pollution_value = miner_base_pollution * (sum_energy_modifiers * (p
 --//////////////////////////////////
 newTint = {r= .8, g = .2, b = .2, a = 1}
 
+--At 25:1 new miner should have (no modules):
+-- 62.5 mining speed
+-- 1650/m pollution
+-- 14850 kw power use + 49920 kw drain
+
 width = 8.49
 length = 8.49
 --math assumes item is square
--- Compute how many beacons go around the new building
-local beacons = ((math.ceil(width + length) + 4 + 3) / 3) * 4
 new_resource_searching_radius = width + 2 + 3
 
---These are the bonuses that will be applied to the new building
-local new_bld_speed_bonus = .5 * beacons + 1
-local new_bld_sum_energy_mods = .7 * beacons + .8 * modules + 1
-local new_bld_pollution_bonus = new_bld_sum_energy_mods * (.1 * modules + 1)
+replacement_miner_speed = buffed_base_miner_speed * miners_in_miner
 
---We now figure out what the speed of the replacement miner should be from the ratio between the
--- speed of X old miners fully buffed and the new building.
---We need to add 5% to the result for reasons unknown.
-replacement_miner_speed = ((buffed_base_miner_speed * miners_in_miner) / new_bld_speed_bonus)
+replacement_miner_drain = total_energy_drain
+replacement_miner_power = buffed_energy_draw * miners_in_miner
 
---To compute power draw of new miner:
---1. Compute the energy use of the power draw of the (internal) beacons + miners for vanilla
-local vanilla_miner_power_pre_beacon = miner_base_pwr_use * miners_in_miner
-local vanilla_beacon_pwr_drain = beacon_pwr_use * buffed_beacon_count
-local vanilla_power_draw = vanilla_miner_power_pre_beacon * sum_energy_modifiers
---2. Compute the energy use of the beacons around the new building and the power bonus from that.
-local new_bld_pwr_bonus = .7 * beacons + 1
-local new_bld_beacon_power_draw = beacons * beacon_pwr_use
---3. Solve for X (X * new_bld_pwr_bonus + new_bld_beacon_power_draw = vanilla_power_draw)
---And people ask when they'll use algebra while in school. psh. I use that shit all the time!
-replacement_miner_drain = (buffed_beacon_count - beacons) * beacon_pwr_use
-replacement_miner_power = vanilla_power_draw / new_bld_sum_energy_mods
---Why? Because We want to end up with the same total power usage (after beacons + miners) as we would with the vanilla buildings.
-
---Result targets for 25 miners: Beacons + drain == 51.84MW || Miners (post beacon) == 20.25MW (810kW each / 594kW each without prod mods; 14.85MW total) || total: 72.09mW
-
-replacement_pollution_value = buffed_pollution_value / new_bld_pollution_bonus
+replacement_pollution_value = total_pollution_value
 
 --//////////////////////////////////
 --Recipe info
 --//////////////////////////////////
-r_beacons = buffed_beacon_count - beacons
+r_beacons = buffed_beacon_count
 if r_beacons <= 0 then
 	r_beacons = 1
 end

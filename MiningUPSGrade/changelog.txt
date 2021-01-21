@@ -1,6 +1,12 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.110.1
+Date: 1/21/2021
+  Changes:
+    - Miners no longer require beacons around them to achieve full speed. Becaons no longer affect UPSgrade miners. Modules can still be used.
+    - As a side effect, module slots also had to be removed. The miner building now has the stats of a miner with both 3 prod and 3 speed modules in it. I thought about making two versions but...eh, nuts with it. It's not *that* broken.
+---------------------------------------------------------------------------------------------------
 Version: 1.110.0
-Date: 1/18/2020
+Date: 1/18/2021
   Changes:
     - Version bump for 1.1
   Coming soon:
