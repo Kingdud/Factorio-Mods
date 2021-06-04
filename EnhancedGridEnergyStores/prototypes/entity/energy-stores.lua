@@ -137,6 +137,11 @@ entity_flywheel.energy_source = {
     usage_priority = "tertiary"
 }
 
+-- Due to the bounding box size change, this entity is not compatible with accumulators
+-- for upgrade planners. This may cause breakage with other mods if they make accumulators upgradable
+entity_flywheel.next_upgrade = nil
+entity_flywheel.fast_replaceable_group = nil
+
 data:extend({entity_flywheel})
 
 --/////////////////////
