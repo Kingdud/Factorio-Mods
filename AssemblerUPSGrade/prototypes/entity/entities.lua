@@ -326,6 +326,10 @@ function createChemPlantEntity(name, compression_ratio, n_chem, e_chem, fluid_pe
 	new_entity.fast_replaceable_group = name
 	new_entity.minable.result = name
 	
+	--If you tuned a chem plant with a compression_ratio of 27, then enter '27' here.
+	local TUNED_SCALE_FACTOR = 27
+	TUNED_SCALE_FACTOR = TUNED_SCALE_FACTOR/2
+	
 	local new_drawing_box_size = 0
 	if (3 * n_chem) % 2 == 0
 	then
@@ -361,34 +365,34 @@ function createChemPlantEntity(name, compression_ratio, n_chem, e_chem, fluid_pe
 		if new_entity.working_visualisations[i].animation then
 			new_entity.working_visualisations[i].animation.scale = scale_factor
 			new_entity.working_visualisations[i].animation.hr_version.scale = scale_factor
-			new_entity.working_visualisations[i].animation.shift[1] = new_entity.working_visualisations[i].animation.shift[1] * scale_factor
-			new_entity.working_visualisations[i].animation.shift[2] = new_entity.working_visualisations[i].animation.shift[2] * scale_factor
-			new_entity.working_visualisations[i].animation.hr_version.shift[1] = new_entity.working_visualisations[i].animation.hr_version.shift[1] * scale_factor
-			new_entity.working_visualisations[i].animation.hr_version.shift[2] = new_entity.working_visualisations[i].animation.hr_version.shift[2] * scale_factor
+			new_entity.working_visualisations[i].animation.shift[1] = (new_entity.working_visualisations[i].animation.shift[1] + .1) * scale_factor  -- + is right, - is left
+			new_entity.working_visualisations[i].animation.shift[2] = (new_entity.working_visualisations[i].animation.shift[2] + .26) * scale_factor --+ is down, - is up
+			new_entity.working_visualisations[i].animation.hr_version.shift[1] = (new_entity.working_visualisations[i].animation.hr_version.shift[1] + .1) * scale_factor
+			new_entity.working_visualisations[i].animation.hr_version.shift[2] = (new_entity.working_visualisations[i].animation.hr_version.shift[2] + .26) * scale_factor
 			
 			for _, dir in pairs({"north_position","east_position","west_position","south_position"}) do
-				new_entity.working_visualisations[i][dir][1] = new_entity.working_visualisations[i][dir][1] * scale_factor * 2
+				new_entity.working_visualisations[i][dir][1] = new_entity.working_visualisations[i][dir][1] * scale_factor * 2 - 0.5
 				--For reasons that are unclear to me, the outside smoke animation needs a little extra bump north for some reason.
 				if i == 3 then
-					new_entity.working_visualisations[i][dir][2] = new_entity.working_visualisations[i][dir][2] * scale_factor * 2.25
+					new_entity.working_visualisations[i][dir][2] = new_entity.working_visualisations[i][dir][2] * scale_factor * 2.25 - 0.5
 				else
-					new_entity.working_visualisations[i][dir][2] = new_entity.working_visualisations[i][dir][2] * scale_factor * 2
+					new_entity.working_visualisations[i][dir][2] = new_entity.working_visualisations[i][dir][2] * scale_factor * 2 - 0.5
 				end
 			end
 		else
 			for _, dir in pairs({"north_animation","east_animation","west_animation","south_animation"}) do
 				new_entity.working_visualisations[i][dir].scale = scale_factor
 				new_entity.working_visualisations[i][dir].hr_version.scale = scale_factor
-				new_entity.working_visualisations[i][dir].shift[1] = new_entity.working_visualisations[i][dir].shift[1] * scale_factor * 2
-				new_entity.working_visualisations[i][dir].shift[2] = new_entity.working_visualisations[i][dir].shift[2] * scale_factor * 2
-				new_entity.working_visualisations[i][dir].hr_version.shift[1] = new_entity.working_visualisations[i][dir].hr_version.shift[1] * scale_factor * 2
-				new_entity.working_visualisations[i][dir].hr_version.shift[2] = new_entity.working_visualisations[i][dir].hr_version.shift[2] * scale_factor * 2
+				new_entity.working_visualisations[i][dir].shift[1] = (new_entity.working_visualisations[i][dir].shift[1] + .5) * scale_factor
+				new_entity.working_visualisations[i][dir].shift[2] = (new_entity.working_visualisations[i][dir].shift[2] + .4) * scale_factor
+				new_entity.working_visualisations[i][dir].hr_version.shift[1] = (new_entity.working_visualisations[i][dir].hr_version.shift[1] + .5) * scale_factor
+				new_entity.working_visualisations[i][dir].hr_version.shift[2] = (new_entity.working_visualisations[i][dir].hr_version.shift[2] + .4) * scale_factor
 			end
 		end
 	end
 	
 	--Reduce scale factor since the original art is actually too large for the entity box.
-	scale_factor = scale_factor - 1.5
+	scale_factor = scale_factor * .85
 
 	new_entity.alert_icon_scale = scale_factor
 	
@@ -397,9 +401,9 @@ function createChemPlantEntity(name, compression_ratio, n_chem, e_chem, fluid_pe
 		for i,_ in pairs(new_entity.animation[dir].layers)
 		do
 			-- new_entity.animation[dir].layers[i].shift[1] = new_entity.animation[dir].layers[i].shift[1] * scale_factor
-			new_entity.animation[dir].layers[i].shift[2] = new_entity.animation[dir].layers[i].shift[2] - 2
+			new_entity.animation[dir].layers[i].shift[2] = new_entity.animation[dir].layers[i].shift[2] - (1.5*(scale_factor/TUNED_SCALE_FACTOR))
 			-- new_entity.animation[dir].layers[i].hr_version.shift[1] = new_entity.animation[dir].layers[i].hr_version.shift[1] * scale_factor
-			new_entity.animation[dir].layers[i].hr_version.shift[2] = new_entity.animation[dir].layers[i].hr_version.shift[2] - 2
+			new_entity.animation[dir].layers[i].hr_version.shift[2] = new_entity.animation[dir].layers[i].hr_version.shift[2] - (1.5*(scale_factor/TUNED_SCALE_FACTOR))
 			new_entity.animation[dir].layers[i].scale = scale_factor
 			new_entity.animation[dir].layers[i].hr_version.scale = scale_factor
 		end

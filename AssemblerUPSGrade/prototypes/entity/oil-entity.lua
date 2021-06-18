@@ -481,7 +481,6 @@ function createCrackingChemPlantEntity(name, compression_ratio, recipe_data)
 	--new_entity.base_productivity = .1*chem_base_modules
 	new_entity.fast_replaceable_group = name
 	new_entity.minable.result = name
-	
 		
 	--If you tuned a chem plant with a compression_ratio of 27, then enter '27' here.
 	local TUNED_SCALE_FACTOR = 27
