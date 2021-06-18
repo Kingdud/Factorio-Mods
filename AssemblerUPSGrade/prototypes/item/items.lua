@@ -24,6 +24,24 @@ function createItem(is_chem_plant, new_name)
 	data:extend({newitem})
 end
 
+function createOilRefItem(new_name)
+	local newitem = util.table.deepcopy(data.raw.item["oil-refinery"])
+	
+	newitem.name = new_name
+	newitem.place_result = new_name
+	newitem.order = ORDER_MAP[new_name]
+	newitem.icon = "__AssemblerUPSGrade__/graphics/" .. GRAPHICS_MAP[new_name].icon
+	newitem.stack_size = 1
+	newitem.icon_mipmaps = 1
+	newitem.subgroup = "asif-buildings"
+	
+	if DEBUG then
+		log("Debug createItem: " .. do_dump(newitem))
+	end
+	
+	data:extend({newitem})
+end
+
 data:extend({
     {
       icon = "__AssemblerUPSGrade__/graphics/ass-blk.png",
@@ -51,6 +69,16 @@ data:extend({
       icon_size = 64,
       name = "asif-logi-block",
       order = "h[asif-logi-block]",
+      stack_size = 50,
+      subgroup = "intermediate-product",
+      type = "item"
+    },
+	{
+      icon = "__AssemblerUPSGrade__/graphics/oil-blk.png",
+      icon_mipmaps = 1,
+      icon_size = 64,
+      name = "asif-oil-block",
+      order = "h[asif-oil-block]",
       stack_size = 50,
       subgroup = "intermediate-product",
       type = "item"

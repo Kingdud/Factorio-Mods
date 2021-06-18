@@ -12,8 +12,8 @@ script.on_configuration_changed(function()
 	game.map_settings.unit_group.max_group_slowdown_factor = 1
 	game.map_settings.unit_group.max_member_speedup_when_behind = 7
 
-	game.map_settings.pollution.diffusion_ratio = 0.25
-	game.map_settings.pollution.expected_max_per_chunk = 3200
+	--game.map_settings.pollution.diffusion_ratio = 0.25
+	--game.map_settings.pollution.expected_max_per_chunk = 3200
 
 	game.map_settings.path_finder.long_cache_size = 15000
 	game.map_settings.path_finder.max_steps_worked_per_tick  = 10000

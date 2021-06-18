@@ -4,7 +4,7 @@ DEBUG = false
 beacon_count = 12
 
 NEED_FLUID_RECIPES = { "bc-asif", "spd-3-asif", "prod-3-asif", "pla-asif", "rf-asif", "sfpg-asif", "sflo-asif", "sfho-asif", "rcu-asif" }
-MAX_FLUID_PER_INPUT_PER_SECOND = 12000
+MAX_FLUID_PER_INPUT_PER_SECOND = settings.startup["max-flow-rate"].value
 
 TECH_DETAILS = {
 	["gc-asif"] = { cost = 250000, prereqs = {"asif"} },
@@ -18,6 +18,9 @@ TECH_DETAILS = {
 	["rcu-asif"] = { cost = 1000000, prereqs = {"bc-asif"} },
 	["spd-3-asif"] = { cost = 1000000, prereqs = {"bc-asif"} },
 	["prod-3-asif"] = { cost = 1000000, prereqs = {"bc-asif"} },
+	["eff-3-asif"] = { cost = 1000000, prereqs = {"bc-asif"} },
+	--Oil is handled on its own since it unlocks multiple recipes.
+	["oil-asif"] = { cost = 4000000, prereqs = {"asif"} },
 }
 
 ITEM_LIST = {
@@ -34,7 +37,13 @@ ITEM_LIST = {
 	["rcu-asif"] = "rocket-control-unit",
 	["spd-3-asif"] = "speed-module-3",
 	["prod-3-asif"] = "productivity-module-3",
+	["eff-3-asif"] = "effectivity-module-3",
 }
+RECIPE_MAP = {
+	["hc-asif"] = "heavy-oil-cracking",
+	["lc-asif"] = "light-oil-cracking",
+}
+	
 base_recipes = {"copper-plate", "iron-plate", "steel-plate", "plastic-bar", "sulfuric-acid", "solid-fuel", "light-oil"}
 plastic_base_recipes = {"coal", "petroleum-gas", "light-oil", "heavy-oil" }
 FLUID_NAMES = {"sulfuric-acid", "petroleum-gas", "light-oil", "heavy-oil" }
@@ -51,8 +60,12 @@ ORDER_MAP = {
 	["sflo-asif"] = "g1",
 	["sfho-asif"] = "g3",
 	["rcu-asif"] = "i",
+	["oil-asif"] = "o1",
+	["lc-asif"] = "o2",
+	["hc-asif"] = "o3",
 	["spd-3-asif"] = "z1",
 	["prod-3-asif"] = "z2",
+	["eff-3-asif"] = "z3",
 }
 
 --//modules (level 3)
@@ -105,6 +118,22 @@ chem_total_speed_bonus = chem_base_speed * (chem_modules_speed_effect + total_be
 chem_per_unit_pwr_drain_penalty = (beacon_pwr_penalty + chem_modules_pwr_penalty + 1)
 chem_total_pwr_draw = chem_base_pwr_use * chem_per_unit_pwr_drain_penalty
 
+--//Oil Refinery (refers to vanilla object)
+base_oil_entity = data.raw["assembling-machine"]["oil-refinery"]
+local tmp = string.gsub(base_oil_entity.energy_usage,"%kW","")
+oil_base_pwr_use = tonumber(tmp)
+oil_base_speed = base_oil_entity.crafting_speed
+oil_base_pollution = base_oil_entity.energy_source.emissions_per_minute
+oil_base_modules = base_oil_entity.module_specification.module_slots
+
+local oil_modules_speed_effect = oil_base_modules * prod_mod_speed_penalty
+local oil_modules_pwr_penalty = oil_base_modules * prod_mod_pwr_penality
+oil_productivity_factor = oil_base_modules * prod_mod_prod_bonus
+
+oil_total_speed_bonus = oil_base_speed * (oil_modules_speed_effect + (spd_module_speed_bonus * 16) + 1)
+oil_per_unit_pwr_drain_penalty = (beacon_pwr_penalty + oil_modules_pwr_penalty + 1)
+oil_total_pwr_draw = oil_base_pwr_use * oil_per_unit_pwr_drain_penalty
+
 --///
 --Reminder: Crafting speed formula is:
 --final speed = Recipe time / (assembler speed * (beacon_effect + module_spd_effect + 1)
@@ -132,6 +161,10 @@ GRAPHICS_MAP = {
 	["rcu-asif"] = {icon = "rcu-asif.png", tint = {r= 1, g = 1, b = 1, a = 1}},
 	["prod-3-asif"] = {icon = "prod-3-asif.png", tint = {r= 240, g = 66, b = 19, a = 255}},
 	["spd-3-asif"] = {icon = "spd-3-asif.png", tint = {r= .25, g = .93, b = .92, a = 1}},
+	["eff-3-asif"] = {icon = "eff-3-asif.png", tint = {r= 0, g = 1, b = 0, a = 1}},
+	["oil-asif"] = {icon = "oil-asif.png", tint = {r= .75, g = 0, b = 0, a = 1}},
+	["lc-asif"] = {icon = "lc-asif.png", tint = data.raw.recipe["heavy-oil-cracking"].crafting_machine_tint},
+	["hc-asif"] = {icon = "hc-asif.png", tint = data.raw.recipe["light-oil-cracking"].crafting_machine_tint},
 }
 
 recipe_tint = {r= 1, g = .533, b = 0, a = 1}

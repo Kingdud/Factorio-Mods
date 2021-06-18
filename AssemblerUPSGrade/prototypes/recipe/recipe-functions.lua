@@ -22,7 +22,7 @@ require("prototypes.functions")
 --  specialized production facility. There would be little optimizations and tweaks to reduce the waste.
 
 -- And that's what the functions do to the recipes. They factor in all the bonuses, determine how many
---  items/second get produced, and then set the recipes accordingly. NOTE! Productivty is set on the ASIF
+--  items/second get produced, and then set the recipes accordingly. NOTE! Productivity is set on the ASIF
 --  building itself, so if you are using an online factorio calculator to balance the recipes, the results
 --  you get from these equations will not line up with the calculator results because these results DO NOT
 --  factor in productivity bonuses, since they are transient (on both sides of the equation; transparent).

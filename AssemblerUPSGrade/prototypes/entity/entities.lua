@@ -188,7 +188,7 @@ end
 
 function createChemFluidBoxes(entity, fluid_per_second, side_length)
 
-	--If you change this, you need to change the if case (next_pos list / section) below. It assumes there is more room twoard the center.
+	--If you change this, you need to change the if case (next_pos list / section) below. It assumes there is more room toward the center.
 	local new_pipe_con_edge_offset = (side_length/3)
 	local new_pipe_conn_pos = { 
 		-- in-left
@@ -263,7 +263,7 @@ function createChemFluidBoxes(entity, fluid_per_second, side_length)
 				--in-left-left (left input, to outer edge)
 				if next_pos.left_left < -1 * side_length then
 					base_fluidbox.pipe_connections[1].position[1] = next_pos.left_right
-					--We will always have more room for inputs on the side twoard the center.
+					--We will always have more room for inputs on the side toward the center.
 					next_pos.left_right = next_pos.left_right - 4
 				else
 					base_fluidbox.pipe_connections[1].position[1] = next_pos.left_left
@@ -284,7 +284,7 @@ function createChemFluidBoxes(entity, fluid_per_second, side_length)
 				--in-right-right (right input, to outer edge)
 				if next_pos.right_right < -1 * side_length then
 					base_fluidbox.pipe_connections[1].position[1] = next_pos.right_left
-					--We will always have more room for inputs on the side twoard the center.
+					--We will always have more room for inputs on the side toward the center.
 					next_pos.right_left = next_pos.right_left - 4
 				else
 					base_fluidbox.pipe_connections[1].position[1] = next_pos.right_right

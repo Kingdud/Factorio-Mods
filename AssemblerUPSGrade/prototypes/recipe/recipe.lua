@@ -34,6 +34,21 @@ data:extend({
         type = "recipe"
     },
 	{
+		name = "asif-oil-block",
+        energy_required = 10,
+        ingredients = {
+			{"beacon", 8},
+			{"speed-module-3", 16},
+			{"productivity-module-3", oil_base_modules},
+			{"oil-refinery", 1},
+			{"pipe",9},
+			{"pipe-to-ground",10}
+        },
+        result = "asif-oil-block",
+		enabled = false,
+        type = "recipe"
+    },
+	{
 		name = "asif-logi-block",
         energy_required = 1,
         ingredients = {

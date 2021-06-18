@@ -10,6 +10,7 @@ data:extend(
 			{type = "unlock-recipe", recipe = "asif-assembler-block" },
 			{type = "unlock-recipe", recipe = "asif-chem-block" },
 			{type = "unlock-recipe", recipe = "asif-logi-block" },
+			{type = "unlock-recipe", recipe = "asif-oil-block" },
 		},
 		prerequisites = {"rocket-silo"},
 		unit =
@@ -52,6 +53,38 @@ data:extend(
 		unit =
 		{
 			count = 500000,
+			ingredients =
+			{
+				{"automation-science-pack", 1},
+				{"logistic-science-pack", 1},
+				{"chemical-science-pack", 1},		
+				{"production-science-pack", 1},
+				{"utility-science-pack", 1},
+				{"space-science-pack", 1}	
+			},
+			time = 60
+		},
+		order = "a-b-c"
+	},
+	{
+		type = "technology",
+		name = "oil-asif",
+		icon = "__AssemblerUPSGrade__/graphics/" .. GRAPHICS_MAP["oil-asif"].icon,
+		icon_size = 64,
+		effects =
+		{
+			{type = "unlock-recipe", recipe = "oil-asif" },
+			{type = "unlock-recipe", recipe = "oil-asif-recipe" },
+			{type = "unlock-recipe", recipe = "lc-asif" },
+			{type = "unlock-recipe", recipe = "lc-asif-recipe" },
+			{type = "unlock-recipe", recipe = "hc-asif" },
+			{type = "unlock-recipe", recipe = "hc-asif-recipe" },
+			{type = "unlock-recipe", recipe = "asif-oil-block" },
+		},
+		prerequisites = {"asif"},
+		unit =
+		{
+			count = 4000000,
 			ingredients =
 			{
 				{"automation-science-pack", 1},

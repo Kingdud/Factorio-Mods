@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.110.1
+Date: 6/18/2021
+  Changes:
+    - Oil Refining and cracking ASIFs. Note: the building graphics are tuned for unlimited mode, they may not look great at all sizes. Sorry. It's a massive pain to get the buildings to look right, or maybe I'm just dumb.
+---------------------------------------------------------------------------------------------------
 Version: 1.110.0
 Date: 1/19/2021
   Changes:
