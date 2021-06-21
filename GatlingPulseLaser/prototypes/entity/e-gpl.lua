@@ -1,4 +1,6 @@
-local new_dmg_per_shot = 46
+--Batch factor == 'one turret equal to X turrets in terms of dmg output'
+local batch_factor = 50
+local new_dmg_per_shot = 46 * batch_factor
 local increase_factor = new_dmg_per_shot / 20
 local energy_per_shot_kj = increase_factor * 800
 
@@ -33,23 +35,11 @@ new_item.attack_parameters.ammo_type.action.action_delivery.beam = "pulse-laser-
 new_item.attack_parameters.ammo_type.energy_consumption = tostring(energy_per_shot_kj) .. "kJ"
 new_item.attack_parameters.cooldown = 6
 new_item.attack_parameters.damage_modifier = 1
-new_item.energy_source.buffer_capacity = tostring(energy_per_shot_kj+1) .. "kJ"
-new_item.energy_source.input_flow_limit = "400MW"
+new_item.energy_source.buffer_capacity = tostring(energy_per_shot_kj * 10 + 1) .. "kJ"
+new_item.energy_source.input_flow_limit = tostring(energy_per_shot_kj * (60 / new_item.attack_parameters.cooldown)) .. "MW"
 new_item.fast_replaceable_group = "energy-turret"
 new_item.hide_resistances = false
-new_item.resistances =
-{
-	{
-		type = "acid",
-		decrease = 10,
-		percent = 30
-	},
-	{
-		type = "physical",
-		decrease = 25,
-		percent = 30
-	}
-}
+new_item.resistances = nil
 
 data:extend({new_item})
 

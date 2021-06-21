@@ -5,7 +5,7 @@ data:extend(
 {
     type = "technology",
     name = "oil-processing-inverted",
-    icon_size = 128,
+    icon_size = 256,
     icon = "__base__/graphics/technology/oil-gathering.png",
     prerequisites = {"oil-processing"},
     effects =
@@ -32,7 +32,7 @@ data:extend(
   {
     type = "technology",
     name = "advanced-oil-processing-inverted",
-    icon_size = 128,
+    icon_size = 256,
     icon = "__base__/graphics/technology/oil-processing.png",
     prerequisites = {"advanced-oil-processing"},
     effects =
@@ -72,7 +72,7 @@ data:extend(
   {
     type = "technology",
     name = "coal-liquefaction-inverted",
-    icon_size = 128,
+    icon_size = 256,
     icon = "__base__/graphics/technology/coal-liquefaction.png",
     prerequisites = {"coal-liquefaction"},
     effects =
@@ -106,7 +106,7 @@ data:extend(
   {
     type = "technology",
     name = "sulfur-processing-inverted",
-    icon_size = 128,
+    icon_size = 256,
     icon = "__base__/graphics/technology/sulfur-processing.png",
     prerequisites = {"sulfur-processing"},
     effects =

@@ -26,3 +26,46 @@ script.on_configuration_changed(function()
 	game.map_settings.settler_group_max_size = 20
 	game.map_settings.settler_group_min_size = 5
 end)
+
+
+--This code is all copy-pasted from Invulnerable rails and poles, but adapted to make walls invincible.
+local function check_entity(entity, protect)
+    local vType = entity.type
+    local prototype = game.entity_prototypes[entity.name]
+    local flag = false
+    --"big-electric-pole-2"
+    if (prototype ~= nil) then
+        if prototype.name == "stone-wall" then
+            flag = true
+        end
+    end
+    if (flag) then
+        if (protect == true) then        
+            --entity.force = "neutral"
+            entity.destructible = false
+        else
+            --entity.force = "player"
+            entity.destructible = true
+        end
+    end
+end
+
+local function on_first_tick()
+    local surface = game.surfaces[1]
+    for c in surface.get_chunks() do
+        for key, entity in pairs(surface.find_entities_filtered({area={{c.x * 32, c.y * 32}, {c.x * 32 + 32, c.y * 32 + 32}}})) do
+            check_entity(entity,true)
+        end
+    end
+    --script.on_event(defines.events.on_tick, nil)
+end
+
+script.on_event(defines.events.on_built_entity, function(event)
+	onBuild(event.created_entity)
+end)
+
+script.on_init(on_first_tick)
+
+script.on_event({defines.events.on_built_entity,
+                 defines.events.on_robot_built_entity}, function(event)
+    check_entity(event.created_entity,true) end)

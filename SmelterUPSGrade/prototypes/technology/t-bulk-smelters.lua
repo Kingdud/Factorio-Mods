@@ -8,7 +8,7 @@ data:extend(
 		{
 			icon = "__base__/graphics/technology/advanced-material-processing.png",
 			tint = building_tint,
-			icon_size = 128
+			icon_size = 256
 		}
 	},
     effects =

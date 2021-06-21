@@ -8,7 +8,7 @@ data:extend(
 		{
 			icon = "__base__/graphics/technology/mining-productivity.png",
 			tint = newTint,
-			icon_size = 128,
+			icon_size = 256,
 		}
 	},
     icon_size = 32,

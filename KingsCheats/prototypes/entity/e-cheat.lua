@@ -122,3 +122,13 @@ newpump.ingredients = {
 }
 newpump.enabled = true
 data:extend({newpump})
+
+data.raw["artillery-projectile"]["artillery-projectile"].action.action_delivery.target_effects[1].action.radius = 8
+
+--64 is max value due to game engine.
+local new_dist = 52
+local orig_dist = data.raw["electric-pole"]["big-electric-pole"].maximum_wire_distance
+data.raw["electric-pole"]["big-electric-pole"].maximum_wire_distance = new_dist
+for i in pairs(data.raw.recipe["big-electric-pole"].ingredients) do
+	data.raw.recipe["big-electric-pole"].ingredients[i][2] = math.ceil(data.raw.recipe["big-electric-pole"].ingredients[i][2] * (new_dist / orig_dist))
+end

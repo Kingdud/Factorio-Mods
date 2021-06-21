@@ -3,13 +3,13 @@ data:extend({
     type = "technology",
     name = "pulse-laser",
     icon = nil,
-    icon_size = 128,
+    icon_size = nil,
 	icons = {
 		{
 			icon = "__base__/graphics/technology/laser-turret.png",
 			tint = {r= .8, g = .1, b = 0, a = 1},
 			icon_mipmaps = 4,
-			icon_size = 128,
+			icon_size = 256,
 		}
 	},
     effects =

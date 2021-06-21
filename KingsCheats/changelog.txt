@@ -1,4 +1,19 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.110.3
+Date: 6/20/2021
+  Changes:
+    - Make standard 'big' electric pole able to span 100 spaces instead of 30, adjust recipe to compensate.
+---------------------------------------------------------------------------------------------------
+Version: 1.110.2
+Date: 6/20/2021
+  Changes:
+    - Artillery Shells now have range 8 so that they are fired automatically closer to the efficiency of what a human would do.
+---------------------------------------------------------------------------------------------------
+Version: 1.110.1
+Date: 6/19/2021
+  Changes:
+    - For lack of a better option, walls are now invincible. UPS testing shows they seem not to have a performance impact, even with over 100k walls on the map.
+---------------------------------------------------------------------------------------------------
 Version: 1.110.0
 Date: 1/19/2021
   Changes:
