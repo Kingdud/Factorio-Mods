@@ -1,8 +1,8 @@
 --///////////////////////////////////
 --Global Variable members:
--- global.buffers[sender_or_reciever_unitID] = the buffer entity associated with a given sender or reciever.
+-- global.buffers[sender_or_reciever_unitID] = the buffer entity associated with a given sender or receiver.
 -- global.senders = a table of all dematerializer entities.
--- global.recievers = a table of all rematerializer entities.
+-- global.receivers = a table of all rematerializer entities.
 -- global.teleportJobs = A table of all pending teleport jobs
 -- global.busyList = A map of all transporters currently busy trying to send (since calling is_crafting() isn't reliable in all cases)
 --///////////////////////////////////
@@ -460,16 +460,31 @@ local function check_networks(energizer_id, networks, is_sender)
 	end
 	
 	if signals ~= nil then
+		local signal_count = 0
+		local found_virtual = false
 		for _, v in ipairs(signals) do
 			if v.signal.type == "virtual" and v.signal.name ~= nil then
-				if v.signal.name == "signal-red" then
+				if v.signal.type == "virtual" and v.signal.name == "signal-red" then
 					return
-				elseif v.signal.name == "signal-green" then
+				elseif v.signal.type == "virtual" and v.signal.name == "signal-green" then
 					is_priority = true
 				else
+					if not found_virtual then
+						temp_network = {}
+					end
+					found_virtual = true
 					temp_network[v.signal.name .. v.count] = energizer_id
+					signal_count = signal_count + 1
 				end
+			elseif v.signal.name ~= nil and not found_virtual then
+				temp_network[v.signal.name] = energizer_id
+				signal_count = signal_count + 1
 			end
+		end
+		
+		if signal_count > 1 and not found_virtual then
+			warning(buffer, "Virtual signal must be used to send multiple item types")
+			return
 		end
 	end
 	
@@ -482,7 +497,7 @@ local function check_networks(energizer_id, networks, is_sender)
 	if ( is_sender and not is_priority and not is_full(buffer) ) or (is_sender and is_empty(buffer)) then
 		return
 	end
-	--If we are a reciever, and we are not empty, then we aren't up for consideration on this check.
+	--If we are a receiver, and we are not empty, then we aren't up for consideration on this check.
 	if not is_sender and not is_empty(buffer) then
 		return
 	end
@@ -551,7 +566,7 @@ local function OnNthTick(event)
 	-- networks[<type>][<signal name>..<count>] ==> The in-game signal 'Iron Plate' with a value of '1', becomes "iron-plate1"
 	-- networks[senders][<signal name>..<count>] = {sender id 1, id2, id3, etc}
 	-- networks[priority_senders][<signal name>..<count>]
-	-- networks[recievers][<signal name>..<count>]
+	-- networks[receivers][<signal name>..<count>]
 	local networks = {{}, {}, {}}
 	
 	--Step 1, Move any existing, completed, transfer jobs.
@@ -578,12 +593,12 @@ local function OnNthTick(event)
 				goto next_delivery
 			end
 			if recv_entity.is_crafting() or recv_entity.energy == 0 then
-				warning(send_buf, "Reciever still busy or offline")
+				warning(send_buf, "Receiver still busy or offline")
 				draw_teleport_beam(recipe, send_entity, recv_entity)
 				goto next_delivery
 			end
 			
-			--We already know that either both sender and reciever are fluidic or not.
+			--We already know that either both sender and receiver are fluidic or not.
 			if is_fluidic(send_entity) then
 				shipment = send_buf.get_fluid_contents()
 				local temp = send_buf.fluidbox[1].temperature
@@ -638,14 +653,14 @@ local function OnNthTick(event)
 		check_networks(sender.unit_number, networks, true)
 	end
 	
-	--Step 3, iterate through list of recievers.
+	--Step 3, iterate through list of receivers.
 	for _,reciever in pairs(global.recievers) do
 		check_networks(reciever.unit_number, networks, false)
 	end
 	
 	local send_eID = 0
 	local recv_eID = 0
-	--Step 4, go through recievers, find any priority (or normal) senders to fulfill them
+	--Step 4, go through receivers, find any priority (or normal) senders to fulfill them
 	for network, recievers in pairs(networks[RECIEVERS]) do
 		for _, recv_eID in pairs(recievers) do
 			if networks[P_SENDERS][network] and next(networks[P_SENDERS][network]) ~= nil then
@@ -655,7 +670,7 @@ local function OnNthTick(event)
 				send_eID = table.remove(networks[SENDERS][network])
 				recv_eID = recv_eID
 			else
-				--We have no senders for any reciever on this network. Abort search.
+				--We have no senders for any receiver on this network. Abort search.
 				goto next_network_continue
 			end
 			
@@ -671,10 +686,10 @@ local function OnNthTick(event)
 		::next_network_continue::
 	end
 	
-	--Step 5, At this point, all empty recivers that could be filled have been. Now we issue out the teleport jobs.
+	--Step 5, At this point, all empty receivers that could be filled have been. Now we issue out the teleport jobs.
 	for timeslot, shipment_list in pairs(global.teleportJobs) do
 		for shipment_idx, shipment in pairs(shipment_list) do
-			--Confirm that sender and reciever are the same tier
+			--Confirm that sender and receiver are the same tier
 			local sender_tier = global.senders[shipment[1]].name:sub(-1)
 			local reciever_teir = global.recievers[shipment[2]].name:sub(-1)
 			local sender = global.senders[shipment[1]]
@@ -683,14 +698,16 @@ local function OnNthTick(event)
 			if sender.is_crafting() or reciever.is_crafting() then goto next_shipment end
 			
 			if sender_tier ~= reciever_teir then
-				warning(sender, "Mismatch (de)materializer teirs on network")
-				warning(reciever, "Mismatch (de)materializer teirs on network")
+				warning(sender, "Mismatch (de)materializer tiers on network")
+				warning(reciever, "Mismatch (de)materializer tiers on network")
+				global.teleportJobs[timeslot] = nil
 				goto next_shipment
 			end
 			
 			if is_fluidic(sender) ~= is_fluidic(reciever) then
 				warning(sender, "Mixing fluid and material teleporters not allowed")
 				warning(reciever, "Mixing fluid and material teleporters not allowed")
+				global.teleportJobs[timeslot] = nil
 				goto next_shipment
 			end
 			
