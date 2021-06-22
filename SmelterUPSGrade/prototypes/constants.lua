@@ -11,7 +11,7 @@ local disable_stack_splitting = true
 ore_batching_factor = 1
 local ore_in = settings.startup["smelter-ratio"].value
 local plate_out = settings.startup["smelter-ratio"].value
-MAX_BLD_SIZE = settings.startup["max-bld-size"].value
+MAX_BLD_SIZE = settings.startup["smelt-max-bld-size"].value
 
 r_ore_in = ore_in * ore_batching_factor
 total_outputs_ore = (plate_out * ore_batching_factor) / MAX_OUTPUT_STACK_SIZE

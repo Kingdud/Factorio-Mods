@@ -19,7 +19,7 @@ data:extend{
   },
   {
     type = "int-setting",
-    name = "max-bld-size",
+    name = "smelt-max-bld-size",
     setting_type = "startup",
 	minimum_value = 0,
     maximum_value = 2000,
