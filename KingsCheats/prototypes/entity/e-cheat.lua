@@ -132,3 +132,10 @@ data.raw["electric-pole"]["big-electric-pole"].maximum_wire_distance = new_dist
 for i in pairs(data.raw.recipe["big-electric-pole"].ingredients) do
 	data.raw.recipe["big-electric-pole"].ingredients[i][2] = math.ceil(data.raw.recipe["big-electric-pole"].ingredients[i][2] * (new_dist / orig_dist))
 end
+
+--For use with WAR Equipment reactor
+u235_gj_per_kg = 79390
+u238_gj_per_kg_fast = 80620
+u238_gj_per_kg_thermal = 1684.2
+--recipe for base fuel cell is 19 238, 1 235 for 10 cells.
+data.raw.item["uranium-fuel-cell"].fuel_value = (u235_gj_per_kg + 19 * u238_gj_per_kg_fast)/10 .. "GJ"
