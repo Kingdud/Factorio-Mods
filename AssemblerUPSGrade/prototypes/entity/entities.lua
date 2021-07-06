@@ -78,11 +78,11 @@ function createAssemblerEntity(name, compression_ratio, n_ass, e_ass, fluid_per_
 	end
 	
 	--modify here if you wish to create separate entities for normal/expensive mode.
-	local draw, drain = ComputePowerDrainAndDraw(n_ass, assembler_total_pwr_draw)
+	local draw, drain = ComputePowerDrainAndDraw(n_ass, assembler_total_pwr_draw_prod)
 		
 	--Pollution
 	--modify here if you wish to create separate entities for normal/expensive mode.
-	local total_pollution_value = assembler_base_pollution * (assembler_per_unit_pwr_drain_penalty * (prod_mod_pollution_penalty * assembler_base_modules + 1)) * n_ass
+	local total_pollution_value = assembler_base_pollution * (assembler_per_unit_pwr_drain_penalty_prod * (prod_mod_pollution_penalty * assembler_base_modules + 1)) * n_ass
 	
 	local new_entity = util.table.deepcopy(base_ass_entity)
 	
@@ -183,6 +183,8 @@ function createAssemblerEntity(name, compression_ratio, n_ass, e_ass, fluid_per_
 		log("Debug createAssemblerEntity : " .. do_dump(new_entity))
 	end
 	
+	createEntityRadar(name, new_drawing_box_size)
+	
 	data:extend({new_entity})
 end
 
@@ -236,6 +238,7 @@ function createChemFluidBoxes(entity, fluid_per_second, side_length)
 			log("Warning! Building too small for all required inputs. Need " .. num_additonal .. " have room for " .. (side_length*2) / 4)
 			num_additonal = (side_length*2) / 4
 		end
+		local base_fluidbox = util.table.deepcopy(entity.fluid_boxes[1])
 		
 		--If we have an odd number of boxes, the extra box goes in the middle.
 		if num_additonal % 2 == 1 then
@@ -248,10 +251,7 @@ function createChemFluidBoxes(entity, fluid_per_second, side_length)
 			base_fluidbox.pipe_connections[1].position[2] = math.floor(-1*side_length)
 		end
 		
-		
-		
 		for i=1, num_additonal, 1 do
-			local base_fluidbox = util.table.deepcopy(entity.fluid_boxes[1])
 			base_fluidbox.base_level = -1
 			base_fluidbox.production_type = "input"
 			base_fluidbox.pipe_covers = nil
@@ -425,6 +425,8 @@ function createChemPlantEntity(name, compression_ratio, n_chem, e_chem, fluid_pe
 	new_entity.icon_size = 64
 	
 	createChemFluidBoxes(new_entity, fluid_per_second, new_drawing_box_size)
+	
+	createEntityRadar(name, new_drawing_box_size)
 	
 	data:extend({new_entity})
 end

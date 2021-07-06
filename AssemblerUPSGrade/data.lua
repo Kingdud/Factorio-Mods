@@ -29,36 +29,30 @@ for new_item,stock_item in pairs(ITEM_LIST) do
 		}
 	})
 	
-	local productivity_factor = 0
+	local productivity_factor, building_mod_bonus = getProductivityAndSpeedFactors(stock_item)
 	local crafting_cat = data.raw.recipe[stock_item].category or "crafting"
 	local plastic_override = false
-	local building_mod_bonus = 0
-	if crafting_cat == "crafting" or crafting_cat == "advanced-crafting" or crafting_cat == "basic-crafting" or crafting_cat == "crafting-with-fluid"
-	then
-		productivity_factor = assembler_productivity_factor+1
-		building_mod_bonus = assembler_total_speed_bonus
-	elseif crafting_cat == "chemistry"
+	if crafting_cat == "chemistry"
 	then
 		plastic_override = true
-		productivity_factor = chem_productivity_factor+1
-		building_mod_bonus = chem_total_speed_bonus
 	end
 	
-	local nrips,erips = computeItemsPerSecond(stock_item, building_mod_bonus)
-	
-	--We need to add productivity factor to items_per_second from the recipe calculation, since unwindAssemblersNeeded requires it to be there.
-	local ipsn = nrips * productivity_factor * compression_ratio
-	local ipse = erips * productivity_factor * compression_ratio
+	--Factors in productivity factor for us, and knows whether or not the item *can* benefit from productivity.
+	local nrips,erips = computeItemsPerSecond(stock_item)
+
+	local ipsn = nrips * compression_ratio
+	local ipse = erips * compression_ratio
 	
 	--Determine how many assemblers make up our ASIF
 	local result = { ["expensive"] = {}, ["normal"] = {}, ["recip_n"] = {}, ["recip_e"] = {}, ["fluid_per_second"] = 0 }
 	
-	unwindAssemblersNeeded(stock_item, "n", ipsn, productivity_factor, result, plastic_override)
-	unwindAssemblersNeeded(stock_item, "e", ipse, productivity_factor, result, plastic_override)
-	
+	--unwindAssemblersNeeded requires productivity factor (if applicable) to already be factored in.
+	unwindAssemblersNeeded(stock_item, "n", ipsn, result, plastic_override)
+	unwindAssemblersNeeded(stock_item, "e", ipse, result, plastic_override)
+
 	local normal_ass_needed = compression_ratio
 	local expensive_ass_needed = compression_ratio
-	for _,num in pairs(result.normal) do
+	for i_name,num in pairs(result.normal) do
 		--New way: Assume partially utilized buildings are kept busy through ASIF magic.
 		normal_ass_needed = normal_ass_needed + num
 		--Old way: assume we have partially used extra buildings for each intermediate.

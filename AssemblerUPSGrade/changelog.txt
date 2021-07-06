@@ -1,4 +1,20 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.110.3
+Date: 7/5/2021
+  Changes:
+    - Add internal radars to all ASIFs that are just large enough to reveal the entire asif. These radars do not consume power and do not scan nearby sectors.
+---------------------------------------------------------------------------------------------------
+Version: 1.110.2
+Date: 6/26/2021
+  Changes:
+    - Added an Artillery Shell ASIF, since scale production of these things takes a lot of buildings and to make their supply chains efficient using bots requires a lot of double-chesting.
+    - Changed how prod/speed bonuses are calculated for intermediates, leads to more accurate results with items where not all intermediates / final results can benefit from productivity modules. Basically, Modules will now cost more materials to make, as they always should have.
+    - In the case of Speed / Prod 3 modules, the above change roughly doubles the materials needed while leaving the production speed the same and making the resulting building slightly larger.
+    - Technically, the Artillery Shell ASIF breaks the original ethos of this mod, but...well, it's my mod, and I want an artillery shell ASIF.
+  Bugfix:
+    - Found and fixed a bug causing buildings to be the wrong size when fully scaled.
+    - Found and fixed bug causing Plastic Bars to require twice as many materials as they should have.
+---------------------------------------------------------------------------------------------------
 Version: 1.110.1
 Date: 6/18/2021
   Changes:

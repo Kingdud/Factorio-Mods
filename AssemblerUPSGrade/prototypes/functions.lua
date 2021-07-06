@@ -31,6 +31,33 @@ function getItemCreateTime(name)
 	return normal_time, expensive_time
 end
 
+function getProductivityAndSpeedFactors(name)
+	local crafting_cat = data.raw.recipe[name].category or "crafting"
+	local speed_bonus = 1
+	local prod_factor = 1
+	
+	if has_value(data.raw.module["productivity-module-3"].limitation, name) then
+		if crafting_cat == "crafting" or crafting_cat == "advanced-crafting" or crafting_cat == "basic-crafting" or crafting_cat == "crafting-with-fluid"
+		then
+			prod_factor = assembler_productivity_factor+1
+			speed_bonus = assembler_total_speed_bonus_prod
+		elseif crafting_cat == "chemistry"
+		then
+			prod_factor = chem_productivity_factor+1
+			speed_bonus = chem_total_speed_bonus
+		end
+	else
+		if crafting_cat == "crafting" or crafting_cat == "advanced-crafting" or crafting_cat == "basic-crafting" or crafting_cat == "crafting-with-fluid"
+		then
+			speed_bonus = assembler_total_speed_bonus_speed
+		elseif crafting_cat == "chemistry"
+		then
+			speed_bonus = chem_total_speed_bonus
+		end
+	end
+	return prod_factor, speed_bonus
+end
+
 function getResultCount(name)
 	local the_recipe = data.raw.recipe[name]
 	
@@ -58,20 +85,16 @@ end
 
 --Computes how many items per second are produced by the given recipe (assuming fully beaconed/moduled).
 -- Productivty NOT factored in!
-function computeItemsPerSecond(name, chemistry_override)
+function computeItemsPerSecond(name)
 	local normal_time, expensive_time = getItemCreateTime(name)
-	local building_mod_bonus = assembler_total_speed_bonus
-	
-	if chemistry_override then
-		building_mod_bonus = chem_total_speed_bonus
-	end
+	local prod_bonus, building_mod_bonus = getProductivityAndSpeedFactors(name)
 	
 	local n_res_cnt, e_res_cnt = getResultCount(name)
 	
 	local normal_ips = n_res_cnt / (normal_time / building_mod_bonus)
 	local expensive_ips = e_res_cnt / (expensive_time / building_mod_bonus)
 	
-	return normal_ips, expensive_ips
+	return normal_ips * prod_bonus, expensive_ips * prod_bonus
 end
 
 --This returns the list of ingredients for a given item name.
@@ -185,8 +208,24 @@ function unwindVanillaRecipe(name, plastic_override)
 	return result
 end --end unwindVanillaRecipe
 
-function unwindAssemblersNeeded(name, mode, main_item_ips, productivity_factor, result, plastic_override)
-	main_item_ips = (main_item_ips / productivity_factor)
+function unwindAssemblersNeeded(name, mode, main_item_ips, result, plastic_override)
+	local productivity_factor = 1
+	
+	local crafting_cat = data.raw.recipe[name].category or "crafting"
+	if crafting_cat == "crafting" or crafting_cat == "advanced-crafting" or crafting_cat == "basic-crafting" or crafting_cat == "crafting-with-fluid"
+	then
+		productivity_factor = assembler_productivity_factor+1
+	elseif crafting_cat == "chemistry"
+	then
+		productivity_factor = chem_productivity_factor+1
+	end
+	
+	local main_item_res_cnt, _ = getResultCount(name)
+	if has_value(data.raw.module["productivity-module-3"].limitation, name) then
+		main_item_ips = main_item_ips / main_item_res_cnt / productivity_factor
+	else
+		main_item_ips = main_item_ips / main_item_res_cnt
+	end
 	
 	local normal_ingredients, expensive_ingredients = getItemIngredients(name)
 	
@@ -211,8 +250,7 @@ function unwindAssemblersNeeded(name, mode, main_item_ips, productivity_factor, 
 			
 			if not has_value(base_recipe_list, i_name) then
 				--Get how many items/second one assembler making this sub-component can crank out (factors in result cnt)
-				local ips, _ = computeItemsPerSecond(i_name, plastic_override)
-				ips = ips * productivity_factor
+				local ips, _ = computeItemsPerSecond(i_name)
 				
 				--main_item_ips * val[2] is saying "we need to build 100 units per second, and 
 				-- each unit take val[2] items to build", thus, we divide by the IPS per assembler
@@ -223,7 +261,7 @@ function unwindAssemblersNeeded(name, mode, main_item_ips, productivity_factor, 
 					result.normal[i_name] = ips_needed / ips
 				end
 				
-				unwindAssemblersNeeded(i_name, "n", ips_needed / res_cnt, productivity_factor, result, plastic_override)
+				unwindAssemblersNeeded(i_name, "n", ips_needed, result, plastic_override)
 			else
 				if result.recip_n[i_name] then
 					result.recip_n[i_name] = result.recip_n[i_name] + math.floor(ips_needed)
@@ -243,10 +281,9 @@ function unwindAssemblersNeeded(name, mode, main_item_ips, productivity_factor, 
 
 			if not has_value(base_recipe_list, i_name) then
 				--Get how many items/second one assembler making this sub-component can crank out
-				local _, ips = computeItemsPerSecond(i_name, plastic_override)
-				ips = ips * productivity_factor
+				local _, ips = computeItemsPerSecond(i_name)
 
-				--WARNING! This will compound with normal above and give a value that's rediculously too high.
+				--WARNING! This will compound with normal above and give a value that's ridiculously too high.
 				--Fix appears to be that no expensive recipes actually use a different amount of fluid.
 				-- if has_value(FLUID_NAMES, i_name) then
 					-- result.fluid_per_second = result.fluid_per_second + ips_needed
@@ -261,16 +298,34 @@ function unwindAssemblersNeeded(name, mode, main_item_ips, productivity_factor, 
 					result.expensive[i_name] = ips_needed / ips
 				end
 				
-				unwindAssemblersNeeded(i_name, "e", ips_needed / res_cnt, productivity_factor, result, plastic_override)
+				unwindAssemblersNeeded(i_name, "e", ips_needed / res_cnt, result, plastic_override)
 			else
 				if result.recip_e[i_name] then
-					result.recip_e[i_name] = result.recip_e[i_name] + math.floor(ips_needed)
+					result.recip_e[i_name] = result.recip_e[i_name] + math.floor(ips_needed / res_cnt)
 				else
-					result.recip_e[i_name] = math.floor(ips_needed)
+					result.recip_e[i_name] = math.floor(ips_needed / res_cnt)
 				end
 			end
 		end
 	end
+end
+
+function createEntityRadar(asif_name, side_length)
+	local new_entity = util.table.deepcopy(data.raw.radar.radar)
+	new_entity.max_distance_of_nearby_sector_revealed = (side_length / 32) + 1
+	new_entity.max_distance_of_sector_revealed = 0
+	new_entity.energy_source = {type = "void"}
+	new_entity.name = asif_name .. "-radar"
+	new_entity.minable = nil
+	new_entity.collision_box = nil
+	new_entity.damaged_trigger_effect = nil
+	new_entity.flags = {"not-blueprintable", "hidden", "hide-alt-info", "placeable-player"}
+	new_entity.integration_patch = nil
+	new_entity.selection_box = nil
+	new_entity.water_reflection = nil
+	new_entity.working_sound = nil
+	new_entity.collision_mask = {}
+	data:extend({new_entity})
 end
 
 function do_dump(o)

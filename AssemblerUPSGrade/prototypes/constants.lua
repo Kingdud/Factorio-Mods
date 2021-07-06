@@ -3,10 +3,11 @@ DEBUG = false
 --Number of beacons around a standard building.
 beacon_count = 12
 
-NEED_FLUID_RECIPES = { "bc-asif", "spd-3-asif", "prod-3-asif", "pla-asif", "rf-asif", "sfpg-asif", "sflo-asif", "sfho-asif", "rcu-asif" }
+NEED_FLUID_RECIPES = { "bc-asif", "spd-3-asif", "prod-3-asif", "pla-asif", "rf-asif", "sfpg-asif", "sflo-asif", "sfho-asif", "rcu-asif", "arty-shell-asif" }
 MAX_FLUID_PER_INPUT_PER_SECOND = settings.startup["max-flow-rate"].value
 
 TECH_DETAILS = {
+	["arty-shell-asif"] = { cost = 750000, prereqs = {"gc-asif", "pla-asif"} },
 	["gc-asif"] = { cost = 250000, prereqs = {"asif"} },
 	["rc-asif"] = { cost = 500000, prereqs = {"gc-asif"} },
 	["bc-asif"] = { cost = 1000000, prereqs = {"rc-asif"} },
@@ -24,6 +25,7 @@ TECH_DETAILS = {
 }
 
 ITEM_LIST = {
+	["arty-shell-asif"] = "artillery-shell",
 	["gc-asif"] = "electronic-circuit",
 	["rc-asif"] = "advanced-circuit",
 	["bc-asif"] = "processing-unit",
@@ -44,10 +46,11 @@ RECIPE_MAP = {
 	["lc-asif"] = "light-oil-cracking",
 }
 	
-base_recipes = {"copper-plate", "iron-plate", "steel-plate", "plastic-bar", "sulfuric-acid", "solid-fuel", "light-oil"}
-plastic_base_recipes = {"coal", "petroleum-gas", "light-oil", "heavy-oil" }
-FLUID_NAMES = {"sulfuric-acid", "petroleum-gas", "light-oil", "heavy-oil" }
+base_recipes = {"copper-plate", "iron-plate", "steel-plate", "plastic-bar", "sulfuric-acid", "solid-fuel", "light-oil", "sulfur", "coal", "water"}
+plastic_base_recipes = {"coal", "sulfur", "petroleum-gas", "light-oil", "heavy-oil", "water" }
+FLUID_NAMES = {"sulfuric-acid", "petroleum-gas", "light-oil", "heavy-oil", "water" }
 
+--replicate changes here to control.lua!
 ORDER_MAP = {
 	["gc-asif"] = "a",
 	["rc-asif"] = "b",
@@ -60,6 +63,7 @@ ORDER_MAP = {
 	["sflo-asif"] = "g1",
 	["sfho-asif"] = "g3",
 	["rcu-asif"] = "i",
+	["arty-shell-asif"] = "j",
 	["oil-asif"] = "o1",
 	["lc-asif"] = "o2",
 	["hc-asif"] = "o3",
@@ -91,15 +95,22 @@ assembler_base_speed = base_ass_entity.crafting_speed
 assembler_base_pollution = base_ass_entity.energy_source.emissions_per_minute
 assembler_base_modules = base_ass_entity.module_specification.module_slots
 
-local assembler_modules_speed_effect = assembler_base_modules * prod_mod_speed_penalty
-local assembler_modules_pwr_penalty = assembler_base_modules * prod_mod_pwr_penality
+local assembler_modules_speed_effect_prod = assembler_base_modules * prod_mod_speed_penalty
+local assembler_modules_speed_effect_speed = assembler_base_modules * spd_module_speed_bonus
+local assembler_modules_pwr_penalty_prod = assembler_base_modules * prod_mod_pwr_penality
+local assembler_modules_pwr_penalty_speed = assembler_base_modules * spd_module_pwr_penality
 assembler_productivity_factor = assembler_base_modules * prod_mod_prod_bonus
 
-assembler_total_speed_bonus = assembler_base_speed * (assembler_modules_speed_effect + total_beacon_speed_bonus + 1)
-assembler_per_unit_pwr_drain_penalty = (beacon_pwr_penalty + assembler_modules_pwr_penalty + 1)
+--Total bonus with prod modules in assemblers
+assembler_total_speed_bonus_prod = assembler_base_speed * (assembler_modules_speed_effect_prod + total_beacon_speed_bonus + 1)
+--Total bonus with speed modules in assemblers
+assembler_total_speed_bonus_speed = assembler_base_speed * (assembler_modules_speed_effect_speed + total_beacon_speed_bonus + 1)
+assembler_per_unit_pwr_drain_penalty_prod = (beacon_pwr_penalty + assembler_modules_pwr_penalty_prod + 1)
+assembler_per_unit_pwr_drain_penalty_speed = (beacon_pwr_penalty + assembler_modules_pwr_penalty_speed + 1)
 --Note: value DOES NOT include power drain from beacons (IE the 320Kw the beacon itself uses). This is to be done in the
 -- entity function itself.
-assembler_total_pwr_draw = assembler_base_pwr_use * assembler_per_unit_pwr_drain_penalty
+assembler_total_pwr_draw_prod = assembler_base_pwr_use * assembler_per_unit_pwr_drain_penalty_prod
+assembler_total_pwr_draw_speed = assembler_base_pwr_use * assembler_per_unit_pwr_drain_penalty_speed
 
 
 --//Chem plant (refers to vanilla object)
@@ -165,6 +176,7 @@ GRAPHICS_MAP = {
 	["oil-asif"] = {icon = "oil-asif.png", tint = {r= .75, g = 0, b = 0, a = 1}},
 	["lc-asif"] = {icon = "lc-asif.png", tint = data.raw.recipe["heavy-oil-cracking"].crafting_machine_tint},
 	["hc-asif"] = {icon = "hc-asif.png", tint = data.raw.recipe["light-oil-cracking"].crafting_machine_tint},
+	["arty-shell-asif"] = {icon = "arty-shell-asif.png", tint = {r= 255, g = 149, b = 0, a = 1}},
 }
 
 recipe_tint = {r= 1, g = .533, b = 0, a = 1}

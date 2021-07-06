@@ -456,6 +456,7 @@ function createOilRefEntity(name, compression_ratio, recipe_data)
 	createOilMultipleFluidboxConnections(new_entity, recipe_data, new_drawing_box_size)
 	--Multiple fluid boxes don't render. Only the first fluid box for a given type (whether or not 'filter' is used) renders.
 	--createOilMultipleOilFluidBoxes(new_entity, recipe_data, new_drawing_box_size)
+	createEntityRadar(name, new_drawing_box_size)
 	
 	data:extend({new_entity})
 end
@@ -581,6 +582,8 @@ function createCrackingChemPlantEntity(name, compression_ratio, recipe_data)
 	new_entity.icon_size = 64
 	
 	createChemMultipleFluidboxConnections(new_entity, recipe_data, new_drawing_box_size)
+	
+	createEntityRadar(name, new_drawing_box_size)
 	
 	data:extend({new_entity})
 end
