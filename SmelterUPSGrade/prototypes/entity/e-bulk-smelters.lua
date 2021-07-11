@@ -1,30 +1,50 @@
 require("prototypes.constants")
 
+function createEntityRadar(smelter_name, side_length)
+	local new_entity = util.table.deepcopy(data.raw.radar.radar)
+	new_entity.max_distance_of_nearby_sector_revealed = (side_length / 32) + 1
+	new_entity.max_distance_of_sector_revealed = 0
+	new_entity.energy_source = {type = "void"}
+	new_entity.name = smelter_name .. "-bs-radar"
+	new_entity.minable = nil
+	new_entity.collision_box = nil
+	new_entity.damaged_trigger_effect = nil
+	new_entity.flags = {"not-blueprintable", "hidden", "hide-alt-info", "placeable-player"}
+	new_entity.integration_patch = nil
+	new_entity.selection_box = nil
+	new_entity.water_reflection = nil
+	new_entity.working_sound = nil
+	new_entity.collision_mask = {}
+	data:extend({new_entity})
+end
+
 function create_entity(e_type)
 	local entity
 	local r_icon
 	local ratio
 	local edge_size = 0
+	local scale_factor = 0
 	
 	if e_type == "smelter" then
 		ratio = settings.startup["smelter-ratio"].value
 		if MAX_BLD_SIZE ~= 0 then
 			edge_size = MAX_BLD_SIZE/2
 		else
-			edge_size = (ratio * 3) / 2
+			--params: bld size, beacons on one side per bld, compression ratio
+			edge_size, scale_factor = getScaleFactors(3, 4, ratio)
 		end
 		
-		entity = create_smelter(edge_size, ratio)
+		entity = create_smelter(edge_size, ratio, scale_factor)
 		r_icon = "__base__/graphics/icons/electric-furnace.png"
 	elseif e_type == "centrifuge" then
 		ratio = settings.startup["centrifuge-ratio"].value
 		if MAX_BLD_SIZE ~= 0 then
 			edge_size = MAX_BLD_SIZE/2
 		else
-			edge_size = (ratio * 3) / 2
+			edge_size, scale_factor = getScaleFactors(3, 4, ratio)
 		end
 		
-		entity = createCentrifuge(edge_size, ratio)
+		entity = createCentrifuge(edge_size, ratio, scale_factor)
 		r_icon = "__base__/graphics/icons/centrifuge.png"
 	end
 	
@@ -54,13 +74,52 @@ function create_entity(e_type)
 	entity.module_specification = {
 		module_slots = 0,
 	}
+
+	createEntityRadar(entity.name, edge_size)
 	
 	data:extend({entity})
 end
 
-function create_smelter(edge_size, ratio)
+function getScaleFactors(base_building_side_len, beacons_on_side, bld_count)
+	--There is a more efficient way to lay out beacons for non-oil processing recipes,
+	-- but I can't be bothered to do the math on it, and it only saves a little bit of space.
+	local new_side_length = 3 * (beacons_on_side-1) * math.sqrt(bld_count) + 3
+	
+	if math.floor(new_side_length) + 0.5 > new_side_length then
+		new_side_length = math.ceil(new_side_length)
+	else
+		new_side_length = math.floor(new_side_length)
+	end
+	
+	--This is done to ensure we always have a slot in the middle for a pipe.
+	if new_side_length % 2 == 0
+	then
+		new_side_length = new_side_length + 1
+	end
+
+	local result_side_len = new_side_length/2
+	
+	--you'd think this would use the whole side length to scale, but for whatever reason, Factorio doesn't.
+	local scale_factor = result_side_len / base_building_side_len
+
+	return result_side_len, scale_factor
+end
+
+function do_dump(o)
+   if type(o) == 'table' then
+      local s = '{ '
+      for k,v in pairs(o) do
+         if type(k) ~= 'number' then k = '"'..k..'"' end
+         s = s .. '['..k..'] = ' .. do_dump(v) .. ','
+      end
+      return s .. '} '
+   else
+      return tostring(o)
+   end
+end
+
+function create_smelter(edge_size, ratio, scale_factor)
 	local entity
-	local scale_factor = BUILDING_SCALE*(edge_size/BUILDING_SCALED_SIZE)
 	
 	entity = table.deepcopy(data.raw.furnace["electric-furnace"])
 	entity.base_productivity = smelter_productivity_factor
@@ -104,7 +163,7 @@ function create_smelter(edge_size, ratio)
 		frame_count = 1,
 		height = 256,
 		priority = "high",
-		scale = scale_factor * .75,
+		scale = scale_factor * 0.749,
 		width = 256,
 	}
 	
@@ -112,9 +171,7 @@ function create_smelter(edge_size, ratio)
 	return entity
 end
 
-function createCentrifuge(edge_size, ratio)
-	local scale_factor = BUILDING_SCALE*(edge_size/BUILDING_SCALED_SIZE)
-	
+function createCentrifuge(edge_size, ratio, scale_factor)	
 	entity = table.deepcopy(data.raw["assembling-machine"]["centrifuge"])
 	entity.base_productivity = centrifuge_productivity_factor
 	entity.crafting_speed = centrifuge_total_speed_bonus
@@ -148,7 +205,7 @@ function createCentrifuge(edge_size, ratio)
 		line_length = 8,
 		height = 256,
 		priority = "high",
-		scale = scale_factor * .75,
+		scale = scale_factor * 0.749,
 		width = 256,
 	}
 	

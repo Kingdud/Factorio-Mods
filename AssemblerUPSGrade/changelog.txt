@@ -3,6 +3,8 @@ Version: 1.110.3
 Date: 7/5/2021
   Changes:
     - Add internal radars to all ASIFs that are just large enough to reveal the entire asif. These radars do not consume power and do not scan nearby sectors.
+  Bugfix:
+    - Identified and fixed a math error causing unlimited buildings to be far too large. Also changed the building size to account for the beacons that would have been around the outside of vanilla structures. In general, buildings are around 1/2 their original size in unconstrained mode (no fixed max size).
 ---------------------------------------------------------------------------------------------------
 Version: 1.110.2
 Date: 6/26/2021

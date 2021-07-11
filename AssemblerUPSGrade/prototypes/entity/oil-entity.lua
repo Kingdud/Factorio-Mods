@@ -4,9 +4,9 @@ require("prototypes.functions")
 --This exists to test the theory of whether you need 1 input per fluid box for max flow, or if you
 -- can get away with one fluidbox that has multiple inputs. This function will be used if it can flow at max.
 function createOilMultipleFluidboxConnections(entity, recipe_data, side_length)
-	local side_length_y = side_length + 0.5
-	local side_length_x = side_length - 0.5
-	
+	local side_length_x = entity.drawing_box[2][1] - 0.5
+	local side_length_y = entity.drawing_box[2][2] + 0.5
+
 	--Pipe layout for inputs: Extreme top and bottom edge.
 	entity.fluid_boxes = nil
 	entity.fluid_boxes = {
@@ -108,8 +108,8 @@ function createOilMultipleFluidboxConnections(entity, recipe_data, side_length)
 end
 
 function createChemMultipleFluidboxConnections(entity, recipe_data, side_length)
-	local side_length_y = side_length + 0.5
-	local side_length_x = side_length - 0.5
+	local side_length_x = entity.drawing_box[2][1] - 0.5
+	local side_length_y = entity.drawing_box[2][2] + 0.5
 	
 	--This makes it so we can directly attach cracking ASIFs to the refinery.
 	if entity.name == "lc-asif"
@@ -342,16 +342,11 @@ function createOilRefEntity(name, compression_ratio, recipe_data)
 	local TUNED_SCALE_FACTOR = 63
 	TUNED_SCALE_FACTOR = TUNED_SCALE_FACTOR/2
 	
-	local new_drawing_box_size = 0
-	if (5 * compression_ratio) % 2 == 0
-	then
-		new_drawing_box_size = (5 * compression_ratio + 1) / 2
-	else
-		new_drawing_box_size = (5 * compression_ratio) / 2
-	end
+	--params: bld size, beacons on one side per bld, compression ratio
+	new_drawing_box_size, scale_factor = getScaleFactors(5, 5, compression_ratio, true)
+
 	local new_collison_size = new_drawing_box_size - 0.3
-	local scale_factor = compression_ratio / 2
-	
+
 	local override_size = settings.startup["max-bld-size"].value
 	local edge_art = nil
 	if override_size ~= 0
@@ -377,13 +372,13 @@ function createOilRefEntity(name, compression_ratio, recipe_data)
 			frame_count = new_entity.animation["north"].layers[1].frame_count,
 			height = 256,
 			priority = "high",
-			scale = scale_factor * 1.25,
+			scale = scale_factor * 1.247,
 			width = 256,
 		}
 	end
-
-	--Reduce scale factor since the original art is actually too large for the entity box.
-	scale_factor = scale_factor - 1
+	
+	--The building is slightly too large overall, so make it a touch smaller.
+	scale_factor = scale_factor - .5
 	
 	for i,_ in pairs(new_entity.working_visualisations) do
 		--flame
@@ -404,8 +399,8 @@ function createOilRefEntity(name, compression_ratio, recipe_data)
 			new_entity.working_visualisations[i]["east_position"][2] = (new_entity.working_visualisations[i]["east_position"][2] - 2.05) * scale_factor
 			
 			--Water input top-right
-			new_entity.working_visualisations[i]["west_position"][1] = (new_entity.working_visualisations[i]["west_position"][1] + 1.75) * scale_factor
-			new_entity.working_visualisations[i]["west_position"][2] = (new_entity.working_visualisations[i]["west_position"][2] - 1.75) * scale_factor
+			new_entity.working_visualisations[i]["west_position"][1] = (new_entity.working_visualisations[i]["west_position"][1] + 1.7) * scale_factor
+			new_entity.working_visualisations[i]["west_position"][2] = (new_entity.working_visualisations[i]["west_position"][2] - 2.05) * scale_factor
 			
 			--Water input top-left
 			new_entity.working_visualisations[i]["south_position"][1] = (new_entity.working_visualisations[i]["south_position"][1] - 1.75) * scale_factor
@@ -416,15 +411,15 @@ function createOilRefEntity(name, compression_ratio, recipe_data)
 				new_entity.working_visualisations[i][dir].scale = scale_factor
 				new_entity.working_visualisations[i][dir].hr_version.scale = scale_factor
 				new_entity.working_visualisations[i][dir].shift[1] = (new_entity.working_visualisations[i][dir].shift[1] - .05) * scale_factor
-				new_entity.working_visualisations[i][dir].shift[2] = (new_entity.working_visualisations[i][dir].shift[2] - 1.7) * scale_factor
+				new_entity.working_visualisations[i][dir].shift[2] = (new_entity.working_visualisations[i][dir].shift[2] - 1.45) * scale_factor
 				new_entity.working_visualisations[i][dir].hr_version.shift[1] = (new_entity.working_visualisations[i][dir].hr_version.shift[1] - .05) * scale_factor -- + is right, - is left
-				new_entity.working_visualisations[i][dir].hr_version.shift[2] = (new_entity.working_visualisations[i][dir].hr_version.shift[2] - 1.7) * scale_factor --+ is down, - is up
+				new_entity.working_visualisations[i][dir].hr_version.shift[2] = (new_entity.working_visualisations[i][dir].hr_version.shift[2] - 1.45) * scale_factor --+ is down, - is up
 
 				--And there's always one fucking snowflake
 				if dir == "west_animation"
 				then
-					new_entity.working_visualisations[i][dir].shift[1] = new_entity.working_visualisations[i][dir].shift[1] * 0.99
-					new_entity.working_visualisations[i][dir].hr_version.shift[1] = new_entity.working_visualisations[i][dir].hr_version.shift[1] * 0.99 -- + is right, - is left
+					new_entity.working_visualisations[i][dir].shift[1] = new_entity.working_visualisations[i][dir].shift[1] + (-0.125 * scale_factor )
+					new_entity.working_visualisations[i][dir].hr_version.shift[1] = new_entity.working_visualisations[i][dir].hr_version.shift[1] + (-0.125 * scale_factor ) -- + is right, - is left
 				end
 			end
 		end
@@ -436,9 +431,9 @@ function createOilRefEntity(name, compression_ratio, recipe_data)
 	for _,dir in pairs({"north","east","south","west"}) do
 		for i,_ in pairs(new_entity.animation[dir].layers) do
 			-- new_entity.animation[dir].layers[i].shift[1] = new_entity.animation[dir].layers[i].shift[1] * scale_factor
-			new_entity.animation[dir].layers[i].shift[2] = new_entity.animation[dir].layers[i].shift[2] + (-4.5*(scale_factor/TUNED_SCALE_FACTOR))
+			new_entity.animation[dir].layers[i].shift[2] = new_entity.animation[dir].layers[i].shift[2] + (-2.5*(scale_factor/TUNED_SCALE_FACTOR))
 			-- new_entity.animation[dir].layers[i].hr_version.shift[1] = new_entity.animation[dir].layers[i].hr_version.shift[1] * scale_factor
-			new_entity.animation[dir].layers[i].hr_version.shift[2] = new_entity.animation[dir].layers[i].hr_version.shift[2] + (-4.5*(scale_factor/TUNED_SCALE_FACTOR))
+			new_entity.animation[dir].layers[i].hr_version.shift[2] = new_entity.animation[dir].layers[i].hr_version.shift[2] + (-2.5*(scale_factor/TUNED_SCALE_FACTOR))
 			new_entity.animation[dir].layers[i].scale = scale_factor
 			new_entity.animation[dir].layers[i].hr_version.scale = scale_factor
 		end
@@ -446,7 +441,7 @@ function createOilRefEntity(name, compression_ratio, recipe_data)
 	end
 	
 	new_entity.collision_box = { {-1*new_collison_size, -1*new_collison_size}, {new_collison_size,new_collison_size} }
-	new_entity.drawing_box = { {-1*new_drawing_box_size, -1*(new_drawing_box_size+.2)}, {new_drawing_box_size,new_drawing_box_size} }
+	new_entity.drawing_box = { {-1*new_drawing_box_size, -1*new_drawing_box_size}, {new_drawing_box_size,new_drawing_box_size} }
 	new_entity.selection_box = { {-1*new_drawing_box_size, -1*new_drawing_box_size}, {new_drawing_box_size,new_drawing_box_size} }
 	
 	new_entity.icon = "__AssemblerUPSGrade__/graphics/" .. GRAPHICS_MAP[name].icon
@@ -488,15 +483,13 @@ function createCrackingChemPlantEntity(name, compression_ratio, recipe_data)
 	TUNED_SCALE_FACTOR = TUNED_SCALE_FACTOR/2
 	
 	local new_drawing_box_size = 0
-	if (3 * compression_ratio) % 2 == 0
-	then
-		new_drawing_box_size = (3 * compression_ratio + 1) / 2
-	else
-		new_drawing_box_size = (3 * compression_ratio) / 2
-	end
-	local new_collison_size = new_drawing_box_size - 0.3
-	local scale_factor = compression_ratio / 2
+	local scale_factor = 0
 	
+	--params: bld size, beacons on one side per bld, compression ratio
+	new_drawing_box_size, scale_factor = getScaleFactors(3, 4, compression_ratio, true)
+
+	local new_collison_size = new_drawing_box_size - 0.3
+
 	local override_size = settings.startup["max-bld-size"].value
 	if override_size ~= 0
 	then
@@ -520,20 +513,32 @@ function createCrackingChemPlantEntity(name, compression_ratio, recipe_data)
 	for i,_ in pairs(new_entity.working_visualisations) do
 		--smokestack
 		if new_entity.working_visualisations[i].animation then
+			--All offsets taken with water in the bottom-right corner.
 			new_entity.working_visualisations[i].animation.scale = scale_factor
 			new_entity.working_visualisations[i].animation.hr_version.scale = scale_factor
-			new_entity.working_visualisations[i].animation.shift[1] = (new_entity.working_visualisations[i].animation.shift[1] + .1) * scale_factor  -- + is right, - is left
-			new_entity.working_visualisations[i].animation.shift[2] = (new_entity.working_visualisations[i].animation.shift[2] + .26) * scale_factor --+ is down, - is up
-			new_entity.working_visualisations[i].animation.hr_version.shift[1] = (new_entity.working_visualisations[i].animation.hr_version.shift[1] + .1) * scale_factor
-			new_entity.working_visualisations[i].animation.hr_version.shift[2] = (new_entity.working_visualisations[i].animation.hr_version.shift[2] + .26) * scale_factor
+			new_entity.working_visualisations[i].animation.shift[1] = (new_entity.working_visualisations[i].animation.shift[1]) * scale_factor  --+ is right, - is left
+			new_entity.working_visualisations[i].animation.shift[2] = (new_entity.working_visualisations[i].animation.shift[2] + .35) * scale_factor --+ is down, - is up
+			new_entity.working_visualisations[i].animation.hr_version.shift[1] = (new_entity.working_visualisations[i].animation.hr_version.shift[1]) * scale_factor
+			new_entity.working_visualisations[i].animation.hr_version.shift[2] = (new_entity.working_visualisations[i].animation.hr_version.shift[2] + .35) * scale_factor
 			
 			for _, dir in pairs({"north_position","east_position","west_position","south_position"}) do
-				new_entity.working_visualisations[i][dir][1] = new_entity.working_visualisations[i][dir][1] * scale_factor * 2 - 0.5
-				--For reasons that are unclear to me, the outside smoke animation needs a little extra bump north for some reason.
-				if i == 3 then
-					new_entity.working_visualisations[i][dir][2] = new_entity.working_visualisations[i][dir][2] * scale_factor * 2.25 - 0.5
+				--And, for reasons unknown, west continues to be a problem.
+				if dir == "north_position" then
+					new_entity.working_visualisations[i][dir][1] = (new_entity.working_visualisations[i][dir][1] * 2 + .1) * scale_factor
+					--For reasons that are unclear to me, the outside smoke animation needs a little extra bump north for some reason.
+					if i == 3 then
+						new_entity.working_visualisations[i][dir][2] = (new_entity.working_visualisations[i][dir][2] * 2.25) * scale_factor
+					else
+						new_entity.working_visualisations[i][dir][2] = (new_entity.working_visualisations[i][dir][2] * 2) * scale_factor
+					end
 				else
-					new_entity.working_visualisations[i][dir][2] = new_entity.working_visualisations[i][dir][2] * scale_factor * 2 - 0.5
+					new_entity.working_visualisations[i][dir][1] = (new_entity.working_visualisations[i][dir][1] * 2 - .2) * scale_factor  --+ is right, - is left
+					--For reasons that are unclear to me, the outside smoke animation needs a little extra bump north for some reason.
+					if i == 3 then
+						new_entity.working_visualisations[i][dir][2] = (new_entity.working_visualisations[i][dir][2] * 2.25 - .1) * scale_factor --+ is down, - is up
+					else
+						new_entity.working_visualisations[i][dir][2] = (new_entity.working_visualisations[i][dir][2] * 2 - .1) * scale_factor --+ is down, - is up
+					end
 				end
 			end
 		else
@@ -541,10 +546,19 @@ function createCrackingChemPlantEntity(name, compression_ratio, recipe_data)
 			for _, dir in pairs({"north_animation","east_animation","west_animation","south_animation"}) do
 				new_entity.working_visualisations[i][dir].scale = scale_factor
 				new_entity.working_visualisations[i][dir].hr_version.scale = scale_factor
-				new_entity.working_visualisations[i][dir].shift[1] = (new_entity.working_visualisations[i][dir].shift[1] + .5) * scale_factor
-				new_entity.working_visualisations[i][dir].shift[2] = (new_entity.working_visualisations[i][dir].shift[2] + .4) * scale_factor
-				new_entity.working_visualisations[i][dir].hr_version.shift[1] = (new_entity.working_visualisations[i][dir].hr_version.shift[1] + .5) * scale_factor
-				new_entity.working_visualisations[i][dir].hr_version.shift[2] = (new_entity.working_visualisations[i][dir].hr_version.shift[2] + .4) * scale_factor
+
+				--And, for reasons unknown, east is out of alignment with the other animations.
+				if dir == "north_animation" then
+					new_entity.working_visualisations[i][dir].shift[1] = (new_entity.working_visualisations[i][dir].shift[1] + .5) * scale_factor
+					new_entity.working_visualisations[i][dir].shift[2] = (new_entity.working_visualisations[i][dir].shift[2] + .4) * scale_factor
+					new_entity.working_visualisations[i][dir].hr_version.shift[1] = (new_entity.working_visualisations[i][dir].hr_version.shift[1] + .5) * scale_factor
+					new_entity.working_visualisations[i][dir].hr_version.shift[2] = (new_entity.working_visualisations[i][dir].hr_version.shift[2] + .4) * scale_factor
+				else
+					new_entity.working_visualisations[i][dir].shift[1] = (new_entity.working_visualisations[i][dir].shift[1] + .1) * scale_factor --+ is right, - is left
+					new_entity.working_visualisations[i][dir].shift[2] = (new_entity.working_visualisations[i][dir].shift[2] + .6) * scale_factor --+ is down, - is up
+					new_entity.working_visualisations[i][dir].hr_version.shift[1] = (new_entity.working_visualisations[i][dir].hr_version.shift[1] + .1) * scale_factor
+					new_entity.working_visualisations[i][dir].hr_version.shift[2] = (new_entity.working_visualisations[i][dir].hr_version.shift[2] + .6) * scale_factor
+				end
 			end
 		end
 	end
@@ -568,7 +582,7 @@ function createCrackingChemPlantEntity(name, compression_ratio, recipe_data)
 	end
 	
 	new_entity.collision_box = { {-1*new_collison_size, -1*new_collison_size}, {new_collison_size,new_collison_size} }
-	new_entity.drawing_box = { {-1*new_drawing_box_size, -1*(new_drawing_box_size+.2)}, {new_drawing_box_size,new_drawing_box_size} }
+	new_entity.drawing_box = { {-1*new_drawing_box_size, -1*(new_drawing_box_size)}, {new_drawing_box_size,new_drawing_box_size} }
 	new_entity.selection_box = { {-1*new_drawing_box_size, -1*new_drawing_box_size}, {new_drawing_box_size,new_drawing_box_size} }
 	
 	new_entity.icon = "__AssemblerUPSGrade__/graphics/" .. GRAPHICS_MAP[name].icon

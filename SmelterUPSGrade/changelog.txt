@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.110.4
+Date: 7/6/2021
+  Changes:
+    - Add internal radar to reveal the entire smelter entity. May also reveal a tiny surrounding area. Radar consumes no power.
+  Bugfix:
+    - Identified and fixed a math error causing unlimited buildings to be far too large. Also changed the building size to account for the beacons that would have been around the outside of vanilla structures. Beacons do not use the optimal approach as that is difficult to calculate; instead, I assume a simpler square beacon layout. So your hand-built designs may be around 12.5% smaller in terms of land area than the bulk smelter. The buildings are now around 1/10th their previous size. My math mistake was quite bad. Sorry. >.<
+---------------------------------------------------------------------------------------------------
 Version: 1.110.3
 Date: 6/21/2021
   Bugfix:

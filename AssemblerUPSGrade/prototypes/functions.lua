@@ -328,6 +328,31 @@ function createEntityRadar(asif_name, side_length)
 	data:extend({new_entity})
 end
 
+function getScaleFactors(base_building_side_len, beacons_on_side, bld_count)
+	--There is a more efficient way to lay out beacons for non-oil processing recipes,
+	-- but I can't be bothered to do the math on it, and it only saves a little bit of space.
+	local new_side_length = 3 * (beacons_on_side-1) * math.sqrt(bld_count) + 3
+	
+	if math.floor(new_side_length) + 0.5 > new_side_length then
+		new_side_length = math.ceil(new_side_length)
+	else
+		new_side_length = math.floor(new_side_length)
+	end
+	
+	--This is done to ensure we always have a slot in the middle for a pipe.
+	if new_side_length % 2 == 0
+	then
+		new_side_length = new_side_length + 1
+	end
+
+	local result_side_len = new_side_length/2
+	
+	--you'd think this would use the whole side length to scale, but for whatever reason, Factorio doesn't.
+	local scale_factor = result_side_len / base_building_side_len
+
+	return result_side_len, scale_factor
+end
+
 function do_dump(o)
    if type(o) == 'table' then
       local s = '{ '

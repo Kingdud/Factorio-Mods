@@ -70,6 +70,14 @@ function updateAssFluidBoxes(new_entity, assemblers, half_side_len, fluid_per_se
 			::try_next_pipe::
 		end
 	end
+	
+	if DEBUG then
+		for idx, box in pairs(new_entity.fluid_boxes) do
+			if type(box) == "table" then
+				log("Debug " .. new_entity.name .. " connections " .. idx .. " " .. do_dump(box.pipe_connections))
+			end
+		end
+	end
 end
 
 function createAssemblerEntity(name, compression_ratio, n_ass, e_ass, fluid_per_second)
@@ -101,14 +109,12 @@ function createAssemblerEntity(name, compression_ratio, n_ass, e_ass, fluid_per_
 	new_entity.minable.result = name
 	
 	local new_drawing_box_size = 0
-	if (3 * n_ass) % 2 == 0
-	then
-		new_drawing_box_size = (3 * n_ass + 1) / 2
-	else
-		new_drawing_box_size = (3 * n_ass) / 2
-	end
+	local scale_factor = 0
+	
+	--params: bld size, beacons on one side per bld, compression ratio
+	new_drawing_box_size, scale_factor = getScaleFactors(3, 4, n_ass)
+	
 	local new_collison_size = new_drawing_box_size - 0.3
-	local scale_factor = n_ass / 1.875
 	
 	local override_size = settings.startup["max-bld-size"].value
 	if override_size ~= 0
@@ -117,14 +123,15 @@ function createAssemblerEntity(name, compression_ratio, n_ass, e_ass, fluid_per_
 		new_collison_size = new_drawing_box_size - 0.3
 		scale_factor = override_size / 3 / 1.875
 	end
-	
+
+	local scale_adjust = 1.05
 	new_entity.alert_icon_shift[1] = new_entity.alert_icon_shift[1] * scale_factor
 	new_entity.alert_icon_shift[2] = new_entity.alert_icon_shift[2] * scale_factor
 	new_entity.alert_icon_scale = scale_factor
 	for i,_ in pairs(new_entity.animation.layers)
 	do
-		new_entity.animation.layers[i].scale = scale_factor
-		new_entity.animation.layers[i].hr_version.scale = scale_factor
+		new_entity.animation.layers[i].scale = scale_factor * scale_adjust
+		new_entity.animation.layers[i].hr_version.scale = scale_factor * scale_adjust
 		
 		if new_entity.animation.layers[i].hr_version.filename == "__base__/graphics/entity/assembling-machine-3/hr-assembling-machine-3.png" then
 			new_entity.animation.layers[i].hr_version.filename = "__AssemblerUPSGrade__/graphics/entity/assembler-model.png"
@@ -133,7 +140,7 @@ function createAssemblerEntity(name, compression_ratio, n_ass, e_ass, fluid_per_
 	end
 	
 	new_entity.collision_box = { {-1*new_collison_size, -1*new_collison_size}, {new_collison_size,new_collison_size} }
-	new_entity.drawing_box = { {-1*new_drawing_box_size, -1*(new_drawing_box_size+.2)}, {new_drawing_box_size,new_drawing_box_size} }
+	new_entity.drawing_box = { {-1*new_drawing_box_size, -1*(new_drawing_box_size)}, {new_drawing_box_size,new_drawing_box_size} }
 	new_entity.selection_box = { {-1*new_drawing_box_size, -1*new_drawing_box_size}, {new_drawing_box_size,new_drawing_box_size} }
 	
 	new_entity.icon = "__AssemblerUPSGrade__/graphics/" .. GRAPHICS_MAP[name].icon
@@ -159,7 +166,7 @@ function createAssemblerEntity(name, compression_ratio, n_ass, e_ass, fluid_per_
 		line_length = new_entity.animation.layers[1].line_length,
 		height = 256,
 		priority = "high",
-		scale = scale_factor * .7025,
+		scale = scale_factor * .75,
 		width = 256,
 	}
 	table.insert(new_entity.animation.layers, edge_art)
@@ -170,7 +177,7 @@ function createAssemblerEntity(name, compression_ratio, n_ass, e_ass, fluid_per_
 		line_length = new_entity.animation.layers[1].line_length,
 		height = 237,
 		priority = "high",
-		scale = scale_factor,
+		scale = scale_factor * scale_adjust,
 		width = 214,
 		tint = GRAPHICS_MAP[name].tint,
 		flags = {"mask"},
@@ -326,19 +333,13 @@ function createChemPlantEntity(name, compression_ratio, n_chem, e_chem, fluid_pe
 	new_entity.fast_replaceable_group = name
 	new_entity.minable.result = name
 	
-	--If you tuned a chem plant with a compression_ratio of 27, then enter '27' here.
-	local TUNED_SCALE_FACTOR = 27
-	TUNED_SCALE_FACTOR = TUNED_SCALE_FACTOR/2
-	
 	local new_drawing_box_size = 0
-	if (3 * n_chem) % 2 == 0
-	then
-		new_drawing_box_size = (3 * n_chem + 1) / 2
-	else
-		new_drawing_box_size = (3 * n_chem) / 2
-	end
+	local scale_factor = 0
+	
+	--params: bld size, beacons on one side per bld, compression ratio
+	new_drawing_box_size, scale_factor = getScaleFactors(3, 4, n_chem)
+	
 	local new_collison_size = new_drawing_box_size - 0.3
-	local scale_factor = n_chem / 2
 	
 	local override_size = settings.startup["max-bld-size"].value
 	if override_size ~= 0
@@ -363,30 +364,52 @@ function createChemPlantEntity(name, compression_ratio, n_chem, e_chem, fluid_pe
 	for i,_ in pairs(new_entity.working_visualisations) do
 		--smokestack
 		if new_entity.working_visualisations[i].animation then
+			--All offsets taken with water in the bottom-right corner.
 			new_entity.working_visualisations[i].animation.scale = scale_factor
 			new_entity.working_visualisations[i].animation.hr_version.scale = scale_factor
-			new_entity.working_visualisations[i].animation.shift[1] = (new_entity.working_visualisations[i].animation.shift[1] + .1) * scale_factor  -- + is right, - is left
-			new_entity.working_visualisations[i].animation.shift[2] = (new_entity.working_visualisations[i].animation.shift[2] + .26) * scale_factor --+ is down, - is up
-			new_entity.working_visualisations[i].animation.hr_version.shift[1] = (new_entity.working_visualisations[i].animation.hr_version.shift[1] + .1) * scale_factor
-			new_entity.working_visualisations[i].animation.hr_version.shift[2] = (new_entity.working_visualisations[i].animation.hr_version.shift[2] + .26) * scale_factor
+			new_entity.working_visualisations[i].animation.shift[1] = (new_entity.working_visualisations[i].animation.shift[1]) * scale_factor  --+ is right, - is left
+			new_entity.working_visualisations[i].animation.shift[2] = (new_entity.working_visualisations[i].animation.shift[2] + .35) * scale_factor --+ is down, - is up
+			new_entity.working_visualisations[i].animation.hr_version.shift[1] = (new_entity.working_visualisations[i].animation.hr_version.shift[1]) * scale_factor
+			new_entity.working_visualisations[i].animation.hr_version.shift[2] = (new_entity.working_visualisations[i].animation.hr_version.shift[2] + .35) * scale_factor
 			
 			for _, dir in pairs({"north_position","east_position","west_position","south_position"}) do
-				new_entity.working_visualisations[i][dir][1] = new_entity.working_visualisations[i][dir][1] * scale_factor * 2 - 0.5
-				--For reasons that are unclear to me, the outside smoke animation needs a little extra bump north for some reason.
-				if i == 3 then
-					new_entity.working_visualisations[i][dir][2] = new_entity.working_visualisations[i][dir][2] * scale_factor * 2.25 - 0.5
+				--And, for reasons unknown, west continues to be a problem.
+				if dir == "north_position" then
+					new_entity.working_visualisations[i][dir][1] = (new_entity.working_visualisations[i][dir][1] * 2 + .1) * scale_factor
+					--For reasons that are unclear to me, the outside smoke animation needs a little extra bump north for some reason.
+					if i == 3 then
+						new_entity.working_visualisations[i][dir][2] = (new_entity.working_visualisations[i][dir][2] * 2.25) * scale_factor
+					else
+						new_entity.working_visualisations[i][dir][2] = (new_entity.working_visualisations[i][dir][2] * 2) * scale_factor
+					end
 				else
-					new_entity.working_visualisations[i][dir][2] = new_entity.working_visualisations[i][dir][2] * scale_factor * 2 - 0.5
+					new_entity.working_visualisations[i][dir][1] = (new_entity.working_visualisations[i][dir][1] * 2 - .2) * scale_factor  --+ is right, - is left
+					--For reasons that are unclear to me, the outside smoke animation needs a little extra bump north for some reason.
+					if i == 3 then
+						new_entity.working_visualisations[i][dir][2] = (new_entity.working_visualisations[i][dir][2] * 2.25 - .1) * scale_factor --+ is down, - is up
+					else
+						new_entity.working_visualisations[i][dir][2] = (new_entity.working_visualisations[i][dir][2] * 2 - .1) * scale_factor --+ is down, - is up
+					end
 				end
 			end
 		else
+			--Mixing window
 			for _, dir in pairs({"north_animation","east_animation","west_animation","south_animation"}) do
 				new_entity.working_visualisations[i][dir].scale = scale_factor
 				new_entity.working_visualisations[i][dir].hr_version.scale = scale_factor
-				new_entity.working_visualisations[i][dir].shift[1] = (new_entity.working_visualisations[i][dir].shift[1] + .5) * scale_factor
-				new_entity.working_visualisations[i][dir].shift[2] = (new_entity.working_visualisations[i][dir].shift[2] + .4) * scale_factor
-				new_entity.working_visualisations[i][dir].hr_version.shift[1] = (new_entity.working_visualisations[i][dir].hr_version.shift[1] + .5) * scale_factor
-				new_entity.working_visualisations[i][dir].hr_version.shift[2] = (new_entity.working_visualisations[i][dir].hr_version.shift[2] + .4) * scale_factor
+
+				--And, for reasons unknown, east is out of alignment with the other animations.
+				if dir == "north_animation" then
+					new_entity.working_visualisations[i][dir].shift[1] = (new_entity.working_visualisations[i][dir].shift[1] + .5) * scale_factor
+					new_entity.working_visualisations[i][dir].shift[2] = (new_entity.working_visualisations[i][dir].shift[2] + .4) * scale_factor
+					new_entity.working_visualisations[i][dir].hr_version.shift[1] = (new_entity.working_visualisations[i][dir].hr_version.shift[1] + .5) * scale_factor
+					new_entity.working_visualisations[i][dir].hr_version.shift[2] = (new_entity.working_visualisations[i][dir].hr_version.shift[2] + .4) * scale_factor
+				else
+					new_entity.working_visualisations[i][dir].shift[1] = (new_entity.working_visualisations[i][dir].shift[1] + .1) * scale_factor --+ is right, - is left
+					new_entity.working_visualisations[i][dir].shift[2] = (new_entity.working_visualisations[i][dir].shift[2] + .6) * scale_factor --+ is down, - is up
+					new_entity.working_visualisations[i][dir].hr_version.shift[1] = (new_entity.working_visualisations[i][dir].hr_version.shift[1] + .1) * scale_factor
+					new_entity.working_visualisations[i][dir].hr_version.shift[2] = (new_entity.working_visualisations[i][dir].hr_version.shift[2] + .6) * scale_factor
+				end
 			end
 		end
 	end
@@ -401,9 +424,9 @@ function createChemPlantEntity(name, compression_ratio, n_chem, e_chem, fluid_pe
 		for i,_ in pairs(new_entity.animation[dir].layers)
 		do
 			-- new_entity.animation[dir].layers[i].shift[1] = new_entity.animation[dir].layers[i].shift[1] * scale_factor
-			new_entity.animation[dir].layers[i].shift[2] = new_entity.animation[dir].layers[i].shift[2] - (1.5*(scale_factor/TUNED_SCALE_FACTOR))
+			new_entity.animation[dir].layers[i].shift[2] = new_entity.animation[dir].layers[i].shift[2] - (.1*scale_factor)
 			-- new_entity.animation[dir].layers[i].hr_version.shift[1] = new_entity.animation[dir].layers[i].hr_version.shift[1] * scale_factor
-			new_entity.animation[dir].layers[i].hr_version.shift[2] = new_entity.animation[dir].layers[i].hr_version.shift[2] - (1.5*(scale_factor/TUNED_SCALE_FACTOR))
+			new_entity.animation[dir].layers[i].hr_version.shift[2] = new_entity.animation[dir].layers[i].hr_version.shift[2] - (.1*scale_factor)
 			new_entity.animation[dir].layers[i].scale = scale_factor
 			new_entity.animation[dir].layers[i].hr_version.scale = scale_factor
 		end
@@ -411,8 +434,12 @@ function createChemPlantEntity(name, compression_ratio, n_chem, e_chem, fluid_pe
 	end
 	
 	new_entity.collision_box = { {-1*new_collison_size, -1*new_collison_size}, {new_collison_size,new_collison_size} }
-	new_entity.drawing_box = { {-1*new_drawing_box_size, -1*(new_drawing_box_size+.2)}, {new_drawing_box_size,new_drawing_box_size} }
+	new_entity.drawing_box = { {-1*new_drawing_box_size, -1*(new_drawing_box_size)}, {new_drawing_box_size,new_drawing_box_size} }
 	new_entity.selection_box = { {-1*new_drawing_box_size, -1*new_drawing_box_size}, {new_drawing_box_size,new_drawing_box_size} }
+	
+	if DEBUG then
+		log("Debug bld size " .. do_dump(new_entity.collision_box))
+	end
 	
 	new_entity.icon = "__AssemblerUPSGrade__/graphics/" .. GRAPHICS_MAP[name].icon
 	-- new_entity.icons = {
