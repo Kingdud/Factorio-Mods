@@ -139,3 +139,19 @@ u238_gj_per_kg_fast = 80620
 u238_gj_per_kg_thermal = 1684.2
 --recipe for base fuel cell is 19 238, 1 235 for 10 cells.
 data.raw.item["uranium-fuel-cell"].fuel_value = (u235_gj_per_kg + 19 * u238_gj_per_kg_fast)/10 .. "GJ"
+
+--Enhance Artillery shells.
+local arty_ammo_bonus = settings.startup["arty-ammo-hold-bonus"].value
+local arty_rotation_speed_bonus = settings.startup["arty-rotation-speed-bonus"].value / 100 + 1
+
+local new_hold = data.raw["artillery-turret"]["artillery-turret"]["automated_ammo_count"]
+data.raw["artillery-turret"]["artillery-turret"]["automated_ammo_count"] = new_hold + arty_ammo_bonus
+new_hold = data.raw["artillery-turret"]["artillery-turret"]["ammo_stack_limit"]
+data.raw["artillery-turret"]["artillery-turret"]["ammo_stack_limit"] = new_hold + arty_ammo_bonus
+
+local orig_speed = data.raw["artillery-turret"]["artillery-turret"]["turret_rotation_speed"]
+data.raw["artillery-turret"]["artillery-turret"]["turret_rotation_speed"] = orig_speed * arty_rotation_speed_bonus
+orig_speed = data.raw["artillery-turret"]["artillery-turret"]["turn_after_shooting_cooldown"]
+data.raw["artillery-turret"]["artillery-turret"]["turn_after_shooting_cooldown"] = math.ceil(orig_speed / arty_rotation_speed_bonus)
+orig_speed = data.raw["artillery-turret"]["artillery-turret"]["cannon_parking_speed"]
+data.raw["artillery-turret"]["artillery-turret"]["cannon_parking_speed"] = orig_speed * arty_rotation_speed_bonus

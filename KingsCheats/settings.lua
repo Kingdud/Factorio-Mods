@@ -22,4 +22,22 @@ data:extend{
 		default_value = 1,
 		order = "a",
 	},
+	{
+		type = "int-setting",
+		name = "arty-ammo-hold-bonus",
+		setting_type = "startup",
+		minimum_value = 0,
+		maximum_value = 1000,
+		default_value = 0,
+		order = "a",
+	},
+	{
+		type = "int-setting",
+		name = "arty-rotation-speed-bonus",
+		setting_type = "startup",
+		minimum_value = 0,
+		maximum_value = 1000,
+		default_value = 0,
+		order = "a",
+	},
 }

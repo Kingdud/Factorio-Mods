@@ -1,4 +1,10 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.110.5
+Date: 6/22/2021
+  Changes:
+    - Give Artillery turrets greater storage capacity via setting.
+    - Give Artillery turrets faster rotation, via setting. Both changes done to help high fire rate turrets (>2 rounds/second) maintain continuous fire.
+---------------------------------------------------------------------------------------------------
 Version: 1.110.4
 Date: 6/22/2021
   Changes:
