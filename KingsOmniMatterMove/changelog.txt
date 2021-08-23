@@ -1,0 +1,8 @@
+---------------------------------------------------------------------------------------------------
+Version: 1.110.0
+Date: 8/21/2021
+  Info:
+    - Forked from OmniMatterMover version 1.1.2
+  Features:
+    - Ore fields will now auto-combine into a large ore field, rather than give an error about the other field being in the way.
+    - Oil fields will automatically lay themselves out into straight spaced rows. IRL, oil fields can be tapped basically anywhere, so being able to place your wells where you want them is realistic...I think.
