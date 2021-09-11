@@ -11,6 +11,7 @@ TECH_DETAILS = {
 	["gc-asif"] = { cost = 250000, prereqs = {"asif"} },
 	["rc-asif"] = { cost = 500000, prereqs = {"gc-asif"} },
 	["bc-asif"] = { cost = 1000000, prereqs = {"rc-asif"} },
+	["beacon-asif"] = { cost = 1000000, prereqs = {"rc-asif"} },
 	["lds-asif"] = { cost = 500000, prereqs = {"asif"} },
 	["eng-asif"] = { cost = 500000, prereqs = {"asif"} },
 	["pla-asif"] = { cost = 500000, prereqs = {"asif"} },
@@ -40,6 +41,7 @@ ITEM_LIST = {
 	["spd-3-asif"] = "speed-module-3",
 	["prod-3-asif"] = "productivity-module-3",
 	["eff-3-asif"] = "effectivity-module-3",
+	["beacon-asif"] = "beacon",
 }
 RECIPE_MAP = {
 	["hc-asif"] = "heavy-oil-cracking",
@@ -70,6 +72,7 @@ ORDER_MAP = {
 	["spd-3-asif"] = "z1",
 	["prod-3-asif"] = "z2",
 	["eff-3-asif"] = "z3",
+	["beacon-asif"] = "z4",
 }
 
 --//modules (level 3)
@@ -177,6 +180,7 @@ GRAPHICS_MAP = {
 	["lc-asif"] = {icon = "lc-asif.png", tint = data.raw.recipe["heavy-oil-cracking"].crafting_machine_tint.primary},
 	["hc-asif"] = {icon = "hc-asif.png", tint = data.raw.recipe["light-oil-cracking"].crafting_machine_tint.primary},
 	["arty-shell-asif"] = {icon = "arty-shell-asif.png", tint = {r= 255, g = 149, b = 0, a = 255}},
+	["beacon-asif"] = {icon = "beacon-asif.png", tint = {r= 156, g = 99, b = 66, a = 255}},
 }
 
 recipe_tint = {r= 1, g = .533, b = 0, a = 1}

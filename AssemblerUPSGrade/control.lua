@@ -17,6 +17,7 @@ ORDER_MAP = {
 	["spd-3-asif"] = "z1",
 	["prod-3-asif"] = "z2",
 	["eff-3-asif"] = "z3",
+	["beacon-asif"] = "z4",
 }
 
 function remove_radars()

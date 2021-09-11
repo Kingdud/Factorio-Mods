@@ -1,3 +1,7 @@
+Version: 1.110.5
+Date: 9/11/2021
+  Changes:
+    - Added beacon ASIF, since building beacons at a scale of ~60 assemblers takes around 400 buildings to pull off.
 ---------------------------------------------------------------------------------------------------
 Version: 1.110.4
 Date: 9/8/2021
