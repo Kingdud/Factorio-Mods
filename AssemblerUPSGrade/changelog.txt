@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.110.4
+Date: 9/8/2021
+  Changes:
+    - Add setting (default: on) for ASIFs to have their own map colors. No more wondering which massive blue square does what! They're color coded now! Note: Existing buildings will not fully re-color until removed and replaced. This is a Factorio limitation.
+  Bugfix:
+    - Fixed interop issue with Smelter UPSGrade where this mod would cause the radars inside smelters to be deleted due to a naming conflict.
+---------------------------------------------------------------------------------------------------
 Version: 1.110.3
 Date: 7/5/2021
   Changes:

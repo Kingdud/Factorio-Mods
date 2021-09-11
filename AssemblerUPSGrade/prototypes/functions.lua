@@ -315,7 +315,7 @@ function createEntityRadar(asif_name, side_length)
 	new_entity.max_distance_of_nearby_sector_revealed = (side_length / 32) + 1
 	new_entity.max_distance_of_sector_revealed = 0
 	new_entity.energy_source = {type = "void"}
-	new_entity.name = asif_name .. "-radar"
+	new_entity.name = asif_name .. "-ass-radar"
 	new_entity.minable = nil
 	new_entity.collision_box = nil
 	new_entity.damaged_trigger_effect = nil

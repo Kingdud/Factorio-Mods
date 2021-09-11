@@ -26,7 +26,7 @@ function remove_radars()
 	
 	for _, surface in pairs(game.surfaces) do
 		for _, entity in pairs(surface.find_entities_filtered{type= "radar"}) do
-			if entity.name:sub(-string.len("-radar")) == "-radar" then
+			if entity.name:sub(-string.len("-ass-radar")) == "-ass-radar" then
 				entity.destroy()
 			end
 		end
@@ -61,7 +61,7 @@ function init_radar(asif)
 	end
 	
 	local position = asif.position
-	local new_radar = asif.surface.create_entity{name = asif.name.."-radar", position = {position.x, position.y }, force = "player"}
+	local new_radar = asif.surface.create_entity{name = asif.name.."-ass-radar", position = {position.x, position.y }, force = "player"}
 	global.radars[asif.unit_number]=new_radar
 end
 

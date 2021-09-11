@@ -26,4 +26,11 @@ data:extend{
 	default_value = 25,
     order = "z",
   },
+  {
+	type = "bool-setting",
+	name = "smelt-alt-map-color",
+	setting_type = "startup",
+	default_value = true,
+	order = "z1",
+  },
 }

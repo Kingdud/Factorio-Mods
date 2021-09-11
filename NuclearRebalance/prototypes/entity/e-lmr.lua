@@ -73,6 +73,7 @@ data:extend({
 			"placeable-neutral",
 			"player-creation"
 		},
+		map_color = {196, 196, 196, 255},
 		--For sanity's sake, the animation direction is based on which way the reactor hall hall is pointing (since the turbine hall is in the middle).
 		--Unlike the LWR, this needs to be scaled by 1.4 in the Y direction (north/south) but 1.3 in the X direction (E/W). Not sure why.
 		animation = {

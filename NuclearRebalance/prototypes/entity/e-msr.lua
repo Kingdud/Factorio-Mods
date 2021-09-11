@@ -50,6 +50,7 @@ data:extend({
 			emissions_per_minute = 5,
 			usage_priority = "primary-output"
 		},
+		map_color = {119, 255, 56, 255},
 		fast_replaceable_group = "msr",
 		flags = {
 			"placeable-neutral",

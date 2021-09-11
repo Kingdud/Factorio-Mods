@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.110.5
+Date: 9/8/2021
+  Changes:
+    - Added option (default: on) to set building map color to something else, so finding your smelters is a bit easier.
+---------------------------------------------------------------------------------------------------
 Version: 1.110.4
 Date: 7/6/2021
   Changes:

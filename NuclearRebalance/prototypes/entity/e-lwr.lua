@@ -74,6 +74,7 @@ data:extend({
 			"placeable-neutral",
 			"player-creation"
 		},
+		map_color = {56, 235, 255, 255},
 		--For sanity's sake, the animation direction is based on which way the reactor hall is pointing, since the turbine hall is in the middle.
 		--Note: in blender, use 1.3 instead of 1.4 for the scaling offests, since the fence is 2m high, this will yield the desired result.
 		animation = {

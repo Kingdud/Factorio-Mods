@@ -36,6 +36,10 @@ function create_entity(e_type)
 		
 		entity = create_smelter(edge_size, ratio, scale_factor)
 		r_icon = "__base__/graphics/icons/electric-furnace.png"
+		
+		if settings.startup["smelt-alt-map-color"].value then
+			entity.map_color = {143, 143, 143, 255}
+		end
 	elseif e_type == "centrifuge" then
 		ratio = settings.startup["centrifuge-ratio"].value
 		if MAX_BLD_SIZE ~= 0 then
@@ -46,8 +50,12 @@ function create_entity(e_type)
 		
 		entity = createCentrifuge(edge_size, ratio, scale_factor)
 		r_icon = "__base__/graphics/icons/centrifuge.png"
+		
+		if settings.startup["smelt-alt-map-color"].value then
+			entity.map_color = {128, 255, 89, 255}
+		end
 	end
-	
+
 	entity.allowed_effects = nil
 	entity.icon = nil
 	entity.icons = {

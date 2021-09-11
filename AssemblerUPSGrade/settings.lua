@@ -178,4 +178,11 @@ data:extend{
     default_value = 7200,
     order = "z2",
   },
+  {
+	type = "bool-setting",
+	name = "ass-alt-map-color",
+	setting_type = "startup",
+	default_value = true,
+	order = "z3",
+  },
 }

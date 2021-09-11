@@ -186,6 +186,10 @@ function createAssemblerEntity(name, compression_ratio, n_ass, e_ass, fluid_per_
 	}
 	table.insert(new_entity.animation.layers, color_mask)
 	
+	if settings.startup["ass-alt-map-color"].value then
+		new_entity.map_color = GRAPHICS_MAP[name].tint
+	end
+	
 	if DEBUG then
 		log("Debug createAssemblerEntity : " .. do_dump(new_entity))
 	end
@@ -332,6 +336,10 @@ function createChemPlantEntity(name, compression_ratio, n_chem, e_chem, fluid_pe
 	--new_entity.base_productivity = .1*chem_base_modules
 	new_entity.fast_replaceable_group = name
 	new_entity.minable.result = name
+	
+	if settings.startup["ass-alt-map-color"].value then
+		new_entity.map_color = GRAPHICS_MAP[name].tint
+	end
 	
 	local new_drawing_box_size = 0
 	local scale_factor = 0

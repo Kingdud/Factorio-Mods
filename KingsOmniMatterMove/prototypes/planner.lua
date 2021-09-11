@@ -2,7 +2,7 @@ data:extend({
   {
     type = "selection-tool",
     name = "ore-move-planner",
-    icon = "__omnimatter_move__/graphics/planner.png",
+    icon = "__KingsOmniMatterMove__/graphics/planner.png",
 	  icon_size = 32,
     stack_size = 1,
     stackable = false,
@@ -30,19 +30,19 @@ data:extend({
     action = "lua",
     associated_control_input = "give-ore-move-planner",
 	  icon = {
-      filename = "__omnimatter_move__/graphics/planner-shortcut.png",
+      filename = "__KingsOmniMatterMove__/graphics/planner-shortcut.png",
       size = 128,
       scale = 1,
       flags = {"gui-icon"}
     },
     disabled_icon = {
-      filename = "__omnimatter_move__/graphics/planner-shortcut-white.png",
+      filename = "__KingsOmniMatterMove__/graphics/planner-shortcut-white.png",
       size = 128,
       scale = 1,
       flags = {"gui-icon"}
     },
     small_icon = {
-      filename = "__omnimatter_move__/graphics/planner-shortcut-white.png",
+      filename = "__KingsOmniMatterMove__/graphics/planner-shortcut-white.png",
       size = 128,
       scale = 1,
       flags = {"gui-icon"}
