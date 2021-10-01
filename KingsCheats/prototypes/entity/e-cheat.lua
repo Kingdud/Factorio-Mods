@@ -123,6 +123,42 @@ newpump.ingredients = {
 newpump.enabled = true
 data:extend({newpump})
 
+--Custom water pump
+local newpump = table.deepcopy(data.raw["offshore-pump"]["offshore-pump"])
+for _,dir in pairs({"north", "east", "south", "west"})
+do
+	for _,layer in pairs(newpump.graphics_set.animation[dir].layers) do
+		layer.tint = { r = 128, b = 128, g = 128, a = 255 }
+		layer.hr_version.tint = { r = 128, b = 128, g = 128, a = 255 }
+	end
+end
+newpump.pumping_speed = 200
+newpump.minable.result = "super-offshore-pump"
+newpump.name = "super-offshore-pump"
+newpump.fluid_box.base_area = 10
+
+data:extend({newpump})
+
+newpump = table.deepcopy(data.raw.item["offshore-pump"])
+newpump.name = "super-offshore-pump"
+newpump.place_result = "super-offshore-pump"
+newpump.icons = {
+	{
+		icon = "__base__/graphics/icons/offshore-pump.png",
+		tint = { r = 128, b = 128, g = 128, a = 255 }
+	}
+}
+data:extend({newpump})
+
+newpump = table.deepcopy(data.raw.recipe["offshore-pump"])
+newpump.name = "super-offshore-pump"
+newpump.result = "super-offshore-pump"
+newpump.ingredients = {
+	{"offshore-pump", 10}
+}
+newpump.enabled = true
+data:extend({newpump})
+
 data.raw["artillery-projectile"]["artillery-projectile"].action.action_delivery.target_effects[1].action.radius = 8
 
 --64 is max value due to game engine.
