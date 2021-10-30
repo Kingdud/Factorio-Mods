@@ -1,6 +1,11 @@
 --Always set to false before uploading a release!
 DEBUG=false
 
+SHIELD_COMPRESSION_FACTOR = settings.startup["TS_compression_factor"].value
+SHIELD_ENERGY_CONSUMPTION_MULTIPLIER = settings.startup["TS_energy_consumption_multiplier"].value * SHIELD_COMPRESSION_FACTOR
+SHIELD_BASE_VALUE = settings.startup["TS_base_shield"].value * SHIELD_COMPRESSION_FACTOR
+SHIELD_BASE_RECHARGE = settings.startup["TS_base_charge_rate"].value * SHIELD_COMPRESSION_FACTOR
+
 SHIELD_STEPS_NORMAL = 9
 SHIELD_STEPS_LONG = 13
 

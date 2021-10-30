@@ -11,9 +11,9 @@ function getShieldValues(size, rate)
 	local research_speed_steps
 	
 	if global == nil then
-		energy_consumption_multiplier = settings.startup["TS_energy_consumption_multiplier"].value
-		base_shield_val = settings.startup["TS_base_shield"].value
-		base_shield_recharge = settings.startup["TS_base_charge_rate"].value
+		energy_consumption_multiplier = SHIELD_ENERGY_CONSUMPTION_MULTIPLIER
+		base_shield_val = SHIELD_BASE_VALUE
+		base_shield_recharge = SHIELD_BASE_RECHARGE
 		
 		research_size_steps = settings.startup["TS_research_size"].value
 		research_speed_steps = settings.startup["TS_research_speed"].value
@@ -430,11 +430,11 @@ function refresh_everything()
 	end
 	refresh_hpbars()
 	
-	global.base_shield_val = settings.startup["TS_base_shield"].value
-	global.base_shield_recharge = settings.startup["TS_base_charge_rate"].value
+	global.energy_consumption_multiplier = SHIELD_ENERGY_CONSUMPTION_MULTIPLIER
+	global.base_shield_val = SHIELD_BASE_VALUE
+	global.base_shield_recharge = SHIELD_BASE_RECHARGE
 	global.research_size_steps = settings.startup["TS_research_size"].value
 	global.research_speed_steps = settings.startup["TS_research_speed"].value
-	global.energy_consumption_multiplier = settings.startup["TS_energy_consumption_multiplier"].value
 	global.power_drain_pct = settings.startup["TS_power_drain"].value/100
 	
 	global.research_enabled = settings.global["TS_research_enabled"].value

@@ -85,6 +85,16 @@ data:extend(
 	order = "h",
     per_user = false,
 	},
+	{
+    type = "int-setting",
+    name = "TS_compression_factor",
+    setting_type = "startup",
+    default_value = 1,
+    maximum_value = 1000,
+    minimum_value = 1,
+	order = "h",
+    per_user = false,
+	},
 })
 
 
