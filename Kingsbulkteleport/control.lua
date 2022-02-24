@@ -5,6 +5,7 @@
 -- global.receivers = a table of all rematerializer entities.
 -- global.teleportJobs = A table of all pending teleport jobs
 -- global.busyList = A map of all transporters currently busy trying to send (since calling is_crafting() isn't reliable in all cases)
+-- global.blockedRecv = a list of all receivers blocked because no sender for them exists.
 --///////////////////////////////////
 
 local function serialize(t)
@@ -671,6 +672,11 @@ local function OnNthTick(event)
 				recv_eID = recv_eID
 			else
 				--We have no senders for any receiver on this network. Abort search.
+				if global.blockedRecv[network] then
+					global.blockedRecv[network] = global.blockedRecv[network] + 1
+				else
+					global.blockedRecv[network] = 1
+				end
 				goto next_network_continue
 			end
 			
@@ -681,6 +687,10 @@ local function OnNthTick(event)
 				global.teleportJobs[event.tick + 4*60 - 1] = {teleport_job}
 			else
 				table.insert(global.teleportJobs[event.tick + 4*60 - 1], teleport_job)
+			end
+			--We found a matching sender, so reset back to 0
+			if global.blockedRecv[network] ~= 0 then
+				global.blockedRecv[network] = 0
 			end
 		end
 		::next_network_continue::
@@ -746,6 +756,7 @@ local function init_data_structures()
 	global.recievers = {}
 	global.buffers = {}
 	global.busyList = {}
+	global.blockedRecv = {}
 	
 	for _, surface in pairs(game.surfaces) do
 		for i=1,4 do
@@ -792,4 +803,18 @@ script.on_load(function()
 	script.on_event({defines.events.on_entity_damaged}, OnEntityDamaged)
 	script.on_event({defines.events.on_runtime_mod_setting_changed}, OnSettingChanged)
 --	script.on_event({defines.events.on_gui_opened}, OnGuiOpened)
+end)
+
+script.on_event( defines.events.on_console_chat, function(event)
+	if DEBUG then
+		log("debug script.on_event( defines.events.on_console_chat")
+	end
+
+	if event.message == "kbt_blocked" then
+		for k,v in pairs(global.blockedRecv) do
+			if v ~= 0 then
+				game.print(k .. " for " .. v .. " seconds")
+			end
+		end
+	end
 end)
