@@ -469,6 +469,8 @@ local function check_networks(energizer_id, networks, is_sender)
 					return
 				elseif v.signal.type == "virtual" and v.signal.name == "signal-green" then
 					is_priority = true
+				elseif v.signal.type == "virtual" and v.signal.name == "signal-yellow" and is_full(buffer) then
+					is_priority = true
 				else
 					if not found_virtual then
 						temp_network = {}
