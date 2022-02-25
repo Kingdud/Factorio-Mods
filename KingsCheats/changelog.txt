@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.110.7
+Date: 2/25/2022
+  Changes:
+    - Changed default pipes to be tall and skinny. Massively improves flow rate without causing buffering in most cases.
+---------------------------------------------------------------------------------------------------
 Version: 1.110.6
 Date: 10/1/2021
   Changes:
