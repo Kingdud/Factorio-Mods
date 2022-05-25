@@ -534,6 +534,7 @@ local function check_networks(energizer_id, networks, is_sender)
 				else
 					table.insert(networks[RECIEVERS][network], eID)
 				end
+			end
 		end
 	end
 end
@@ -687,7 +688,7 @@ local function OnNthTick(event)
 				else
 					global.blockedRecv[network] = 1
 				end
-				goto next_network_continue
+				goto p_next_network_continue
 			end
 			
 			local teleport_job = {send_eID, recv_eID}
@@ -703,7 +704,7 @@ local function OnNthTick(event)
 				global.blockedRecv[network] = 0
 			end
 		end
-		::next_network_continue::
+		::p_next_network_continue::
 	end
 	
 	send_eID = 0
