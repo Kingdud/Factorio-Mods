@@ -579,7 +579,8 @@ local function OnNthTick(event)
 	-- networks[senders][<signal name>..<count>] = {sender id 1, id2, id3, etc}
 	-- networks[priority_senders][<signal name>..<count>]
 	-- networks[receivers][<signal name>..<count>]
-	local networks = {{}, {}, {}}
+	-- networks[priority_receivers][<signal name>..<count>]
+	local networks = {{}, {}, {}, {}}
 	
 	--Step 1, Move any existing, completed, transfer jobs.
 	for jobTick, job_list in pairs(global.teleportJobs) do
