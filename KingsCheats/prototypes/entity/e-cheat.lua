@@ -30,7 +30,7 @@ data.raw.item["rocket-control-unit"].stack_size = 100
 data.raw["logistic-robot"]["logistic-robot"].max_payload_size = 7
 
 --Make artillery-turrets not have boosted manual targeting range.
-data.raw["artillery-turret"]["artillery-turret"].manual_range_modifier = 1
+data.raw["artillery-turret"]["artillery-turret"].manual_range_modifier = 100
 
 
 local density_factor = settings.startup["biter-multipler"].value
@@ -51,8 +51,10 @@ data.raw["unit-spawner"]["spitter-spawner"].pollution_absorption_absolute = 800 
 data.raw["unit-spawner"]["spitter-spawner"].max_count_of_owned_units = max_bugs_per_spawner
 data.raw["unit-spawner"]["spitter-spawner"].max_friends_around_to_spawn = max_bugs_per_spawner
 
-data.raw["energy-shield-equipment"]["aircraft-energy-shield"].max_shield_value = 250 * density_factor
-data.raw["energy-shield-equipment"]["aircraft-energy-shield"].energy_per_shield = 18 / density_factor .. "kJ"
+data.raw["energy-shield-equipment"]["aircraft-energy-shield"].max_shield_value = 4000 * density_factor
+data.raw["energy-shield-equipment"]["aircraft-energy-shield"]["energy_source"].input_flow_limit = "1TW"
+data.raw["energy-shield-equipment"]["aircraft-energy-shield"]["energy_source"].buffer_capacity = 4000 * density_factor * 18 * 2 .. "kJ"
+--data.raw["energy-shield-equipment"]["aircraft-energy-shield"].energy_per_shield = 18 / density_factor .. "kJ"
 
 local movespeed = 1
 --Since I can't make more biters, I have to make them bigger and meaner. Lame!

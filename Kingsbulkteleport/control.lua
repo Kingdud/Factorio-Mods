@@ -439,6 +439,7 @@ end
 local SENDERS = 1
 local P_SENDERS = 2
 local RECIEVERS = 3
+local P_RECIEVERS = 4
 
 local function check_networks(energizer_id, networks, is_sender)
 	local buffer = global.buffers[energizer_id]
@@ -521,11 +522,18 @@ local function check_networks(energizer_id, networks, is_sender)
 				end
 			end
 		else
-			if not networks[RECIEVERS][network] then
-				networks[RECIEVERS][network] = {eID}
+			if is_priority then
+				if not networks[P_RECIEVERS][network] then
+					networks[P_RECIEVERS][network] = {eID}
+				else
+					table.insert(networks[P_RECIEVERS][network], eID)
+				end
 			else
-				table.insert(networks[RECIEVERS][network], eID)
-			end
+				if not networks[RECIEVERS][network] then
+					networks[RECIEVERS][network] = {eID}
+				else
+					table.insert(networks[RECIEVERS][network], eID)
+				end
 		end
 	end
 end
@@ -663,7 +671,44 @@ local function OnNthTick(event)
 	
 	local send_eID = 0
 	local recv_eID = 0
-	--Step 4, go through receivers, find any priority (or normal) senders to fulfill them
+	--Step 4.1, go through priority receivers, find any priority (or normal) senders to fulfill them
+	for network, recievers in pairs(networks[P_RECIEVERS]) do
+		for _, recv_eID in pairs(recievers) do
+			if networks[P_SENDERS][network] and next(networks[P_SENDERS][network]) ~= nil then
+				send_eID = table.remove(networks[P_SENDERS][network])
+				recv_eID = recv_eID
+			elseif networks[SENDERS][network] and next(networks[SENDERS][network]) ~= nil then
+				send_eID = table.remove(networks[SENDERS][network])
+				recv_eID = recv_eID
+			else
+				--We have no senders for any receiver on this network. Abort search.
+				if global.blockedRecv[network] then
+					global.blockedRecv[network] = global.blockedRecv[network] + 1
+				else
+					global.blockedRecv[network] = 1
+				end
+				goto next_network_continue
+			end
+			
+			local teleport_job = {send_eID, recv_eID}
+			
+			--4 seconds to send, 60 ticks per second.
+			if not global.teleportJobs[event.tick + 4*60 - 1] then
+				global.teleportJobs[event.tick + 4*60 - 1] = {teleport_job}
+			else
+				table.insert(global.teleportJobs[event.tick + 4*60 - 1], teleport_job)
+			end
+			--We found a matching sender, so reset back to 0
+			if global.blockedRecv[network] ~= 0 then
+				global.blockedRecv[network] = 0
+			end
+		end
+		::next_network_continue::
+	end
+	
+	send_eID = 0
+	recv_eID = 0
+	--Step 4.2, go through normal receivers, find any priority (or normal) senders to fulfill them
 	for network, recievers in pairs(networks[RECIEVERS]) do
 		for _, recv_eID in pairs(recievers) do
 			if networks[P_SENDERS][network] and next(networks[P_SENDERS][network]) ~= nil then

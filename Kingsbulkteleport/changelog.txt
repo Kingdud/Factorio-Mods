@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.110.3
+Date: 5/25/2022
+  Changes:
+    - Add in code to support priority recievers. Priority recievers must be empty to recieve, but will always be filled before non-priority. The green virtual signal, along with the item you want recieved, will trigger a priority reciever.
+---------------------------------------------------------------------------------------------------
 Version: 1.110.2
 Date: 2/24/2022
   Changes:
