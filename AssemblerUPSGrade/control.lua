@@ -67,9 +67,9 @@ function init_radar(asif)
 end
 
 function rescan_for_radars(force)
-	if not force.technologies["asif"].researched then
-		return
-	end
+	-- if not force.technologies["asif"].researched then
+		-- return
+	-- end
 
 	for _, surface in pairs(game.surfaces) do
 		for _, asif in pairs(surface.find_entities_filtered{type= "assembling-machine", force}) do

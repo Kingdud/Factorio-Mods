@@ -45,9 +45,9 @@ function init_radar(bulk_processor)
 end
 
 function rescan_for_radars(force)
-	if not force.technologies["bulk-smelters"].researched then
-		return
-	end
+	-- if not force.technologies["bulk-smelters"].researched then
+		-- return
+	-- end
 	
 	for _, surface in pairs(game.surfaces) do
 		for _, bulk_processor in pairs(surface.find_entities_filtered{type= "assembling-machine", force}) do
