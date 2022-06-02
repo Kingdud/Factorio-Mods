@@ -62,17 +62,17 @@ function init_radar(asif)
 	end
 	
 	local position = asif.position
-	local new_radar = asif.surface.create_entity{name = asif.name.."-ass-radar", position = {position.x, position.y }, force = "player"}
+	local new_radar = asif.surface.create_entity{name = asif.name.."-ass-radar", position = {position.x, position.y }, force = asif.force}
 	global.radars[asif.unit_number]=new_radar
 end
 
-function rescan_for_radars(force)
-	-- if not force.technologies["asif"].researched then
+function rescan_for_radars(the_force)
+	-- if not the_force.technologies["asif"].researched then
 		-- return
 	-- end
 
 	for _, surface in pairs(game.surfaces) do
-		for _, asif in pairs(surface.find_entities_filtered{type= "assembling-machine", force}) do
+		for _, asif in pairs(surface.find_entities_filtered{type= "assembling-machine", force=the_force}) do
 			init_radar(asif)
 		end
 	end
@@ -170,7 +170,7 @@ script.set_event_filter(defines.events.script_raised_built, {{filter = "crafting
 script.set_event_filter(defines.events.on_entity_cloned, {{filter = "crafting-machine"}})
 
 --Destroying/removing
---script.set_event_filter(defines.events.on_entity_died, {{filter = "turret"}, {filter = "name", name = "turret-shield-combinator"}})
+script.set_event_filter(defines.events.on_entity_died, {{filter = "crafting-machine"}})
 script.set_event_filter(defines.events.on_player_mined_entity, {{filter = "crafting-machine"}})
 script.set_event_filter(defines.events.on_robot_mined_entity, {{filter = "crafting-machine"}})
 script.set_event_filter(defines.events.script_raised_destroy, {{filter = "crafting-machine"}})
@@ -179,7 +179,7 @@ script.set_event_filter(defines.events.script_raised_destroy, {{filter = "crafti
 
 script.on_event({defines.events.on_entity_died,defines.events.on_player_mined_entity,defines.events.on_robot_mined_entity,defines.events.script_raised_destroy},function(event)
 	if DEBUG then
-		log("debug script.on_event({defines.events.on_entity_died")
+		log("debug script.on_event({defines.events.on_entity_died " .. do_dump(event))
 	end
 	
 	if event.entity.type == "assembling-machine" then

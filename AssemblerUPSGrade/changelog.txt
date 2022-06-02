@@ -1,3 +1,8 @@
+Version: 1.110.7
+Date: 6/1/2022
+  Bugfix:
+    - Radars will now be removed when the entity dies.
+---------------------------------------------------------------------------------------------------
 Version: 1.110.6
 Date: 5/25/2022
   Changes:
