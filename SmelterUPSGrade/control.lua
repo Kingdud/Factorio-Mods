@@ -40,20 +40,20 @@ function init_radar(bulk_processor)
 	end
 
 	local position = bulk_processor.position
-	local new_radar = bulk_processor.surface.create_entity{name = bulk_processor.name.."-bs-radar", position = {position.x, position.y }, force = "player"}
+	local new_radar = bulk_processor.surface.create_entity{name = bulk_processor.name.."-bs-radar", position = {position.x, position.y }, force = bulk_processor.force}
 	global.radars[bulk_processor.unit_number]=new_radar
 end
 
-function rescan_for_radars(force)
-	-- if not force.technologies["bulk-smelters"].researched then
+function rescan_for_radars(the_force)
+	-- if not the_force.technologies["bulk-smelters"].researched then
 		-- return
 	-- end
 	
 	for _, surface in pairs(game.surfaces) do
-		for _, bulk_processor in pairs(surface.find_entities_filtered{type= "assembling-machine", force}) do
+		for _, bulk_processor in pairs(surface.find_entities_filtered{type= "assembling-machine", force=the_force}) do
 			init_radar(bulk_processor)
 		end
-		for _, bulk_processor in pairs(surface.find_entities_filtered{type= "furnace", force}) do
+		for _, bulk_processor in pairs(surface.find_entities_filtered{type= "furnace", force=the_force}) do
 			init_radar(bulk_processor)
 		end
 	end
@@ -151,7 +151,7 @@ script.set_event_filter(defines.events.script_raised_built, {{filter = "crafting
 script.set_event_filter(defines.events.on_entity_cloned, {{filter = "crafting-machine"}, {filter = "type", type = "furnace"}})
 
 --Destroying/removing
---script.set_event_filter(defines.events.on_entity_died, {{filter = "turret"}, {filter = "name", name = "turret-shield-combinator"}})
+script.set_event_filter(defines.events.on_entity_died, {{filter = "crafting-machine"}})
 script.set_event_filter(defines.events.on_player_mined_entity, {{filter = "crafting-machine"}, {filter = "type", type = "furnace"}})
 script.set_event_filter(defines.events.on_robot_mined_entity, {{filter = "crafting-machine"}, {filter = "type", type = "furnace"}})
 script.set_event_filter(defines.events.script_raised_destroy, {{filter = "crafting-machine"}, {filter = "type", type = "furnace"}})
