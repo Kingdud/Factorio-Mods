@@ -194,7 +194,7 @@ local function chase_away_ghosts(surface, position)
 end
 
 local function OnEntityCreated(event)
-	local entity = event.created_entity
+	local entity = event.created_entity or event.entity or event.destination
 
 	if not entity or not entity.valid then
 		return
@@ -207,7 +207,6 @@ local function OnEntityCreated(event)
 		and entity.ghost_name
 		and prefixed(entity.ghost_name, "bulkteleport-")
 	then
-
 		if teleporter_at(entity.surface, entity.position) then
 			chase_away_ghosts(entity.surface, entity.position)
 			return
@@ -227,7 +226,7 @@ local function OnEntityCreated(event)
 			return
 		end
 	end
-
+	
 	if not prefixed(entity.name, "bulkteleport-") then
 		return
 	end
@@ -838,7 +837,7 @@ end)
 
 script.on_init(function()
 	init_data_structures()
-	script.on_event({defines.events.on_built_entity, defines.events.on_robot_built_entity, defines.events.script_raised_built, defines.events.script_raised_revive}, OnEntityCreated)
+	script.on_event({defines.events.on_robot_built_entity,defines.events.on_built_entity,defines.events.script_raised_revive,defines.events.script_raised_built,defines.events.on_entity_cloned}, OnEntityCreated)
 	script.on_event({defines.events.on_player_mined_entity, defines.events.on_robot_mined_entity, defines.events.on_entity_died, defines.events.script_raised_destroy}, OnEntityRemoved)
 	script.on_event({defines.events.on_entity_damaged}, OnEntityDamaged)
 	script.on_event({defines.events.on_runtime_mod_setting_changed}, OnSettingChanged)
