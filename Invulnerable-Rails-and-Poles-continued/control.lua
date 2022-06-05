@@ -37,17 +37,16 @@ local function on_first_tick()
     --script.on_event(defines.events.on_tick, nil)
 end
 
-script.on_event(defines.events.on_built_entity, function(event)
-	onBuild(event.created_entity)
-end)
-
 --script.on_event(defines.events.on_tick, on_tick)
 
 script.on_init(on_first_tick)
 
-script.on_event({defines.events.on_built_entity,
-                 defines.events.on_robot_built_entity}, function(event)
-    check_entity(event.created_entity,true) end)
+script.on_configuration_changed(on_first_tick)
+script.on_event(defines.events.on_force_created, on_first_tick)
+
+script.on_event({defines.events.on_robot_built_entity,defines.events.on_built_entity,defines.events.script_raised_revive,defines.events.script_raised_built,defines.events.on_entity_cloned}, function(event)
+	local entity = event.created_entity or event.entity or event.destination
+    check_entity(entity,true) end)
     
 --[[script.on_event({defines.events.on_player_mined_item,
                  defines.events.on_robot_mined}, function(event)

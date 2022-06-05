@@ -122,16 +122,6 @@ end)
 	-- end
 -- end)
 
-script.on_event(defines.events.script_raised_revive,function(event)
-	if DEBUG then
-		log("debug script.on_event(defines.events.script_raised_revive")
-	end
-	
-	if event.entity.type == "assembling-machine" or entity.type == "furnace" then
-		init_radar(event.entity)
-	end
-end)
-
 script.on_event({defines.events.on_robot_built_entity,defines.events.on_built_entity,defines.events.script_raised_revive,defines.events.script_raised_built,defines.events.on_entity_cloned},function(event)
 	if DEBUG then
 		log("debug script.on_event({defines.events.on_robot_built_entity")
