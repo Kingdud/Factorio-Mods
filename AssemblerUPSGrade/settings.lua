@@ -14,7 +14,7 @@ data:extend{
     setting_type = "startup",
     minimum_value = 25,
     maximum_value = 1000,
-    default_value = 309,
+    default_value = 316,
     order = "c",
   },
   {
@@ -23,7 +23,7 @@ data:extend{
     setting_type = "startup",
     minimum_value = 25,
     maximum_value = 1000,
-    default_value = 86,
+    default_value = 88,
     order = "d",
   },
   {
@@ -32,7 +32,7 @@ data:extend{
     setting_type = "startup",
     minimum_value = 25,
     maximum_value = 1000,
-    default_value = 455,
+    default_value = 466,
     order = "e",
   },
   {
@@ -41,7 +41,7 @@ data:extend{
     setting_type = "startup",
     minimum_value = 25,
     maximum_value = 1000,
-    default_value = 125,
+    default_value = 128,
     order = "e",
   },
   {
@@ -50,7 +50,7 @@ data:extend{
     setting_type = "startup",
     minimum_value = 10,
     maximum_value = 1000,
-    default_value = 160,
+    default_value = 163,
     order = "e",
   },
   {
@@ -59,7 +59,7 @@ data:extend{
     setting_type = "startup",
     minimum_value = 10,
     maximum_value = 1000,
-    default_value = 342,
+    default_value = 349,
     order = "e",
   },
   {
@@ -68,7 +68,7 @@ data:extend{
     setting_type = "startup",
     minimum_value = 10,
     maximum_value = 1000,
-    default_value = 214,
+    default_value = 219,
     order = "e1",
   },
   {
@@ -77,7 +77,7 @@ data:extend{
     setting_type = "startup",
     minimum_value = 10,
     maximum_value = 1000,
-    default_value = 214,
+    default_value = 219,
     order = "e2",
   },
   {
@@ -86,7 +86,7 @@ data:extend{
     setting_type = "startup",
     minimum_value = 10,
     maximum_value = 1000,
-    default_value = 214,
+    default_value = 219,
     order = "e3",
   },
   {
@@ -95,7 +95,7 @@ data:extend{
     setting_type = "startup",
     minimum_value = 10,
     maximum_value = 1000,
-    default_value = 319,
+    default_value = 327,
     order = "e",
   },
   {
@@ -127,11 +127,29 @@ data:extend{
   },
   {
     type = "int-setting",
+    name = "oil-input-spacing",
+    setting_type = "startup",
+    minimum_value = 1,
+    maximum_value = 100,
+    default_value = 2,
+    order = "g0",
+  },
+  {
+    type = "int-setting",
+    name = "oil-output-spacing",
+    setting_type = "startup",
+    minimum_value = 1,
+    maximum_value = 100,
+    default_value = 2,
+    order = "g0",
+  },
+  {
+    type = "int-setting",
     name = "oil-asif-ratio",
     setting_type = "startup",
     minimum_value = 21,
     maximum_value = 1000,
-    default_value = 63,
+    default_value = 125,
     order = "g1",
   },
   {
@@ -140,7 +158,7 @@ data:extend{
     setting_type = "startup",
     minimum_value = 33,
     maximum_value = 1000,
-    default_value = 99,
+    default_value = 111,
     order = "g2",
   },
   {
@@ -149,7 +167,7 @@ data:extend{
     setting_type = "startup",
     minimum_value = 9,
     maximum_value = 1000,
-    default_value = 27,
+    default_value = 51,
     order = "g3",
   },
   {

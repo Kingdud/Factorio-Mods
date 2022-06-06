@@ -6,6 +6,9 @@ require("prototypes.functions")
 function createOilMultipleFluidboxConnections(entity, recipe_data, side_length)
 	local side_length_x = entity.drawing_box[2][1] - 0.5
 	local side_length_y = entity.drawing_box[2][2] + 0.5
+	
+	local INPUT_SPACING = settings.startup["oil-input-spacing"].value
+	local OUTPUT_SPACING = settings.startup["oil-output-spacing"].value
 
 	--Pipe layout for inputs: Extreme top and bottom edge.
 	entity.fluid_boxes = nil
@@ -72,9 +75,9 @@ function createOilMultipleFluidboxConnections(entity, recipe_data, side_length)
 			local previous_y = entity.fluid_boxes[i].pipe_connections[pipe_idx - 1].position[2]
 			
 			if previous_x < 0 then
-				previous_x = previous_x + 2
+				previous_x = previous_x + INPUT_SPACING
 			else
-				previous_x = previous_x - 2
+				previous_x = previous_x - INPUT_SPACING
 			end
 			table.insert(entity.fluid_boxes[i].pipe_connections, { position = {previous_x, previous_y}, type = "input" })
 		end
@@ -89,17 +92,17 @@ function createOilMultipleFluidboxConnections(entity, recipe_data, side_length)
 			
 			if i == 3 then
 				if toggle then
-					previous_x = previous_x + 2*(pipe_idx-1)
+					previous_x = previous_x + OUTPUT_SPACING*(pipe_idx-1)
 					toggle = not toggle
 				else
-					previous_x = previous_x - 2*(pipe_idx-1)
+					previous_x = previous_x - OUTPUT_SPACING*(pipe_idx-1)
 					toggle = not toggle
 				end
 			else
 				if previous_x < 0 then
-					previous_x = previous_x + 2
+					previous_x = previous_x + OUTPUT_SPACING
 				else
-					previous_x = previous_x - 2
+					previous_x = previous_x - OUTPUT_SPACING
 				end
 			end
 			table.insert(entity.fluid_boxes[i+2].pipe_connections, { position = {previous_x, previous_y}, type = "output" })
@@ -110,6 +113,9 @@ end
 function createChemMultipleFluidboxConnections(entity, recipe_data, side_length)
 	local side_length_x = entity.drawing_box[2][1] - 0.5
 	local side_length_y = entity.drawing_box[2][2] + 0.5
+	
+	local INPUT_SPACING = settings.startup["oil-input-spacing"].value
+	local OUTPUT_SPACING = settings.startup["oil-output-spacing"].value
 	
 	--This makes it so we can directly attach cracking ASIFs to the refinery.
 	if entity.name == "lc-asif"
@@ -170,9 +176,9 @@ function createChemMultipleFluidboxConnections(entity, recipe_data, side_length)
 			local previous_y = entity.fluid_boxes[i].pipe_connections[pipe_idx - 1].position[2]
 			
 			if previous_x < 0 then
-				previous_x = previous_x + 2
+				previous_x = previous_x + INPUT_SPACING
 			else
-				previous_x = previous_x - 2
+				previous_x = previous_x - INPUT_SPACING
 			end
 			table.insert(entity.fluid_boxes[i].pipe_connections, { position = {previous_x, previous_y}, type = "input" })
 		end
@@ -184,9 +190,9 @@ function createChemMultipleFluidboxConnections(entity, recipe_data, side_length)
 			local previous_y = entity.fluid_boxes[i+2].pipe_connections[pipe_idx - 1].position[2]
 			
 			if previous_x < 0 then
-				previous_x = previous_x + 2
+				previous_x = previous_x + OUTPUT_SPACING
 			else
-				previous_x = previous_x - 2
+				previous_x = previous_x - OUTPUT_SPACING
 			end
 			table.insert(entity.fluid_boxes[i+2].pipe_connections, { position = {previous_x, previous_y}, type = "output" })
 		end
@@ -198,6 +204,9 @@ end
 function createOilMultipleOilFluidBoxes(entity, recipe_data, side_length)
 	local side_length_y = side_length + 0.5
 	local side_length_x = side_length - 0.5
+	
+	local INPUT_SPACING = settings.startup["oil-input-spacing"].value
+	local OUTPUT_SPACING = settings.startup["oil-output-spacing"].value
 	
 	--Pipe layout for inputs: Extreme top and bottom edge.
 	entity.fluid_boxes = nil
@@ -267,9 +276,9 @@ function createOilMultipleOilFluidBoxes(entity, recipe_data, side_length)
 		local previous_y = entity.fluid_boxes[i].pipe_connections[1].position[2]
 		for pipe_idx = 2,data["connections_needed"],1 do
 			if previous_x < 0 then
-				previous_x = previous_x + 2
+				previous_x = previous_x + INPUT_SPACING
 			else
-				previous_x = previous_x - 2
+				previous_x = previous_x - INPUT_SPACING
 			end
 			table.insert(entity.fluid_boxes, 
 				{
@@ -290,17 +299,17 @@ function createOilMultipleOilFluidBoxes(entity, recipe_data, side_length)
 		for pipe_idx = 2,data["connections_needed"],1 do	
 			if i == 1 then
 				if toggle then
-					previous_x = previous_x + 2*(pipe_idx-1)
+					previous_x = previous_x + OUTPUT_SPACING*(pipe_idx-1)
 					toggle = not toggle
 				else
-					previous_x = previous_x - 2*(pipe_idx-1)
+					previous_x = previous_x - OUTPUT_SPACING*(pipe_idx-1)
 					toggle = not toggle
 				end
 			else
 				if previous_x < 0 then
-					previous_x = previous_x + 2
+					previous_x = previous_x + OUTPUT_SPACING
 				else
-					previous_x = previous_x - 2
+					previous_x = previous_x - OUTPUT_SPACING
 				end
 			end
 			table.insert(entity.fluid_boxes, 

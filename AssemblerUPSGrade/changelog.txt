@@ -1,3 +1,8 @@
+Version: 1.110.8
+Date: 6/6/2022
+  Changes:
+    - Added setting for Input and output spacings on oil entities.
+---------------------------------------------------------------------------------------------------
 Version: 1.110.7
 Date: 6/1/2022
   Bugfix:
