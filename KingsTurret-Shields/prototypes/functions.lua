@@ -288,6 +288,15 @@ function update_electricity(turretID)
 	global.turrets[turretID][ELECTRIC_GRID_INTERFACE] = turret.surface.create_entity{name = "ts-electric-interface-"..size_lvl.."-"..regen_lvl, position = {position.x, position.y }, force = "neutral"}
 	global.turrets[turretID][ELECTRIC_GRID_INTERFACE].destructible = false
 	global.turrets[turretID][ELECTRIC_GRID_INTERFACE].energy = old_energy
+	
+	if global.turret_radars[turretID] and global.turret_radars[turretID].valid then
+		global.turret_radars[turretID].destroy()
+	end
+	
+	if global.radar_enabled then
+		global.turret_radars[turretID] = turret.surface.create_entity{name = "ts-radar", position = {position.x, position.y }, force = turret.force}
+		global.turret_radars[turretID].destructible = false
+	end
 end
 
 function rescan_for_turrets(force)
@@ -375,12 +384,18 @@ function remove_energy(force)
 				entity.destroy()
 			end
 		end
+		for key, entity in pairs(surface.find_entities_filtered{type= "radar", force}) do
+			if entity.name == "ts-radar" then
+				entity.destroy()
+			end
+		end
 	end
 end
 
 function more_shields_than_turrets_fix()
 	local num_shields = 0
 	local num_turrets = 0
+	local num_radars = 0
 	
 	for k, force in pairs (game.forces) do	
 		for key, surface in pairs(game.surfaces) do
@@ -398,16 +413,35 @@ function more_shields_than_turrets_fix()
 			for i, turret in pairs(surface.find_entities_filtered{type= "electric-turret", force}) do
 				num_turrets = num_turrets + 1
 			end
+			for i, radar in pairs(surface.find_entities_filtered{type="radar", force}) do
+				if string.sub(radar.name, 1, 8) == 'ts-radar' then
+					num_radars = num_radars + 1
+				end
+			end
 		end
-		if num_shields > num_turrets then
+		if num_shields ~= num_turrets then
 			kts_print("Fixing duplicate shields problem for " .. force.name .. ". Found " .. num_shields .. " shields for " .. num_turrets .. " turrets. Sorry about the recharge.")
 			remove_energy(force)
 			rescan_for_turrets(force)
-		else
-			kts_print("Shield and turret counts match for " .. force.name .. ". Nothing to fix.")
+		end
+		if num_shields ~= num_radars then
+			global.turret_radars = {}
+			kts_print("Fixing duplicate radars problem for " .. force.name .. ". Found " .. num_shields .. " shields for " .. num_radars .. " radars.")
+			for key, surface in pairs(game.surfaces) do
+				for i, radar in pairs(surface.find_entities_filtered{type="radar", force}) do
+					if string.sub(radar.name, 1, 8) == 'ts-radar' then
+						radar.destroy()
+					end
+				end
+			end
+			rescan_for_turrets(force)
+		end
+		if num_shields == num_turrets and num_shields == num_radars then
+			kts_print("Shield, radar, and turret counts match for " .. force.name .. ". Nothing to fix.")
 		end
 		num_shields = 0
 		num_turrets = 0
+		num_radars = 0
 	end
 end
 
@@ -417,6 +451,7 @@ function refresh_everything()
 	global.iterate_e_updater = nil
 	global.iterate_e_updater_disconnected = nil
 	
+	global.turret_radars = {}
 	global.turrets= {}
 	global.updater = {}
 	global.electric_updater = {}
@@ -439,6 +474,7 @@ function refresh_everything()
 	
 	global.research_enabled = settings.global["TS_research_enabled"].value
 	global.alternate_effect = settings.global["TS_alternate_effect"].value
+	global.radar_enabled = settings.global["TS_radar_enabled"].value
 	
 	for _, force in pairs (game.forces) do
 		update_force(force)
@@ -521,6 +557,9 @@ function destroy_turret(key)
 		--if global.turrets[key].fx then global.turrets[key].fx.destroy() end
 		if global.turrets[key][HP_BAR] then rendering.destroy(global.turrets[key][HP_BAR]) end
 		if global.turrets[key][ELECTRIC_GRID_INTERFACE] then global.turrets[key][ELECTRIC_GRID_INTERFACE].destroy() end
+		if global.turret_radars[key] then
+			global.turret_radars[key].destroy()
+		end
 		--if global.turrets[key].disabled then global.turrets[key].disabled.destroy() end
 		if global.iterate_turrets == key then
 			global.iterate_turrets = next(global.turrets, key)

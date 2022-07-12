@@ -103,6 +103,7 @@ script.on_event(defines.events.on_player_alt_selected_area, function(event)
 		
 		local starting_x_pad = 0
 		local starting_y_pad = 0
+		local FIELD_SPACING = 20 --how far apart should fields be from each other?
 		for ent_name, ent_table in pairs(global.ore_to_move[event.player_index]) do
 			--log("DEBUG: " .. ent_name .. " || " .. ent_table.ent_cnt)
 			local source_area = ent_table.src_area
@@ -156,7 +157,7 @@ script.on_event(defines.events.on_player_alt_selected_area, function(event)
 				end
 				
 				--Now that we have used the pads, increment them to be to the right of this field, plus a spacer.
-				starting_x_pad = starting_x_pad + right_x + 5
+				starting_x_pad = starting_x_pad + right_x + FIELD_SPACING
 				--we don't increment starting y pad, maybe one day.
 				--starting_y_pad = starting_y_pad + bottom_y + 5
 			else
@@ -196,7 +197,7 @@ script.on_event(defines.events.on_player_alt_selected_area, function(event)
 					global.ore_to_move[event.player_index][ent_name] = nil
 				end
 				
-				starting_x_pad = starting_x_pad + dest_square_side + 5
+				starting_x_pad = starting_x_pad + dest_square_side + FIELD_SPACING
 			end
 		end
 		global.ore_to_move[event.player_index] = nil

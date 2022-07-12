@@ -1,5 +1,35 @@
 local neutral_flags = {"not-repairable", "not-blueprintable", "not-deconstructable", "placeable-off-grid", "not-on-map", "placeable-neutral"}
 
+function ts_createEntityRadar()
+	local new_entity = util.table.deepcopy(data.raw.radar.radar)
+	new_entity.max_distance_of_nearby_sector_revealed = 1
+	new_entity.max_distance_of_sector_revealed = 0
+	new_entity.energy_source = {type = "void"}
+	new_entity.name = "ts-radar"
+	new_entity.minable = nil
+	new_entity.collision_box = nil
+	new_entity.damaged_trigger_effect = nil
+	new_entity.flags = {"not-blueprintable", "hidden", "hide-alt-info", "placeable-player"}
+	new_entity.integration_patch = nil
+	new_entity.selection_box = nil
+	new_entity.water_reflection = nil
+	new_entity.working_sound = nil
+	new_entity.collision_mask = {}
+	new_entity.pictures = {
+        layers = {
+          {
+			direction_count = 1,
+            filename = "__KingsTurret-Shields__/graphics/radar.png",
+            height = 32,
+            priority = "low",
+            width = 32
+          },
+		}
+	}	
+	data:extend({new_entity})
+end
+ts_createEntityRadar()
+
 --These have to be here since the global variable doesn't exist when this file is parsed.
 local energy_consumption_multiplier = settings.startup["TS_energy_consumption_multiplier"].value
 local power_usage = settings.startup["TS_power_drain"].value/100

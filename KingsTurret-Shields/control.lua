@@ -54,11 +54,13 @@ script.on_init(function()
 
 	global.research_enabled = settings.global["TS_research_enabled"].value
 	global.alternate_effect = settings.global["TS_alternate_effect"].value
+	global.radar_enabled = settings.global["TS_radar_enabled"].value
 	
 	--Used by ontick to update shield graphics.
 	global.needsGFXUpdate = {}
 	global.immuneUntil = {}
 	
+	global.turret_radars = {}
 	global.disabled_turrets={}
 	global.combinators={}
 	refresh_everything()
@@ -98,6 +100,7 @@ script.on_configuration_changed(function()
 	
 	global.research_enabled = settings.global["TS_research_enabled"].value
 	global.alternate_effect = settings.global["TS_alternate_effect"].value
+	global.radar_enabled = settings.global["TS_radar_enabled"].value
 		
 	--global.worker_key = nil
 	if global.version < 22 then
@@ -174,6 +177,9 @@ script.on_configuration_changed(function()
 		global.version = 35
 	end
 
+	if not global.turret_radars then
+		global.turret_radars = {}
+	end
 	more_shields_than_turrets_fix()
 	for k, force in pairs (game.forces) do	
 		update_electricity_force(force)
@@ -273,6 +279,11 @@ script.on_event(defines.events.on_runtime_mod_setting_changed, function(event)
 	
 	if event.setting == "TS_alternate_effect" then
 		global.alternate_effect = settings.global["TS_alternate_effect"].value
+	end
+	
+	if event.setting == "TS_radar-enabled" then
+		global.radar_enabled = settings.global["TS_radar_enabled"].value
+		rescan_for_turrets(game.players[event.player_index].force)
 	end
 end)
 
@@ -397,6 +408,9 @@ script.on_event({defines.events.on_entity_died,defines.events.on_player_mined_en
 			global.iterate_turrets = next(global.turrets, global.iterate_turrets)
 		end
 		global.turrets[event.entity.unit_number] = nil
+		if global.turret_radars[event.entity.unit_number] then
+			global.turret_radars[event.entity.unit_number].destroy()
+		end
 	end
 	if event.entity.name=="turret-shield-combinator" then
 		local tbl=global.combinators[event.entity.unit_number]

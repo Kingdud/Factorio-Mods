@@ -95,6 +95,14 @@ data:extend(
 	order = "h",
     per_user = false,
 	},
+	{
+    type = "bool-setting",
+    name = "TS_radar_enabled",
+    setting_type = "runtime-global",
+    default_value = false,
+	order = "f",
+    per_user = false,
+	},  
 })
 
 
